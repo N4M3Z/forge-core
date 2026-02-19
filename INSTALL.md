@@ -10,8 +10,6 @@ Already included as a submodule. Deploy skills with:
 make install
 ```
 
-forge-lib is provided by the parent project via `FORGE_LIB` env var — the module's own `lib/` submodule is not used when running inside forge-dev.
-
 ## Standalone (Claude Code plugin)
 
 ### 1. Clone with submodules
@@ -118,3 +116,5 @@ make install                    # reinstall everything
 | shellcheck | Recommended | `brew install shellcheck` — shell script linting |
 
 forge-lib must be compiled from source. The Makefile handles building automatically on first `make install`.
+
+> **Note (forge-dev only):** When running as a submodule of forge-dev, forge-lib is provided by the parent project via `FORGE_LIB` env var — the module's own `lib/` submodule is not used.

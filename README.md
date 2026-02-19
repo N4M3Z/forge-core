@@ -44,4 +44,4 @@ SCOPE=workspace make install      # install to ./.claude/skills/ (project-local)
 
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).

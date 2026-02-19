@@ -1,7 +1,6 @@
 ---
 name: BuildAgent
 description: "Create, validate, or audit agent definitions. USE WHEN create agent, new agent, build agent, scaffold agent, validate agent, audit agents, agent conventions, agent frontmatter."
-argument-hint: "[agent name or description of the agent's role]"
 ---
 
 # BuildAgent
