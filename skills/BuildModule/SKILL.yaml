@@ -1,0 +1,13 @@
+name: BuildModule
+description: "Design and validate forge modules -- directory layout, config convention, three-layer architecture. USE WHEN module architecture, module design, module validation, build module."
+argument-hint: "[skill name or description]"
+providers:
+    claude:
+        enabled: true
+    gemini:
+        enabled: true
+    codex:
+        enabled: true
+generation:
+    method: manual
+    source: skills/BuildModule/SKILL.md

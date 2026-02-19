@@ -1,0 +1,13 @@
+name: BuildAgent
+description: "Scaffold, validate, and audit agent markdown files -- frontmatter, body structure, deployment. USE WHEN create agent, new agent, build agent, scaffold agent, validate agent, audit agent."
+argument-hint: "[create|validate|audit] [agent name or path]"
+providers:
+    claude:
+        enabled: true
+    gemini:
+        enabled: true
+    codex:
+        enabled: true
+generation:
+    method: manual
+    source: skills/BuildAgent/SKILL.md

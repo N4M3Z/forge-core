@@ -1,0 +1,11 @@
+{
+    "name": "forge-core",
+    "version": "0.1.0",
+    "description": "Module-building skills for the forge ecosystem.",
+    "author": {
+        "name": "Martin Zeman"
+    },
+    "skills": [
+        "./skills"
+    ]
+}

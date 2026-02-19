@@ -1,0 +1,13 @@
+name: BuildSkill
+description: "Create and validate skill definitions -- SKILL.md structure, frontmatter, conventions. USE WHEN create skill, new skill, write skill, validate skill, check skill, skill structure."
+argument-hint: "[create|validate] [skill name or path]"
+providers:
+    claude:
+        enabled: true
+    gemini:
+        enabled: true
+    codex:
+        enabled: true
+generation:
+    method: manual
+    source: skills/BuildSkill/SKILL.md
