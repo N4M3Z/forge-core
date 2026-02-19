@@ -24,8 +24,11 @@ module-name/
     lib/                forge-lib submodule (shared tooling)
     .claude-plugin/     Claude Code plugin manifest
     Makefile            Multi-provider install/verify/test
-    README.md
-    INSTALL.md
+    CLAUDE.md           Project instructions for Claude Code (generated)
+    AGENTS.md           Project overview for Codex/OpenCode (generated)
+    GEMINI.md           Project context for Gemini CLI (generated)
+    README.md           Human-facing documentation
+    INSTALL.md          Installation guide
     VERIFY.md           Post-installation checklist
 ```
 
@@ -125,6 +128,18 @@ install-skills: install-skills-claude install-skills-gemini install-skills-codex
 ```
 
 Each provider target uses `$(INSTALL_SKILLS)` with `--provider` flag. forge-lib handles provider-specific routing (directory structure, naming conventions, symlinks).
+
+## Platform Documentation
+
+Every module ships platform-specific instruction files at its root:
+
+| File | Platform | Purpose |
+|------|----------|---------|
+| `CLAUDE.md` | Claude Code | Project instructions -- architecture, conventions, dev workflow |
+| `AGENTS.md` | Codex, OpenCode | Project overview -- structure, components, build/install |
+| `GEMINI.md` | Gemini CLI | Project context -- architecture, commands, conventions |
+
+All three follow consistent patterns across the ecosystem (see forge-lib and forge-council for reference). Generate these files after the module structure is complete and before first commit. They are the primary way AI agents understand the module when working inside it.
 
 ## Validation Flow
 
