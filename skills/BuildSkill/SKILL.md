@@ -1,6 +1,8 @@
 ---
 name: BuildSkill
 description: "Create and validate skills for forge modules. USE WHEN create skill, new skill, write skill, validate skill, check skill, skill structure, skill conventions."
+metadata:
+    version: 0.1.0
 ---
 
 # BuildSkill

@@ -1,6 +1,8 @@
 ---
 name: BuildModule
 description: "Design, build, and validate forge modules. USE WHEN create module, new module, scaffold module, module structure, module conventions, module architecture."
+metadata:
+    version: 0.1.0
 ---
 
 # BuildModule

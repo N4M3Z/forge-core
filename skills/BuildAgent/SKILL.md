@@ -1,6 +1,8 @@
 ---
 name: BuildAgent
 description: "Create, validate, or audit agent definitions. USE WHEN create agent, new agent, build agent, scaffold agent, validate agent, audit agents, agent conventions, agent frontmatter."
+metadata:
+    version: 0.1.0
 ---
 
 # BuildAgent
