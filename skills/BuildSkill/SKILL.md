@@ -91,28 +91,52 @@ When a skill wraps a CLI tool (Rust binary, shell script), include:
 
 Module skills use two files side by side:
 
-| File | Purpose | Managed by |
-|------|---------|------------|
-| `SKILL.md` | **Canon** -- frontmatter (`name:`, `description:`) + skill body | Claude / AI |
-| `SKILL.yaml` | **Sidecar** -- Obsidian metadata (`title:`, `aliases:`, `tags:`, etc.) | Obsidian Linter |
+| File | Purpose | Contains |
+|------|---------|----------|
+| `SKILL.md` | **Canon** -- frontmatter + skill body | `name:`, `description:`, `version:`, instructions |
+| `SKILL.yaml` | **Sidecar** -- everything else | `sources:`, provider keys, Obsidian metadata |
+
+**SKILL.yaml must NOT duplicate SKILL.md fields** -- no `name:` or `description:` in the sidecar. It carries supplementary data:
+
+```yaml
+sources:                              # upstream documentation links
+    - https://example.com/docs
+
+claude:                               # merged into installed SKILL.md frontmatter
+    argument-hint: "[file path]"      # hint shown during / autocomplete
+    disable-model-invocation: true    # prevents Claude auto-loading
+    user-invocable: false             # hides from / menu
+    allowed-tools: Read, Grep, Glob   # tools usable without permission
+    model: claude-sonnet-4-6          # model override when skill is active
+    context: fork                     # run in subagent context
+    agent: Explore                    # subagent type (with context: fork)
+
+user:                                 # free-form namespace (personal metadata)
+    priority: high
+```
+
+**`claude:` key details:** `install-skills` reads all key-value pairs under `claude:` and merges them into the installed SKILL.md frontmatter. Any [Claude Code skill frontmatter field](https://code.claude.com/docs/en/skills) can go here. Put them in the sidecar instead of SKILL.md to protect them from Obsidian Linter reformatting.
+
+The sidecar is also the landing zone for Obsidian Linter — any `title:`, `aliases:`, `tags:`, or other vault metadata the Linter injects lands here, not in the canon. The `user:` namespace is free-form for personal metadata.
 
 **Why separate files?** Obsidian's Linter reformats frontmatter on save -- it adds `title:`, reorders keys, and may strip unrecognized fields like `name:`. Separating prevents cross-contamination.
 
 ### Multi-Provider Routing
 
-Module skills that deploy to multiple providers (Claude, Gemini, Codex) must declare provider support in SKILL.yaml:
+Provider routing is controlled by the module's `defaults.yaml`, not by individual SKILL.yaml files. The `install-skills` binary reads provider-keyed allowlists to decide which skills deploy where:
 
 ```yaml
-providers:
-  claude:
-    enabled: true
-  gemini:
-    enabled: true
-  codex:
-    enabled: true
+# defaults.yaml
+skills:
+    claude:
+        SkillName:
+    gemini:
+        SkillName:
+    codex:
+        SkillName:
 ```
 
-`install-skills` reads this block to selectively install skills per runtime. Skills using Claude-only features (TeamCreate, agent teams) should note runtime differences.
+Skills listed under a provider key are installed for that provider. Skills omitted from a provider's list are skipped. This allows Claude-only skills (e.g., those using TeamCreate or agent teams) to be excluded from Gemini/Codex without per-skill configuration.
 
 ---
 
@@ -140,7 +164,8 @@ Follow the structure from [Skill Conventions](#skill-conventions) above.
 - [ ] If wrapping a CLI tool: usage examples, intent-to-flag mapping, output format
 - [ ] Constraints section with boundary conditions
 - [ ] No unnecessary complexity -- minimum needed for the task
-- [ ] If module skill: SKILL.yaml sidecar with `providers:` block
+- [ ] If module skill: SKILL.yaml sidecar with `sources:` field
+- [ ] Skill listed in module's `defaults.yaml` under each target provider
 
 ### Step 3: Create the skill directory and file
 
