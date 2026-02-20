@@ -1,8 +1,8 @@
-# Contributing to forge-core
+# Contributing to Forge
 
-Start with [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview — it defines artifacts, canon+sidecar, and the invariants. This guide covers how to work with the module.
+This guide covers how to create artifacts, validate them, and contribute changes back to forge-core. Start with [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview — it defines artifacts, canon+sidecar, and the invariants.
 
-## How Ideas Become Artifacts
+How ideas become artifacts:
 
 ```
                 Internal (vault author)                    External (contributor)
@@ -11,7 +11,7 @@ Start with [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview — it
                 │  in authoring env   │                    │                  │
                 └────────┬────────────┘                    └────────┬─────────┘
                          │                                          │
-                    /Promote                                     git push
+                      promote                                    git push
                          │                                          │
                          ▼                                          ▼
                 ┌─────────────────────────────────────────────────────────────┐
@@ -29,7 +29,7 @@ Start with [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview — it
               .claude/skills/  .gemini/skills/  .codex/skills/  .opencode/skills/
 ```
 
-Internal authors use `/Promote` to copy from their authoring environment (e.g., Obsidian vault) into the module. External contributors fork, make changes, and open a PR. Both paths converge at the module — the single source of truth. `make install` deploys to all providers.
+Internal authors promote a copy from their authoring environment (e.g., Obsidian vault) into the module. External contributors fork, make changes, and open a PR. Both paths converge at the module — the single source of truth. `make install` deploys to all providers.
 
 ## Getting Started
 
@@ -84,7 +84,7 @@ sources:
     - https://example.com/reference
 ```
 
-Canon fields (`name`, `description`, `version`) live in SKILL.md only — never duplicate them here. See [Canon + Sidecar](ARCHITECTURE.md#canon--sidecar) for why.
+Canon fields (`name`, `description`, `version`) live in SKILL.md only — never duplicate them here. See [Separation of Concerns](ARCHITECTURE.md#separation-of-concerns) for why.
 
 ### Companion Files
 
@@ -169,7 +169,7 @@ Skills should be structurally decomposed when complexity warrants it. Rather tha
 - **Companion files** (`@` references): Domain-specific reference material, examples, templates
 - **Sidecar** (SKILL.yaml): Provider routing, never duplicates canon fields
 
-If a skill's SKILL.md becomes difficult to follow as a single document, split it. See [Skill Directory Structure](ARCHITECTURE.md#skill-directory-structure) and [Naming Conventions](ARCHITECTURE.md#naming-conventions).
+If a skill's SKILL.md becomes difficult to follow as a single document, split it. See [Skill Directory Structure](ARCHITECTURE.md#skill-directory-structure) and [Conventions](ARCHITECTURE.md#conventions).
 
 ### Git
 
