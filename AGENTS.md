@@ -32,6 +32,9 @@ skills/
   BuildModule/
     SKILL.md              # Module architecture and validation
     SKILL.yaml            # Deployment metadata and provider routing
+  RTK/
+    SKILL.md              # Token-optimized CLI proxy reference (Claude only)
+    SKILL.yaml            # Source links
 lib/                      # git submodule -> forge-lib (Rust binaries)
 .claude-plugin/
   plugin.json             # Claude Code plugin manifest
@@ -48,12 +51,13 @@ Makefile                  # Multi-provider install, verify, test, clean
 | **BuildSkill** | Create and validate skill definitions (SKILL.md + SKILL.yaml structure, frontmatter, conventions) |
 | **BuildAgent** | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment config) |
 | **BuildModule** | Design and validate forge modules (directory layout, config convention, three-layer architecture) |
+| **RTK** | RTK (Rust Token Killer) token-optimized CLI proxy setup and reference |
 
 ### Skill File Convention
 
 Each skill directory contains:
 - `SKILL.md` -- AI instructions with YAML frontmatter (name, description, version)
-- `SKILL.yaml` -- deployment metadata (name, description, argument-hint, provider routing)
+- `SKILL.yaml` -- sidecar metadata (sources URLs; no name/description — those live in SKILL.md)
 - Optional companion `.md` files for provider-specific content
 
 ## Consuming as Submodule
@@ -64,7 +68,7 @@ git submodule add https://github.com/N4M3Z/forge-core.git modules/forge-core
 
 Skills are installed via `make install` in the module directory. Each skill
 auto-deploys to Claude Code, Gemini CLI, Codex, and OpenCode based on the
-`providers:` section in its `SKILL.yaml`.
+provider-keyed allowlists in `defaults.yaml`.
 
 ### Makefile Integration
 

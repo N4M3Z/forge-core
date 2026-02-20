@@ -29,12 +29,13 @@ The project uses a `Makefile` to manage skill deployment and validation.
 | `BuildSkill` | SKILL.md structure, frontmatter conventions, SKILL.yaml deployment metadata, validation. |
 | `BuildAgent` | Agent frontmatter (name, description, version), body structure (Role, Expertise, Instructions, Constraints), deployment config. |
 | `BuildModule` | Directory layout, module.yaml, defaults.yaml, config convention, Makefile pattern, three-layer architecture. |
+| `RTK` | RTK (Rust Token Killer) token-optimized CLI proxy setup and reference. |
 
 ## Skill File Convention
 
 Each skill directory contains:
 - `SKILL.md` — AI instructions with YAML frontmatter (name, description, version).
-- `SKILL.yaml` — Deployment metadata (name, description, argument-hint, provider routing).
+- `SKILL.yaml` — Sidecar metadata (sources URLs; no name/description — those live in SKILL.md).
 - Optional companion `.md` files referenced via `@` includes (Claude Code specific).
 
 ## Submodule Integration
@@ -61,5 +62,5 @@ install-forge-core:
 ## Development Conventions
 
 - **Skill naming**: PascalCase directories matching `name:` in SKILL.yaml.
-- **Provider routing**: `providers:` block in SKILL.yaml controls which platforms receive the skill.
+- **Provider routing**: Provider-keyed allowlists in `defaults.yaml` control which platforms receive each skill.
 - **forge-lib**: Git submodule at `lib/`, provides `install-skills` and `validate-module` Rust binaries.
