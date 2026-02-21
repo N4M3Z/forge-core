@@ -47,6 +47,59 @@ fi
 DEST_DIR="$USER_ROOT/$DEST_REL"
 command mkdir -p "$DEST_DIR"
 
-SLUG=$(basename "$PLAN_FILE")
+# Extract heading — grep skips frontmatter, handles "# Plan: X" and bare "# X"
+HEADING=$(grep -m1 '^# ' "$PLAN_FILE" | sed 's/^# Plan: *//;s/^# *//' || true)
+
+# Sanitize: replace filesystem-unsafe chars (/ \ : * ? " < > |) with -, truncate to 80
+NAME=$(printf '%s' "$HEADING" | tr '/:*?<>|' '-' | tr $'\\\\' '-' | cut -c1-80)
+
+# Fallback to original basename if name is empty (no heading, etc.)
+if [ -z "$NAME" ]; then
+    NAME=$(basename "$PLAN_FILE" .md)
+fi
+
 DATE_PREFIX=$(date +%Y-%m-%d)
-command cp "$PLAN_FILE" "$DEST_DIR/${DATE_PREFIX}-${SLUG}"
+BASE="${DATE_PREFIX} ${NAME}"
+OUT="${BASE}.md"
+N=1
+while [ -f "$DEST_DIR/$OUT" ] && [ "$N" -le 99 ]; do
+    OUT="${BASE} ${N}.md"
+    N=$((N + 1))
+done
+
+# Resolve template path
+TEMPLATE_PATH=""
+if [ -f "$CONFIG" ]; then
+    TEMPLATE_PATH=$(yq '.hooks.PlanCopy.template // ""' "$CONFIG")
+fi
+if [ -z "$TEMPLATE_PATH" ] && [ -f "$DEFAULTS" ]; then
+    TEMPLATE_PATH=$(yq '.hooks.PlanCopy.template // ""' "$DEFAULTS")
+fi
+
+if [ -n "$TEMPLATE_PATH" ]; then
+    case "$TEMPLATE_PATH" in
+        /*) ;; # absolute — use as-is
+        *)  TEMPLATE_PATH="$MODULE_ROOT/$TEMPLATE_PATH" ;;
+    esac
+fi
+
+# Apply template or raw copy
+if [ -n "$TEMPLATE_PATH" ] && [ -f "$TEMPLATE_PATH" ] && grep -q '{{CONTENT}}' "$TEMPLATE_PATH"; then
+    {
+        while IFS= read -r line || [ -n "$line" ]; do
+            if [ "$line" = '{{CONTENT}}' ]; then
+                cat "$PLAN_FILE"
+            else
+                line="${line//\{\{TITLE\}\}/$NAME}"
+                line="${line//\{\{DATE\}\}/$DATE_PREFIX}"
+                printf '%s\n' "$line"
+            fi
+        done < "$TEMPLATE_PATH"
+    } > "$DEST_DIR/$OUT"
+else
+    command cp "$PLAN_FILE" "$DEST_DIR/$OUT"
+fi
+
+if [ "${FORGE_DEBUG:-0}" = "1" ]; then
+    echo "PlanCopy: source=$PLAN_FILE dest=$DEST_DIR/$OUT template=${TEMPLATE_PATH:-none}" >&2
+fi

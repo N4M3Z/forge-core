@@ -1,0 +1,12 @@
+# forge-core local overrides.
+# Copy to config.yaml (gitignored) and edit only the fields you want to change.
+# Unset fields inherit from defaults.yaml.
+
+hooks:
+    PlanCopy:
+        # Vault-relative destination for archived plans
+        destination: Resources/Plans/Claude
+
+        # Template file for plan wrapping (relative to module root, or absolute path)
+        # Set to empty string to disable templating (raw copy)
+        template: templates/plan.md
