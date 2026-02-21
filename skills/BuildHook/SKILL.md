@@ -1,10 +1,10 @@
 ---
-name: BuildHooks
+name: BuildHook
 description: "Create and validate module hooks. USE WHEN create hook, new hook, write hook, scaffold hook, validate hook, check hook, hook conventions, hook events, hook structure."
 version: 0.1.0
 ---
 
-# BuildHooks
+# BuildHook
 
 Create and validate hook scripts for forge modules. Hooks are bash scripts triggered by Claude Code events, routed through the `dispatch` binary.
 

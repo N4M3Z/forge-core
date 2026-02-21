@@ -11,6 +11,7 @@ Module-building skills for the forge ecosystem. Teaches AI coding tools to creat
 | **BuildSkill** | Create and validate skill definitions (SKILL.md structure, frontmatter, conventions) |
 | **BuildAgent** | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
 | **BuildModule** | Design and validate forge modules (directory layout, config convention, three-layer architecture) |
+| **BuildHook** | Create and validate module hooks (event handling, hook scripts, platform wiring) |
 | **RTK** | RTK (Rust Token Killer) token-optimized CLI proxy setup and reference |
 
 ## Install / Verify
@@ -30,6 +31,7 @@ skills/
   BuildSkill/       SKILL.md + SKILL.yaml + ClaudeSkill.md (@ reference patterns)
   BuildAgent/       SKILL.md + SKILL.yaml + ClaudeAgent.md (agent deployment patterns)
   BuildModule/      SKILL.md + SKILL.yaml
+  BuildHook/        SKILL.md + SKILL.yaml
   RTK/              SKILL.md + SKILL.yaml
 lib/                git submodule -> forge-lib (Rust binaries for deployment + validation)
 defaults.yaml       skill roster

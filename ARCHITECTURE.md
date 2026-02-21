@@ -4,9 +4,7 @@
 
 [forge-core](https://github.com/N4M3Z/forge-core) is a development platform for the forge ecosystem. Its skills help AI coding tools create and validate **artifacts** that follow forge conventions. 
 
-An **artifact** is any structured unit that gets deployed to AI providers: a skill, an agent, a hook, or a module. Each artifact type has its own associated building and validation skills that covers its conventions.
-
-The package also ships utility skills like RTK that solve common development problems directly.
+An **artifact** is any structured unit that gets deployed to AI providers: a skill [1], an agent [2], a hook [3], or a module [4]. Each artifact type has its own associated building and validation skills that covers its conventions. The package also ships utility skills like RTK that solve common development problems directly.
 
 ## Source Layout
 
@@ -185,3 +183,10 @@ Both exist. Hooks are preferred for anything that can be automated. Markdown cov
 - Agent names are PascalCase, unique across all vaults
 - `defaults.yaml` is the single source of truth for the skill roster
 - Skills require structural decomposition (main skill + companion files) when complexity warrants it
+
+## References
+
+[1]: https://docs.anthropic.com/en/docs/claude-code/skills "Claude Code Skills"
+[2]: https://docs.anthropic.com/en/docs/claude-code/sub-agents "Claude Code Sub-agents"
+[3]: https://docs.anthropic.com/en/docs/claude-code/hooks "Claude Code Hooks"
+[4]: skills/BuildModule/SKILL.md "Forge Module Convention"

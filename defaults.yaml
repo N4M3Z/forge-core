@@ -6,21 +6,21 @@ skills:
         BuildSkill:
         BuildAgent:
         BuildModule:
-        BuildHooks:
+        BuildHook:
         RTK:
 
     gemini:
         BuildSkill:
         BuildAgent:
         BuildModule:
-        BuildHooks:
+        BuildHook:
         RTK:
 
     codex:
         BuildSkill:
         BuildAgent:
         BuildModule:
-        BuildHooks:
+        BuildHook:
         RTK:
 
 hooks:
