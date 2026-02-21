@@ -6,16 +6,23 @@ skills:
         BuildSkill:
         BuildAgent:
         BuildModule:
+        BuildHooks:
         RTK:
 
     gemini:
         BuildSkill:
         BuildAgent:
         BuildModule:
+        BuildHooks:
         RTK:
 
     codex:
         BuildSkill:
         BuildAgent:
         BuildModule:
+        BuildHooks:
         RTK:
+
+hooks:
+    PlanCopy:
+        destination: Resources/Plans/Claude
