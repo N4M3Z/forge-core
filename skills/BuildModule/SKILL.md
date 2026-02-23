@@ -174,13 +174,15 @@ For skills-only modules (no agents), omit `AGENTS`, `AGENT_SRC`, and the agent m
 
 Every module ships platform-specific instruction files at its root:
 
-| File | Platform | Purpose |
-|------|----------|---------|
-| `CLAUDE.md` | Claude Code | Project instructions -- architecture, conventions, dev workflow |
-| `AGENTS.md` | Codex, OpenCode | Project overview -- structure, components, build/install |
-| `GEMINI.md` | Gemini CLI | Project context -- architecture, commands, conventions |
+| File | Platform | Generate | Reference |
+|------|----------|----------|-----------|
+| `CLAUDE.md` | Claude Code | `claude` (manual or `/Init`) | -- |
+| `AGENTS.md` | Codex, OpenCode | `codex init` / `opencode init` | @Codex.md, @OpenCode.md |
+| `GEMINI.md` | Gemini CLI | `gemini init` | @Gemini.md |
 
-All three follow consistent patterns across the ecosystem (see forge-lib and forge-council for reference). Generate these files after the module structure is complete and before first commit. They are the primary way AI agents understand the module when working inside it.
+Generate these files by running each platform's CLI init command inside the module directory. The CLI analyzes the codebase and produces platform-appropriate instructions. To update an existing file, rename it to `.bak`, re-run init, and diff.
+
+These files are the primary way AI agents understand the module when working inside it. Generate them after the module structure is complete and before first commit.
 
 ## Validation Flow
 
