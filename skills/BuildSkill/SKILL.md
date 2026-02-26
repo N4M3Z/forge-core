@@ -44,13 +44,11 @@ Brief description of what the skill does.
 
 ## Instructions (or ## Usage)
 
-Step-by-step procedure. Use numbered steps for sequential operations.
+Step-by-step procedure. Use plain numbered lists for sequential operations.
 
-### Step 1: Description
-[What to do]
-
-### Step 2: Description
-[What to do]
+1. First action
+2. Second action
+3. Third action
 
 ## Constraints
 
@@ -58,7 +56,9 @@ Step-by-step procedure. Use numbered steps for sequential operations.
 - What NOT to do
 ```
 
-**For skills with multiple workflows:** Use `## Workflow Routing` table in the body linking to sections within the same file. Keep everything in one SKILL.md unless it exceeds ~200 lines.
+**Instruction format**: Use plain numbered lists (1, 2, 3) — not labeled steps (`### Step 1:`, `### Phase 2:`, `### Step M1:`). Headings within Instructions are for separating modes or major sections, not for individual steps. This follows the Fabric/PAI pattern convention.
+
+**For skills with multiple workflows:** Use `## Workflow Routing` table in the body linking to sections within the same file. Keep everything in one SKILL.md unless it exceeds ~200 lines. Extract reference material (schema templates, configuration examples, lookup tables) into companion files loaded via `@` -- SKILL.md should focus on flow and routing, not static data.
 
 ### Where Skills Live
 
@@ -240,4 +240,4 @@ Read the SKILL.md file.
 - Description MUST include `USE WHEN` trigger phrases
 - PascalCase for multi-word skill names, natural case for single words
 - Skill directory name must match the `name:` field
-- Prefer one SKILL.md per skill -- split only when exceeding ~200 lines
+- Prefer one SKILL.md per skill -- split reference material into companion files (`@`) when SKILL.md exceeds ~200 lines or contains dense static data (schema templates, config examples, lookup tables)

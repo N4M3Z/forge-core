@@ -3,7 +3,6 @@ frontmatter:
         - name: name
         - name: description
         - name: version
-          optional: true
 
 heading_rules:
     no_skip_levels: true

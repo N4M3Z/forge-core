@@ -4,20 +4,50 @@ version: 0.1.0
 description: "RTK (Rust Token Killer) — token-optimized CLI proxy for Claude Code. USE WHEN rtk, token savings, optimize tokens, reduce tokens, command optimization."
 ---
 
-# RTK (Rust Token Killer)
+# RTK (Rust Token Killer) - Token-Optimized Commands
 
-Token-optimized CLI proxy that reduces token consumption by 60-90% on common development operations.
+**Usage**: Token-optimized CLI proxy (60-90% savings on dev operations)
 
 ## Golden Rule
 
-**Always prefix commands with `rtk`**. If RTK has a dedicated filter, it uses it. If not, it passes through unchanged. RTK is always safe to use.
+**Always prefix commands with `rtk`**. If RTK has a dedicated filter, it uses it. If not, it passes through unchanged. This means RTK is always safe to use.
 
-Even in command chains with `&&`, use `rtk` on each command:
+**Important**: Even in command chains with `&&`, use `rtk`:
 ```bash
+# Wrong
+git add . && git commit -m "msg" && git push
+
+# Correct
 rtk git add . && rtk git commit -m "msg" && rtk git push
 ```
 
-## Quick Reference
+## Meta Commands (always use rtk directly)
+
+```bash
+rtk gain              # Show token savings analytics
+rtk gain --history    # Show command usage history with savings
+rtk discover          # Analyze Claude Code history for missed opportunities
+rtk proxy <cmd>       # Execute raw command without filtering (for debugging)
+rtk init              # Add RTK instructions to CLAUDE.md
+rtk init --global     # Add RTK to ~/.claude/CLAUDE.md
+```
+
+## Installation Verification
+
+```bash
+rtk --version         # Should show: rtk X.Y.Z
+rtk gain              # Should work (not "command not found")
+which rtk             # Verify correct binary
+```
+
+**Name collision**: If `rtk gain` fails, you may have reachingforthejack/rtk (Rust Type Kit) installed instead.
+
+## Hook-Based Usage
+
+All other commands are automatically rewritten by the Claude Code hook.
+Example: `git status` → `rtk git status` (transparent, 0 tokens overhead)
+
+## RTK Commands by Workflow
 
 ### Build & Compile (80-90% savings)
 ```bash
@@ -54,7 +84,7 @@ rtk git stash           # Compact stash
 rtk git worktree        # Compact worktree
 ```
 
-Git passthrough works for ALL subcommands, even those not listed above.
+Note: Git passthrough works for ALL subcommands, even those not explicitly listed.
 
 ### GitHub (26-87% savings)
 ```bash
@@ -65,7 +95,7 @@ rtk gh issue list       # Compact issue list (80%)
 rtk gh api              # Compact API responses (26%)
 ```
 
-### JavaScript/TypeScript (70-90% savings)
+### JavaScript/TypeScript Tooling (70-90% savings)
 ```bash
 rtk pnpm list           # Compact dependency tree (70%)
 rtk pnpm outdated       # Compact outdated packages (80%)
@@ -109,18 +139,7 @@ rtk curl <url>          # Compact HTTP responses (70%)
 rtk wget <url>          # Compact download output (65%)
 ```
 
-## Meta Commands
-
-```bash
-rtk gain                # View token savings statistics
-rtk gain --history      # View command history with savings
-rtk discover            # Analyze Claude Code sessions for missed RTK usage
-rtk proxy <cmd>         # Run command without filtering (for debugging)
-rtk init                # Add RTK instructions to CLAUDE.md
-rtk init --global       # Add RTK to ~/.claude/CLAUDE.md
-```
-
-## Token Savings Summary
+## Token Savings Overview
 
 | Category | Commands | Typical Savings |
 |----------|----------|-----------------|
@@ -134,13 +153,3 @@ rtk init --global       # Add RTK to ~/.claude/CLAUDE.md
 | Network | curl, wget | 65-70% |
 
 Overall average: **60-90% token reduction** on common development operations.
-
-## Installation
-
-```bash
-rtk --version         # Verify installation
-rtk gain              # Should work (not "command not found")
-which rtk             # Check correct binary
-```
-
-If `rtk gain` fails, you may have reachingforthejack/rtk (Rust Type Kit) installed instead of the Forge RTK.

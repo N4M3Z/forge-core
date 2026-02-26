@@ -2,7 +2,7 @@
 
 ## Problem
 
-[forge-core](https://github.com/N4M3Z/forge-core) is a development platform for the forge ecosystem. Its skills help AI coding tools create and validate **artifacts** that follow forge conventions. 
+[forge-core](https://github.com/N4M3Z/forge-core) is a development platform for your own AI ecosystem. The skills in this repository help AI coding tools create and validate **artifacts** that follow your conventions.
 
 An **artifact** is any structured unit that gets deployed to AI providers: a skill [1], an agent [2], a hook [3], or a module [4]. Each artifact type has its own associated building and validation skills that covers its conventions. The package also ships utility skills like RTK that solve common development problems directly.
 
