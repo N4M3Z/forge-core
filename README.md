@@ -1,5 +1,7 @@
 # forge-core
 
+## Description
+
 Module-building skills and operational tools for the forge ecosystem. Skills for creating and validating artifacts -- [skills][1], [agents][2], [hooks][3], and [modules][4] -- plus operational utilities for markdown linting, session management, and permissions auditing.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview and design principles. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to create skills and contribute.
@@ -9,7 +11,29 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview and design pr
 [3]: https://docs.anthropic.com/en/docs/claude-code/hooks "Claude Code Hooks"
 [4]: skills/BuildModule/SKILL.md "Forge Module Convention"
 
-## Skills
+## Compatibility
+
+Skills install for Claude Code, Gemini CLI, Codex, and OpenCode:
+
+```bash
+make install                      # all providers
+make install-skills-claude        # Claude Code only
+make install-skills-gemini        # Gemini CLI only
+SCOPE=user make install           # install to ~/.claude/skills/ (global)
+SCOPE=workspace make install      # install to ./.claude/skills/ (project-local)
+```
+
+## Getting started
+
+See [INSTALL.md](INSTALL.md) for detailed setup instructions.
+
+```bash
+git clone --recurse-submodules https://github.com/N4M3Z/forge-core.git
+cd forge-core
+make install
+```
+
+## Usage
 
 | Skill | Artifact | What it does |
 |-------|----------|-------------|
@@ -22,35 +46,15 @@ See [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview and design pr
 | [**Permissions**](skills/Permissions/SKILL.md) | — | Audit and clean Claude Code permissions in settings.local.json |
 | [**RTK**](skills/RTK/SKILL.md) | — | Token-optimized CLI proxy (60-90% savings) |
 
-## Install
+## Requirements
 
-See [INSTALL.md](INSTALL.md) for detailed setup instructions.
+| Dependency | Required | Purpose |
+|-----------|----------|---------|
+| [forge-lib](https://github.com/N4M3Z/forge-lib) | Yes (standalone) | Shared skill deployment utilities |
+| Rust toolchain | Yes (standalone) | Building forge-lib binaries (`cargo build`) |
+| shellcheck | Recommended | Shell script linting (`brew install shellcheck`) |
 
-```bash
-git clone --recurse-submodules https://github.com/N4M3Z/forge-core.git
-cd forge-core
-make install
-```
-
-## Multi-Provider Support
-
-Skills install for Claude Code, Gemini CLI, Codex, and OpenCode:
-
-```bash
-make install                      # all providers
-make install-skills-claude        # Claude Code only
-make install-skills-gemini        # Gemini CLI only
-SCOPE=user make install           # install to ~/.claude/skills/ (global)
-SCOPE=workspace make install      # install to ./.claude/skills/ (project-local)
-```
-
-## Ecosystem
-
-| Module | Purpose |
-|--------|---------|
-| **forge-core** | Authoring skills — teaches your AI to build with forge |
-| **[forge-lib](https://github.com/N4M3Z/forge-lib)** | Deployment utilities — Rust binaries for installing agents and skills across providers |
-| **[forge-council](https://github.com/N4M3Z/forge-council)** | Specialist agents — 13 agents organized into structured multi-round debates |
+When running as a submodule of forge-dev, forge-lib is provided by the parent project — the module's own `lib/` submodule is not used.
 
 ## License
 

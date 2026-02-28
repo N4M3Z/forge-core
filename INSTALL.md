@@ -1,18 +1,18 @@
-# forge-core — Installation
+# Install
 
 > **For AI agents**: This guide covers installation of forge-core. Follow the steps for your deployment mode.
 
-## As part of forge-dev (submodule)
+## Requirements
 
-Already included as a submodule. Deploy skills with:
+1. **Git** with submodule support
+2. **Rust toolchain** — `cargo` for building forge-lib binaries
+3. **shellcheck** (recommended) — `brew install shellcheck` for shell script linting
 
-```bash
-make install
-```
+## Build and Deploy
 
-## Standalone (Claude Code plugin)
+**As a submodule** — already included. Deploy skills with `make install`.
 
-### 1. Clone with submodules
+**Standalone** — clone with submodules:
 
 ```bash
 git clone --recurse-submodules https://github.com/N4M3Z/forge-core.git
@@ -26,7 +26,7 @@ git submodule update --init
 
 This checks out [forge-lib](https://github.com/N4M3Z/forge-lib) into `lib/`, providing shared utilities for skill deployment.
 
-### 2. Deploy skills
+Deploy skills:
 
 ```bash
 make install
@@ -57,7 +57,7 @@ make install-skills-codex     # ./.codex/skills/ (SCOPE=workspace) or ~/.codex/s
 make install-skills-opencode  # ./.opencode/skills/ with kebab-case names (SCOPE=workspace|user|all)
 ```
 
-### 3. Verification
+Verify the installation:
 
 ```bash
 make verify
@@ -65,21 +65,9 @@ make verify
 
 Skills require a session restart to be discovered.
 
-## What gets installed
-
-| Skill | What it does |
-|-------|-------------|
-| **BuildSkill** | Create and validate skill definitions (SKILL.md structure, frontmatter, conventions) |
-| **BuildAgent** | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
-| **BuildModule** | Design and validate forge modules (directory layout, config convention, three-layer architecture) |
-
-No compiled binaries needed at runtime — forge-core is pure markdown skills. Skills are markdown files deployed by scope across `.claude/`, `.gemini/`, `.codex/` (workspace) and/or `~/` equivalents (user/all). Skills are additionally deployed to `.opencode/skills/` with kebab-case names.
-
 ## Configuration
 
-### defaults.yaml
-
-Ships with the skill roster:
+`defaults.yaml` ships with the skill roster:
 
 ```yaml
 skills:
@@ -87,8 +75,6 @@ skills:
     - BuildAgent
     - BuildModule
 ```
-
-### Module config override
 
 Create `config.yaml` (gitignored) to override:
 
@@ -106,15 +92,3 @@ git pull --recurse-submodules    # update module + forge-lib
 make clean                      # remove old skills
 make install                    # reinstall everything
 ```
-
-## Dependencies
-
-| Dependency | Required | Purpose |
-|-----------|----------|---------|
-| forge-lib | Yes (standalone) | Shared skill deployment utilities |
-| Rust toolchain | Yes (standalone) | Building forge-lib binaries (`cargo build`) |
-| shellcheck | Recommended | `brew install shellcheck` — shell script linting |
-
-forge-lib must be compiled from source. The Makefile handles building automatically on first `make install`.
-
-> **Note (forge-dev only):** When running as a submodule of forge-dev, forge-lib is provided by the parent project via `FORGE_LIB` env var — the module's own `lib/` submodule is not used.
