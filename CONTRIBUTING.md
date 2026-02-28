@@ -42,8 +42,14 @@ make test       # validate conventions (runs validate-module from forge-lib)
 make lint       # shellcheck all scripts
 ```
 
+If you cloned without `--recurse-submodules`, initialize the lib submodule first:
+
+```bash
+git submodule update --init lib
+```
+
 Prerequisites:
-- Rust toolchain (for building [forge-lib](https://github.com/N4M3Z/forge-lib) binaries)
+- Rust toolchain (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`) for building [forge-lib](https://github.com/N4M3Z/forge-lib) binaries
 - `shellcheck` (`brew install shellcheck`) for linting
 - At least one AI provider CLI (Claude Code, Gemini CLI, Codex, or OpenCode)
 
