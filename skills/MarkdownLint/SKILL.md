@@ -1,7 +1,7 @@
 ---
 name: MarkdownLint
+version: 0.1.0
 description: Format and lint a markdown document — backtick code references, fix bare URLs, check list formatting and heading hierarchy. USE WHEN a document needs formatting cleanup, code references are not backticked, markdown quality needs improvement, or lint markdown.
-argument-hint: "[path to markdown file]"
 ---
 
 # MarkdownLint

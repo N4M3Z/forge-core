@@ -35,15 +35,18 @@ make install
 
 ## Usage
 
-| Skill                                                  | Artifact | What it does                                                                                |
-|--------------------------------------------------------|----------|---------------------------------------------------------------------------------------------|
-| [**BuildSkill**](skills/BuildSkill/SKILL.md)           | Skills   | Create and validate skill definitions (SKILL.md structure, frontmatter, conventions)        |
-| [**BuildAgent**](skills/BuildAgent/SKILL.md)           | Agents   | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
-| [**BuildModule**](skills/BuildModule/SKILL.md)         | Modules  | Design and validate modules (directory layout, config convention, three-layer architecture)  |
-| [**BuildHook**](skills/BuildHook/SKILL.md)             | Hooks    | Hook registration, event handling, platform-specific wiring                                 |
-| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)       | —        | Format and lint markdown — backtick code references, fix bare URLs, heading hierarchy       |
-| [**Permissions**](skills/Permissions/SKILL.md)         | —        | Audit and clean Claude Code permissions in settings.local.json                              |
-| [**RTK**](skills/RTK/SKILL.md)                         | —        | Token-optimized CLI proxy (60-90% savings)                                                  |
+| Skill                                                            | Artifact | What it does                                                                                |
+|------------------------------------------------------------------|----------|---------------------------------------------------------------------------------------------|
+| [**BuildSkill**](skills/BuildSkill/SKILL.md)                     | Skills   | Create and validate skill definitions (SKILL.md structure, frontmatter, conventions)        |
+| [**BuildAgent**](skills/BuildAgent/SKILL.md)                     | Agents   | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
+| [**BuildModule**](skills/BuildModule/SKILL.md)                   | Modules  | Design and validate modules (directory layout, config convention, three-layer architecture)  |
+| [**BuildHook**](skills/BuildHook/SKILL.md)                       | Hooks    | Hook registration, event handling, platform-specific wiring                                 |
+| [**VersionControl**](skills/VersionControl/SKILL.md)             | —        | Git conventions, repo governance (GitHub rulesets, GitLab branches, CODEOWNERS)              |
+| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)                 | —        | Format and lint markdown — backtick code references, fix bare URLs, heading hierarchy       |
+| [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)             | —        | Create, derive, and validate .mdschema files for markdown documents                         |
+| [**SettingsMaintenance**](skills/SettingsMaintenance/SKILL.md)   | —        | Audit and clean AI tool settings — permissions, plugins, hooks, cross-layer conflicts       |
+| [**SystemCheck**](skills/SystemCheck/SKILL.md)                   | —        | Ecosystem staleness — binary freshness, version drift, submodule pointers                   |
+| [**RTK**](skills/RTK/SKILL.md)                                   | —        | Token-optimized CLI proxy (60-90% savings)                                                  |
 
 ## Requirements
 
