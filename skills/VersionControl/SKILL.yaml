@@ -1,0 +1,4 @@
+sources:
+    - https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets
+    - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+    - https://docs.gitlab.com/user/project/protected_branches/
