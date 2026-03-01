@@ -49,7 +49,7 @@ Process only unprotected text spans.
 
 ### Step 4: Apply formatting rules
 
-#### 3a: Backtick filenames
+**3a: Backtick filenames**
 
 Any word ending in a code-associated extension:
 
@@ -59,7 +59,7 @@ Examples: CLAUDE.md becomes `CLAUDE.md`, config.yaml becomes `config.yaml`.
 
 Skip if already backticked, inside a wikilink, or part of a URL path.
 
-#### 3b: Backtick CLI commands and tool names
+**3b: Backtick CLI commands and tool names**
 
 Recognized patterns:
 - Known tools: `safe-read`, `safe-write`, `blind-metadata`, `obsidian-base`, `build-templates`, `surface`, `insight`, `reflect`, `ekctl`, `cargo`, `make`, `git`, `npm`, `shellcheck`, `jq`
@@ -69,7 +69,7 @@ Recognized patterns:
 
 Backtick the full command phrase, not individual words.
 
-#### 3c: Backtick technical identifiers
+**3c: Backtick technical identifiers**
 
 | Pattern                          | Example                          | Rule                                                                    |
 |----------------------------------|----------------------------------|-------------------------------------------------------------------------|
@@ -81,7 +81,7 @@ Backtick the full command phrase, not individual words.
 
 Exceptions: Tags used as actual functional Obsidian tags — leave as-is. Env vars inside code blocks — skip.
 
-#### 3d: Convert bare URLs
+**3d: Convert bare URLs**
 
 Bare URLs (`<https://...>` or plain `https://...` in text):
 
@@ -92,13 +92,13 @@ Bare URLs (`<https://...>` or plain `https://...` in text):
 
 Never convert URLs already inside markdown links `[text](url)` or code blocks.
 
-#### 3e: Fix list formatting
+**3e: Fix list formatting**
 
 - Use `-` for unordered lists (Obsidian convention)
 - Proper indentation for child items
 - Blank line before and after list blocks (unless inside a callout)
 
-#### 3f: Check heading hierarchy
+**3f: Check heading hierarchy**
 
 - No skipped levels (e.g., `##` followed by `####`)
 - Single `#` H1 at document start (after frontmatter)
