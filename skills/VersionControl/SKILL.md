@@ -12,14 +12,14 @@ Git conventions and repo governance. Commit discipline, staging hygiene, and pla
 
 Use conventional commit prefixes. Message should explain **why**, not what.
 
-| Prefix | Use when |
-|--------|----------|
-| `feat:` | New feature or capability |
-| `fix:` | Bug fix |
-| `refactor:` | Restructuring without behaviour change |
-| `docs:` | Documentation only |
-| `chore:` | Maintenance (deps, configs, CI) |
-| `test:` | Adding or fixing tests |
+| Prefix       | Use when                                |
+|--------------|-----------------------------------------|
+| `feat:`      | New feature or capability               |
+| `fix:`       | Bug fix                                 |
+| `refactor:`  | Restructuring without behaviour change  |
+| `docs:`      | Documentation only                      |
+| `chore:`     | Maintenance (deps, configs, CI)         |
+| `test:`      | Adding or fixing tests                  |
 
 Keep the first line under 72 characters. Add a blank line and body for context when the change is non-obvious.
 
@@ -47,10 +47,10 @@ Keep the first line under 72 characters. Add a blank line and body for context w
 
 Platform-specific branch protection, rulesets, and code ownership.
 
-| Platform | CLI | Companion | Detect by |
-|----------|-----|-----------|-----------|
-| GitHub | `gh` | @GitHub.md | `github.com` in remote origin |
-| GitLab | `glab` | @GitLab.md | `gitlab.com` in remote origin |
+| Platform | CLI    | Companion  | Detect by                     |
+|----------|--------|------------|-------------------------------|
+| GitHub   | `gh`   | @GitHub.md | `github.com` in remote origin |
+| GitLab   | `glab` | @GitLab.md | `gitlab.com` in remote origin |
 
 Auto-detect from the remote origin URL. If ambiguous, ask the user.
 

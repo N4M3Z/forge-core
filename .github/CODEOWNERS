@@ -1,2 +1,12 @@
 # Default owner for everything
 * @N4M3Z
+
+# Provider documentation
+skills/BuildModule/CodexProvider.md     @brozkeff
+skills/BuildModule/OpenCodeProvider.md  @brozkeff
+skills/BuildModule/GeminiProvider.md    @LangrMartin
+
+# Generated project instructions
+AGENTS.md   @brozkeff
+GEMINI.md   @LangrMartin
+CLAUDE.md   @zimmerovaiveta @mr-napik @OsaSoft

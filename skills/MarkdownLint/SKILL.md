@@ -35,15 +35,15 @@ If `mdschema` is not installed or no schema exists, skip this step silently.
 
 Before applying any rules, identify zones that MUST NOT be modified:
 
-| Zone | Detection | Action |
-|------|-----------|--------|
-| YAML frontmatter | Lines between opening `---` and closing `---` at file start | Skip entirely |
-| Fenced code blocks | Lines between `` ``` `` or `~~~` fences | Skip entirely |
-| Inline code | Text between single backticks | Skip entirely |
-| Wikilinks | Text matching `[[...]]` | Preserve as-is — never backtick |
-| Obsidian embeds | Lines starting with `![[` or `![` | Preserve |
-| HTML blocks | `<tag>...</tag>` blocks | Skip entirely |
-| Obsidian comments | `%% ... %%` blocks | Skip entirely |
+| Zone                | Detection                                                   | Action                           |
+|---------------------|-------------------------------------------------------------|----------------------------------|
+| YAML frontmatter    | Lines between opening `---` and closing `---` at file start | Skip entirely                    |
+| Fenced code blocks  | Lines between `` ``` `` or `~~~` fences                     | Skip entirely                    |
+| Inline code         | Text between single backticks                               | Skip entirely                    |
+| Wikilinks           | Text matching `[[...]]`                                     | Preserve as-is — never backtick  |
+| Obsidian embeds     | Lines starting with `![[` or `![`                           | Preserve                         |
+| HTML blocks         | `<tag>...</tag>` blocks                                     | Skip entirely                    |
+| Obsidian comments   | `%% ... %%` blocks                                          | Skip entirely                    |
 
 Process only unprotected text spans.
 
@@ -71,13 +71,13 @@ Backtick the full command phrase, not individual words.
 
 #### 3c: Backtick technical identifiers
 
-| Pattern | Example | Rule |
-|---------|---------|------|
-| Effort/log tags | #log/effort/short | Backtick the full tag |
-| TLP tags as references | #tlp/red | Backtick when discussed as a value (not when used as actual inline tag) |
-| Environment variables | FORGE_MODULE_ROOT | Backtick ALL_CAPS_UNDERSCORE identifiers |
-| Config keys in prose | user.root, shared.journal.daily | Backtick dot-separated paths |
-| YAML keys referenced in prose | source_module:, description: | Backtick when referenced as field names |
+| Pattern                          | Example                          | Rule                                                                    |
+|----------------------------------|----------------------------------|-------------------------------------------------------------------------|
+| Effort/log tags                  | #log/effort/short                | Backtick the full tag                                                   |
+| TLP tags as references           | #tlp/red                         | Backtick when discussed as a value (not when used as actual inline tag) |
+| Environment variables            | FORGE_MODULE_ROOT                | Backtick ALL_CAPS_UNDERSCORE identifiers                                |
+| Config keys in prose             | user.root, shared.journal.daily  | Backtick dot-separated paths                                            |
+| YAML keys referenced in prose    | source_module:, description:     | Backtick when referenced as field names                                 |
 
 Exceptions: Tags used as actual functional Obsidian tags — leave as-is. Env vars inside code blocks — skip.
 

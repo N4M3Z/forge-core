@@ -23,12 +23,12 @@ glab api projects/:id/protected_branches --method POST \
 
 ### Access Levels
 
-| Level | Role |
-|-------|------|
-| 0 | No access |
-| 30 | Developer |
-| 40 | Maintainer |
-| 60 | Admin |
+| Level | Role       |
+|-------|------------|
+| 0     | No access  |
+| 30    | Developer  |
+| 40    | Maintainer |
+| 60    | Admin      |
 
 ### Merge Request Approvals
 
@@ -73,10 +73,10 @@ glab api projects/:id/repository/files/.gitlab%2FCODEOWNERS?ref=main
 
 ### Quick Reference
 
-| Operation | Command |
-|-----------|---------|
-| Protected branches | `glab api projects/:id/protected_branches` |
-| Approval rules | `glab api projects/:id/approval_rules` |
-| Push rules | `glab api projects/:id/push_rule` |
-| Project settings | `glab api projects/:id` |
-| Check CODEOWNERS | `glab api projects/:id/repository/files/CODEOWNERS?ref=main` |
+| Operation          | Command                                                       |
+|--------------------|---------------------------------------------------------------|
+| Protected branches | `glab api projects/:id/protected_branches`                    |
+| Approval rules     | `glab api projects/:id/approval_rules`                        |
+| Push rules         | `glab api projects/:id/push_rule`                             |
+| Project settings   | `glab api projects/:id`                                       |
+| Check CODEOWNERS   | `glab api projects/:id/repository/files/CODEOWNERS?ref=main`  |

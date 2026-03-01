@@ -58,11 +58,11 @@ gh api repos/OWNER/REPO/rulesets/RULESET_ID --method DELETE
 
 ### Bypass Actors
 
-| `actor_type` | `actor_id` values | Notes |
-|-------------|-------------------|-------|
-| `RepositoryRole` | 1=Read, 2=Triage, 3=Write, 4=Maintain, 5=Admin | Most common |
-| `OrganizationAdmin` | 0 | Org-wide admin bypass |
-| `Team` | Team database ID | Find via `gh api orgs/ORG/teams/SLUG` |
+| `actor_type`          | `actor_id` values                               | Notes                                    |
+|-----------------------|--------------------------------------------------|------------------------------------------|
+| `RepositoryRole`      | 1=Read, 2=Triage, 3=Write, 4=Maintain, 5=Admin   | Most common                              |
+| `OrganizationAdmin`   | 0                                                 | Org-wide admin bypass                    |
+| `Team`                | Team database ID                                  | Find via `gh api orgs/ORG/teams/SLUG`    |
 
 `User` is **not** a valid actor type — use `RepositoryRole` instead.
 
@@ -101,10 +101,10 @@ Lives in `.github/CODEOWNERS` (preferred), repo root, or `docs/`. Requires `requ
 
 ### Quick Reference
 
-| Operation | Command |
-|-----------|---------|
-| List rulesets | `gh api repos/OWNER/REPO/rulesets` |
-| View ruleset | `gh api repos/OWNER/REPO/rulesets/ID` |
-| Legacy protection | `gh api repos/OWNER/REPO/branches/BRANCH/protection` |
-| Check CODEOWNERS | `gh api repos/OWNER/REPO/contents/.github/CODEOWNERS` |
-| Repo settings | `gh repo edit OWNER/REPO --enable-squash-merge` |
+| Operation           | Command                                                  |
+|---------------------|----------------------------------------------------------|
+| List rulesets       | `gh api repos/OWNER/REPO/rulesets`                       |
+| View ruleset        | `gh api repos/OWNER/REPO/rulesets/ID`                    |
+| Legacy protection   | `gh api repos/OWNER/REPO/branches/BRANCH/protection`     |
+| Check CODEOWNERS    | `gh api repos/OWNER/REPO/contents/.github/CODEOWNERS`    |
+| Repo settings       | `gh repo edit OWNER/REPO --enable-squash-merge`          |
