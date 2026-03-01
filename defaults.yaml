@@ -13,7 +13,6 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
     gemini:
         BuildSkill:
@@ -26,7 +25,6 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
     codex:
         BuildSkill:
@@ -39,7 +37,6 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
     opencode:
         BuildSkill:
@@ -52,7 +49,6 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
 hooks:
     PlanCopy:

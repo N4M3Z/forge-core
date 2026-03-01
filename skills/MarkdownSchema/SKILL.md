@@ -10,11 +10,11 @@ Create and validate `.mdschema` files that enforce frontmatter fields and headin
 
 ## Workflow Routing
 
-| Workflow | Trigger | Section |
-|----------|---------|---------|
-| **Create** | "create schema", "add schema", "new schema" | [Create Workflow](#create-workflow) |
-| **Derive** | "derive schema", "infer schema" | @Derive.md |
-| **Validate** | "validate", "check", "lint schema" | @Validate.md |
+| Workflow     | Trigger                                        | Section                                  |
+|--------------|------------------------------------------------|------------------------------------------|
+| **Create**   | "create schema", "add schema", "new schema"   | [Create Workflow](#create-workflow)       |
+| **Derive**   | "derive schema", "infer schema"                | @Derive.md                               |
+| **Validate** | "validate", "check", "lint schema"             | @Validate.md                             |
 
 ## Conventions
 
@@ -30,11 +30,11 @@ agents/.mdschema          # validates agents/*.md
 
 ### Field Requirements by Artifact Type
 
-| Artifact | Required fields | Optional fields | max_depth |
-|----------|----------------|-----------------|-----------|
-| Skill | `name`, `description`, `version` | `argument-hint` | 3 |
-| Agent | `name`, `description`, `version` | -- | 3 |
-| Project docs | (frontmatter optional) | -- | 4 |
+| Artifact     | Required fields                  | Optional fields  | max_depth |
+|--------------|----------------------------------|------------------|-----------|
+| Skill        | `name`, `description`, `version` | `argument-hint`  | 3         |
+| Agent        | `name`, `description`, `version` | --               | 3         |
+| Project docs | (frontmatter optional)           | --               | 4         |
 
 All schemas enforce `no_skip_levels: true`.
 

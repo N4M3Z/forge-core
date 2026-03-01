@@ -22,11 +22,11 @@ Audit plugin configuration across Claude Code settings files. Each enabled plugi
 
 Every enabled plugin adds its full skill roster to the system prompt on every turn. Rough estimates:
 
-| Plugin type | Skill count | Context overhead |
-|-------------|-------------|-----------------|
-| Small (1-3 skills) | 1-3 | ~200-500 tokens/turn |
-| Medium (4-8 skills) | 4-8 | ~500-1500 tokens/turn |
-| Large (10+ skills) | 10+ | ~1500-3000 tokens/turn |
+| Plugin type          | Skill count | Context overhead       |
+|----------------------|-------------|------------------------|
+| Small (1-3 skills)   | 1-3         | ~200-500 tokens/turn   |
+| Medium (4-8 skills)  | 4-8         | ~500-1500 tokens/turn  |
+| Large (10+ skills)   | 10+         | ~1500-3000 tokens/turn |
 
 With 16 enabled plugins, overhead can reach 10,000+ tokens/turn before any user interaction. Disabling unused plugins is a direct cost reduction.
 

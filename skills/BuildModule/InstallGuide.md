@@ -8,9 +8,9 @@ Reference standard: [forge-learn INSTALL.md](https://github.com/N4M3Z/forge-lear
 
 Platform-specific prerequisites, build commands, and notes for each supported OS:
 
-- @macOS.md
-- @Windows.md
-- @Linux.md
+- @macOSPlatform.md
+- @WindowsPlatform.md
+- @LinuxPlatform.md
 
 When writing or validating an INSTALL.md, ensure the module covers each platform appropriate to its `platforms:` field (or all three if absent).
 
