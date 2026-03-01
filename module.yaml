@@ -1,5 +1,5 @@
 name: forge-core
-version: 0.4.0
-description: Module-building skills for the forge ecosystem — build skills, build agents, architect modules.
+version: 0.5.0
+description: Module-building skills and operational tools for the forge ecosystem.
 events:
   - PostToolUse
