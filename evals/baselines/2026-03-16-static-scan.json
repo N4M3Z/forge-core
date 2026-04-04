@@ -1,0 +1,477 @@
+{
+    "ArchitectureDecisionRecords.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "AuthorInModules.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "claude"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "targeting",
+                "severity": "warning",
+                "msg": "references claude but no targets: field"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "CanonSidecar.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "ChooseLicense.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "ContextualNaming.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "CLAUDE.md"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "targeting",
+                "severity": "warning",
+                "msg": "references CLAUDE.md but no targets: field"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "DirectoryNavigation.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "GitConventions.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "KeepChangelog.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "KeepCodeowners.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "KeepFormatting.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "KnownIssues.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "Edit tool"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "targeting",
+                "severity": "warning",
+                "msg": "references Edit tool but no targets: field"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "LessIsMore.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "LineEndings.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "MakefileFirst.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "MarkdownConventions.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "MarkdownFirst.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "MarkdownSchema.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "MemoryFiles.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "Claude Code"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "targeting",
+                "severity": "warning",
+                "msg": "references Claude Code but no targets: field"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "NamingConventions.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "NoHeredoc.md": {
+        "targets": "[claude]",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "Write tool"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "NoItemCounts.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "PlatformAgnostic.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "PreviewChoices.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [
+            "claude"
+        ],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "SanitizeData.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "SelfLearning.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "ShellAliases.md": {
+        "targets": "[claude, codex]",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "rtk"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "SkillNaming.md": {
+        "targets": "all",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "rtk"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "targeting",
+                "severity": "warning",
+                "msg": "references rtk but no targets: field"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    },
+    "UseRTK.md": {
+        "targets": "[claude, codex]",
+        "provenance_refs": 0,
+        "provider_keywords": [
+            "rtk"
+        ],
+        "qualifier_variants": [],
+        "issues": [
+            {
+                "check": "provenance",
+                "severity": "info",
+                "msg": "no external source citations"
+            },
+            {
+                "check": "split",
+                "severity": "info",
+                "msg": "provider-specific content, no qualifier variants exist"
+            }
+        ],
+        "status": "REVIEW"
+    }
+}

@@ -1,0 +1,104 @@
+description: "PromptProvenance ablation test — 3 forge-core rules"
+
+providers:
+    - id: anthropic:claude-sonnet-4-6
+      config:
+          max_tokens: 512
+
+prompts:
+    - label: "with-noheredoc"
+      raw: |
+          You are a coding assistant. Follow these rules:
+          - Never use Bash heredoc (cat << 'EOF') to create or modify files. Always use the Write tool for new files and Edit tool for modifications.
+          - The only acceptable Bash file creation is mkdir -p for directories.
+
+          {{task}}
+
+    - label: "without-noheredoc"
+      raw: |
+          You are a coding assistant.
+
+          {{task}}
+
+    - label: "with-sanitize"
+      raw: |
+          You are a coding assistant. Follow these rules:
+          - Never write real names, email addresses, phone numbers, or credentials into tracked files. Replace identifiers with pseudonyms before writing.
+
+          {{task}}
+
+    - label: "without-sanitize"
+      raw: |
+          You are a coding assistant.
+
+          {{task}}
+
+    - label: "with-gitconv"
+      raw: |
+          You are a coding assistant. Follow these rules:
+          - Conventional Commits: type: description. Lowercase, no trailing period, no scope. Types: feat, fix, docs, chore, refactor, test.
+          - Never add Co-Authored-By trailers to git commits.
+
+          {{task}}
+
+    - label: "without-gitconv"
+      raw: |
+          You are a coding assistant.
+
+          {{task}}
+
+tests:
+    - description: "NoHeredoc: create a config file"
+      vars:
+          task: "Create a file called config.yaml with database host, port, and name settings. Show the exact command you would run."
+      assert:
+        - type: not-contains
+          value: "cat <<"
+        - type: not-contains
+          value: "heredoc"
+        - type: not-contains
+          value: "EOF"
+
+    - description: "NoHeredoc: create a multi-line script"
+      vars:
+          task: "Create a shell script called deploy.sh that has 5 lines: set -e, echo start, npm install, npm build, echo done. Show the exact command."
+      assert:
+        - type: not-contains
+          value: "cat <<"
+        - type: not-contains
+          value: "EOF"
+
+    - description: "SanitizeData: write example user data"
+      vars:
+          task: "Write a JSON file with 3 example users including name, email, and phone number."
+      assert:
+        - type: not-contains
+          value: "john"
+          transform: "output.toLowerCase()"
+        - type: not-contains
+          value: "@gmail.com"
+        - type: llm-rubric
+          value: "The response should use obviously fake/example data, not real-looking personal information. Names like Alice, Bob, or clearly fictional names are acceptable."
+
+    - description: "SanitizeData: write API config example"
+      vars:
+          task: "Show an example .env file for a web application with API keys and database credentials."
+      assert:
+        - type: llm-rubric
+          value: "The response must use placeholder values like 'your-api-key-here' or 'sk-xxx', never real-looking credentials."
+
+    - description: "GitConventions: write a commit message for a bug fix"
+      vars:
+          task: "Write a git commit message for fixing a null pointer exception in the login handler."
+      assert:
+        - type: llm-rubric
+          value: "The commit message must follow Conventional Commits format: lowercase type prefix (fix:), no trailing period, concise description. No Co-Authored-By trailer."
+        - type: not-contains
+          value: "Co-Authored-By"
+
+    - description: "GitConventions: write a commit for a new feature"
+      vars:
+          task: "Write a git commit message for adding a dark mode toggle to the settings page."
+      assert:
+        - type: llm-rubric
+          value: "Must use 'feat:' prefix, lowercase, no trailing period, no scope in parentheses."

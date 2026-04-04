@@ -12,27 +12,43 @@ The marketplace manifest lives at `.claude-plugin/marketplace.json` in the repo 
 }
 ```
 
-Plugin entries require `name`, `description`, and `source`:
+Plugin entries require `name`, `description`, and `source`. For subtree-embedded plugins, `source` is a relative path:
 
 ```json
 {
-    "name": "plugin-name",
+    "name": "Forge Finance",
     "description": "One-line description",
-    "source": {
-        "type": "url",
-        "url": "https://github.com/owner/repo.git"
-    }
+    "source": "./forge-finance"
 }
 ```
 
-Source `type` field uses `"type"`, not `"source"`. Source types: `url` (git URL), `github` (owner/repo shorthand), `git-subdir`, `npm`, relative path.
+Plugin names use title case in `marketplace.json` ("Forge Finance"). Directory names use kebab-case (`forge-finance`).
+
+Remote source types are also supported: `{"type": "url", "url": "https://..."}`, `{"source": "github", "repo": "owner/repo"}`, `git-subdir`, `npm`.
 
 ## Cowork Constraints
 
-- Marketplace repo **must be private** — Cowork rejects public repos ([support article][1])
-- Plugin names must be **lowercase kebab-case** — Cowork enforces this strictly
+- Cowork clones marketplace repos with plain `git clone` (no `--recursive`) — plugin files must be physically present, not submodules
+- Plugins are embedded as `git subtree` directories at the repo root
 - The Cowork GitHub App must be installed on the repo
 - Sync fires on PR merge to default branch, or manually on demand
+
+## Plugin Auto-Discovery
+
+Claude Code auto-discovers these directories from a plugin:
+
+| Directory        | Loaded when                            |
+| ---------------- | -------------------------------------- |
+| `skills/`        | User invokes or Claude matches         |
+| `agents/`        | User selects or Claude delegates       |
+| `hooks/`         | Event fires (SessionStart, PreToolUse) |
+| `commands/`      | Legacy name for skills                 |
+| `output-styles/` | Output formatting                      |
+| `.mcp.json`      | MCP server definitions                 |
+| `.lsp.json`      | LSP server definitions                 |
+| `settings.json`  | Default agent settings                 |
+
+**Not discovered: `rules/`, `CLAUDE.md`, `memory/`.** These only load from project-level (`.claude/`) and user-level (`~/.claude/`) paths. See PluginContextInjection rule for the workaround.
 
 ## Reserved Names
 
@@ -40,21 +56,21 @@ Cannot use: `claude-code-marketplace`, `claude-code-plugins`, `claude-plugins-of
 
 ## Plugin Requirements
 
-Each plugin repo needs `.claude-plugin/plugin.json`:
+Each plugin needs `.claude-plugin/plugin.json`:
 
-| Field         | Required | Example                                       |
-| ------------- | -------- | --------------------------------------------- |
-| `name`        | yes      | `"forge-finance"`                             |
-| `version`     | yes      | `"0.1.0"`                                     |
-| `description` | yes      | `"Tax law rules and filing workflows"`        |
-| `author`      | yes      | `{"name": "Author Name"}`                     |
-| `license`     | no       | `"EUPL-1.2"`                                  |
-| `repository`  | no       | `"https://github.com/owner/repo"`             |
-| `keywords`    | no       | `["tax", "finance"]`                          |
-| `skills`      | if any   | `["../skills"]`                               |
-| `hooks`       | if any   | `"./hooks/hooks.json"`                        |
-
-With `strict: false` on the marketplace entry, the plugin repo does not need its own `plugin.json` — the marketplace entry defines the full plugin surface.
+| Field         | Required | Example                                |
+| ------------- | -------- | -------------------------------------- |
+| `name`        | yes      | `"Forge Finance"`                      |
+| `version`     | yes      | `"0.1.0"`                              |
+| `description` | yes      | `"Tax law rules and filing workflows"` |
+| `author`      | yes      | `{"name": "Author Name"}`             |
+| `license`     | no       | `"EUPL-1.2"`                           |
+| `repository`  | no       | `"https://github.com/owner/repo"`      |
+| `keywords`    | no       | `["tax", "finance"]`                   |
+| `skills`      | if any   | `["./skills"]`                         |
+| `agents`      | if any   | `["./agents"]`                         |
+| `hooks`       | if any   | `"./hooks/hooks.json"`                 |
 
 [1]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
 [2]: https://code.claude.com/docs/en/plugin-marketplaces
+[3]: https://code.claude.com/docs/en/plugins-reference

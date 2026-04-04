@@ -1,0 +1,20 @@
+{
+    "NoHeredoc.md": {
+        "original_tokens": 72,
+        "compressed_tokens": 35,
+        "reduction_pct": 51,
+        "compressed_text": "Bash heredoc create modify files Write tool new files Edit modifications Heredoc output unreadable hides content bypasses diff - approval flow Bash file creation mkdir - p directories"
+    },
+    "SanitizeData.md": {
+        "original_tokens": 104,
+        "compressed_tokens": 52,
+        "reduction_pct": 50,
+        "compressed_text": "write real names email addresses phone numbers credentials tracked files examples replace identifiers pseudonyms Alice Bob 420600000001 example. com before writing applies Tracked files public session context not plugin. json author fields LICENSE headers real attribution design Secrets. env gitignored never source"
+    },
+    "GitConventions.md": {
+        "original_tokens": 54,
+        "compressed_tokens": 26,
+        "reduction_pct": 52,
+        "compressed_text": "Commits description no trailing period scope feat fix docs chore refactor test add Co - Authored git commits unless user asks co - author"
+    }
+}

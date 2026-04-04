@@ -1,0 +1,58 @@
+---
+title: EUPL-1.2 Licensing
+description: EUPL-1.2 provides copyleft with SaaS coverage and GPL compatibility for forge modules
+type: adr
+category: governance
+tags:
+    - governance
+    - licensing
+status: accepted
+created: 2026-02-19
+updated: 2026-03-30
+author: "@N4M3Z"
+project: forge-core
+related: []
+responsible: ["@N4M3Z"]
+accountable: ["@N4M3Z"]
+consulted: []
+informed: []
+upstream: [ChooseLicense.md]
+---
+
+# EUPL-1.2 Licensing
+
+## Context and Problem Statement
+
+Forge modules are open source on GitHub. A license must be chosen that protects against proprietary appropriation while remaining compatible with the broader open source ecosystem. The license must also cover SaaS delivery — someone running the skills through a hosted AI service should be bound by the same obligations as someone distributing modified source.
+
+## Decision Drivers
+
+- Copyleft protection — improvements must be shared back, not locked behind proprietary forks
+- SaaS coverage — network delivery (AI tools running skills remotely) must trigger copyleft obligations
+- License compatibility — must not create dead ends when combining with GPL, LGPL, or AGPL licensed code
+- European legal grounding — license should be enforceable under EU law, not just US common law
+
+## Considered Options
+
+1. **MIT** — maximally permissive, no copyleft, no SaaS coverage. Anyone can take the code proprietary
+2. **GPL-3.0** — strong copyleft but no SaaS coverage, and incompatible with several other copyleft licenses
+3. **AGPL-3.0** — GPL + SaaS coverage, but known compatibility issues and corporate aversion
+4. **EUPL-1.2** — copyleft with SaaS coverage, compatible with GPL/LGPL/AGPL via its compatibility appendix, available in 23 EU languages, enforceable under EU member state law
+
+## Decision Outcome
+
+Chosen option: **EUPL-1.2**. It combines reasonable copyleft (like LGPL) with SaaS coverage (like AGPL) while maintaining compatibility with GPL, LGPL, AGPL, and other reciprocal licenses listed in its appendix. As an EU-originated license, it's grounded in European legal frameworks — relevant for a Prague-based project.
+
+### Consequences
+
+- [+] Improvements must be shared back — prevents proprietary appropriation
+- [+] SaaS delivery triggers copyleft — no loophole for hosted usage
+- [+] Compatible with GPL, LGPL, AGPL, MPL, EPL via the compatibility appendix
+- [-] Less recognized than MIT/GPL in the broader open source community — contributors may need to look it up
+- [-] Corporate legal teams unfamiliar with EUPL may hesitate before contributing
+
+## More Information
+
+- [EUPL-1.2 full text](https://interoperable-europe.ec.europa.eu/licence/european-union-public-licence-version-12-eupl) — official license text
+- [EUPL compatibility matrix](https://interoperable-europe.ec.europa.eu/collection/eupl/matrix-eupl-compatible-open-source-licences) — which licenses EUPL is compatible with
+- [EUPL vs GPL comparison](https://interoperable-europe.ec.europa.eu/collection/eupl/news/eupl-or-gplv3-comparison-t) — detailed feature comparison
