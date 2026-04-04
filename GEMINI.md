@@ -63,4 +63,4 @@ install-forge-core:
 
 - **Skill naming**: PascalCase directories matching `name:` in SKILL.yaml.
 - **Provider routing**: Provider-keyed allowlists in `defaults.yaml` control which platforms receive each skill.
-- **forge-lib**: Git submodule at `lib/`, provides `install-skills` and `validate-module` Rust binaries.
+- **forge-cli**: External binary (`forge`) providing install, validate, and assembly operations.

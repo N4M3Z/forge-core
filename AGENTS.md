@@ -35,7 +35,6 @@ skills/
   RTK/
     SKILL.md              # Token-optimized CLI proxy reference (Claude only)
     SKILL.yaml            # Source links
-lib/                      # git submodule -> forge-lib (Rust binaries)
 .claude-plugin/
   plugin.json             # Claude Code plugin manifest
 defaults.yaml             # Skill roster
@@ -82,14 +81,14 @@ install-forge-core:
 | Module | Purpose |
 |--------|---------|
 | **forge-core** | Authoring skills -- teaches your AI to build with forge |
-| **[forge-lib](https://github.com/N4M3Z/forge-lib)** | Deployment utilities -- Rust binaries for installing agents and skills |
+| **[forge-cli](https://github.com/N4M3Z/forge-cli)** | External binary providing install, validate, and assembly operations |
 | **[forge-council](https://github.com/N4M3Z/forge-council)** | Specialist agents -- 13 agents organized into structured multi-round debates |
 
 ## Development Conventions
 
 - **Skill naming**: PascalCase directories (`BuildSkill/`), matching `name:` in SKILL.yaml
 - **Config override**: `config.yaml` (gitignored) overrides `defaults.yaml`
-- **forge-lib**: Consumed as git submodule at `lib/`, provides `install-skills` and `validate-module`
+- **forge-cli**: External binary (`forge`) providing install, validate, and assembly operations
 
 ## Git Conventions
 

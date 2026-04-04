@@ -2,7 +2,7 @@
 
 FORGE ?= forge
 
-.PHONY: help build test lint check clean install
+.PHONY: help build test lint check clean install verify
 
 help:
 	@echo "forge-core targets:"
@@ -10,6 +10,7 @@ help:
 	@echo "  make test      Validate module structure"
 	@echo "  make lint      Check shell scripts and markdown"
 	@echo "  make check     Verify prerequisites and module structure"
+	@echo "  make verify    Validate module with forge-cli"
 	@echo "  make clean     Remove build artifacts"
 
 install:
@@ -34,6 +35,10 @@ check:
 	@test -f LICENSE          && echo "  ok LICENSE"          || echo "  MISSING LICENSE"
 	@test -f CONTRIBUTING.md  && echo "  ok CONTRIBUTING.md"  || echo "  MISSING CONTRIBUTING.md"
 	@test -f CODEOWNERS       && echo "  ok CODEOWNERS"       || echo "  MISSING CODEOWNERS"
+
+verify:
+	@command -v $(FORGE) >/dev/null 2>&1 || { echo "error: forge not found"; exit 1; }
+	$(FORGE) validate .
 
 clean:
 	rm -rf build/

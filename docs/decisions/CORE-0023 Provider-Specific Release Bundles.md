@@ -41,10 +41,7 @@ forge-core-claude-v0.6.0/
             ...
     agents/
         ...
-    .manifest                      # digest map for integrity verification
-    .prov/                         # W3C PROV records per assembled file
-        AgentTeams.prov.yaml
-        UseRTK.prov.yaml
+    .manifest                      # deployment record for integrity verification
     VERSION                        # module version + build metadata
 ```
 
@@ -71,13 +68,13 @@ tar -xzf forge-core-claude-v0.6.0.tar.gz -C .claude/
 
 ### Verification
 
-The `.manifest` inside the bundle allows integrity verification after extraction. The `.prov/` directory provides full assembly lineage per file. Future: forge-audit signs the bundle with SSH key (SLSA Level 2).
+The `.manifest` inside the bundle allows integrity verification after extraction. Provenance sidecars (`.yaml`, generated during assembly) provide full lineage per file. Future: forge-audit signs the bundle with SSH key (SLSA Level 2).
 
 ## Consequences
 
 - Positive: zero-build install path for new users
 - Positive: versioned, reproducible deployments
 - Positive: each provider gets only the content it needs (minimum viable prompt)
-- Positive: `.manifest` and `.prov/` travel with the bundle for integrity and audit
+- Positive: `.manifest` and provenance sidecars travel with the bundle for integrity and audit
 - Tradeoff: releases must be rebuilt on every source change
 - Tradeoff: `user/` qualifier overrides can't be included (they're personal and gitignored)

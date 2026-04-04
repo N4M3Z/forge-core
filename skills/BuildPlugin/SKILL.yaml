@@ -1,0 +1,6 @@
+sources:
+    - https://code.claude.com/docs/en/plugin-marketplaces
+    - https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
+
+claude:
+    argument-hint: "[create|validate|marketplace] [module-path]"

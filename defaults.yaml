@@ -16,6 +16,7 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        BuildPlugin:
         ArchitectureDecision:
         VersionControl:
         MarkdownLint:
@@ -23,6 +24,7 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
+        PromptAnalysis:
         PublishPrompts:
 
     gemini:
@@ -31,6 +33,7 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        BuildPlugin:
         ArchitectureDecision:
         VersionControl:
         MarkdownLint:
@@ -38,6 +41,7 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
+        PromptAnalysis:
         PublishPrompts:
 
     codex:
@@ -46,6 +50,7 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        BuildPlugin:
         ArchitectureDecision:
         VersionControl:
         MarkdownLint:
@@ -53,6 +58,7 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
+        PromptAnalysis:
         PublishPrompts:
 
     opencode:
@@ -61,6 +67,7 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        BuildPlugin:
         ArchitectureDecision:
         VersionControl:
         MarkdownLint:
@@ -68,6 +75,7 @@ skills:
         SettingsMaintenance:
         SystemCheck:
         RTK:
+        PromptAnalysis:
         PublishPrompts:
 
 hooks:
