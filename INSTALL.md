@@ -67,23 +67,21 @@ Skills require a session restart to be discovered.
 
 ## Configuration
 
-`defaults.yaml` ships with the skill roster:
+`defaults.yaml` ships with the skill roster, keyed by provider:
 
 ```yaml
 skills:
-    - BuildSkill
-    - BuildAgent
-    - BuildModule
+    claude:
+        BuildSkill:
+        BuildAgent:
+        BuildModule:
+        # ... more skills
+    gemini:
+        BuildSkill:
+        # ...
 ```
 
-Create `config.yaml` (gitignored) to override:
-
-```yaml
-# Example: disable a skill
-skills:
-    - BuildSkill
-    - BuildAgent
-```
+Create `config.yaml` (gitignored) to override — same structure, only the fields you want to change.
 
 ## Updating
 

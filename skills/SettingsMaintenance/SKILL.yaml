@@ -1,5 +1,2 @@
-name: SettingsMaintenance
-description: "Audit and clean AI coding tool settings — permissions, plugins, hooks, cross-layer conflicts. USE WHEN review permissions, clean settings, audit config, plugin conflicts, hook audit, settings cruft."
-
 sources:
     - https://docs.anthropic.com/en/docs/claude-code

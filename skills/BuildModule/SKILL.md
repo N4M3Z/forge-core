@@ -211,6 +211,7 @@ Run this checklist against any module to audit compliance. Report pass/fail per 
 | `Makefile` exists                       | Has `install`, `verify`, `test`, `lint`, `check`, `clean` targets |
 | `lib/` submodule                        | Points to forge-lib, not pinned to ancient commit                |
 | `defaults.yaml`                         | Exists if module has configurable behaviour                      |
+| `docs/decisions/` (if present)          | Contains `.mdschema`; template path set in `defaults.yaml`       |
 
 ### 2. Documentation
 

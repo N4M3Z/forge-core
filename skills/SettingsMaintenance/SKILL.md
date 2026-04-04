@@ -1,5 +1,6 @@
 ---
 name: SettingsMaintenance
+version: 0.1.0
 description: "Audit and clean AI coding tool settings — permissions, plugins, hooks, cross-layer conflicts. USE WHEN review permissions, clean settings, audit config, plugin conflicts, hook audit, settings cruft."
 ---
 

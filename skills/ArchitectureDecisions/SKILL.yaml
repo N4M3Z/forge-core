@@ -1,0 +1,6 @@
+sources:
+    - https://adr.github.io/
+    - https://adr.github.io/madr/
+
+claude:
+    argument-hint: "[topic to search | 'list' | 'create: <title>' | 'validate' | 'capture']"

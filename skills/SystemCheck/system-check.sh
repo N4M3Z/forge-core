@@ -221,7 +221,7 @@ for lib_dir in "$FORGE_ROOT"/Modules/*/lib; do
     [ -d "$lib_dir" ] || continue
     [ -e "$lib_dir/.git" ] || continue
     mod=$(basename "$(dirname "$lib_dir")")
-    sha=$(git -C "$lib_dir" rev-parse HEAD 2>/dev/null || echo "unknown")
+    sha=$(command git -C "$lib_dir" rev-parse HEAD 2>/dev/null || echo "unknown")
     short="${sha:0:7}"
     lib_commits="$lib_commits$sha"$'\n'
     lib_count=$((lib_count + 1))
@@ -296,7 +296,7 @@ while IFS= read -r line; do
         +) sub_dirty=$((sub_dirty + 1)); $VERBOSE && sub_detail="$sub_detail  ahead: $mod"$'\n' ;;
         -) sub_dirty=$((sub_dirty + 1)); $VERBOSE && sub_detail="$sub_detail  not init: $mod"$'\n' ;;
     esac
-done < <(git -C "$FORGE_ROOT" submodule status 2>&1)
+done < <(command git -C "$FORGE_ROOT" submodule status 2>&1)
 
 if [ "$sub_dirty" -eq 0 ]; then
     c5_status="CLEAN"

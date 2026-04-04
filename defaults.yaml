@@ -1,12 +1,21 @@
 # forge-core default configuration.
 # Override: create config.yaml (gitignored) with only the fields you want to change.
 
+# Architecture Decision Records (https://adr.github.io/)
+adr:
+    prefix: date                        # "date" → YYYY-MM-DD  |  "number" → NNNN
+    directory: docs/decisions
+    template: templates/adr.md
+    full_template: templates/madr.md
+    schema: docs/decisions/.mdschema
+
 skills:
     claude:
         BuildSkill:
         BuildAgent:
         BuildModule:
         BuildHook:
+        ArchitectureDecisions:
         VersionControl:
         MarkdownLint:
         MarkdownSchema:
@@ -19,6 +28,7 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        ArchitectureDecisions:
         VersionControl:
         MarkdownLint:
         MarkdownSchema:
@@ -31,6 +41,7 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        ArchitectureDecisions:
         VersionControl:
         MarkdownLint:
         MarkdownSchema:
@@ -43,6 +54,7 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        ArchitectureDecisions:
         VersionControl:
         MarkdownLint:
         MarkdownSchema:
@@ -54,3 +66,11 @@ hooks:
     PlanCopy:
         destination: Resources/Plans/Claude
         template: templates/plan.md
+    ArchitectureDecisions:
+        prompt: >-
+            Invoke the ArchitectureDecisions skill to check for uncaptured architectural decisions
+            from the previous context. Spawn a background Agent to review the session for architectural
+            decisions, pattern choices, or convention changes that should be captured as ADRs in
+            docs/decisions/. Have the agent read the transcript JSONL from the session files below.
+            Use the short template (templates/adr.md) unless the decision warrants full MADR.
+            If c0ntextkeeper is installed, use the ContextKeeper skill to recover additional session details.

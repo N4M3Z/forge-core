@@ -12,7 +12,7 @@ Check skills are deployed to at least one provider:
 
 ```bash
 ls .claude/skills/*/SKILL.md 2>/dev/null | wc -l
-# Expected: BuildSkill, BuildAgent, BuildModule, BuildHook, VersionControl, MarkdownLint, MarkdownSchema, SettingsMaintenance, SystemCheck, RTK
+# Expected: BuildSkill, BuildAgent, BuildModule, BuildHook, ArchitectureDecisions, VersionControl, MarkdownLint, MarkdownSchema, SettingsMaintenance, SystemCheck, RTK
 ```
 
 ## Structure validation
@@ -34,6 +34,6 @@ test -f lib/Cargo.toml && echo "ok forge-lib submodule"
 ## Success criteria
 
 - [ ] `make verify` passes with no errors
-- [ ] 8 skills deployed to `.claude/skills/`
+- [ ] All skills from defaults.yaml deployed to `.claude/skills/`
 - [ ] `make test` passes (validate-module convention checks)
 - [ ] forge-lib submodule initialized (`lib/Cargo.toml` exists)
