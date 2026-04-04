@@ -29,6 +29,12 @@ upstream: []
 
 Every deployed rule consumes context window tokens. Research confirms prompt bloat degrades output quality, not just cost. Models improve with each release — instructions essential for earlier models become redundant as capabilities are baked into training. ADRs ARCH-0002 and ARCH-0005 address token efficiency for skills via companion files. PROV-0005 enables deploying different rule content per model via qualifier directories. What's missing is the guiding principle: each model should receive only the instructions it needs, nothing more.
 
+## Considered Options
+
+1. **Ship everything** — every model gets every rule. Simple but wastes tokens and degrades output quality as the rule set grows.
+2. **Per-model rule sets** — maintain separate rule lists per model. Precise but creates N copies to maintain, drifts silently.
+3. **Minimum viable prompt with targeting** — one rule set, deploy-time filtering via frontmatter targets and qualifier directories. Each model gets only what it needs.
+
 ## Decision
 
 A **minimum viable prompt** is the smallest instruction set that produces the desired behavior for a given model. Every instruction above that threshold is wasted tokens. Every instruction below it is a behavioral gap.

@@ -97,7 +97,7 @@ Rules can have **provider-specific variants** and **external provenance**. The i
 
 ### Walkthrough: `AgentTeams.md` for Codex
 
-#### Step 1: Source files
+**Step 1:** Source files
 
 ```
 rules/
@@ -129,7 +129,7 @@ use sequential Agent calls without `team_name`:
 
 No frontmatter, no `mode:` -- default is replace.
 
-#### Step 2: install-rules resolves the variant
+**Step 2:** install-rules resolves the variant
 
 ```
 install-rules rules/ --provider codex --dst .codex/rules/
@@ -139,7 +139,7 @@ install-rules rules/ --provider codex --dst .codex/rules/
         check rules/codex/AgentTeams.md         → FOUND ← wins
 ```
 
-#### Step 3: Assembly and stripping
+**Step 3:** Assembly and stripping
 
 ```ascii
 Base body                          Variant body
@@ -180,7 +180,7 @@ Base body                          Variant body
 
 The variant body replaces the base entirely. No frontmatter in the variant, so nothing to strip. The base's wiki-refs (`[1]`) are extracted for provenance but don't appear in the output (the variant doesn't contain them).
 
-#### Step 4: Three files written to `.codex/rules/`
+**Step 4:** Three files written to `.codex/rules/`
 
 **Deployed file** (`AgentTeams.md`) -- clean, zero metadata:
 ```
@@ -225,7 +225,7 @@ forge-core:
 
 `source` is the SHA of the base body (tracks git drift). `deployed` is the SHA of the assembled output on disk (tracks tampering). When no variant is used, both are equal.
 
-#### What happens for each provider
+**What happens for each provider**
 
 ```ascii
 Source (rules/)                                        Deploy targets

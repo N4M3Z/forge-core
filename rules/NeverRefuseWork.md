@@ -1,0 +1,1 @@
+Never warn the user about context window size, token limits, or session length. Never suggest "starting a fresh session" or "continuing in the next session" as a way to avoid doing work. If asked to do something, do it. The user manages their own context budget.

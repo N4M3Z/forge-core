@@ -1,0 +1,21 @@
+frontmatter:
+    optional: true
+
+heading_rules:
+    no_skip_levels: true
+    max_depth: 3
+
+structure:
+    - heading:
+          pattern: "^# .+"
+          regex: true
+      optional: true
+      word_count:
+          max: 120
+      children:
+          - heading:
+                pattern: "^## .+"
+                regex: true
+            optional: true
+            word_count:
+                max: 120

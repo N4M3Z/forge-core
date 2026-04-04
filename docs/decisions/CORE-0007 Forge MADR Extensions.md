@@ -37,6 +37,12 @@ The [structured-madr schema][1] allows additional properties prefixed with `x-`,
 - `upstream` tracks rule promotion and cross-repo provenance in a single field
 - Extensions must not break upstream schema validation
 
+## Considered Options
+
+1. **No extensions** — use structured-madr fields only. Loses RACI accountability and provenance tracking.
+2. **Custom frontmatter outside structured-madr** — add fields without the `x-` prefix. Breaks upstream schema validation.
+3. **`x-forge-` namespaced extensions** — uses the sanctioned `x-` prefix. Upstream validation passes, short forms used for readability.
+
 ## Decision Outcome
 
 Forge ADRs use `x-forge-` prefixed extension fields alongside [structured-madr][1] required fields. For brevity, the short form (without prefix) is the canonical name in forge repos. Both forms are valid in the schema.

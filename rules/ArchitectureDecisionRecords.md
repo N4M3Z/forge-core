@@ -1,4 +1,4 @@
-Architecture Decision Records capture the why behind structural choices as markdown files in `docs/decisions/`. We use [structured-madr][1] with forge extensions for RACI accountability and provenance tracking (`templates/forge-adr.md`, validated by `templates/forge-adr.json`).
+Architecture Decision Records capture the why behind structural choices as markdown files in `docs/decisions/`. We use [structured-madr][1] with custom extensions for RACI accountability and provenance tracking (`templates/forge-adr.md`, validated by `templates/forge-adr.json`).
 
 Required frontmatter: `title`, `description`, `type`, `category`, `tags`, `status`, `created`, `updated`, `author`, `project`. Status values are lowercase: `proposed`, `accepted`, `deprecated`, `superseded`.
 
