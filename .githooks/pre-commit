@@ -5,7 +5,7 @@ set -euo pipefail
 # Canonical source: https://github.com/N4M3Z/forge-cli/blob/main/templates/git/pre-commit
 
 SCRIPT_URL="https://raw.githubusercontent.com/N4M3Z/forge-cli/main/scripts/validate.sh"
-SCRIPT_SHA="6300614cb084a5d4e415c276fe5ee3a0f198a01d9f98cb80f6f6392e6c775b40"
+SCRIPT_SHA="e5fea8f10359807b72e719d9e475eb0257de9df8303a0476fd639b6f882832e7"
 
 if command -v forge >/dev/null 2>&1; then
     forge validate .

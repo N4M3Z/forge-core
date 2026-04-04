@@ -78,6 +78,10 @@ Architecture Decision Records document the why behind structural choices. Each p
 
 ADRs use [structured-madr][6] frontmatter with forge extensions. Validate with `python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/`.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, skill authoring conventions, and PR process.
+
 ## Requirements
 
 | Dependency                                       | Required    | Purpose                          |

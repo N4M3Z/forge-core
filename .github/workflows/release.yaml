@@ -1,0 +1,41 @@
+name: Release
+
+on:
+    push:
+        tags: ["v*"]
+
+permissions:
+    contents: write
+
+env:
+    SCRIPT_URL: "https://raw.githubusercontent.com/N4M3Z/forge-cli/main/scripts/validate.sh"
+    SCRIPT_SHA: "e5fea8f10359807b72e719d9e475eb0257de9df8303a0476fd639b6f882832e7"
+
+jobs:
+    release:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+
+            - uses: dtolnay/rust-toolchain@stable
+
+            - name: Install forge-cli
+              run: cargo install --git https://github.com/N4M3Z/forge-cli --tag v0.2.0
+
+            - name: Assemble
+              run: forge assemble .
+
+            - name: Package providers
+              env:
+                  VERSION: ${{ github.ref_name }}
+              run: |
+                  for provider in build/*/; do
+                      name=$(basename "$provider")
+                      tar czf "forge-core-${name}-${VERSION}.tar.gz" -C build "$name"
+                  done
+
+            - name: Create release
+              env:
+                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  VERSION: ${{ github.ref_name }}
+              run: gh release create "$VERSION" forge-core-*-"${VERSION}".tar.gz --title "$VERSION" --generate-notes

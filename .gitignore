@@ -1,5 +1,9 @@
 # User overrides
 config.yaml
+**/user/
+
+# Secrets
+.env
 
 # Build artifacts
 build/

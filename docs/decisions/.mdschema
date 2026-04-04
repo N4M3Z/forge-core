@@ -48,15 +48,18 @@ structure:
       children:
           - heading:
                 pattern: "## Context and Problem Statement"
+            allow_additional: true
             word_count:
                 min: 20
           - heading:
                 pattern: "## Decision Drivers"
             optional: true
+            allow_additional: true
             lists:
                 - min: 1
           - heading:
                 pattern: "## Considered Options"
+            allow_additional: true
             lists:
                 - min: 1
           - heading:

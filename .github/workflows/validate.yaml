@@ -1,4 +1,4 @@
-name: CI
+name: Validate
 
 on:
     push:
@@ -8,7 +8,7 @@ on:
 
 env:
     SCRIPT_URL: "https://raw.githubusercontent.com/N4M3Z/forge-cli/main/scripts/validate.sh"
-    SCRIPT_SHA: "6300614cb084a5d4e415c276fe5ee3a0f198a01d9f98cb80f6f6392e6c775b40"
+    SCRIPT_SHA: "e5fea8f10359807b72e719d9e475eb0257de9df8303a0476fd639b6f882832e7"
 
 jobs:
     validate:
@@ -17,14 +17,22 @@ jobs:
             - uses: actions/checkout@v6
 
             - uses: actions/setup-python@v6
-              if: hashFiles('**/*.py') != ''
               with:
                   python-version: "3.12"
 
+            - uses: dtolnay/rust-toolchain@stable
+              if: hashFiles('Cargo.toml') != ''
+
             - uses: actions/setup-node@v4
-              if: hashFiles('**/*.ts', '**/*.tsx') != ''
+              if: hashFiles('**/*.ts') != ''
               with:
                   node-version: "22"
+
+            - name: Install tools
+              run: |
+                  pip install ruff
+                  GITLEAKS_URL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep -o 'https://.*linux_x64.tar.gz')
+                  curl -sSfL "$GITLEAKS_URL" | tar xz -C /usr/local/bin
 
             - name: Validate
               run: |
