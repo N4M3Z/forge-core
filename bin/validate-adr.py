@@ -10,6 +10,7 @@ Prefer the upstream tools when available:
 Usage:
     validate-adr.py <schema> <file|directory>
     validate-adr.py templates/forge-adr.json docs/decisions/
+    validate-adr.py --test
 """
 
 import json
@@ -17,42 +18,215 @@ import re
 import sys
 from pathlib import Path
 
+try:
+    import yaml
+    HAS_YAML = True
+except ImportError:
+    HAS_YAML = False
 
-def extract_frontmatter_fields(path):
+DATE_PATTERN = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+TAG_PATTERN = re.compile(r"^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$")
+
+
+def extract_frontmatter(path):
     content = path.read_text(encoding="utf-8")
     match = re.match(r"^---\n(.*?)\n---", content, re.DOTALL)
     if not match:
         return None
 
+    raw_frontmatter = match.group(1)
+
+    if HAS_YAML:
+        data = yaml.safe_load(raw_frontmatter)
+        return data if isinstance(data, dict) else None
+
     fields = {}
-    for line in match.group(1).splitlines():
-        key_match = re.match(r"^([a-z][a-z0-9_-]*)\s*:", line)
+    current_key = None
+    current_list = None
+
+    for line in raw_frontmatter.splitlines():
+        key_match = re.match(r"^([a-z][a-z0-9_-]*)\s*:(.*)", line)
         if key_match:
-            key = key_match.group(1)
-            value = line[key_match.end():].strip()
-            fields[key] = value
+            if current_key and current_list is not None:
+                fields[current_key] = current_list
+
+            current_key = key_match.group(1)
+            value = key_match.group(2).strip()
+
+            if value.startswith("[") and value.endswith("]"):
+                inner = value[1:-1].strip()
+                if inner:
+                    fields[current_key] = [
+                        item.strip().strip('"').strip("'")
+                        for item in inner.split(",")
+                    ]
+                else:
+                    fields[current_key] = []
+                current_key = None
+                current_list = None
+            elif value == "":
+                current_list = []
+            else:
+                fields[current_key] = value.strip('"').strip("'")
+                current_key = None
+                current_list = None
+        elif current_list is not None and line.strip().startswith("- "):
+            item = line.strip()[2:].strip().strip('"').strip("'")
+            current_list.append(item)
+
+    if current_key and current_list is not None:
+        fields[current_key] = current_list
+
     return fields
 
 
-def validate(fields, schema):
+def validate(data, schema):
     problems = []
 
-    missing = [key for key in schema.get("required", []) if key not in fields]
+    missing = [key for key in schema.get("required", []) if key not in data]
     if missing:
         problems.append(f"missing: {missing}")
 
     for key, prop in schema.get("properties", {}).items():
-        if key not in fields:
+        if key not in data:
             continue
+        value = data[key]
+
+        expected_type = prop.get("type")
+        if expected_type == "string" and not isinstance(value, str):
+            problems.append(f"{key}: expected string, got {type(value).__name__}")
+        elif expected_type == "array" and not isinstance(value, list):
+            problems.append(f"{key}: expected array, got {type(value).__name__}")
+
+        if "const" in prop and value != prop["const"]:
+            problems.append(f"{key}: expected '{prop['const']}', got '{value}'")
+
         if "enum" in prop:
-            value = fields[key].strip('"').strip("'")
-            if value not in prop["enum"]:
-                problems.append(f"{key}: '{value}' not in {prop['enum']}")
+            check_value = value.strip('"').strip("'") if isinstance(value, str) else value
+            if check_value not in prop["enum"]:
+                problems.append(f"{key}: '{check_value}' not in {prop['enum']}")
+
+        if prop.get("format") == "date" and isinstance(value, str):
+            if not DATE_PATTERN.match(value):
+                problems.append(f"{key}: '{value}' is not YYYY-MM-DD")
+
+        if "pattern" in prop and isinstance(value, str):
+            if not re.match(prop["pattern"], value):
+                problems.append(f"{key}: '{value}' does not match pattern")
+
+        if expected_type == "array" and isinstance(value, list):
+            item_schema = prop.get("items", {})
+            item_pattern = item_schema.get("pattern")
+            if item_pattern:
+                for item in value:
+                    if isinstance(item, str) and not re.match(item_pattern, item):
+                        problems.append(f"{key}: item '{item}' does not match pattern")
 
     return problems
 
 
+def run_tests():
+    schema = {
+        "required": ["title", "type", "status", "created", "tags"],
+        "properties": {
+            "title": {"type": "string", "minLength": 1},
+            "type": {"type": "string", "const": "adr"},
+            "status": {"type": "string", "enum": ["proposed", "accepted", "deprecated", "superseded"]},
+            "created": {"type": "string", "format": "date"},
+            "tags": {
+                "type": "array",
+                "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$"}
+            },
+        },
+    }
+
+    tests_passed = 0
+    tests_failed = 0
+
+    def assert_test(name, data, expected_pass):
+        nonlocal tests_passed, tests_failed
+        problems = validate(data, schema)
+        actual_pass = len(problems) == 0
+        if actual_pass == expected_pass:
+            print(f"  PASS  {name}")
+            tests_passed += 1
+        else:
+            status = "should have passed" if expected_pass else "should have failed"
+            print(f"  FAIL  {name} ({status}, problems: {problems})")
+            tests_failed += 1
+
+    assert_test("valid ADR", {
+        "title": "Test Decision",
+        "type": "adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": ["architecture"],
+    }, True)
+
+    assert_test("missing required field", {
+        "type": "adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": ["architecture"],
+    }, False)
+
+    assert_test("invalid enum", {
+        "title": "Test",
+        "type": "adr",
+        "status": "fantasy",
+        "created": "2026-03-30",
+        "tags": ["architecture"],
+    }, False)
+
+    assert_test("invalid const", {
+        "title": "Test",
+        "type": "not-adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": ["architecture"],
+    }, False)
+
+    assert_test("invalid date format", {
+        "title": "Test",
+        "type": "adr",
+        "status": "accepted",
+        "created": "March 30 2026",
+        "tags": ["architecture"],
+    }, False)
+
+    assert_test("invalid tag pattern", {
+        "title": "Test",
+        "type": "adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": ["UPPER_CASE"],
+    }, False)
+
+    assert_test("tags as string instead of array", {
+        "title": "Test",
+        "type": "adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": "not-an-array",
+    }, False)
+
+    assert_test("empty tags array", {
+        "title": "Test",
+        "type": "adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": [],
+    }, True)
+
+    print(f"\n{tests_passed} passed, {tests_failed} failed")
+    return tests_failed == 0
+
+
 def main():
+    if len(sys.argv) >= 2 and sys.argv[1] == "--test":
+        success = run_tests()
+        sys.exit(0 if success else 1)
+
     if len(sys.argv) < 3:
         print(__doc__.strip())
         sys.exit(2)
@@ -63,6 +237,9 @@ def main():
 
     files = sorted(target.glob("*.md")) if target.is_dir() else [target]
 
+    if not HAS_YAML:
+        print("  NOTE  pyyaml not installed, using regex fallback (type/format checks limited)")
+
     passed = 0
     failed = 0
 
@@ -70,12 +247,12 @@ def main():
         if not filepath.is_file():
             continue
 
-        fields = extract_frontmatter_fields(filepath)
-        if fields is None:
+        data = extract_frontmatter(filepath)
+        if data is None:
             print(f"  SKIP  {filepath}  (no frontmatter)")
             continue
 
-        problems = validate(fields, schema)
+        problems = validate(data, schema)
         if problems:
             print(f"  FAIL  {filepath}  ({'; '.join(problems)})")
             failed += 1

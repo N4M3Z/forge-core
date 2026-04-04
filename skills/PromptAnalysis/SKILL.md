@@ -6,7 +6,7 @@ description: "Validate and minimize prompts — provenance, targeting, staleness
 
 # PromptAnalysis
 
-Analyze rules, skills, and agents for minimum viable prompt compliance (CORE-0021). Each concern is a subskill with its own detection patterns and output format.
+Analyze rules, skills, and agents for minimum viable prompt compliance (MVPR-0001). Each concern is a subskill with its own detection patterns and output format.
 
 ## Subskill Routing
 

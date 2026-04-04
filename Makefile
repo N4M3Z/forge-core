@@ -15,15 +15,18 @@ help:
 
 install:
 	@command -v $(FORGE) >/dev/null 2>&1 || { echo "error: forge not found. Install forge-cli first: https://github.com/N4M3Z/forge-cli"; exit 1; }
+	git config core.hooksPath .githooks
 	$(FORGE) install .
 
 test:
 	@command -v $(FORGE) >/dev/null 2>&1 || { echo "error: forge not found"; exit 1; }
 	$(FORGE) validate .
+	python3 bin/validate-adr.py --test
+	python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/
 
 lint:
 	@if find . -name '*.sh' -not -path '*/build/*' | grep -q .; then \
-	  find . -name '*.sh' -not -path '*/build/*' | xargs shellcheck -S warning 2>/dev/null || true; \
+	  find . -name '*.sh' -not -path '*/build/*' | xargs shellcheck -S warning; \
 	fi
 
 check:

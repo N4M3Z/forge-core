@@ -44,6 +44,6 @@ Chosen option: **Rules in a shared core module**. Ecosystem-wide conventions (Gi
 ### Consequences
 
 - [+] All projects share the same conventions without cross-dependency issues
-- [+] Convention updates propagate via a version bump and `forge install`
+- [+] Convention updates propagate via a version bump and `make install`
 - [-] The core module grows beyond build tooling into ecosystem conventions — scope creep risk
 - [-] Claude Code plugins cannot ship `rules/` directly — plugins auto-discover `skills/`, `agents/`, `hooks/`, but not rules or `CLAUDE.md`. Rules must be injected via a `SessionStart` hook emitting `additionalContext` (see PluginContextInjection rule)

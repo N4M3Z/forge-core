@@ -8,7 +8,7 @@ An **artifact** is any structured unit that gets deployed to AI providers: a ski
 
 ### Skill Directory Structure
 
-Each skill directory is flat — no nested subdirectories:
+Each skill directory contains a required `SKILL.md` and optional companions. Subdirectories organize overlays (`user/`), model qualifiers (`claude-opus-4/`), and support files (`scripts/`, `Templates/`):
 
 ```
 skills/BuildSkill/
@@ -72,6 +72,7 @@ Each Build skill targets one artifact type:
 | [BuildAgent](skills/BuildAgent/SKILL.md)         | Agents   | Agent markdown, frontmatter fields, deployment across providers |
 | [BuildModule](skills/BuildModule/SKILL.md)       | Modules  | Directory layout, config convention, three-layer architecture   |
 | [BuildHook](skills/BuildHook/SKILL.md)           | Hooks    | Hook registration, event handling, platform-specific wiring     |
+| [BuildPlugin](skills/BuildPlugin/SKILL.md)       | Plugins  | Create, validate, and publish Claude Code plugins               |
 
 Utility skills handle operational concerns:
 
@@ -85,6 +86,8 @@ Utility skills handle operational concerns:
 | [SystemCheck](skills/SystemCheck/SKILL.md)                          | Ecosystem staleness — binary freshness, version drift              |
 | [RTK](skills/RTK/SKILL.md)                                         | Token-optimized CLI proxy setup and reference                      |
 | [PublishPrompts](skills/PublishPrompts/SKILL.md)                    | Provenance tracking and sync for inherited rules, skills, agents   |
+| [AdaptPrompts](skills/AdaptPrompts/SKILL.md)                       | Adapt generic rules for independent repos                          |
+| [PromptAnalysis](skills/PromptAnalysis/SKILL.md)                   | Validate and minimize prompts — staleness, redundancy, ablation    |
 
 Skills that need to stay focused can offload reference material into **companion files** loaded via `@` references (e.g., `@ClaudeSkill.md`). Companions live in the skill root — see [Skill Directory Structure](#skill-directory-structure).
 
@@ -493,7 +496,7 @@ Both exist. Hooks are preferred for anything that can be automated. Markdown cov
 - Every skill directory contains both `SKILL.md` (canon) and `SKILL.yaml` (sidecar)
 - `SKILL.md` frontmatter contains only provider-neutral fields: `name`, `description`, `version`. Provider-specific fields (e.g., `argument-hint` for Claude) belong in the sidecar
 - `SKILL.yaml` never duplicates fields from `SKILL.md`
-- Skill directories are flat — companion files live in the root, no subdirectories
+- Skill directories use subdirectories for `user/` overlays, model qualifiers, and support files — companion `.md` files live at the root alongside `SKILL.md`
 - Agent names are PascalCase, unique across all vaults
 - `defaults.yaml` is the single source of truth for the skill roster
 - Skills require structural decomposition (main skill + companion files) when complexity warrants it

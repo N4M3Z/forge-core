@@ -34,8 +34,7 @@ The [structured-madr schema][1] allows additional properties prefixed with `x-`,
 ## Decision Drivers
 
 - RACI fields (responsible, accountable, consulted, informed) track decision ownership across teams
-- `promoted` tracks which rules were extracted from a decision
-- `upstream` and `sources` track cross-repo provenance and external references
+- `upstream` tracks rule promotion and cross-repo provenance in a single field
 - Extensions must not break upstream schema validation
 
 ## Decision Outcome

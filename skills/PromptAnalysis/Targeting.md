@@ -1,6 +1,6 @@
 # Targeting
 
-Check whether rules are correctly targeted to the providers and models they apply to (CORE-0018).
+Check whether rules are correctly targeted to the providers and models they apply to (PROV-0005).
 
 ## What It Checks
 

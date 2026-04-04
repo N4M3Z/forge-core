@@ -2,61 +2,88 @@
 
 ## Description
 
-Module-building skills and operational tools for the forge ecosystem. Skills for creating and validating artifacts -- [skills][1], [agents][2], [hooks][3], and [modules][4] -- plus operational utilities for markdown linting, settings auditing, and version control conventions.
+Module-building skills and operational tools for your AI ecosystem. Skills for creating and validating [skills][1], [agents][2], [hooks][3], and [modules][4] — plus ADR management, markdown linting, settings auditing, and version control conventions.
 
-See [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview and design principles. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to create skills and contribute.
-
-[1]: https://docs.anthropic.com/en/docs/claude-code/skills "Claude Code Skills"
-[2]: https://docs.anthropic.com/en/docs/claude-code/sub-agents "Claude Code Sub-agents"
-[3]: https://docs.anthropic.com/en/docs/claude-code/hooks "Claude Code Hooks"
-[4]: skills/BuildModule/SKILL.md "Forge Module Convention"
+See [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute.
 
 ## Compatibility
 
-Skills install for Claude Code, Gemini CLI, Codex, and OpenCode:
+Deploys to Claude Code, Gemini CLI, Codex, and OpenCode:
 
-```bash
+```sh
 make install                      # all providers
-make install-skills-claude        # Claude Code only
-make install-skills-gemini        # Gemini CLI only
-SCOPE=user make install           # install to ~/.claude/skills/ (global)
-SCOPE=workspace make install      # install to ./.claude/skills/ (project-local)
+SCOPE=user make install           # ~/.claude/skills/ (global)
+SCOPE=workspace make install      # ./.claude/skills/ (project-local)
 ```
 
-## Getting started
+## Installation
 
-See [INSTALL.md](INSTALL.md) for detailed setup instructions.
+Have your AI resolve the install instructions:
 
-```bash
+```sh
+curl -s https://raw.githubusercontent.com/N4M3Z/forge-core/main/INSTALL.md | claude
+```
+
+Or manually:
+
+```sh
 git clone https://github.com/N4M3Z/forge-core.git
 cd forge-core
-make install
+make install    # requires forge-cli (https://github.com/N4M3Z/forge-cli)
 ```
+
+`make install` deploys skills to all providers and activates git pre-commit hooks. See [INSTALL.md](INSTALL.md) for the full agent-executable setup.
 
 ## Usage
 
-| Skill                                                                  | Artifact | What it does                                                                                |
-|------------------------------------------------------------------------|----------|---------------------------------------------------------------------------------------------|
-| [**BuildSkill**](skills/BuildSkill/SKILL.md)                           | Skills   | Create and validate skill definitions (SKILL.md structure, frontmatter, conventions)        |
-| [**BuildAgent**](skills/BuildAgent/SKILL.md)                           | Agents   | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
-| [**BuildModule**](skills/BuildModule/SKILL.md)                         | Modules  | Design and validate modules (directory layout, config convention, three-layer architecture)  |
-| [**BuildHook**](skills/BuildHook/SKILL.md)                             | Hooks    | Hook registration, event handling, platform-specific wiring                                 |
-| [**ArchitectureDecision**](skills/ArchitectureDecision/SKILL.md)       | --       | Find, read, create, validate, and capture Architecture Decision Records                     |
-| [**VersionControl**](skills/VersionControl/SKILL.md)                   | --       | Git conventions, repo governance (GitHub rulesets, GitLab branches, CODEOWNERS)              |
-| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)                       | --       | Format and lint markdown -- backtick code references, fix bare URLs, heading hierarchy      |
-| [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)                   | --       | Create, derive, and validate .mdschema files for markdown documents                         |
-| [**SettingsMaintenance**](skills/SettingsMaintenance/SKILL.md)          | --       | Audit and clean AI tool settings -- permissions, plugins, hooks, cross-layer conflicts      |
-| [**SystemCheck**](skills/SystemCheck/SKILL.md)                         | --       | Ecosystem staleness -- binary freshness, version drift, submodule pointers                  |
-| [**AdaptPrompts**](skills/AdaptPrompts/SKILL.md)                       | --       | Adapt generic rules for independent repos -- strip branding, scope, preserve overrides      |
-| [**RTK**](skills/RTK/SKILL.md)                                         | --       | Token-optimized CLI proxy (60-90% savings)                                                  |
+Skills teach AI coding tools new capabilities. Invoke them with `/SkillName` in Claude Code, or reference them in prompts for other providers. Rules enforce behavioral conventions automatically.
+
+| Skill                                                            | What it does                                                    |
+| ---------------------------------------------------------------- | --------------------------------------------------------------- |
+| [**BuildSkill**](skills/BuildSkill/SKILL.md)                     | Create and validate skill definitions                           |
+| [**BuildAgent**](skills/BuildAgent/SKILL.md)                     | Scaffold, validate, and audit agent definitions                 |
+| [**BuildModule**](skills/BuildModule/SKILL.md)                   | Design and validate forge modules                               |
+| [**BuildHook**](skills/BuildHook/SKILL.md)                       | Hook registration, event handling, platform wiring              |
+| [**BuildPlugin**](skills/BuildPlugin/SKILL.md)                   | Create, validate, and publish Claude Code plugins               |
+| [**ArchitectureDecision**](skills/ArchitectureDecision/SKILL.md) | Find, create, validate, and capture ADRs with schema validation |
+| [**VersionControl**](skills/VersionControl/SKILL.md)             | Git conventions, repo governance, CODEOWNERS                    |
+| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)                 | Format and lint markdown documents                              |
+| [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)             | Create, derive, and validate .mdschema files                    |
+| [**PublishPrompts**](skills/PublishPrompts/SKILL.md)              | Provenance tracking and sync for inherited content              |
+| [**AdaptPrompts**](skills/AdaptPrompts/SKILL.md)                 | Adapt generic rules for independent repos                       |
+| [**PromptAnalysis**](skills/PromptAnalysis/SKILL.md)             | Validate and minimize prompts                                   |
+| [**SettingsMaintenance**](skills/SettingsMaintenance/SKILL.md)    | Audit and clean AI tool settings                                |
+| [**SystemCheck**](skills/SystemCheck/SKILL.md)                   | Ecosystem staleness and version drift checks                    |
+| [**RTK**](skills/RTK/SKILL.md)                                   | Token-optimized CLI proxy                                       |
+
+### ADR Prefix Sections
+
+Architecture Decision Records document the why behind structural choices. Each prefix section numbers independently:
+
+| Prefix | Scope                    | Example                                      |
+| ------ | ------------------------ | -------------------------------------------- |
+| `CORE` | Markdown and scaffolding | `CORE-0001 Markdown as System Language`      |
+| `ARCH` | Ecosystem architecture   | `ARCH-0001 Skills Agents and Rules`          |
+| `PROV` | Manifest and provenance  | `PROV-0002 Manifest for Deployment Tracking` |
+| `MVPR` | Prompt optimization      | `MVPR-0001 Minimum Viable Prompt`            |
+
+ADRs use [structured-madr][5] frontmatter with forge extensions. Validate with `python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/`.
 
 ## Requirements
 
-| Dependency                                         | Required    | Purpose                                          |
-|----------------------------------------------------|-------------|--------------------------------------------------|
-| [forge](https://github.com/N4M3Z/forge-cli)       | Yes         | Module validation and skill deployment            |
-| shellcheck                                         | Recommended | Shell script linting (`brew install shellcheck`) |
+| Dependency                                       | Required    | Purpose                          |
+| ------------------------------------------------ | ----------- | -------------------------------- |
+| [forge-cli](https://github.com/N4M3Z/forge-cli) | Yes         | Module validation and deployment |
+| python3                                          | Yes         | ADR frontmatter validation       |
+| shellcheck                                       | Recommended | Shell script linting             |
+| ruff                                             | Recommended | Python linting                   |
 
 ## License
 
-EUPL 1.2 -- see [LICENSE](LICENSE).
+[EUPL-1.2](LICENSE)
+
+[1]: https://docs.anthropic.com/en/docs/claude-code/skills
+[2]: https://docs.anthropic.com/en/docs/claude-code/sub-agents
+[3]: https://docs.anthropic.com/en/docs/claude-code/hooks
+[4]: skills/BuildModule/SKILL.md
+[5]: https://github.com/zircote/structured-madr

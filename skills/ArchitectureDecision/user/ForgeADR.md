@@ -4,7 +4,7 @@ Forge ADRs use [structured-madr][1] as the base template, extended with `x-forge
 
 The default template is `templates/forge-adr.md`, validated by `templates/forge-adr.json`. Both are overridable via `$ADR_TEMPLATE` and `$ADR_SCHEMA`.
 
-Three tiers exist for different contexts:
+Multiple tiers exist for different contexts:
 
 | Tier             | Template                       | Schema                           | Use case                       |
 | ---------------- | ------------------------------ | -------------------------------- | ------------------------------ |

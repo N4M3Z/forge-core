@@ -36,7 +36,7 @@ The broader ecosystem has converged on YAML frontmatter as the standard metadata
 - **Static site generators** ([Jekyll][6], [Hugo][7], Astro, Eleventy) all use YAML frontmatter as the standard metadata format for content files.
 - **GitHub** renders YAML frontmatter as a formatted table at the top of markdown files in the web UI.
 
-This is not a forge-specific convention — it is the de facto standard for markdown metadata across the tools this ecosystem depends on.
+This is not a project-specific convention — it is the de facto standard for markdown metadata across the tools this ecosystem depends on.
 
 ## Decision Drivers
 

@@ -32,7 +32,7 @@ ADRs require authoring discipline ([CORE-0004](CORE-0004 Adopt Architecture Deci
 - Decisions made during sessions must survive context compaction
 - Manual ADR creation after the fact relies on remembering what was decided and why
 - The capture prompt must fire at the right moments — after compaction and on session resume
-- forge-core must work both as a dispatch module (via `hooks/<Event>.sh`) and as a standalone Claude Code plugin (via `hooks.json`)
+- The module must work both as a dispatch module (via `hooks/<Event>.sh`) and as a standalone Claude Code plugin (via `hooks.json`)
 
 ## Considered Options
 

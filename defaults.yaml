@@ -5,9 +5,9 @@
 adr:
     prefix: number                      # "date" → YYYY-MM-DD  |  "number" → NNNN
     directory: docs/decisions
-    template: templates/madr.md
-    full_template: templates/adr.md
-    schema: docs/decisions/.mdschema
+    template: templates/forge-adr.md
+    schema: templates/forge-adr.json
+    mdschema: docs/decisions/.mdschema
 
 skills:
     claude:
@@ -80,7 +80,7 @@ skills:
 
 hooks:
     PlanCopy:
-        destination: Resources/Plans/Claude
+        destination: ""                     # override in config.yaml (e.g., docs/plans)
         template: templates/plan.md
     ArchitectureDecision:
         prompt: >-
@@ -88,5 +88,5 @@ hooks:
             from the previous context. Spawn a background Agent to review the session for architectural
             decisions, pattern choices, or convention changes that should be captured as ADRs in
             docs/decisions/. Have the agent read the transcript JSONL from the session files below.
-            Use the MADR light template (templates/madr.md).
+            Use the forge-adr template (templates/forge-adr.md).
             If c0ntextkeeper is installed, use the ContextKeeper skill to recover additional session details.

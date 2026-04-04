@@ -27,7 +27,7 @@ upstream: [PublishPrompts.md, DeployManifest.md]
 
 ## Context and Problem Statement
 
-Derived repos inherit rules, skills, and agents from forge modules via forge-cli deployment. Without tracking, there is no way to detect drift from upstream and no way to know if a deployed file was modified post-install.
+Derived repos inherit rules, skills, and agents from upstream modules via the install tooling. Without tracking, there is no way to detect drift from upstream and no way to know if a deployed file was modified post-install.
 
 ## Decision Drivers
 
@@ -68,7 +68,7 @@ skills:
     ArchitectureDecision:
         SKILL.md:
             fingerprint: aaa111...
-        ProtonADR.md:
+        ProjectADR.md:
             fingerprint: bbb222...
 ```
 
@@ -111,6 +111,6 @@ A file is **pristine** when its body fingerprint matches the upstream source exa
 ## More Information
 
 - [ARCH-0005](ARCH-0005 Platform-Specific Companion Files.md): skills use companion files for derived-specific content
-- [ARCH-0004](ARCH-0004 Rules as Shared Ecosystem Conventions.md): rules are module-delivered, installed by `forge install`
+- [ARCH-0004](ARCH-0004 Rules as Shared Ecosystem Conventions.md): rules are module-delivered, installed by `make install`
 - Provenance tracking extends the manifest with provenance paths and SLSA sidecars
 - PublishPrompts skill provides Drift, Sync, Adopt, Promote, Setup subskills

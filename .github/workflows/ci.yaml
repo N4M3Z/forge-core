@@ -1,0 +1,51 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
+
+            - uses: actions/setup-python@v6
+              with:
+                  python-version: "3.12"
+
+            - uses: dtolnay/rust-toolchain@stable
+              if: hashFiles('**/*.rs') != ''
+
+            - uses: actions/setup-node@v4
+              if: hashFiles('**/*.ts', '**/*.tsx') != ''
+              with:
+                  node-version: "22"
+
+            - name: ADR schema self-test
+              run: python3 bin/validate-adr.py --test
+
+            - name: ADR frontmatter validation
+              run: python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/
+
+            - name: Shell lint
+              if: hashFiles('**/*.sh') != ''
+              run: find . -name '*.sh' -not -path '*/build/*' | xargs shellcheck -S warning
+
+            - name: Rust checks
+              if: hashFiles('**/*.rs') != ''
+              run: |
+                  cargo fmt --check
+                  cargo clippy -- -D warnings
+
+            - name: Python lint
+              if: hashFiles('**/*.py') != ''
+              run: |
+                  pip install ruff
+                  ruff check .
+
+            - name: TypeScript checks
+              if: hashFiles('**/*.ts', '**/*.tsx') != ''
+              run: npx tsc --noEmit

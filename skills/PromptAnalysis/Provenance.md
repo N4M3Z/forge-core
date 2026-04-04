@@ -1,6 +1,6 @@
 # Provenance
 
-Check whether rules cite external authoritative sources using GFM reference links (CORE-0017).
+Check whether rules cite external authoritative sources using GFM reference links (PROV-0004).
 
 ## What It Checks
 
@@ -25,7 +25,7 @@ Validate generated code for path traversal [2].
 [2]: https://cve.example.com/2026-1234
 ```
 
-References point to external knowledge. At deploy time, `[N]` markers and the reference block are stripped (CORE-0017). The extracted URLs flow into the W3C PROV record (CORE-0020).
+References point to external knowledge. At deploy time, `[N]` markers and the reference block are stripped (PROV-0004). The extracted URLs flow into the provenance record (PROV-0003).
 
 ## What Bad Provenance Looks Like
 

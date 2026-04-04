@@ -1,6 +1,22 @@
 ---
-status: Accepted
-date: 2026-03-02
+title: Hybrid ADR Placement
+description: Root for ecosystem-spanning decisions, per-module for internal decisions
+type: adr
+category: process
+tags:
+    - adr
+    - process
+status: accepted
+created: 2026-03-02
+updated: 2026-03-02
+author: "@N4M3Z"
+project: forge-core
+related: []
+responsible: ["@N4M3Z"]
+accountable: ["@N4M3Z"]
+consulted: []
+informed: []
+upstream: []
 ---
 
 # Hybrid docs/decisions/ placement for forge ADRs

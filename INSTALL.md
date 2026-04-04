@@ -12,14 +12,17 @@ Deploy forge-core skills, agents, and rules to all AI providers via Makefile.
 
 ## DONE WHEN
 
-`make check` reports all items OK and `ls ~/.claude/skills/BuildSkill/SKILL.md` confirms deployment.
+- `make check` reports all items OK
+- `ls ~/.claude/skills/BuildSkill/SKILL.md` confirms skill deployment
+- `git config core.hooksPath` returns `.githooks`
 
 ## TODO
 
 - [ ] Clone the repository
 - [ ] Run `make check` to verify prerequisites
 - [ ] Run `make install` to deploy
-- [ ] Verify deployment
+- [ ] Verify skill deployment
+- [ ] Verify git hooks are active
 
 ## Steps
 
@@ -57,10 +60,18 @@ cd ../forge-core
 make install
 ```
 
-### Verify
+### Verify skill deployment
 
 ```sh
 ls ~/.claude/skills/BuildSkill/SKILL.md
 ```
 
-EXECUTE NOW: Complete the above TODO list to achieve: `make check` reports all items OK and `ls ~/.claude/skills/BuildSkill/SKILL.md` confirms deployment.
+### Verify git hooks
+
+```sh
+git config core.hooksPath
+```
+
+Should return `.githooks`. Pre-commit hooks validate ADR frontmatter, shell scripts, Rust, Python, and TypeScript when staged files match.
+
+EXECUTE NOW: Complete the above TODO list.

@@ -40,11 +40,11 @@ ENV vars in markdown instructions ([CORE-0008](CORE-0008 Variables in Markdown I
 
 ## Decision Outcome
 
-Chosen option: **YAML with deep merge**. Each module ships `defaults.yaml` with the full schema and sensible defaults. Users create `config.yaml` (gitignored) with only the fields they want to override. forge-cli's config loading exports the merged result as ENV vars with a configurable prefix (`FORGE_ADR_PREFIX`, `FORGE_ADR_DIRECTORY`, etc.).
+Chosen option: **YAML with deep merge**. Each module ships `defaults.yaml` with the full schema and sensible defaults. Users create `config.yaml` (gitignored) with only the fields they want to override. The config loading exports the merged result as ENV vars with a configurable prefix.
 
 ### Consequences
 
 - [+] Module works out of the box with zero user configuration
 - [+] Users override one field without knowing the full schema
-- [+] forge-cli config loading bridges config to ENV vars consumed by skills and shell commands
+- [+] Config loading bridges config to ENV vars consumed by skills and shell commands
 - [-] Deep merge semantics can be surprising — array replacement vs append, null vs missing

@@ -41,7 +41,7 @@ With markdown as the system language ([CORE-0001](CORE-0001 Markdown as System L
 
 ## Decision Outcome
 
-Chosen option: **`.mdschema` files**. Each directory carries its own schema declaring required frontmatter, heading hierarchy (`no_skip_levels`), and max depth. Both `forge validate` and the standalone `mdschema` CLI consume them.
+Chosen option: **`.mdschema` files**. Each directory carries its own schema declaring required frontmatter, heading hierarchy (`no_skip_levels`), and max depth. Both `make verify` and the standalone `mdschema` CLI consume them.
 
 ### Consequences
 

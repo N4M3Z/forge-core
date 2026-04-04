@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+staged_adrs=$(git diff --cached --name-only -- 'docs/decisions/*.md' || true)
+staged_markdown=$(git diff --cached --name-only -- '*.md' || true)
+staged_shells=$(git diff --cached --name-only -- '*.sh' || true)
+staged_rust=$(git diff --cached --name-only -- '*.rs' || true)
+staged_python=$(git diff --cached --name-only -- '*.py' || true)
+staged_typescript=$(git diff --cached --name-only -- '*.ts' '*.tsx' || true)
+
+warn() {
+    echo "  WARN  $1 not found, skipping $2 (CI will catch this)"
+}
+
+# ADR frontmatter validation
+if [ -n "$staged_adrs" ]; then
+    if command -v python3 >/dev/null 2>&1; then
+        echo "pre-commit: validating ADR frontmatter..."
+        python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/
+    else
+        warn "python3" "ADR validation"
+    fi
+fi
+
+# mdschema structural validation
+if [ -n "$staged_markdown" ]; then
+    if command -v mdschema >/dev/null 2>&1; then
+        for file in $staged_markdown; do
+            dir=$(dirname "$file")
+            if [ -f "$dir/.mdschema" ]; then
+                echo "pre-commit: checking mdschema for $file..."
+                mdschema check "$file" --schema "$dir/.mdschema"
+            fi
+        done
+    else
+        warn "mdschema" "structural validation"
+    fi
+fi
+
+# Shell lint
+if [ -n "$staged_shells" ]; then
+    if command -v shellcheck >/dev/null 2>&1; then
+        echo "pre-commit: linting shell scripts..."
+        echo "$staged_shells" | xargs shellcheck -S warning
+    else
+        warn "shellcheck" "shell lint"
+    fi
+fi
+
+# Rust
+if [ -n "$staged_rust" ]; then
+    if command -v cargo >/dev/null 2>&1; then
+        echo "pre-commit: checking rust..."
+        cargo fmt --check
+        cargo clippy -- -D warnings
+    else
+        warn "cargo" "rust checks"
+    fi
+fi
+
+# Python
+if [ -n "$staged_python" ]; then
+    if command -v ruff >/dev/null 2>&1; then
+        echo "pre-commit: linting python..."
+        echo "$staged_python" | xargs ruff check
+    else
+        warn "ruff" "python lint"
+    fi
+fi
+
+# TypeScript
+if [ -n "$staged_typescript" ]; then
+    if command -v npx >/dev/null 2>&1; then
+        echo "pre-commit: checking typescript..."
+        npx tsc --noEmit
+    else
+        warn "npx" "typescript checks"
+    fi
+fi
+
+# Secret scanning
+if command -v gitleaks >/dev/null 2>&1; then
+    echo "pre-commit: scanning for secrets..."
+    gitleaks protect --staged --no-banner
+else
+    warn "gitleaks" "secret scanning"
+fi
+
+# Module structure validation
+if command -v forge >/dev/null 2>&1; then
+    echo "pre-commit: validating module structure..."
+    forge validate .
+else
+    warn "forge" "module validation"
+fi
