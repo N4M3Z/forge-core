@@ -10,11 +10,11 @@ Scaffold, validate, and audit agent markdown files following forge conventions. 
 
 ## Workflow Routing
 
-| Workflow | Trigger | Section |
-|----------|---------|---------|
-| **Create** | "create agent", "new agent", "build agent" | [Create Workflow](#create-workflow) |
-| **Validate** | "validate agent", "check agent" | [Validate Workflow](#validate-workflow) |
-| **Audit** | "audit agents", "check all agents" | [Audit Workflow](#audit-workflow) |
+| Workflow     | Trigger                                       | Section                                      |
+|--------------|-----------------------------------------------|----------------------------------------------|
+| **Create**   | "create agent", "new agent", "build agent"    | [Create Workflow](#create-workflow)           |
+| **Validate** | "validate agent", "check agent"               | [Validate Workflow](#validate-workflow)       |
+| **Audit**    | "audit agents", "check all agents"            | [Audit Workflow](#audit-workflow)             |
 
 ## Agent Conventions
 
@@ -22,12 +22,12 @@ Scaffold, validate, and audit agent markdown files following forge conventions. 
 
 All agent identifiers use **PascalCase** with no spaces, hyphens, or abbreviations:
 
-| Field | Format | Example |
-|-------|--------|---------|
-| `name` | PascalCase | `SecurityArchitect` |
-| Source filename | PascalCase.md | `SecurityArchitect.md` |
-| Deployed filename | PascalCase.md | `~/.claude/agents/SecurityArchitect.md` |
-| Task subagent_type | PascalCase | `subagent_type: "SecurityArchitect"` |
+| Field               | Format        | Example                                   |
+|---------------------|---------------|-------------------------------------------|
+| `name`              | PascalCase    | `SecurityArchitect`                       |
+| Source filename      | PascalCase.md | `SecurityArchitect.md`                    |
+| Deployed filename    | PascalCase.md | `~/.claude/agents/SecurityArchitect.md`   |
+| Task subagent_type   | PascalCase    | `subagent_type: "SecurityArchitect"`      |
 
 Rules:
 - No spaces: `GameMaster` not `Game Master`
@@ -38,10 +38,10 @@ Rules:
 
 ### Where Agents Live
 
-| Location | Purpose |
-|----------|---------|
-| `agents/` | Module agents (shipped with the module) |
-| User vault workspace | Personal agents |
+| Location             | Purpose                                 |
+|----------------------|-----------------------------------------|
+| `agents/`            | Module agents (shipped with the module) |
+| User vault workspace | Personal agents                         |
 
 Agent `name` must be **unique across all locations** -- sync overwrites by name.
 
@@ -59,11 +59,11 @@ version: 0.1.0
 
 **Field reference:**
 
-| Field | Required | Notes |
-|-------|----------|-------|
-| `name` | Yes | PascalCase, matches filename |
-| `description` | Yes | Pattern: `"Role -- capabilities. USE WHEN triggers."` |
-| `version` | Yes | Semantic version |
+| Field         | Required | Notes                                                  |
+|---------------|----------|--------------------------------------------------------|
+| `name`        | Yes      | PascalCase, matches filename                           |
+| `description` | Yes      | Pattern: `"Role -- capabilities. USE WHEN triggers."`  |
+| `version`     | Yes      | Semantic version                                       |
 
 Model and tool assignments live in `defaults.yaml` (map format, keyed by agent name):
 
@@ -76,10 +76,10 @@ agents:
 
 **Semantic model tiers:**
 
-| Tier | Maps to | Use for |
-|------|---------|---------|
-| fast | sonnet / gemini-2.0-flash | Implementation, analysis, most specialist work |
-| strong | opus / gemini-2.5-pro | Deep reasoning, critical decisions |
+| Tier   | Maps to                   | Use for                                         |
+|--------|---------------------------|-------------------------------------------------|
+| fast   | sonnet / gemini-2.0-flash | Implementation, analysis, most specialist work  |
+| strong | opus / gemini-2.5-pro     | Deep reasoning, critical decisions              |
 
 Model tiers resolve to concrete model IDs via the `providers:` section in defaults.yaml. Each provider maps `fast` and `strong` to its own model.
 
@@ -149,12 +149,12 @@ lib/bin/install-agents agents --scope user  # user-level install
 
 **Provider-specific behaviour:**
 
-| Provider | Format | Notes |
-|----------|--------|-------|
-| Claude | `.md` | Frontmatter + body, model/tools from defaults.yaml |
-| Gemini | `.md` | Name slugified (e.g., `code-helper`), tools mapped to Gemini equivalents |
-| Codex | `.toml` | TOML config in `.codex/config.toml`, agent prompt in `.codex/agents/` |
-| OpenCode | `.md` | Same format as Claude |
+| Provider | Format  | Notes                                                                     |
+|----------|---------|---------------------------------------------------------------------------|
+| Claude   | `.md`   | Frontmatter + body, model/tools from defaults.yaml                        |
+| Gemini   | `.md`   | Name slugified (e.g., `code-helper`), tools mapped to Gemini equivalents  |
+| Codex    | `.toml` | TOML config in `.codex/config.toml`, agent prompt in `.codex/agents/`     |
+| OpenCode | `.md`   | Same format as Claude                                                     |
 
 Deployment adds a `# synced-from: OriginalFilename.md` header for provenance tracking. Tool mapping to provider equivalents happens automatically.
 
@@ -179,10 +179,10 @@ If unclear, ask using AskUserQuestion.
 
 ### Step 2: Choose the location
 
-| Scenario | Location |
-|----------|----------|
-| Part of a forge module | `agents/AgentName.md` |
-| Personal agent | User vault workspace |
+| Scenario                | Location              |
+|-------------------------|-----------------------|
+| Part of a forge module  | `agents/AgentName.md` |
+| Personal agent          | User vault workspace  |
 
 ### Step 3: Check for naming conflicts
 
@@ -246,10 +246,10 @@ ls agents/*.md
 
 Run the Validate workflow checklist against every agent. Report:
 
-| Agent | Name OK | FM OK | Body OK | Issues |
-|-------|---------|-------|---------|--------|
-| Developer | Y | Y | Y | -- |
-| ... | ... | ... | ... | ... |
+| Agent     | Name OK | FM OK | Body OK | Issues |
+|-----------|---------|-------|---------|--------|
+| Developer | Y       | Y     | Y       | --     |
+| ...       | ...     | ...   | ...     | ...    |
 
 ### Step 3: Check for conflicts
 

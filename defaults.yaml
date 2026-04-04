@@ -7,48 +7,48 @@ skills:
         BuildAgent:
         BuildModule:
         BuildHook:
+        VersionControl:
         MarkdownLint:
         MarkdownSchema:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
     gemini:
         BuildSkill:
         BuildAgent:
         BuildModule:
         BuildHook:
+        VersionControl:
         MarkdownLint:
         MarkdownSchema:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
     codex:
         BuildSkill:
         BuildAgent:
         BuildModule:
         BuildHook:
+        VersionControl:
         MarkdownLint:
         MarkdownSchema:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
     opencode:
         BuildSkill:
         BuildAgent:
         BuildModule:
         BuildHook:
+        VersionControl:
         MarkdownLint:
         MarkdownSchema:
         SettingsMaintenance:
         SystemCheck:
         RTK:
-        Sessions:
 
 hooks:
     PlanCopy:

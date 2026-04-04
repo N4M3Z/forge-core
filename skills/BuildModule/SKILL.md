@@ -49,11 +49,11 @@ Not all directories are required. A skills-only module (no hooks, no Rust) only 
 
 Every module addresses one or more of these concerns:
 
-| Layer | Question | Examples |
-|-------|----------|----------|
-| **Identity** | Does it store user-specific knowledge? | forge-avatar (goals, preferences, beliefs) |
-| **Behaviour** | Does it change how the AI responds? | forge-steering (rules), forge-tlp (access control) |
-| **Knowledge** | Does it provide new tools or skills? | forge-council (specialists), forge-core (build skills) |
+| Layer         | Question                               | Examples                                                    |
+|---------------|----------------------------------------|-------------------------------------------------------------|
+| **Identity**  | Does it store user-specific knowledge? | forge-avatar (goals, preferences, beliefs)                  |
+| **Behaviour** | Does it change how the AI responds?    | forge-steering (rules), forge-tlp (access control)          |
+| **Knowledge** | Does it provide new tools or skills?   | forge-council (specialists), forge-core (build skills)      |
 
 Don't mix layers. Rules go in behaviour modules. Skills go in knowledge modules. User data goes in identity modules.
 
@@ -176,15 +176,15 @@ lint: lint-schema lint-shell
 
 For skills-only modules (no agents), omit `AGENTS`, `AGENT_SRC`, and the agent mk includes.
 
-## Platform Documentation
+## Provider Documentation
 
 Every module ships platform-specific instruction files at its root:
 
-| File | Platform | Generate | Reference |
-|------|----------|----------|-----------|
-| `CLAUDE.md` | Claude Code | `claude` (manual or `/Init`) | -- |
-| `AGENTS.md` | Codex, OpenCode | `codex init` / `opencode init` | @Codex.md, @OpenCode.md |
-| `GEMINI.md` | Gemini CLI | `gemini init` | @Gemini.md |
+| File        | Platform        | Generate                       | Reference              |
+|-------------|-----------------|--------------------------------|------------------------|
+| `CLAUDE.md` | Claude Code     | `claude` (manual or `/init`)   | --                     |
+| `AGENTS.md` | Codex, OpenCode | `codex init` / `opencode init` | @CodexProvider.md, @OpenCodeProvider.md |
+| `GEMINI.md` | Gemini CLI      | `gemini init`                  | @GeminiProvider.md                      |
 
 Generate these files by running each platform's CLI init command inside the module directory. The CLI analyzes the codebase and produces platform-appropriate instructions. To update an existing file, rename it to `.bak`, re-run init, and diff.
 
@@ -203,64 +203,64 @@ Run this checklist against any module to audit compliance. Report pass/fail per 
 
 ### 1. Structure
 
-| Check | Pass criteria |
-|-------|---------------|
-| `module.yaml` exists | Has `name`, `version`, `description` |
-| `.claude-plugin/plugin.json` exists | Has `name`, `version`, `description`, `skills` |
-| Version match | `module.yaml` version == `plugin.json` version |
-| `Makefile` exists | Has `install`, `verify`, `test`, `lint`, `check`, `clean` targets |
-| `lib/` submodule | Points to forge-lib, not pinned to ancient commit |
-| `defaults.yaml` | Exists if module has configurable behaviour |
+| Check                                   | Pass criteria                                                    |
+|-----------------------------------------|------------------------------------------------------------------|
+| `module.yaml` exists                    | Has `name`, `version`, `description`                             |
+| `.claude-plugin/plugin.json` exists     | Has `name`, `version`, `description`, `skills`                   |
+| Version match                           | `module.yaml` version == `plugin.json` version                   |
+| `Makefile` exists                       | Has `install`, `verify`, `test`, `lint`, `check`, `clean` targets |
+| `lib/` submodule                        | Points to forge-lib, not pinned to ancient commit                |
+| `defaults.yaml`                         | Exists if module has configurable behaviour                      |
 
 ### 2. Documentation
 
-| Check | Pass criteria |
-|-------|---------------|
-| `README.md` | Exists, not empty |
-| `INSTALL.md` | Exists, starts with `> **For AI agents**: This guide covers installation of [module].` |
-| `VERIFY.md` | Exists, starts with `> **For AI agents**: Complete this checklist after installation.` |
-| `CLAUDE.md` | Exists (Claude Code project instructions) |
-| `AGENTS.md` | Exists (Codex/OpenCode project overview) |
-| `GEMINI.md` | Exists (Gemini CLI project context) |
-| `.github/copilot-instructions.md` | Exists (Copilot project context) |
+| Check                              | Pass criteria                                                                       |
+|------------------------------------|-------------------------------------------------------------------------------------|
+| `README.md`                        | Exists, not empty                                                                   |
+| `INSTALL.md`                       | Exists, starts with `> **For AI agents**: This guide covers installation of [module].` |
+| `VERIFY.md`                        | Exists, starts with `> **For AI agents**: Complete this checklist after installation.`  |
+| `CLAUDE.md`                        | Exists (Claude Code project instructions)                                           |
+| `AGENTS.md`                        | Exists (Codex/OpenCode project overview)                                            |
+| `GEMINI.md`                        | Exists (Gemini CLI project context)                                                 |
+| `.github/copilot-instructions.md`  | Exists (Copilot project context)                                                    |
 
 ### 3. Skills
 
 For each directory in `skills/`:
 
-| Check | Pass criteria |
-|-------|---------------|
-| `SKILL.md` exists | Has YAML frontmatter with `name`, `version`, `description` |
-| `SKILL.yaml` exists | Has `sources:` field (no `name:` or `description:` -- those live in SKILL.md) |
-| Name match | `SKILL.md` frontmatter `name` matches directory name |
-| USE WHEN | `description` contains "USE WHEN" trigger phrases |
+| Check                | Pass criteria                                                                  |
+|----------------------|--------------------------------------------------------------------------------|
+| `SKILL.md` exists    | Has YAML frontmatter with `name`, `version`, `description`                     |
+| `SKILL.yaml` exists  | Has `sources:` field (no `name:` or `description:` -- those live in SKILL.md)  |
+| Name match           | `SKILL.md` frontmatter `name` matches directory name                           |
+| USE WHEN             | `description` contains "USE WHEN" trigger phrases                              |
 
 ### 4. Shell Scripts
 
 For each `.sh` file (excluding `target/` and `lib/`):
 
-| Check | Pass criteria |
-|-------|---------------|
-| Strict mode | `set -euo pipefail` present |
-| Alias safety | Uses `command` prefix for `cd`, `cp`, `mv`, `rm` -- never bare |
-| No `builtin` keyword | `command` works for everything, `builtin` causes problems |
+| Check                | Pass criteria                                                    |
+|----------------------|------------------------------------------------------------------|
+| Strict mode          | `set -euo pipefail` present                                      |
+| Alias safety         | Uses `command` prefix for `cd`, `cp`, `mv`, `rm` -- never bare  |
+| No `builtin` keyword | `command` works for everything, `builtin` causes problems        |
 
 ### 5. Versions
 
-| Check | Pass criteria |
-|-------|---------------|
-| module.yaml == plugin.json | Version strings match exactly |
-| Cargo.toml (if Rust) | Note version -- may differ from module version |
+| Check                      | Pass criteria                                    |
+|----------------------------|--------------------------------------------------|
+| module.yaml == plugin.json | Version strings match exactly                    |
+| Cargo.toml (if Rust)       | Note version -- may differ from module version   |
 
 ### 6. Configuration
 
-| Check | Pass criteria |
-|-------|---------------|
-| `config.yaml` in `.gitignore` | User overrides never committed |
-| Provider dirs in `.gitignore` | Pattern: `.claude/agents/*`, `.claude/skills/*`, etc. for all 4 providers |
-| .gitkeep exclusions | Each provider dir has `.gitkeep` excluded from ignore (`!.claude/agents/.gitkeep`) |
-| `.codex/config.toml` ignored | Generated by `install-agents` for Codex provider |
-| No committed provider dirs | `.claude/`, `.gemini/`, `.codex/`, `.opencode/` are generated by `make install` -- only .gitkeep files tracked |
+| Check                          | Pass criteria                                                                                                  |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------|
+| `config.yaml` in `.gitignore` | User overrides never committed                                                                                 |
+| Provider dirs in `.gitignore`  | Pattern: `.claude/agents/*`, `.claude/skills/*`, etc. for all 4 providers                                      |
+| .gitkeep exclusions            | Each provider dir has `.gitkeep` excluded from ignore (`!.claude/agents/.gitkeep`)                             |
+| `.codex/config.toml` ignored   | Generated by `install-agents` for Codex provider                                                               |
+| No committed provider dirs     | `.claude/`, `.gemini/`, `.codex/`, `.opencode/` are generated by `make install` -- only .gitkeep files tracked |
 
 ### 7. Installation Guide
 

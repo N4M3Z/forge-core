@@ -2,7 +2,7 @@
 
 ## Description
 
-Module-building skills and operational tools for the forge ecosystem. Skills for creating and validating artifacts -- [skills][1], [agents][2], [hooks][3], and [modules][4] -- plus operational utilities for markdown linting, session management, and permissions auditing.
+Module-building skills and operational tools for the forge ecosystem. Skills for creating and validating artifacts -- [skills][1], [agents][2], [hooks][3], and [modules][4] -- plus operational utilities for markdown linting, settings auditing, and version control conventions.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview and design principles. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to create skills and contribute.
 
@@ -35,24 +35,23 @@ make install
 
 ## Usage
 
-| Skill | Artifact | What it does |
-|-------|----------|-------------|
-| [**BuildSkill**](skills/BuildSkill/SKILL.md) | Skills | Create and validate skill definitions (SKILL.md structure, frontmatter, conventions) |
-| [**BuildAgent**](skills/BuildAgent/SKILL.md) | Agents | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
-| [**BuildModule**](skills/BuildModule/SKILL.md) | Modules | Design and validate modules (directory layout, config convention, three-layer architecture) |
-| [**BuildHook**](skills/BuildHook/SKILL.md) | Hooks | Hook registration, event handling, platform-specific wiring |
-| [**MarkdownLint**](skills/MarkdownLint/SKILL.md) | — | Format and lint markdown — backtick code references, fix bare URLs, heading hierarchy |
-| [**Sessions**](skills/Sessions/SKILL.md) | — | Claude Code session search, resume, and index repair |
-| [**Permissions**](skills/Permissions/SKILL.md) | — | Audit and clean Claude Code permissions in settings.local.json |
-| [**RTK**](skills/RTK/SKILL.md) | — | Token-optimized CLI proxy (60-90% savings) |
+| Skill                                                  | Artifact | What it does                                                                                |
+|--------------------------------------------------------|----------|---------------------------------------------------------------------------------------------|
+| [**BuildSkill**](skills/BuildSkill/SKILL.md)           | Skills   | Create and validate skill definitions (SKILL.md structure, frontmatter, conventions)        |
+| [**BuildAgent**](skills/BuildAgent/SKILL.md)           | Agents   | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
+| [**BuildModule**](skills/BuildModule/SKILL.md)         | Modules  | Design and validate modules (directory layout, config convention, three-layer architecture)  |
+| [**BuildHook**](skills/BuildHook/SKILL.md)             | Hooks    | Hook registration, event handling, platform-specific wiring                                 |
+| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)       | —        | Format and lint markdown — backtick code references, fix bare URLs, heading hierarchy       |
+| [**Permissions**](skills/Permissions/SKILL.md)         | —        | Audit and clean Claude Code permissions in settings.local.json                              |
+| [**RTK**](skills/RTK/SKILL.md)                         | —        | Token-optimized CLI proxy (60-90% savings)                                                  |
 
 ## Requirements
 
-| Dependency | Required | Purpose |
-|-----------|----------|---------|
-| [forge-lib](https://github.com/N4M3Z/forge-lib) | Yes (standalone) | Shared skill deployment utilities |
-| Rust toolchain | Yes (standalone) | Building forge-lib binaries (`cargo build`) |
-| shellcheck | Recommended | Shell script linting (`brew install shellcheck`) |
+| Dependency                                         | Required         | Purpose                                            |
+|----------------------------------------------------|------------------|----------------------------------------------------|
+| [forge-lib](https://github.com/N4M3Z/forge-lib)   | Yes (standalone) | Shared skill deployment utilities                  |
+| Rust toolchain                                     | Yes (standalone) | Building forge-lib binaries (`cargo build`)        |
+| shellcheck                                         | Recommended      | Shell script linting (`brew install shellcheck`)   |
 
 When running as a submodule of forge-dev, forge-lib is provided by the parent project — the module's own `lib/` submodule is not used.
 

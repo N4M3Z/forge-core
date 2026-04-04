@@ -12,7 +12,7 @@ Check skills are deployed to at least one provider:
 
 ```bash
 ls .claude/skills/*/SKILL.md 2>/dev/null | wc -l
-# Expected: 8 (BuildSkill, BuildAgent, BuildModule, BuildHook, MarkdownLint, Sessions, Permissions, RTK)
+# Expected: BuildSkill, BuildAgent, BuildModule, BuildHook, VersionControl, MarkdownLint, MarkdownSchema, SettingsMaintenance, SystemCheck, RTK
 ```
 
 ## Structure validation

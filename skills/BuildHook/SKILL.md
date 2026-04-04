@@ -10,10 +10,10 @@ Create and validate hook scripts for forge modules. Hooks are bash scripts trigg
 
 ## Workflow Routing
 
-| Workflow | Trigger | Section |
-|----------|---------|---------|
-| **Create** | "create hook", "new hook", "scaffold hook" | [Create Workflow](#create-workflow) |
-| **Validate** | "validate hook", "check hook" | [Validate Workflow](#validate-workflow) |
+| Workflow     | Trigger                                       | Section                                  |
+|--------------|-----------------------------------------------|------------------------------------------|
+| **Create**   | "create hook", "new hook", "scaffold hook"    | [Create Workflow](#create-workflow)       |
+| **Validate** | "validate hook", "check hook"                 | [Validate Workflow](#validate-workflow)   |
 
 ## Hook Conventions
 
@@ -21,42 +21,42 @@ Create and validate hook scripts for forge modules. Hooks are bash scripts trigg
 
 Every hook handles one of 9 Claude Code events. Each event has a fixed output mode that determines how module output is handled:
 
-| Event | Mode | Behaviour |
-|-------|------|-----------|
-| `SessionStart` | Concatenate | All module outputs combined and emitted to AI context |
-| `PreCompact` | Concatenate | All module outputs combined and emitted to AI context |
-| `PreToolUse` | Gate | Exit 2 blocks the tool call; exit 0 allows |
-| `Stop` | Gate | Exit 2 blocks session exit; exit 0 allows |
-| `SubagentStop` | Gate | Exit 2 blocks subagent exit; exit 0 allows |
-| `PostToolUse` | Passive | Output discarded; runs for side effects only |
-| `SessionEnd` | Passive | Output discarded; runs for side effects only |
-| `UserPromptSubmit` | Passive | Output discarded; runs for side effects only |
-| `Notification` | Passive | Output discarded; runs for side effects only |
+| Event              | Mode        | Behaviour                                              |
+|--------------------|-------------|--------------------------------------------------------|
+| `SessionStart`     | Concatenate | All module outputs combined and emitted to AI context  |
+| `PreCompact`       | Concatenate | All module outputs combined and emitted to AI context  |
+| `PreToolUse`       | Gate        | Exit 2 blocks the tool call; exit 0 allows             |
+| `Stop`             | Gate        | Exit 2 blocks session exit; exit 0 allows              |
+| `SubagentStop`     | Gate        | Exit 2 blocks subagent exit; exit 0 allows             |
+| `PostToolUse`      | Passive     | Output discarded; runs for side effects only           |
+| `SessionEnd`       | Passive     | Output discarded; runs for side effects only           |
+| `UserPromptSubmit` | Passive     | Output discarded; runs for side effects only           |
+| `Notification`     | Passive     | Output discarded; runs for side effects only           |
 
 ### Output Mode Decision Table
 
 Use this when choosing which event to hook:
 
-| Goal | Event | Mode | Notes |
-|------|-------|------|-------|
-| Inject context at session start | `SessionStart` | Concatenate | Emit markdown to stdout |
-| Block a tool call (access control) | `PreToolUse` | Gate | Exit 2 to block, 0 to allow |
-| Enforce rules before exit | `Stop` | Gate | Exit 2 to block, 0 to allow |
-| React to a tool result | `PostToolUse` | Passive | Side effects only, output discarded |
-| Clean up after session | `SessionEnd` | Passive | Side effects only, output discarded |
-| Inject context before compaction | `PreCompact` | Passive | Emit markdown to stdout |
+| Goal                                  | Event            | Mode        | Notes                                  |
+|---------------------------------------|------------------|-------------|----------------------------------------|
+| Inject context at session start       | `SessionStart`   | Concatenate | Emit markdown to stdout                |
+| Block a tool call (access control)    | `PreToolUse`     | Gate        | Exit 2 to block, 0 to allow           |
+| Enforce rules before exit             | `Stop`           | Gate        | Exit 2 to block, 0 to allow           |
+| React to a tool result                | `PostToolUse`    | Passive     | Side effects only, output discarded    |
+| Clean up after session                | `SessionEnd`     | Passive     | Side effects only, output discarded    |
+| Inject context before compaction      | `PreCompact`     | Passive     | Emit markdown to stdout                |
 
 ### File Naming
 
 Hook scripts use **PascalCase** matching the event name:
 
-| Event | Filename |
-|-------|----------|
-| `SessionStart` | `hooks/SessionStart.sh` |
-| `PreToolUse` | `hooks/PreToolUse.sh` |
-| `PostToolUse` | `hooks/PostToolUse.sh` |
-| `Stop` | `hooks/Stop.sh` |
-| `PreCompact` | `hooks/PreCompact.sh` |
+| Event            | Filename                |
+|------------------|-------------------------|
+| `SessionStart`   | `hooks/SessionStart.sh` |
+| `PreToolUse`     | `hooks/PreToolUse.sh`   |
+| `PostToolUse`    | `hooks/PostToolUse.sh`  |
+| `Stop`           | `hooks/Stop.sh`         |
+| `PreCompact`     | `hooks/PreCompact.sh`   |
 
 ### Dual-Mode Preamble
 
@@ -91,11 +91,11 @@ The 3-tier event check: `config.yaml` override (authoritative) > `module.yaml` e
 
 ### Exit Code Conventions
 
-| Mode | Exit 0 | Exit 2 | Other |
-|------|--------|--------|-------|
-| Gate | Allow | Block | Treated as allow |
-| Concatenate | Success | N/A | Output included regardless |
-| Passive | Success | N/A | Output discarded regardless |
+| Mode        | Exit 0  | Exit 2 | Other                       |
+|-------------|---------|--------|-----------------------------|
+| Gate        | Allow   | Block  | Treated as allow            |
+| Concatenate | Success | N/A    | Output included regardless  |
+| Passive     | Success | N/A    | Output discarded regardless |
 
 Gate hooks that cannot build or run should exit 0 (graceful degradation — never block Claude on infrastructure failure).
 

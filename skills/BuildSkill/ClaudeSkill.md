@@ -23,10 +23,10 @@ Both referenced files get expanded inline before the AI sees the skill. Resoluti
 
 ### Resolution Rules
 
-| SKILL.md location | `@companion.md` resolves to |
-|--------------------|-----------------------------|
-| `skills/MySkill/SKILL.md` | `skills/MySkill/companion.md` |
-| `~/.claude/skills/MySkill/SKILL.md` | `~/.claude/skills/MySkill/companion.md` |
+| SKILL.md location                     | `@companion.md` resolves to             |
+|---------------------------------------|-----------------------------------------|
+| `skills/MySkill/SKILL.md`            | `skills/MySkill/companion.md`           |
+| `~/.claude/skills/MySkill/SKILL.md`  | `~/.claude/skills/MySkill/companion.md` |
 
 ### Directory References
 
@@ -45,11 +45,11 @@ Keep inline when the section is short (<20 lines) and tightly coupled to the ski
 
 CLAUDE.md files (global or project-level) use the same `@` mechanism:
 
-| Level | File | Applies to |
-|-------|------|-----------|
-| Global | `~/.claude/CLAUDE.md` | Every project, every session |
-| Project | `<project>/CLAUDE.md` | All sessions in this project |
-| Project-local | `<project>/.claude/CLAUDE.md` | All sessions (gitignored) |
+| Level         | File                          | Applies to                     |
+|---------------|-------------------------------|--------------------------------|
+| Global        | `~/.claude/CLAUDE.md`         | Every project, every session   |
+| Project       | `<project>/CLAUDE.md`         | All sessions in this project   |
+| Project-local | `<project>/.claude/CLAUDE.md` | All sessions (gitignored)      |
 
 ### When to Extract from CLAUDE.md
 
@@ -61,11 +61,11 @@ Extract a section into a separate `@`-referenced file when:
 
 ### Naming Conventions
 
-| Pattern | Use for |
-|---------|---------|
-| `RTK.md`, `TOOLS.md` | Uppercase -- tool/system references |
-| `conventions.md` | Lowercase -- style and practice docs |
-| `<module>.md` | Module-specific reference |
+| Pattern               | Use for                              |
+|-----------------------|--------------------------------------|
+| `RTK.md`, `TOOLS.md` | Uppercase -- tool/system references  |
+| `conventions.md`      | Lowercase -- style and practice docs |
+| `<module>.md`         | Module-specific reference            |
 
 ## Skill Discovery
 

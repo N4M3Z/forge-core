@@ -114,11 +114,11 @@ make test       # check conventions
 
 Hooks and markdown serve different roles:
 
-| | Hooks | Markdown (Build skills) |
-|---|---|---|
-| **When** | Every matching event, unconditionally | When AI loads the skill |
-| **Purpose** | Enforce mandatory rules | Document all conventions |
-| **Failure mode** | Block the action | Advisory only |
+|                   | Hooks                                 | Markdown (Build skills)  |
+|-------------------|---------------------------------------|--------------------------|
+| **When**          | Every matching event, unconditionally | When AI loads the skill  |
+| **Purpose**       | Enforce mandatory rules               | Document all conventions |
+| **Failure mode**  | Block the action                      | Advisory only            |
 
 Use hooks wherever a convention can be automated. Validation logic lives in [forge-lib](https://github.com/N4M3Z/forge-lib) (`validate-module`, `validate-skill` binaries). Hook registration is platform-specific — each provider has its own mechanism for wiring hooks to events.
 
@@ -126,13 +126,13 @@ Use hooks wherever a convention can be automated. Validation logic lives in [for
 
 `validate-module` runs five test suites:
 
-| Suite | What it checks |
-|-------|---------------|
-| Module Structure | `module.yaml` exists with name/version/description, `plugin.json` valid |
-| Agent Frontmatter | Agent files match roster, required fields present |
-| Defaults Consistency | Config files are well-formed |
-| Skill Integrity | SKILL.md + SKILL.yaml present, required fields, structure |
-| Deploy Parity | Deployed files match source |
+| Suite                | What it checks                                                          |
+|----------------------|-------------------------------------------------------------------------|
+| Module Structure     | `module.yaml` exists with name/version/description, `plugin.json` valid |
+| Agent Frontmatter    | Agent files match roster, required fields present                       |
+| Defaults Consistency | Config files are well-formed                                            |
+| Skill Integrity      | SKILL.md + SKILL.yaml present, required fields, structure               |
+| Deploy Parity        | Deployed files match source                                             |
 
 Run it:
 

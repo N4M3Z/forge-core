@@ -11,12 +11,12 @@ Audit and clean AI coding tool settings files. Covers permission entries, plugin
 
 AI coding tools layer settings across multiple files. Claude Code uses 4 files with inheritance:
 
-| Layer | File | Committed | Scope |
-|-------|------|-----------|-------|
-| Global shared | `~/.claude/settings.json` | No (personal) | All projects |
-| Global local | `~/.claude/settings.local.json` | No (personal) | All projects, overrides global shared |
-| Project shared | `.claude/settings.json` | Yes (git) | This project, shared with collaborators |
-| Project local | `.claude/settings.local.json` | No (gitignored) | This project, personal overrides |
+| Layer          | File                              | Committed       | Scope                                           |
+|----------------|-----------------------------------|-----------------|--------------------------------------------------|
+| Global shared  | `~/.claude/settings.json`         | No (personal)   | All projects                                     |
+| Global local   | `~/.claude/settings.local.json`   | No (personal)   | All projects, overrides global shared            |
+| Project shared | `.claude/settings.json`           | Yes (git)       | This project, shared with collaborators          |
+| Project local  | `.claude/settings.local.json`     | No (gitignored) | This project, personal overrides                 |
 
 Precedence (highest wins): project local > project shared > global local > global shared.
 
@@ -24,12 +24,12 @@ At the global level, both files are personal — the `settings.json` / `settings
 
 ## Workflow Routing
 
-| Subskill | Trigger | Content |
-|----------|---------|---------|
-| ClaudePermissions | "permissions", "allowed commands", "settings cruft" | @ClaudePermissions.md |
-| ClaudePlugins | "plugins", "plugin conflicts", "disable plugins" | @ClaudePlugins.md |
-| ClaudeHooks | "hooks", "hook config", "dispatch" | @ClaudeHooks.md |
-| Full audit | "full audit", "review settings", "clean everything" | All three |
+| Subskill          | Trigger                                              | Content                |
+|-------------------|------------------------------------------------------|------------------------|
+| ClaudePermissions | "permissions", "allowed commands", "settings cruft"  | @ClaudePermissions.md  |
+| ClaudePlugins     | "plugins", "plugin conflicts", "disable plugins"     | @ClaudePlugins.md      |
+| ClaudeHooks       | "hooks", "hook config", "dispatch"                   | @ClaudeHooks.md        |
+| Full audit        | "full audit", "review settings", "clean everything"  | All three              |
 
 ## Common Procedure
 
@@ -46,9 +46,9 @@ All subskills follow this 6-phase workflow:
 
 Run these regardless of which subskill is active:
 
-| Check | What to look for |
-|-------|-----------------|
-| **Env var duplication** | Same key+value in both global and project `settings.json` — project inherits from global |
-| **Permission scattering** | Same entry in both `settings.json` and `settings.local.json` at the same level |
-| **Plugin enable/disable conflict** | Global disables a plugin but project re-enables it (or vice versa) |
-| **Redundant local file** | At global level, `settings.local.json` entries that already exist in `settings.json` |
+| Check                              | What to look for                                                                          |
+|------------------------------------|-------------------------------------------------------------------------------------------|
+| **Env var duplication**            | Same key+value in both global and project `settings.json` — project inherits from global  |
+| **Permission scattering**          | Same entry in both `settings.json` and `settings.local.json` at the same level            |
+| **Plugin enable/disable conflict** | Global disables a plugin but project re-enables it (or vice versa)                        |
+| **Redundant local file**           | At global level, `settings.local.json` entries that already exist in `settings.json`      |
