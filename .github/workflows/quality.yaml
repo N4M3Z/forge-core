@@ -1,4 +1,4 @@
-name: Validate
+name: Quality
 
 on:
     push:
@@ -7,7 +7,7 @@ on:
         branches: [main]
 
 jobs:
-    validate:
+    quality:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v6
@@ -26,9 +26,12 @@ jobs:
 
             - name: Install tools
               run: |
-                  pip install ruff
+                  pip install pyyaml ruff
                   GITLEAKS_URL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep -o 'https://.*linux_x64.tar.gz')
                   curl -sSfL "$GITLEAKS_URL" | tar xz -C /usr/local/bin
 
             - name: Validate
               run: make validate
+
+            - name: Test
+              run: make test

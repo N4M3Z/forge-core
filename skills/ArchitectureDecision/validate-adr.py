@@ -114,13 +114,23 @@ def validate(data, schema):
             if not re.match(prop["pattern"], value):
                 problems.append(f"{key}: '{value}' does not match pattern")
 
+        if "minLength" in prop and isinstance(value, str):
+            if len(value) < prop["minLength"]:
+                problems.append(f"{key}: length {len(value)} < minLength {prop['minLength']}")
+
         if expected_type == "array" and isinstance(value, list):
+            if "minItems" in prop and len(value) < prop["minItems"]:
+                problems.append(f"{key}: {len(value)} items < minItems {prop['minItems']}")
+
             item_schema = prop.get("items", {})
             item_pattern = item_schema.get("pattern")
-            if item_pattern:
-                for item in value:
-                    if isinstance(item, str) and not re.match(item_pattern, item):
+            item_min_length = item_schema.get("minLength")
+            for item in value:
+                if isinstance(item, str):
+                    if item_pattern and not re.match(item_pattern, item):
                         problems.append(f"{key}: item '{item}' does not match pattern")
+                    if item_min_length is not None and len(item) < item_min_length:
+                        problems.append(f"{key}: item '{item}' length < minLength {item_min_length}")
 
     return problems
 
@@ -135,7 +145,8 @@ def run_tests():
             "created": {"type": "string", "format": "date"},
             "tags": {
                 "type": "array",
-                "items": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$"}
+                "minItems": 1,
+                "items": {"type": "string", "minLength": 1, "pattern": "^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$"}
             },
         },
     }
@@ -216,16 +227,79 @@ def run_tests():
         "status": "accepted",
         "created": "2026-03-30",
         "tags": [],
-    }, True)
+    }, False)
+
+    assert_test("empty title string", {
+        "title": "",
+        "type": "adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": ["architecture"],
+    }, False)
+
+    assert_test("empty string in tags array", {
+        "title": "Test",
+        "type": "adr",
+        "status": "accepted",
+        "created": "2026-03-30",
+        "tags": [""],
+    }, False)
 
     print(f"\n{tests_passed} passed, {tests_failed} failed")
     return tests_failed == 0
 
 
+def run_fixture_tests(schema_path, fixture_root):
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    passed = 0
+    failed = 0
+
+    for expected_result, directory in [("valid", fixture_root / "valid"), ("invalid", fixture_root / "invalid")]:
+        if not directory.is_dir():
+            continue
+        for filepath in sorted(directory.glob("*.md")):
+            data = extract_frontmatter(filepath)
+            if data is None:
+                if expected_result == "invalid":
+                    print(f"  PASS  {filepath.name}  (no frontmatter = invalid)")
+                    passed += 1
+                else:
+                    print(f"  FAIL  {filepath.name}  (no frontmatter, expected valid)")
+                    failed += 1
+                continue
+
+            problems = validate(data, schema)
+            actually_valid = len(problems) == 0
+
+            if (expected_result == "valid") == actually_valid:
+                print(f"  PASS  {filepath.name}")
+                passed += 1
+            else:
+                expected = "pass" if expected_result == "valid" else "fail"
+                print(f"  FAIL  {filepath.name}  (expected {expected}, problems: {problems})")
+                failed += 1
+
+    print(f"\n{passed} passed, {failed} failed")
+    return failed == 0
+
+
 def main():
     if len(sys.argv) >= 2 and sys.argv[1] == "--test":
-        success = run_tests()
-        sys.exit(0 if success else 1)
+        script_directory = Path(__file__).resolve().parent
+        module_root = script_directory.parent.parent
+        fixture_root = module_root / "tests" / "fixtures"
+
+        print("Unit tests:")
+        unit_success = run_tests()
+
+        fixture_success = True
+        if fixture_root.is_dir():
+            schema_path = module_root / "templates" / "forge-adr.json"
+            if schema_path.is_file():
+                print("\nFixture tests:")
+                fixture_success = run_fixture_tests(schema_path, fixture_root)
+
+        sys.exit(0 if (unit_success and fixture_success) else 1)
 
     if len(sys.argv) < 3:
         print(__doc__.strip())

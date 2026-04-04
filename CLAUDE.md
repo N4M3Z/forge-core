@@ -48,8 +48,9 @@ skills/                   Skill definitions deployed to all providers
 docs/decisions/           ADRs with prefix sections (CORE-, ARCH-, PROV-, MVPR-)
 templates/                ADR templates + JSON schemas
 rules/                    Behavioral rules deployed to .claude/rules/
+tests/fixtures/           Canary fixtures: valid/ must pass, invalid/ must fail (CORE-0012)
 .githooks/pre-commit      Validation gate: forge validate . with validate.sh fallback
-.github/workflows/        CI runs make validate (delegates to pre-commit hook)
+.github/workflows/        CI runs make validate + make test
 defaults.yaml             Skill roster + ADR config
 config.yaml               User overrides (gitignored)
 module.yaml               Module metadata (name, version)

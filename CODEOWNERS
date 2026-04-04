@@ -1,6 +1,13 @@
 # Default owner for everything
 * @N4M3Z
 
+# Core infrastructure
+docs/         @N4M3Z
+templates/    @N4M3Z
+rules/        @N4M3Z
+.github/      @N4M3Z
+.githooks/    @N4M3Z
+
 # Provider documentation
 skills/BuildModule/CodexProvider.md     @brozkeff
 skills/BuildModule/OpenCodeProvider.md  @brozkeff
