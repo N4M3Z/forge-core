@@ -6,6 +6,10 @@ on:
     pull_request:
         branches: [main]
 
+env:
+    SCRIPT_URL: "https://raw.githubusercontent.com/N4M3Z/forge-cli/main/scripts/validate.sh"
+    SCRIPT_SHA: "6300614cb084a5d4e415c276fe5ee3a0f198a01d9f98cb80f6f6392e6c775b40"
+
 jobs:
     validate:
         runs-on: ubuntu-latest
@@ -13,39 +17,21 @@ jobs:
             - uses: actions/checkout@v6
 
             - uses: actions/setup-python@v6
+              if: hashFiles('**/*.py') != ''
               with:
                   python-version: "3.12"
-
-            - uses: dtolnay/rust-toolchain@stable
-              if: hashFiles('**/*.rs') != ''
 
             - uses: actions/setup-node@v4
               if: hashFiles('**/*.ts', '**/*.tsx') != ''
               with:
                   node-version: "22"
 
-            - name: ADR schema self-test
-              run: python3 bin/validate-adr.py --test
-
-            - name: ADR frontmatter validation
-              run: python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/
-
-            - name: Shell lint
-              if: hashFiles('**/*.sh') != ''
-              run: find . -name '*.sh' -not -path '*/build/*' | xargs shellcheck -S warning
-
-            - name: Rust checks
-              if: hashFiles('**/*.rs') != ''
+            - name: Validate
               run: |
-                  cargo fmt --check
-                  cargo clippy -- -D warnings
-
-            - name: Python lint
-              if: hashFiles('**/*.py') != ''
-              run: |
-                  pip install ruff
-                  ruff check .
-
-            - name: TypeScript checks
-              if: hashFiles('**/*.ts', '**/*.tsx') != ''
-              run: npx tsc --noEmit
+                  script=$(curl -sfL "$SCRIPT_URL")
+                  actual=$(echo "$script" | sha256sum | cut -d' ' -f1)
+                  if [ "$actual" != "$SCRIPT_SHA" ]; then
+                      echo "error: validate.sh hash mismatch (expected $SCRIPT_SHA, got $actual)"
+                      exit 1
+                  fi
+                  echo "$script" | bash -s -- .

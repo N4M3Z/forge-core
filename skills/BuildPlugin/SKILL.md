@@ -4,6 +4,8 @@ version: 0.1.0
 description: "Create, validate, and publish Claude Code plugins from forge modules. USE WHEN create plugin, validate plugin, publish plugin, marketplace, plugin.json, cowork plugin."
 ---
 
+# BuildPlugin
+
 Create, validate, and publish forge modules as Claude Code plugins. Covers plugin.json creation, marketplace registration, and Cowork deployment.
 
 ## Workflow Routing

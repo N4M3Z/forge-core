@@ -16,10 +16,19 @@ Deploy forge-core skills, agents, and rules to all AI providers via Makefile.
 - `ls ~/.claude/skills/BuildSkill/SKILL.md` confirms skill deployment
 - `git config core.hooksPath` returns `.githooks`
 
+## Prerequisites
+
+- Claude Code (or another AI provider CLI)
+- Rust toolchain (`rustup` + `cargo`) — [rustup.rs](https://rustup.rs)
+- forge-cli (`cargo install` from source, see step below)
+
+Without Rust: copy `skills/`, `agents/`, `rules/` into the provider config directory (e.g., `~/.claude/`) directly.
+
 ## TODO
 
+- [ ] Install prerequisites (rustup, cargo)
 - [ ] Clone the repository
-- [ ] Run `make check` to verify prerequisites
+- [ ] Install forge-cli
 - [ ] Run `make install` to deploy
 - [ ] Verify skill deployment
 - [ ] Verify git hooks are active

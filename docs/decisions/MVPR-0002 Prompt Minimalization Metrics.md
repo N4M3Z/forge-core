@@ -22,7 +22,7 @@ upstream: []
 
 # Prompt Minimalization
 
-## Context
+## Context and Problem Statement
 
 The minimum viable prompt principle (MVPR-0001) requires knowing which rules each model needs. Manual curation doesn't scale — models update frequently and the rule set grows with each module. No existing tool validates prompt relevance per model (confirmed gap across PromptFoo, Langfuse, and academic tools). Arbiter research found 95% of prompt conflicts are statically detectable.
 
@@ -33,7 +33,7 @@ The minimum viable prompt principle (MVPR-0001) requires knowing which rules eac
 - **Behavioral ablation only** — PromptFoo with/without each rule per model. Accurate but slow and expensive for every rule.
 - **Static scan + behavioral confirmation** — static for the 90% case, ablation on demand for flagged rules.
 
-## Decision
+## Decision Outcome
 
 Chosen option: **static scan + behavioral confirmation on demand**, implemented as the PromptProvenance skill.
 

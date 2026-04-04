@@ -21,7 +21,7 @@ upstream: []
 
 # Provider-Specific Release Bundles
 
-## Context
+## Context and Problem Statement
 
 Currently `make install` builds everything locally — reads source, resolves qualifier variants, strips frontmatter and refs, writes clean files. Users must clone the repo and run the build. There's no way to distribute pre-built, ready-to-use instruction sets. As the ecosystem grows, new users should be able to download a versioned bundle and extract it into `.claude/rules/` without building from source.
 
@@ -31,7 +31,7 @@ Currently `make install` builds everything locally — reads source, resolves qu
 - **Universal bundle + manifest** — all source files + qualifier dirs, consumer runs `make install` locally
 - **Both tiers** — pre-built for quick install, source for customization
 
-## Decision
+## Decision Outcome
 
 Chosen option: **provider-specific bundles**. Each release produces one archive per configured provider containing fully assembled, stripped, token-clean files ready to extract into the provider's directory.
 

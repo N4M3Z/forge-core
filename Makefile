@@ -18,17 +18,20 @@ install:
 	git config core.hooksPath .githooks
 	$(FORGE) install .
 
+# @todo check the githooks script and unify
 test:
 	@command -v $(FORGE) >/dev/null 2>&1 || { echo "error: forge not found"; exit 1; }
 	$(FORGE) validate .
 	python3 bin/validate-adr.py --test
 	python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/
 
+# @todo we should link everything, check the githooks script
 lint:
 	@if find . -name '*.sh' -not -path '*/build/*' | grep -q .; then \
 	  find . -name '*.sh' -not -path '*/build/*' | xargs shellcheck -S warning; \
 	fi
 
+# @todo should just be one command
 check:
 	@command -v $(FORGE) >/dev/null 2>&1 && echo "  ok forge" || echo "  MISSING forge (https://github.com/N4M3Z/forge-cli)"
 	@test -f module.yaml      && echo "  ok module.yaml"      || echo "  MISSING module.yaml"

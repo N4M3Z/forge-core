@@ -1,10 +1,14 @@
 # Forge Architecture
 
-## Problem
+## What forge-core does
 
-[forge-core](https://github.com/N4M3Z/forge-core) is a development platform for your own AI ecosystem. The skills in this repository help AI coding tools create and validate **artifacts** that follow your conventions.
+Skills for creating and validating **artifacts** — structured markdown units that get deployed to AI providers. Each artifact type maps to how the AI loads it:
 
-An **artifact** is any structured unit that gets deployed to AI providers: a skill [1], an agent [2], a hook [3], or a module [4]. Each artifact type has its own associated building and validation skills that covers its conventions. The package also ships utility skills like RTK that solve common development problems directly.
+- **Rules** — always in context. Small files, one concern each. The filename is the label you see when debugging.
+- **Skills** — lazy loaded on invocation. Description always visible, full body loaded on demand.
+- **Agents** — persona definitions for off-session delegation.
+
+forge-core defines the conventions. [forge-cli](https://github.com/N4M3Z/forge-cli) enforces them — assembling artifacts for each provider, tracking provenance, and detecting drift.
 
 ### Skill Directory Structure
 
@@ -88,6 +92,7 @@ Utility skills handle operational concerns:
 | [PublishPrompts](skills/PublishPrompts/SKILL.md)                    | Provenance tracking and sync for inherited rules, skills, agents   |
 | [AdaptPrompts](skills/AdaptPrompts/SKILL.md)                       | Adapt generic rules for independent repos                          |
 | [PromptAnalysis](skills/PromptAnalysis/SKILL.md)                   | Validate and minimize prompts — staleness, redundancy, ablation    |
+| [HtmlPlayground](skills/HtmlPlayground/SKILL.md)                   | Generate single-file HTML demos comparing techniques               |
 
 Skills that need to stay focused can offload reference material into **companion files** loaded via `@` references (e.g., `@ClaudeSkill.md`). Companions live in the skill root — see [Skill Directory Structure](#skill-directory-structure).
 

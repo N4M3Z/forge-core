@@ -47,8 +47,7 @@ structure:
       allow_additional: true
       children:
           - heading:
-                pattern: "^## (Context and Problem Statement|Context)$"
-                regex: true
+                pattern: "## Context and Problem Statement"
             word_count:
                 min: 20
           - heading:
@@ -61,8 +60,7 @@ structure:
             lists:
                 - min: 1
           - heading:
-                pattern: "^## (Decision Outcome|Decision)$"
-                regex: true
+                pattern: "## Decision Outcome"
             allow_additional: true
             children:
                 - heading:

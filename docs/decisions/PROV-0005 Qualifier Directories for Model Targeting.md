@@ -21,9 +21,9 @@ upstream: []
 
 # Qualifier Directories for Model Targeting
 
-## Context
+## Context and Problem Statement
 
-Some rules need different content per AI provider or model — extra guardrails for weaker models, different tool names per provider, provider-specific workarounds. The directory tree must express both "deploy this only to provider X" (include/exclude) and "deploy different content to provider X" (variant override). No AI coding tool implements directory-based model variant selection (confirmed gap across Cursor, Continue.dev, GitHub Copilot, AGENTS.md).
+Models evolve under your feet. Instructions essential for one model version become redundant or wrong for the next. Some rules need different content per provider or model — extra guardrails for weaker models, different tool names per provider, provider-specific workarounds. As models improve, you need shorter instruction sets for stronger models while keeping full instructions for weaker ones. The directory tree must express both "deploy this only to provider X" (include/exclude) and "deploy different content to provider X" (variant override). No AI coding tool implements directory-based model variant selection (confirmed gap across Cursor, Continue.dev, GitHub Copilot, AGENTS.md).
 
 ## Considered Options
 
@@ -32,7 +32,7 @@ Some rules need different content per AI provider or model — extra guardrails 
 - **Config-driven** — `defaults.yaml` enumerates which rules deploy to which providers
 - **Filename convention** — `Rule.claude.md` suffix-based variants
 
-## Decision
+## Decision Outcome
 
 Chosen option: **qualifier directories + frontmatter targets**, because they solve different problems and compose cleanly.
 

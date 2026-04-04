@@ -10,11 +10,11 @@ tags:
 status: accepted
 created: 2026-04-02
 updated: 2026-04-02
-author: "N4M3Z"
+author: "@N4M3Z"
 project: forge-core
-related: ["CORE-0010"]
-responsible: ["N4M3Z"]
-accountable: ["N4M3Z"]
+related: ["CORE-0010 Unified Module Validation.md"]
+responsible: ["@N4M3Z"]
+accountable: ["@N4M3Z"]
 consulted: []
 informed: []
 upstream: []

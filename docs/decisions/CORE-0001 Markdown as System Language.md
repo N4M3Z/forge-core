@@ -22,7 +22,7 @@ upstream: [MarkdownFirst.md]
 
 ## Context and Problem Statement
 
-The system needs a universal format for skills, agents, rules, documentation, journal templates, and configuration. This format must be readable by humans, consumable by AI tools across providers, and authorable without specialized tooling. It also needs to integrate with PKM tools (like Obsidian) where content is first-class.
+The system needs a universal format for skills, agents, rules, documentation, journal templates, and configuration. This format must be readable by humans, consumable by AI tools across providers, and authorable without specialized tooling. It also needs to integrate with PKM tools where content is first-class — particularly [Obsidian][1], which has used YAML frontmatter since [2020][2] and adds `[[wikilinks]]`.
 
 ## Decision Drivers
 
@@ -47,3 +47,6 @@ Chosen option: **Markdown with YAML frontmatter**. Everything is markdown — sk
 - [+] Authors iterate by editing prose, not debugging code or schemas
 - [+] Same files render in Obsidian, GitHub, and AI tool contexts without conversion
 - [-] No compile-time validation of content logic — structural checks rely on mdschema, semantic correctness requires review
+
+[1]: https://obsidian.md/
+[2]: https://obsidian.md/changelog/2020-08-21-desktop-v0.8.5/

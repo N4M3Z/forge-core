@@ -22,7 +22,7 @@ upstream: []
 
 # Provenance Tracking
 
-## Context
+## Context and Problem Statement
 
 When source files are transformed during assembly (frontmatter stripped, variants merged, refs removed), the deployed file no longer matches the source. Debugging "where did this deployed rule come from?" requires tracing the assembly chain. The manifest ([PROV-0002](PROV-0002 Manifest for Deployment Tracking.md)) tracks deployment integrity but not lineage. This ADR extends the manifest with provenance paths and deploys SLSA sidecars alongside content.
 
@@ -32,7 +32,7 @@ When source files are transformed during assembly (frontmatter stripped, variant
 2. **SPDX 3.0 Build Profile** — SBOM-oriented, designed for component inventory and build provenance
 3. **W3C PROV-inspired YAML** — custom format using PROV vocabulary
 
-## Decision
+## Decision Outcome
 
 Chosen option: **in-toto/SLSA v1.0**, serialized as YAML. in-toto is the industry standard for build provenance, purpose-built for tracking "these inputs were transformed into this output by this builder."
 

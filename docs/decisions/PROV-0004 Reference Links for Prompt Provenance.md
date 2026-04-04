@@ -23,7 +23,7 @@ upstream: []
 
 # Reference Links for Prompt Provenance
 
-## Context
+## Context and Problem Statement
 
 AI instructions need traceable provenance — where did this knowledge come from? ISO 42001, NIST AI RMF, and the EU AI Act require traceability but prescribe no format. Deployed prompts must remain token-clean. References should point to external authoritative sources (CVEs, OWASP, model advisories), not self-referentially to other rules.
 
@@ -34,7 +34,7 @@ AI instructions need traceable provenance — where did this knowledge come from
 - **Inline HTML comments** — invisible in rendered markdown
 - **Extended frontmatter injected at deploy** — install binary adds metadata to deployed files
 
-## Decision
+## Decision Outcome
 
 Chosen option: **Reference-style links**, because they're standard markdown, human-readable in source, and the install binary can strip them at deploy for zero token overhead. Stripping is configurable (`--provenance strip|inline`). External URLs extracted from stripped refs feed into provenance tracking records ([PROV-0003](PROV-0003 Provenance Tracking.md)).
 

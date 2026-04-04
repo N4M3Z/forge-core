@@ -23,6 +23,7 @@ Module-building skills for the forge ecosystem. Teaches AI coding tools to creat
 | **PublishPrompts**       | Provenance tracking and sync for inherited rules, skills, and agents                 |
 | **PromptAnalysis**       | Validate and minimize prompts (provenance, targeting, staleness, redundancy)          |
 | **RTK**                  | RTK (Rust Token Killer) token-optimized CLI proxy setup and reference                |
+| **HtmlPlayground**       | Generate single-file HTML demos comparing techniques side-by-side                    |
 
 ## Build & Test
 

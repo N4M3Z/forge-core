@@ -46,7 +46,7 @@ Having adopted ADRs ([CORE-0004](CORE-0004 Adopt Architecture Decision Records.m
 
 Chosen option: **structured-madr with custom extensions**.
 
-Use [structured-madr](https://github.com/zircote/structured-madr) as the base, validated by its JSON Schema in CI. Extend with custom fields for RACI accountability and upstream provenance tracking. See [CORE-0007](CORE-0007 Forge MADR Extensions.md) for the `x-forge-` namespace.
+Use [structured-madr](https://github.com/zircote/structured-madr) as the base, validated by its JSON Schema in CI. Extend with custom fields for RACI accountability and upstream provenance tracking.
 
 ### structured-madr frontmatter
 
@@ -77,7 +77,7 @@ related:
 
 ### Custom extensions
 
-structured-madr recommends `x-` prefix for custom fields. The `x-forge-` namespace is documented in [CORE-0007](CORE-0007 Forge MADR Extensions.md). The base extensions used across all repos:
+structured-madr recommends `x-` prefix for custom fields. The JSON schema declares both the canonical `x-` name and the short alias for readability:
 
 | Canonical           | Short form     | Type     | Purpose                                          |
 | ------------------- | -------------- | -------- | ------------------------------------------------ |
@@ -87,7 +87,7 @@ structured-madr recommends `x-` prefix for custom fields. The `x-forge-` namespa
 | `x-informed`        | `informed`     | string[] | RACI: who is notified of the outcome             |
 | `x-upstream`        | `upstream`     | string   | Provenance URL for adapted ADRs                  |
 
-Short forms are used in practice for readability.
+Short forms are used in practice for readability. The `structured-madr.schema.json` in `templates/` validates both forms.
 
 Body sections follow structured-madr: Context (with Background and Current Limitations), Decision Drivers (Primary/Secondary), Considered Options (with Risk Assessment), Decision, Consequences (Positive/Negative/Neutral), Related Decisions, Links, More Information, Audit.
 
@@ -110,4 +110,4 @@ Nygard short template kept at `templates/adr.md` for minimal records.
 - [MADR Template Primer](https://www.ozimmer.ch/practices/2022/11/22/MADRTemplatePrimer.html) — Olaf Zimmermann's walkthrough
 - Nygard short template at `templates/adr.md` for minimal records
 - Upstream template at `templates/structured-madr.md`, schema at `templates/structured-madr.schema.json`
-- [CORE-0007](CORE-0007 Forge MADR Extensions.md) — `x-forge-` namespace for the forge ecosystem
+- Extended schema at `templates/structured-madr.schema.json`

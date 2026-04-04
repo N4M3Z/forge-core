@@ -127,26 +127,11 @@ forge validate .     # directly
 
 ## Contributing via PR
 
-External contributions land directly in the module:
-
 1. Fork the repository
 2. Create a branch for your change
 3. Make your changes following the conventions above
 4. Run `make test && make lint` to validate
 5. Open a PR against `main`
-
-After merge, a backward reference note is created in the maintainer's Obsidian vault linking to the PR. This keeps the vault reconstructible without adding process overhead to the PR workflow.
-
-## Internal Authoring (Draft/Promote)
-
-For vault-native development:
-
-1. Author the skill in `Orchestration/Skills/` in your Obsidian vault
-2. Iterate with the AI in the vault context (Obsidian-visible, Linter-managed)
-3. When ready, run `/Promote` to copy to the target module (strips vault metadata, produces clean SKILL.md + SKILL.yaml)
-4. The vault retains the working copy; the module gets the released version
-
-To pull a module skill back into the vault for editing: `/Draft`.
 
 ## Conventions
 
