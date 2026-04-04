@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/rules/PlatformAgnostic.md
+          digest:
+              sha256: 98d11678efbe39de4d1863dfab965722b6b106d09fc65507fde47d76f9de428c
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/PlatformAgnostic.md
+                  digest:
+                      sha256: 58a4cc523a999976cf8c4ff2ebab93e503925a5b6abc767694366936bec7e756
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.731308+00:00"

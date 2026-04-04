@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/start-fresh.md
+          digest:
+              sha256: af8318078b9f2c0cc400946ac97b61bbd9e52b419881c022d4e228ccd842eaa1
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/StartFresh.md
+                  digest:
+                      sha256: 3131aa9e9cac8fe9cb13b4101a889dc0f3c848eb1a73e167d5335512b4c6b596
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.745415+00:00"

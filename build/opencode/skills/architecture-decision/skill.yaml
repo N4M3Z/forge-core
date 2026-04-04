@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/skills/architecture-decision/skill.md
+          digest:
+              sha256: 651db0da9f7f8ee4cf141eacf5363c13003da29f7f37660b9a70d44902191fe8
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/ArchitectureDecision/SKILL.md
+                  digest:
+                      sha256: 5775f79f73abb9394bd04d171fa468cd6cbcaa405c76e9a006d38481914d9eaf
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.741011+00:00"

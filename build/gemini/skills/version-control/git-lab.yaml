@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/version-control/git-lab.md
+          digest:
+              sha256: cadb9d0c625e6f000f025c2776085ff076e0869d3567cf08d4d9e305383212f6
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/VersionControl/GitLab.md
+                  digest:
+                      sha256: cadb9d0c625e6f000f025c2776085ff076e0869d3567cf08d4d9e305383212f6
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.706694+00:00"

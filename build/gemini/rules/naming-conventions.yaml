@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/naming-conventions.md
+          digest:
+              sha256: 54b12afd0a867edc243335aea57f275b8a07bd208ad00c8e7fd5a8218eb6c7b9
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/NamingConventions.md
+                  digest:
+                      sha256: 08c0430f19019ebf9ca3818e0e4ddd9124e6670c4a344527815a35f6f2309ab7
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.714829+00:00"

@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/plaintext-template-variables.md
+          digest:
+              sha256: bd04f02e867a6ff7f92a954aadabbb4f2f6880267872f7398c984645dab39410
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: rules/PlaintextTemplateVariables.md
+                  digest:
+                      sha256: b421c46d276f3674ee34241302a3f49755a1c73fd374250fb4fc30ebb5282ad8
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.877422+00:00"

@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/architecture-decision-records.md
+          digest:
+              sha256: 9f5114dc913fe945c11f7ee03cf11c9ddf62bbff4808b19e2e1fbeba52b5e3c3
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/ArchitectureDecisionRecords.md
+                  digest:
+                      sha256: 383fc3e3f7da494f56ea05b77bedb9e604efcb41750687e1661044fd36384d9e
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.713624+00:00"

@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/architecture-decision/context-keeper.md
+          digest:
+              sha256: 78d7f766a58aab32836109b22b91ef270d2b8d77357ba165daecb8271f4ef772
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: skills/ArchitectureDecision/ContextKeeper.md
+                  digest:
+                      sha256: 78d7f766a58aab32836109b22b91ef270d2b8d77357ba165daecb8271f4ef772
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.852622+00:00"

@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/build-module/skill.md
+          digest:
+              sha256: b8f8350cdcfab793782a2a6bbeba0a166788db45c5dfab36f917646ed57d637a
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/BuildModule/SKILL.md
+                  digest:
+                      sha256: 488457de5d3bfdf43cc8bc0c64e6fc0593e0c64f73f1a0eb8ed201464432210d
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.704461+00:00"

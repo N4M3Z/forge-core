@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/no-tabs.md
+          digest:
+              sha256: c6f13575b91ba57c2565c9a743a6a6dbd4eb3c87988e10e71965060c661d1398
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/NoTabs.md
+                  digest:
+                      sha256: 03ec2a6fd32dd273392080d9c0f0874d966a7c86f99dad0e0faf1d0531f15b36
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.744945+00:00"

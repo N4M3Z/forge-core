@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/settings-maintenance/claude-hooks.md
+          digest:
+              sha256: f1949f9e8adc68cc0b4be82dff58da47327ec0f930d5169b770412e2c7fd4b75
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/SettingsMaintenance/ClaudeHooks.md
+                  digest:
+                      sha256: f1949f9e8adc68cc0b4be82dff58da47327ec0f930d5169b770412e2c7fd4b75
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.702352+00:00"

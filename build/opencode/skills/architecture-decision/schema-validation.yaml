@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/skills/architecture-decision/schema-validation.md
+          digest:
+              sha256: 0f7227c9769197fde3328a32796c35ce6fcd69e5ea7834c933ad64d15d636d20
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: skills/ArchitectureDecision/SchemaValidation.md
+                  digest:
+                      sha256: 0f7227c9769197fde3328a32796c35ce6fcd69e5ea7834c933ad64d15d636d20
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.870025+00:00"

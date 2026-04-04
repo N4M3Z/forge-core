@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/skills/prompt-analysis/artificial-analysis.md
+          digest:
+              sha256: 4d3f5c678d6a0cc27a0c768af862283fca4ebc16e4931373ff8f5290d6bbec90
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/PromptAnalysis/ArtificialAnalysis.md
+                  digest:
+                      sha256: 4d3f5c678d6a0cc27a0c768af862283fca4ebc16e4931373ff8f5290d6bbec90
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.741592+00:00"

@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/windows-constraints.md
+          digest:
+              sha256: f7ddeac5f5a383e376d524e1c71c70714fdcf79676c9da9bf055199fb036d887
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: rules/WindowsConstraints.md
+                  digest:
+                      sha256: 937e3b587509c73a34cec0ad78fa8fa2aca880073c274852d7ebef30641ec63f
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.879584+00:00"

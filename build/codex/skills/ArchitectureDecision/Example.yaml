@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/skills/ArchitectureDecision/Example.md
+          digest:
+              sha256: 7872846dac0b965aeb29f14bc24a86fd39f6c0bda2a92f821cedbb8e361bdae8
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/ArchitectureDecision/Example.md
+                  digest:
+                      sha256: 7872846dac0b965aeb29f14bc24a86fd39f6c0bda2a92f821cedbb8e361bdae8
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.756236+00:00"

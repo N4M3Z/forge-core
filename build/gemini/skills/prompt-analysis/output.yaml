@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/prompt-analysis/output.md
+          digest:
+              sha256: 78a0f9122d33250f2a775c72280ecf2b812fdbd8169e7d731fdd68592ae93050
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/PromptAnalysis/Output.md
+                  digest:
+                      sha256: 78a0f9122d33250f2a775c72280ecf2b812fdbd8169e7d731fdd68592ae93050
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.708336+00:00"

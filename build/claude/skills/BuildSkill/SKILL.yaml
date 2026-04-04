@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/skills/BuildSkill/SKILL.md
+          digest:
+              sha256: a0f3257f49a11ef789a845bc29f9265a8b24cf5b68e85dd24a851f25c18d9754
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/BuildSkill/SKILL.md
+                  digest:
+                      sha256: 891f6a69d42b16ea046462875378c074b3cb3897f0156b08d7df85146af9e7a8
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.716553+00:00"

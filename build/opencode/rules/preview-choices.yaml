@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/preview-choices.md
+          digest:
+              sha256: 5e3b9887ddeeb0492902aa6385580cc6404a7d2c29b069fca7680d976e0a6c3b
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/PreviewChoices.md
+                  digest:
+                      sha256: b01bae11e8fa9eb7b5d43ecc273578f7afd864d921b59a78575972f1e8c8e6ca
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.745704+00:00"

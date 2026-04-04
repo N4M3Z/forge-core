@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/skills/MarkdownLint/Example.md
+          digest:
+              sha256: 373de35abeef1a3dd864e9a816c2e23236ef512e81edbf75b9003822cded2846
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/MarkdownLint/Example.md
+                  digest:
+                      sha256: 373de35abeef1a3dd864e9a816c2e23236ef512e81edbf75b9003822cded2846
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.717296+00:00"

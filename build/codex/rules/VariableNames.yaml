@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/VariableNames.md
+          digest:
+              sha256: 7c11dd4fc30905b3da67f199daf65c479977b472c9d93633fc47b3ee81a7d118
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/VariableNames.md
+                  digest:
+                      sha256: f05fe95b2a9a341b9bde184b757075482b7a1e65699c6c1a7ea09bfa3ddb98df
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.761665+00:00"

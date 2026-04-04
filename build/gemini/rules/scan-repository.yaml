@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/scan-repository.md
+          digest:
+              sha256: 3f38678330deffba96055c81ed0f7b9323a059c9f0d53b167e49053ba1d74870
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: rules/ScanRepository.md
+                  digest:
+                      sha256: dc398790aecca52b5822e6fc467b650506497dbb82a3693fa9790b68e7d42a67
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.858105+00:00"

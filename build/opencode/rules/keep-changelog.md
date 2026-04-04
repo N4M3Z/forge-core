@@ -1,0 +1,1 @@
+When making a notable change (new feature, breaking change, deprecation, removal), add an entry to CHANGELOG.md under the current version section. Follow [Keep a Changelog](https://keepachangelog.com/) format with Added, Changed, Deprecated, Removed, Fixed subsections.

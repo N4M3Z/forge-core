@@ -1,0 +1,1 @@
+When reviewing code that touches repositories, base classes, or DI wiring -- read the actual source files before making claims. Diffs alone hide constructor signatures, class hierarchies, and service registration that determine whether a change is correct.

@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/skills/PromptAnalysis/Provenance.md
+          digest:
+              sha256: 761206e122d01302a3b10b059daa17f8c0f8e53f89ef34839335010dd546c2f6
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/PromptAnalysis/Provenance.md
+                  digest:
+                      sha256: 761206e122d01302a3b10b059daa17f8c0f8e53f89ef34839335010dd546c2f6
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.726342+00:00"

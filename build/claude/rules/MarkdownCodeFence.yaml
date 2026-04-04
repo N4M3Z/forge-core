@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/rules/MarkdownCodeFence.md
+          digest:
+              sha256: f8bd8b529f42afbda5ae2208f142281453f91832a9f80fa041505455b95302f3
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/MarkdownCodeFence.md
+                  digest:
+                      sha256: 66c1f126aa33dd079c032747b6bbeb9a60436c471cd39d3af425ca298ba46feb
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.728292+00:00"

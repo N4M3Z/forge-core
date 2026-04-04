@@ -1,0 +1,56 @@
+# forge-core default configuration.
+# Override: create config.yaml (gitignored) with only the fields you want to change.
+
+skills:
+    claude:
+        BuildSkill:
+        BuildAgent:
+        BuildModule:
+        BuildHook:
+        MarkdownLint:
+        MarkdownSchema:
+        SettingsMaintenance:
+        SystemCheck:
+        RTK:
+        Sessions:
+
+    gemini:
+        BuildSkill:
+        BuildAgent:
+        BuildModule:
+        BuildHook:
+        MarkdownLint:
+        MarkdownSchema:
+        SettingsMaintenance:
+        SystemCheck:
+        RTK:
+        Sessions:
+
+    codex:
+        BuildSkill:
+        BuildAgent:
+        BuildModule:
+        BuildHook:
+        MarkdownLint:
+        MarkdownSchema:
+        SettingsMaintenance:
+        SystemCheck:
+        RTK:
+        Sessions:
+
+    opencode:
+        BuildSkill:
+        BuildAgent:
+        BuildModule:
+        BuildHook:
+        MarkdownLint:
+        MarkdownSchema:
+        SettingsMaintenance:
+        SystemCheck:
+        RTK:
+        Sessions:
+
+hooks:
+    PlanCopy:
+        destination: Resources/Plans/Claude
+        template: templates/plan.md

@@ -1,0 +1,1 @@
+No tab characters in any file. If a tool inserts tabs, fix the tool. If a linter wants tabs, override the linter.

@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/DirectoryNavigation.md
+          digest:
+              sha256: b202676e845606dd7ce9057fcef68004e4619658eecc4863457edf98f95da592
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/DirectoryNavigation.md
+                  digest:
+                      sha256: a9ec9d97bfe7554718f2256cf1da1afd4b9ff15370b22c48aeb30924122f5697
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.764437+00:00"

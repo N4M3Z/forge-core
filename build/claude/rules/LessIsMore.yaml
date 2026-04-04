@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/rules/LessIsMore.md
+          digest:
+              sha256: b47ce3509917636860d63e431c5227907e1b2364f8947314e925e0f19e5cb207
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/LessIsMore.md
+                  digest:
+                      sha256: e5747c27216182971218d167bfe225cd98772f9f2ba03e1e459de4ef60826b8a
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.727670+00:00"

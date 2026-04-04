@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/claude-marketplace.md
+          digest:
+              sha256: c44e298a230de7732a77a92f487910b469b74bd17b236ca9a827de3d50df3e93
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/ClaudeMarketplace.md
+                  digest:
+                      sha256: ac9934e2a5963921b954098369aa9c25f5ac1d36b66eb3cba333441c3a465802
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.744413+00:00"

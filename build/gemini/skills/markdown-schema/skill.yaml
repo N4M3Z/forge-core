@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/markdown-schema/skill.md
+          digest:
+              sha256: 5a654cf5e81a3bc5fe55bba1271d3eb82df32429668c992d0f3f795e23bbfd94
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/MarkdownSchema/SKILL.md
+                  digest:
+                      sha256: 82ae59e71f15423bf96392d96aa501e87d7210275c3da396ded00233875db9af
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.700092+00:00"

@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/no-heredoc.md
+          digest:
+              sha256: 4a8f6bdb532da70b840b2f6e74c73e33fb80fe7abe7f1c1cbdab7b66b6a0d0dc
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/NoHeredoc.md
+                  digest:
+                      sha256: 19ab75bc915d486044b9f73bb5c8c5b4fdbd427a3c1c38f75aa1a617286a35a5
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.713794+00:00"

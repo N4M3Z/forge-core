@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/skills/MarkdownSchema/Derive.md
+          digest:
+              sha256: fad47e8f5eb63303924be735a874ef7051e4faf1c01194409e55fc26a475d2b2
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/MarkdownSchema/Derive.md
+                  digest:
+                      sha256: fad47e8f5eb63303924be735a874ef7051e4faf1c01194409e55fc26a475d2b2
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.751310+00:00"

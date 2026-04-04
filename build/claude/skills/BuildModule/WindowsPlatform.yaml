@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/skills/BuildModule/WindowsPlatform.md
+          digest:
+              sha256: f22c00506db6e9b2d8adbec3a9812b4d37a08c3c2bd1ed42cc008838ffb56be7
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/BuildModule/WindowsPlatform.md
+                  digest:
+                      sha256: f22c00506db6e9b2d8adbec3a9812b4d37a08c3c2bd1ed42cc008838ffb56be7
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.720892+00:00"

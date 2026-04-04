@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/four-space-indent.md
+          digest:
+              sha256: c9ad8caee89714104a0a67f15b51ab461027b09c94d7c6f41100f865d76ab844
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/FourSpaceIndent.md
+                  digest:
+                      sha256: 13e3ae26a48dd089b38162af67e72b256190321c9bb8fd6d527ff79067dc6ede
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.712554+00:00"

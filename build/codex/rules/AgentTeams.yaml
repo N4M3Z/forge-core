@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/AgentTeams.md
+          digest:
+              sha256: c0e2e904017b95506c220fa2bb33f1ee239a46a2e8a651f94ef1a9754a35edac
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/codex/AgentTeams.md
+                  digest:
+                      sha256: a8543311d3143de8f473109533cbb856c7c28feb5bb93cfb73e0adca28dc6b19
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.765472+00:00"

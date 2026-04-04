@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/sanitize-data.md
+          digest:
+              sha256: 6b4494a52d80df0167870da44a6539f7bb0138c16e4bba43cb17cb040bbf24a6
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/SanitizeData.md
+                  digest:
+                      sha256: 6b558fb01331ccb7067afd1a34f393f27e33b857cc8b9b9afdbcdf3f69343bcc
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.713956+00:00"

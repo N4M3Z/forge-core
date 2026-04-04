@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/rules/SkillNaming.md
+          digest:
+              sha256: 28cccb998b7743f73ab87f624e81f145c4f1a76b07658de346084907da6f7926
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/SkillNaming.md
+                  digest:
+                      sha256: eb3746153b215b676073731e7a9dc8a196d78fa649ebc86e7676cc73a3925e9e
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.727824+00:00"

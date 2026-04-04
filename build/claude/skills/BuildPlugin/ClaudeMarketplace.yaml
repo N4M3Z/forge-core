@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/skills/BuildPlugin/ClaudeMarketplace.md
+          digest:
+              sha256: a7df10bdfe3cd2bbcea138c345b8e8504c694fba85c96691fee4480b0ee03d94
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/BuildPlugin/ClaudeMarketplace.md
+                  digest:
+                      sha256: a7df10bdfe3cd2bbcea138c345b8e8504c694fba85c96691fee4480b0ee03d94
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.723399+00:00"

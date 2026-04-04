@@ -1,0 +1,3 @@
+Rules, agents, and skills are authored in their source module (`Modules/<module>/rules/`, `agents/`, `skills/`), not directly in `.claude/`. The module repo is the source of truth — `.claude/` is the install target. Never edit deployed files directly — edit the source in the module, then reinstall with `make install`.
+
+When creating new content during a session, write it in the owning module so it can be committed and shared via GitHub. To find the source module for a deployed file, check which module's `rules/`, `skills/`, or `agents/` directory contains the original.

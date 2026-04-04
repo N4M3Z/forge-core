@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/platform-agnostic.md
+          digest:
+              sha256: 474db685696bac3bdd4f5398446f7233adcd19dbf5309b26d87eba23c4df2137
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/PlatformAgnostic.md
+                  digest:
+                      sha256: 58a4cc523a999976cf8c4ff2ebab93e503925a5b6abc767694366936bec7e756
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.713134+00:00"

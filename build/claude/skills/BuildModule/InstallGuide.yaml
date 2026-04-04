@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/skills/BuildModule/InstallGuide.md
+          digest:
+              sha256: 5d0b64ea6f2c3e707f5e780bf1ee4313d57808489569822d4b8ab1d6f927318b
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/BuildModule/InstallGuide.md
+                  digest:
+                      sha256: 5d0b64ea6f2c3e707f5e780bf1ee4313d57808489569822d4b8ab1d6f927318b
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.721255+00:00"

@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/NeverRefuseWork.md
+          digest:
+              sha256: d3a7b6e04733273e4987168a373d485e98b32a5a3ed71e048b24ea0691da2077
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: rules/NeverRefuseWork.md
+                  digest:
+                      sha256: dc0f12c54fe672da52a424931e796882483e6a7fc66a97fb5cef6292d3e6a786
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.839818+00:00"

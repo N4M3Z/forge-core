@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/MarkdownFirst.md
+          digest:
+              sha256: 6ac86b30d44a02b2e98f1d3582bc8f31a34ada6e6191ef55e740f0423d2223b2
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/MarkdownFirst.md
+                  digest:
+                      sha256: 98d97a8ca7a6cbba1576a48362b84954154d11b0385525221af87acd544ad230
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.763816+00:00"

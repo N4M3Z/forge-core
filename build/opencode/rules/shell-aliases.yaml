@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/shell-aliases.md
+          digest:
+              sha256: 227c3d23937c1d7d1f758f7ea93c576bbbf99b4322102dbc19162efde24037e8
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/ShellAliases.md
+                  digest:
+                      sha256: 586d1e1489662a6f267ec055da1b975087a9476b8ab9988a70eef3a0079d97eb
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.747091+00:00"

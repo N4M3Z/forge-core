@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/skills/BuildModule/CodexProvider.md
+          digest:
+              sha256: adfc4e19d813eb0b830fb9520c7926ec577b699f90181ce85f5bc5defa892c0a
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/BuildModule/CodexProvider.md
+                  digest:
+                      sha256: adfc4e19d813eb0b830fb9520c7926ec577b699f90181ce85f5bc5defa892c0a
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.721479+00:00"

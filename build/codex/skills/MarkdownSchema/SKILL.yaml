@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/skills/MarkdownSchema/SKILL.md
+          digest:
+              sha256: 4b16bf03e9658ebe129d557c7e623f66493496d168fa4adaa02c3652a155f604
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/MarkdownSchema/SKILL.md
+                  digest:
+                      sha256: 82ae59e71f15423bf96392d96aa501e87d7210275c3da396ded00233875db9af
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.751155+00:00"

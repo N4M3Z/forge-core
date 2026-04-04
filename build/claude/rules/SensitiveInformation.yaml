@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/rules/SensitiveInformation.md
+          digest:
+              sha256: e0fdb8cf834f8e657ca757cf153759455b17ff06451d76a301d14b69d2b875ad
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: rules/SensitiveInformation.md
+                  digest:
+                      sha256: 81590e95d04c1d307bf305962d300dfad2a8304f8619e30580f4e7dceaaca4e5
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.822344+00:00"

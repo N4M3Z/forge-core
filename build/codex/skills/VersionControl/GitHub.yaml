@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/skills/VersionControl/GitHub.md
+          digest:
+              sha256: 16f9dbc02b574a8ca5ae48cc9620a9212fe4867e5764ab5985f9f7271bd50129
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/VersionControl/GitHub.md
+                  digest:
+                      sha256: 16f9dbc02b574a8ca5ae48cc9620a9212fe4867e5764ab5985f9f7271bd50129
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.755554+00:00"

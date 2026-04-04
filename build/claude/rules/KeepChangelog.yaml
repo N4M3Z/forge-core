@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/rules/KeepChangelog.md
+          digest:
+              sha256: 03f17ff848315b24fa286f2267f6e6d72721c7b36a2ad1a0ae78834c747039af
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/KeepChangelog.md
+                  digest:
+                      sha256: 1de3b2a8c0681396c7bd76be217f688958f44cf4a186c52cb7e3898e051d247b
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.732967+00:00"

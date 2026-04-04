@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/skills/prompt-analysis/llm-lingua.md
+          digest:
+              sha256: 105d827e8501c98e9e695549b0570bc70a39f987846e158cca7dfce81862e97a
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/PromptAnalysis/LLMLingua.md
+                  digest:
+                      sha256: 105d827e8501c98e9e695549b0570bc70a39f987846e158cca7dfce81862e97a
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.741422+00:00"

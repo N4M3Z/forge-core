@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/MemoryFiles.md
+          digest:
+              sha256: 579b925b3107f4eee57813b78c2a393feeb6234c56bccb0d345f3d7bdc51f7ee
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/MemoryFiles.md
+                  digest:
+                      sha256: 0c294334432c631b1bedc59673bbfca7364bca816fa662c914a12546163390b1
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.765012+00:00"

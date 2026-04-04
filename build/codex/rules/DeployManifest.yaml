@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/DeployManifest.md
+          digest:
+              sha256: 44306eb350d8a5cf2ad4399bf307a58ca22e0150f04e69ae3d087234276b8e3d
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/DeployManifest.md
+                  digest:
+                      sha256: 88bc6dbedd4091852c6039fee865bb514fa30f531d06dd89acecbe5f87df4cf8
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.763510+00:00"

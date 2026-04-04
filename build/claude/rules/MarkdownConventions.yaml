@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: claude/rules/MarkdownConventions.md
+          digest:
+              sha256: a30ab6ce34f8129da9aedd5ad9f85d3fe8f11f87faa00fa1184609fee344adc5
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/MarkdownConventions.md
+                  digest:
+                      sha256: 7395fcb2694864b29336a6052d2768ffbcf86dcec089cb649d5041499793a0b1
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.727973+00:00"

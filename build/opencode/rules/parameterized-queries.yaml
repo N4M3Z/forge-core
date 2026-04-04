@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: opencode/rules/parameterized-queries.md
+          digest:
+              sha256: b54137221f3be6e162190e6be9a927d215c3286b0cbcb44d4872e9cb7321f0e0
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: rules/ParameterizedQueries.md
+                  digest:
+                      sha256: d3ee714561963271bc2aba9bdfe926eec0b074911134e484edf0883fde017715
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.873667+00:00"

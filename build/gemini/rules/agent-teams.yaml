@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/agent-teams.md
+          digest:
+              sha256: 706ea4472caf5d30d8159fff3c9e3054e8473031559bce451d6ab46bf87cbf2f
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/gemini/AgentTeams.md
+                  digest:
+                      sha256: 00bdf58e383a038791dbeee08db7fcd81a7717bd31754834addcaea454898058
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.716043+00:00"

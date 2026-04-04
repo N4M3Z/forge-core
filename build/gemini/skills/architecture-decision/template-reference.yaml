@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/architecture-decision/template-reference.md
+          digest:
+              sha256: 52b159455499b066f89e1ed0230937c77be65e4125e37557c229737f126704bc
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: skills/ArchitectureDecision/TemplateReference.md
+                  digest:
+                      sha256: 52b159455499b066f89e1ed0230937c77be65e4125e37557c229737f126704bc
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.851753+00:00"

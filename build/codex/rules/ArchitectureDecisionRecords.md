@@ -1,0 +1,3 @@
+ADRs live in `docs/decisions/` with the light template at `templates/adr.md`. Use full MADR (`templates/madr.md`) for complex multi-stakeholder decisions. Frontmatter must include `status` and `date`.
+
+Before proposing architectural changes or challenging existing patterns, check the project's ADRs via the ArchitectureDecision skill. Do not contradict an accepted ADR without explicitly acknowledging it and proposing a superseding record.

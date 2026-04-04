@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/rules/git-conventions.md
+          digest:
+              sha256: c0df4ddd53120894e2c09691738c49e54792c2d03e82b01b3898f2614a41a04e
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/GitConventions.md
+                  digest:
+                      sha256: 974bf7aad40de45d70db636b2e713b185f67a43f2850623ce86aceee99abdf7f
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.713281+00:00"

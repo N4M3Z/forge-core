@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/build-module/gemini-provider.md
+          digest:
+              sha256: 5f3291daa5344e101e1d679de1b537cc0f951b2de4159458af2f5e1f06b29d74
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: skills/BuildModule/GeminiProvider.md
+                  digest:
+                      sha256: 5f3291daa5344e101e1d679de1b537cc0f951b2de4159458af2f5e1f06b29d74
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.703119+00:00"

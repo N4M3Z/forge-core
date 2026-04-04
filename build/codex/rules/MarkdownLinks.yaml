@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/MarkdownLinks.md
+          digest:
+              sha256: d0631f464036b52b748eb0174c9411e67d7901efbeb1218dfc3cbd725aa7d458
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/MarkdownLinks.md
+                  digest:
+                      sha256: 89400a2a591c08f6372ca6598996cdc318447c7c88e97b79c9a4e20c7b41d0f4
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.760272+00:00"

@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: gemini/skills/html-playground/skill.md
+          digest:
+              sha256: 1250e1d86b26fb681f56cc9ac77eb3ccdb7e470dd7b94a969d801a048f6318e2
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            externalParameters:
+                source: forge-core
+            resolvedDependencies:
+                - uri: skills/HtmlPlayground/SKILL.md
+                  digest:
+                      sha256: dfacf6683332a796effce000fa8db7ea7e46c8ae47585bf103f1242c5e26f965
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-04T16:21:08.846884+00:00"

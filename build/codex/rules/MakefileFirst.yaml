@@ -1,0 +1,21 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: codex/rules/MakefileFirst.md
+          digest:
+              sha256: 335f2ac7dd20529873e3304a7883730c3aa17d6cadce33bcf51758d658b39f8e
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/assemble/v1
+            resolvedDependencies:
+                - uri: rules/MakefileFirst.md
+                  digest:
+                      sha256: ffc18fc2631378c5bc516f1329cc5cabb0c68161771a5f8fb18865c43c3b9352
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-03-27T00:49:30.765239+00:00"
