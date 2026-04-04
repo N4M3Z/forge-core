@@ -9,6 +9,11 @@ adr:
     schema: templates/forge-adr.json
     mdschema: docs/decisions/.mdschema
 
+agents:
+    ProvenanceAuditor:
+        model: fast
+        tools: Read, Grep, Glob, Bash
+
 hooks:
     PlanCopy:
         destination: ""                     # override in config.yaml (e.g., docs/plans)
