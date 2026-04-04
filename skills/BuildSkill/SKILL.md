@@ -126,6 +126,10 @@ sources: []
 
 Every SKILL.yaml must have `sources:` even if empty. Add `claude:` keys only when needed (argument-hint, model override, etc.).
 
+### Example File
+
+Skills should ship with an `Example.md` demo file showing a concrete invocation and expected output. This makes each skill self-documenting and demoable without reading the full SKILL.md.
+
 **Why separate files?** Obsidian's Linter reformats frontmatter on save -- it adds `title:`, reorders keys, and may strip unrecognized fields like `name:`. Separating prevents cross-contamination.
 
 ### Multi-Provider Routing

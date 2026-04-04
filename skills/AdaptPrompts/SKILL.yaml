@@ -1,0 +1,4 @@
+sources: []
+
+claude:
+    argument-hint: "[target repo path or name]"

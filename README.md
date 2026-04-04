@@ -41,12 +41,13 @@ make install
 | [**BuildAgent**](skills/BuildAgent/SKILL.md)                           | Agents   | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
 | [**BuildModule**](skills/BuildModule/SKILL.md)                         | Modules  | Design and validate modules (directory layout, config convention, three-layer architecture)  |
 | [**BuildHook**](skills/BuildHook/SKILL.md)                             | Hooks    | Hook registration, event handling, platform-specific wiring                                 |
-| [**ArchitectureDecisions**](skills/ArchitectureDecisions/SKILL.md)     | —        | Find, read, create, validate, and capture Architecture Decision Records                     |
+| [**ArchitectureDecision**](skills/ArchitectureDecision/SKILL.md)       | —        | Find, read, create, validate, and capture Architecture Decision Records                     |
 | [**VersionControl**](skills/VersionControl/SKILL.md)                   | —        | Git conventions, repo governance (GitHub rulesets, GitLab branches, CODEOWNERS)              |
 | [**MarkdownLint**](skills/MarkdownLint/SKILL.md)                       | —        | Format and lint markdown — backtick code references, fix bare URLs, heading hierarchy       |
 | [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)                   | —        | Create, derive, and validate .mdschema files for markdown documents                         |
 | [**SettingsMaintenance**](skills/SettingsMaintenance/SKILL.md)          | —        | Audit and clean AI tool settings — permissions, plugins, hooks, cross-layer conflicts       |
 | [**SystemCheck**](skills/SystemCheck/SKILL.md)                         | —        | Ecosystem staleness — binary freshness, version drift, submodule pointers                   |
+| [**AdaptPrompts**](skills/AdaptPrompts/SKILL.md)                       | —        | Adapt generic rules for independent repos — strip branding, scope, preserve overrides       |
 | [**RTK**](skills/RTK/SKILL.md)                                         | —        | Token-optimized CLI proxy (60-90% savings)                                                  |
 
 ## Requirements
@@ -61,4 +62,4 @@ When running as a submodule of forge-dev, forge-lib is provided by the parent pr
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+EUPL 1.2 — see [LICENSE](LICENSE).

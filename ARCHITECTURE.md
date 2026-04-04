@@ -77,15 +77,40 @@ Utility skills handle operational concerns:
 
 | Skill                                                              | What it covers                                                     |
 |--------------------------------------------------------------------|--------------------------------------------------------------------|
-| [ArchitectureDecisions](skills/ArchitectureDecisions/SKILL.md)     | Find, read, create, validate, and capture Architecture Decision Records |
+| [ArchitectureDecision](skills/ArchitectureDecision/SKILL.md)       | Find, read, create, validate, and capture Architecture Decision Records |
 | [VersionControl](skills/VersionControl/SKILL.md)                   | Git conventions, repo governance (GitHub rulesets, GitLab branches) |
 | [MarkdownLint](skills/MarkdownLint/SKILL.md)                       | Formatting, backtick references, heading hierarchy                 |
 | [MarkdownSchema](skills/MarkdownSchema/SKILL.md)                   | .mdschema creation, derivation, and validation                     |
 | [SettingsMaintenance](skills/SettingsMaintenance/SKILL.md)          | AI tool settings audit — permissions, plugins, hooks               |
 | [SystemCheck](skills/SystemCheck/SKILL.md)                          | Ecosystem staleness — binary freshness, version drift              |
 | [RTK](skills/RTK/SKILL.md)                                         | Token-optimized CLI proxy setup and reference                      |
+| [PublishPrompts](skills/PublishPrompts/SKILL.md)                    | Provenance tracking and sync for inherited rules, skills, agents   |
 
 Skills that need to stay focused can offload reference material into **companion files** loaded via `@` references (e.g., `@ClaudeSkill.md`). Companions live in the skill root — see [Skill Directory Structure](#skill-directory-structure).
+
+## Prompt Inheritance
+
+Derived repos inherit rules, skills, and agents from forge modules. Each installed file has a **provenance state** tracked via SHA manifest:
+
+| State                | Meaning                                      | Sync behavior          |
+|----------------------|----------------------------------------------|------------------------|
+| **pristine**         | Body hash matches upstream source exactly     | Safe to auto-update    |
+| **adapted**          | Body hash differs from upstream               | Requires manual review |
+| **local**            | Not from any upstream module                  | Not tracked            |
+| **upstream updated** | Upstream source changed since last install    | Sync available         |
+
+Install binaries (`install-rules`, `install-skills`, `install-agents`) write `.manifest` files in SHA map format (`module: {filename: body_sha256}`). The `publish-prompts.sh` companion script reads these manifests and reports drift.
+
+### Keeping files pristine
+
+Adapted files are maintenance debt — every upstream change needs manual review. Strategies to stay pristine:
+
+- Remove unnecessary `paths:` frontmatter when the rule works without it
+- Fix upstream rules to be universally correct instead of adapting downstream
+- Split into companion files: keep upstream `SKILL.md` pristine, add a derived-specific companion (e.g., `ForgeADR.md`) with local extensions
+- Rename complete rewrites to break false inheritance (own file, own name, not tracked against upstream)
+
+See [ADR 0016](docs/decisions/0016 Manifest-Based Inheritance.md) for the full decision record.
 
 ## Separation of Concerns
 

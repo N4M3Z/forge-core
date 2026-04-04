@@ -2,7 +2,16 @@
     "hooks": {
         "SessionStart": [
             {
-                "matcher": "",
+                "matcher": "compact",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/SessionStart.sh"
+                    }
+                ]
+            },
+            {
+                "matcher": "resume",
                 "hooks": [
                     {
                         "type": "command",

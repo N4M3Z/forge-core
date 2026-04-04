@@ -1,9 +1,12 @@
 ---
 status: Proposed | Accepted | Deprecated | Superseded
 date: YYYY-MM-DD
-decision-makers: []
+responsible: [""]
+accountable: [""]
 consulted: []
 informed: []
+promoted: []
+tags: []
 ---
 
 # Title — a short noun phrase describing the decision
@@ -19,9 +22,8 @@ The problem or situation that prompted this decision. What constraints apply?
 
 ## Considered Options
 
-- Option A — brief description
-- Option B — brief description
-- Option C — brief description
+1. Option A — brief description
+2. Option B — brief description
 
 ## Decision Outcome
 
@@ -29,30 +31,9 @@ Chosen option: **Option X**, because [rationale].
 
 ### Consequences
 
-- Good, because [positive consequence]
-- Bad, because [negative consequence]
-
-### Confirmation
-
-How will you verify the decision was implemented correctly?
-
-## Pros and Cons of the Options
-
-### Option A
-
-- Good, because [argument]
-- Bad, because [argument]
-
-### Option B
-
-- Good, because [argument]
-- Bad, because [argument]
-
-### Option C
-
-- Good, because [argument]
-- Bad, because [argument]
+- [+] [positive outcome]
+- [-] [negative outcome or tradeoff]
 
 ## More Information
 
-Links, references, prior art, related ADRs.
+Optional. Links, references, prior art, related ADRs.

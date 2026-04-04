@@ -1,8 +1,59 @@
 frontmatter:
     fields:
         - name: status
+          type: string
         - name: date
+          format: date
+        - name: responsible
+          type: array
+        - name: accountable
+          type: array
+        - name: consulted
+          type: array
+          optional: true
+        - name: informed
+          type: array
+          optional: true
+        - name: promoted
+          type: array
+          optional: true
+        - name: tags
+          type: array
+          optional: true
 
 heading_rules:
     no_skip_levels: true
     max_depth: 3
+
+structure:
+    - heading:
+          pattern: "^# .+"
+          regex: true
+      allow_additional: false
+      children:
+          - heading:
+                pattern: "## Context and Problem Statement"
+            word_count:
+                min: 20
+          - heading:
+                pattern: "## Decision Drivers"
+            optional: true
+            lists:
+                - min: 1
+          - heading:
+                pattern: "## Considered Options"
+            lists:
+                - min: 1
+          - heading:
+                pattern: "## Decision Outcome"
+            required_text:
+                - "Chosen option:"
+            children:
+                - heading:
+                      pattern: "### Consequences"
+                  optional: true
+                  lists:
+                      - min: 1
+          - heading:
+                pattern: "## More Information"
+            optional: true
