@@ -12,18 +12,18 @@ if command -v forge >/dev/null 2>&1; then
     exit $?
 fi
 
-script=$(curl -sfL "$SCRIPT_URL" 2>/dev/null || true)
-if [ -z "$script" ]; then
-    echo "error: forge not installed and validate.sh unreachable"
-    echo "  install forge-cli: https://github.com/N4M3Z/forge-cli"
-    exit 1
-fi
+echo "forge not found, falling back to validate.sh"
 
-actual=$(echo "$script" | shasum -a 256 | cut -d' ' -f1)
+curl -sfL "$SCRIPT_URL" -o /tmp/validate.sh 2>/dev/null \
+    || { echo "validate.sh unreachable — install forge-cli or check connectivity"; exit 1; }
+
+actual=$(sha256sum /tmp/validate.sh 2>/dev/null || shasum -a 256 /tmp/validate.sh)
+actual=${actual%% *}
+
 if [ "$actual" != "$SCRIPT_SHA" ]; then
-    echo "error: validate.sh hash mismatch (expected $SCRIPT_SHA, got $actual)"
-    echo "  update SCRIPT_SHA in .githooks/pre-commit after verifying the new script"
+    echo "validate.sh hash mismatch (expected $SCRIPT_SHA, got $actual)"
+    echo "  update SCRIPT_SHA after verifying the new script"
     exit 1
 fi
 
-echo "$script" | bash -s -- .
+bash /tmp/validate.sh .

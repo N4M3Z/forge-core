@@ -24,7 +24,7 @@ upstream: []
 
 ## Context and Problem Statement
 
-When source files are transformed during assembly (frontmatter stripped, variants merged, refs removed), the deployed file no longer matches the source. Debugging "where did this deployed rule come from?" requires tracing the assembly chain. The manifest ([PROV-0002](PROV-0002 Manifest for Deployment Tracking.md)) tracks deployment integrity but not lineage. This ADR extends the manifest with provenance paths and deploys SLSA sidecars alongside content.
+When source files are transformed during assembly (e.g. frontmatter key whitelists, variants merged, refs removed), the deployed file no longer matches the source. Debugging "where did this deployed rule come from?" requires tracing the assembly chain. The manifest ([PROV-0002](PROV-0002 Manifest for Deployment Tracking.md)) tracks deployment integrity but not lineage. This ADR extends the manifest with provenance paths and deploys SLSA sidecars alongside content.
 
 ## Considered Options
 

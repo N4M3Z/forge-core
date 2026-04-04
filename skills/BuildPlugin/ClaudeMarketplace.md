@@ -1,47 +1,59 @@
 ## Marketplace Registration
 
-Add a module to a Claude Code plugin marketplace for Cowork distribution.
+Add a module to a Claude Code plugin marketplace for distribution via the CLI and Cowork (the web-based plugin management UI for organizations).
+
+### How Marketplaces Work
+
+A marketplace is a GitHub repo with `.claude-plugin/marketplace.json` at the root. Users add it with `/plugin marketplace add owner/repo`, then install individual plugins from it.
+
+**Claude Code CLI** supports all source types — remote URLs, GitHub shorthand, npm packages, and local paths. It fetches the plugin and caches it locally.
+
+**Cowork** (organizational plugin management) clones the marketplace repo with plain `git clone`. It does not run `--recursive` or resolve remote source URLs. Only plugins physically present as directories inside the marketplace repo are visible to Cowork. Submodules resolve to empty directories and fail silently.
 
 ### Prerequisites
 
 - Module passes BuildPlugin validation
-- Module has a public GitHub repo (for plugin source)
-- Marketplace repo is **private** ([Cowork requirement][1])
-- Cowork GitHub App installed on the marketplace repo
+- Module has a public GitHub repo
+- Cowork GitHub App installed on the marketplace repo (for Cowork distribution)
 
-### Add to marketplace
+### Embedding Plugins for Cowork
 
-1. Read the marketplace registry at `.claude-plugin/marketplace.json` in the marketplace repo.
+Use `git subtree` to embed the plugin's files directly in the marketplace repo:
 
-2. Append a new entry to the `plugins` array:
+```sh
+git subtree add --prefix=<directory-name> <repo-url> main --squash
+```
+
+Then add an entry to `.claude-plugin/marketplace.json` with a relative path:
 
 ```json
 {
-    "name": "plugin-name",
+    "name": "Plugin Name",
     "description": "One-line description from plugin.json",
-    "source": {
-        "type": "url",
-        "url": "https://github.com/owner/repo.git"
-    }
+    "source": "./<directory-name>"
 }
 ```
 
-3. Verify no duplicate names in the plugins array.
+Plugin names use title case in `marketplace.json`. Directory names use kebab-case.
 
-4. Verify the name is not reserved (see Reserved Names below).
+To pull upstream changes later:
 
-5. Commit and push. Cowork syncs on merge to default branch.
+```sh
+git subtree pull --prefix=<directory-name> <repo-url> main --squash
+```
 
-### Source types
+### Remote Sources (CLI Only)
 
-| Type         | When to use                            | Example                                           |
-| ------------ | -------------------------------------- | ------------------------------------------------- |
-| `url`        | Plugin has its own repo                | `"url": "https://github.com/owner/repo.git"`     |
-| `github`     | Shorthand for GitHub repos             | `"owner": "N4M3Z", "repo": "forge-finance"`      |
-| `git-subdir` | Plugin is a subdirectory of a monorepo | `"url": "...", "directory": "plugins/my-plugin"`  |
-| `npm`        | Plugin published to npm                | `"package": "@scope/plugin-name"`                 |
+These source types work in the Claude Code CLI but are not visible to Cowork:
 
-### Plugin auto-discovery
+| Type         | Example                                          |
+| ------------ | ------------------------------------------------ |
+| `url`        | `{"type": "url", "url": "https://...git"}`      |
+| `github`     | `{"source": "github", "repo": "owner/repo"}`    |
+| `git-subdir` | `{"source": "git-subdir", "url": "...", "directory": "path"}` |
+| `npm`        | `{"source": "npm", "package": "@scope/name"}`   |
+
+### Plugin Auto-Discovery
 
 Claude Code auto-discovers these directories from a plugin:
 
@@ -56,9 +68,9 @@ Claude Code auto-discovers these directories from a plugin:
 | `.lsp.json`      | LSP server definitions                 |
 | `settings.json`  | Default agent settings                 |
 
-Not discovered: `rules/`, `CLAUDE.md`, `memory/`. These only load from project-level (`.claude/`) and user-level (`~/.claude/`) paths.
+**Not discovered: `rules/`, `CLAUDE.md`, `memory/`.** These only load from project-level (`.claude/`) and user-level (`~/.claude/`) paths. See PluginContextInjection rule for the workaround.
 
-### Plugin requirements
+### Plugin Requirements
 
 Each plugin needs `.claude-plugin/plugin.json`:
 
@@ -75,19 +87,13 @@ Each plugin needs `.claude-plugin/plugin.json`:
 | `agents`      | if any   | `["./agents"]`                         |
 | `hooks`       | if any   | `"./hooks/hooks.json"`                 |
 
-### Reserved names
+### Reserved Names
 
 Cannot use: `claude-code-marketplace`, `claude-code-plugins`, `claude-plugins-official`, `anthropic-marketplace`, `anthropic-plugins`, `agent-skills`, `knowledge-work-plugins`, `life-sciences`, or names impersonating Anthropic.
 
-### Verify sync
+### Verify Sync
 
 After pushing, trigger sync in Cowork: Settings > Plugins > Sync marketplace. The plugin should appear in the available plugins list.
-
-If sync fails:
-- Confirm marketplace repo is **private** (not public)
-- Confirm plugin names are lowercase kebab-case
-- Confirm source URLs are accessible
-- Confirm `.claude-plugin/marketplace.json` is valid JSON
 
 [1]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
 [2]: https://code.claude.com/docs/en/plugin-marketplaces
