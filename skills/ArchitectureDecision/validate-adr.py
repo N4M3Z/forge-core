@@ -16,6 +16,7 @@ Usage:
 import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 try:
@@ -38,7 +39,12 @@ def extract_frontmatter(path):
 
     if HAS_YAML:
         data = yaml.safe_load(raw_frontmatter)
-        return data if isinstance(data, dict) else None
+        if not isinstance(data, dict):
+            return None
+        for key, value in data.items():
+            if isinstance(value, (date,)):
+                data[key] = value.isoformat()
+        return data
 
     fields = {}
     current_key = None
