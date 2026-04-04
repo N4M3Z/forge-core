@@ -36,10 +36,10 @@ jobs:
 
             - name: Validate
               run: |
-                  script=$(curl -sfL "$SCRIPT_URL")
-                  actual=$(echo "$script" | sha256sum | cut -d' ' -f1)
+                  curl -sfL "$SCRIPT_URL" -o /tmp/validate.sh
+                  actual=$(sha256sum /tmp/validate.sh | cut -d' ' -f1)
                   if [ "$actual" != "$SCRIPT_SHA" ]; then
                       echo "error: validate.sh hash mismatch (expected $SCRIPT_SHA, got $actual)"
                       exit 1
                   fi
-                  echo "$script" | bash -s -- .
+                  bash /tmp/validate.sh .
