@@ -1,1 +1,0 @@
-Variable names should have more than 4 characters. `provenance` not `prov`, `description` not `desc`, `manifest` not `mfst`. If the full name is too long, the scope is too wide.

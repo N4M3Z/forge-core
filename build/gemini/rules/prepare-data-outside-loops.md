@@ -1,1 +1,0 @@
-If a value is the same on every loop iteration, compute it once before the loop and reference it inside. Cloning or reconstructing data inside a loop would create a full copy per iteration.

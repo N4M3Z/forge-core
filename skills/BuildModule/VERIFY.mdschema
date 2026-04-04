@@ -1,0 +1,18 @@
+# VERIFY.md schema for forge modules
+
+heading_rules:
+    no_skip_levels: true
+    max_depth: 3
+
+structure:
+    - heading: '# Verify'
+      allow_additional: true
+      children:
+        - heading: '## Health check'
+        - heading: '## Structure validation'
+          optional: true
+        - heading: '## Functionality tests'
+          optional: true
+        - heading: '## Success criteria'
+        - heading: '## Troubleshooting'
+          optional: true

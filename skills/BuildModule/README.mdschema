@@ -1,0 +1,32 @@
+# README.md schema for forge modules
+
+heading_rules:
+    no_skip_levels: true
+    max_depth: 3
+
+structure:
+    - heading:
+        pattern: '# .*'
+        regex: true
+      allow_additional: true
+      children:
+        - heading:
+            pattern: '## (Description|What is this)$'
+            regex: true
+        - heading:
+            pattern: '## (Compatibility|What is supported)$'
+            regex: true
+        - heading:
+            pattern: '## (Installation|Getting started)$'
+            regex: true
+        - heading:
+            pattern: '## (Usage|How to use)$'
+            regex: true
+        - heading:
+            pattern: '## (Requirements|What do I need)$'
+            regex: true
+        - heading:
+            pattern: '## (Contributing|How to contribute)$'
+            regex: true
+          optional: true
+        - heading: '## License'

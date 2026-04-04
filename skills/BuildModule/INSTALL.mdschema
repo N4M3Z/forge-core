@@ -1,0 +1,20 @@
+# INSTALL.md schema for forge modules
+
+heading_rules:
+    no_skip_levels: true
+    max_depth: 3
+
+structure:
+    - heading: '# Install'
+      allow_additional: true
+      children:
+        - heading: '## Requirements'
+        - heading:
+            pattern: '## .*(Build|Deploy).*$'
+            regex: true
+        - heading: '## Platforms'
+          optional: true
+        - heading: '## Configuration'
+          optional: true
+        - heading: '## Troubleshooting'
+          optional: true

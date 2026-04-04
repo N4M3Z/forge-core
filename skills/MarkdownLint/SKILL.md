@@ -138,4 +138,4 @@ Ask the user to confirm before writing.
 - Never change semantic meaning — only formatting
 - Never add backticks to regular English words (e.g., "base" as a noun, "draft" as a verb)
 - Preserve all Obsidian-specific syntax
-- After linting, suggest `/WikiLink` if the document could benefit from knowledge graph links
+- After linting, suggest the WikiLink skill if the document could benefit from knowledge graph links

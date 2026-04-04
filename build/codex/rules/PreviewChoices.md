@@ -1,1 +1,0 @@
-When presenting visual or design choices (icon styles, layouts, color schemes, component variants), show realistic mockups so the user can compare options side by side. Never describe an icon when you can show it. Include both resting and active states.

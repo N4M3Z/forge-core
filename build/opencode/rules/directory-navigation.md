@@ -1,3 +1,0 @@
-Directories are navigation. Every directory name is a routing decision — it tells the user (and the AI) where to find things and where new things belong. A well-named directory eliminates the need for documentation about "where does X go?"
-
-When creating or reorganizing directories, optimize for discoverability over categorization. The question is not "what type is this?" but "where would someone look for it?"

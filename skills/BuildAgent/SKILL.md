@@ -118,9 +118,9 @@ Structured template for findings using markdown headings.
 
 ## Constraints
 
-- Stay focused on [domain] -- don't review [other domains]
+- Stay focused on your assigned domain -- don't review areas outside your expertise
 - Reference specific files and line numbers
-- If the [domain] is solid, say so -- don't invent problems
+- If your domain is solid, say so -- don't invent problems
 - Every critique must include a concrete suggestion
 - Communicate findings to the team lead via SendMessage when done
 ```

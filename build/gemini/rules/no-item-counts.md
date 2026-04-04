@@ -1,1 +1,0 @@
-Don't list item counts in descriptions unless explicitly requested. Enumerate items by name, not by number.

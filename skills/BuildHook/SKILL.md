@@ -122,7 +122,7 @@ MODULE_ROOT="${FORGE_MODULE_ROOT:-${CLAUDE_PLUGIN_ROOT:-$(command cd "$(dirname 
 
 INPUT=$(cat)
 
-# TODO: implement hook logic
+# Gate: exit 2 to block, 0 to allow | Concatenate: emit context to stdout
 ```
 
 For Gate hooks, add exit code logic. For Passive hooks, add the side effect. For Concatenate hooks, emit context to stdout.
