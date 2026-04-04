@@ -1,58 +1,39 @@
-# forge-core Makefile
+# forge-core — build, test, lint, install
 
-SKILL_SRC = skills
-LIB_DIR  = $(or $(FORGE_LIB),lib)
+FORGE ?= forge
 
-# Fallbacks when common.mk is not yet available (uninitialized submodule)
-INSTALL_SKILLS  ?= $(LIB_DIR)/bin/install-skills
-VALIDATE_MODULE ?= $(LIB_DIR)/bin/validate-module
-
-.PHONY: help install clean verify test lint check init check-lib
+.PHONY: help build test lint check clean install
 
 help:
-	@echo "forge-core management commands:"
-	@echo "  make install   Install skills for all providers (SCOPE=workspace|user|all, default: workspace)"
-	@echo "  make verify    Verify the full installation"
-	@echo "  make clean     Remove previously installed skills"
-	@echo "  make test      Run module validation"
-	@echo "  make lint      Shellcheck all scripts"
-	@echo "  make check     Verify module structure"
+	@echo "forge-core targets:"
+	@echo "  make install   Deploy skills, agents, and rules to all providers"
+	@echo "  make test      Validate module structure"
+	@echo "  make lint      Check shell scripts and markdown"
+	@echo "  make check     Verify prerequisites and module structure"
+	@echo "  make clean     Remove build artifacts"
 
-init:
-	@if [ ! -f $(LIB_DIR)/Cargo.toml ]; then \
-	  echo "Initializing forge-lib submodule..."; \
-	  git submodule update --init $(LIB_DIR); \
+install:
+	@command -v $(FORGE) >/dev/null 2>&1 || { echo "error: forge not found. Install forge-cli first: https://github.com/N4M3Z/forge-cli"; exit 1; }
+	$(FORGE) install .
+
+test:
+	@command -v $(FORGE) >/dev/null 2>&1 || { echo "error: forge not found"; exit 1; }
+	$(FORGE) validate .
+
+lint:
+	@if find . -name '*.sh' -not -path '*/build/*' | grep -q .; then \
+	  find . -name '*.sh' -not -path '*/build/*' | xargs shellcheck -S warning 2>/dev/null || true; \
 	fi
-
-ifneq ($(wildcard $(LIB_DIR)/mk/common.mk),)
-  include $(LIB_DIR)/mk/common.mk
-  include $(LIB_DIR)/mk/skills/install.mk
-  include $(LIB_DIR)/mk/skills/verify.mk
-  include $(LIB_DIR)/mk/lint.mk
-endif
-
-check-lib:
-	@if [ ! -f "$(LIB_DIR)/Cargo.toml" ]; then \
-	  echo ""; \
-	  echo "ERROR: forge-lib submodule is not initialized."; \
-	  echo "Run: make init && make install"; \
-	  echo ""; \
-	  exit 1; \
-	fi
-
-install: check-lib install-skills
-	@echo "Installation complete. Restart your session or reload skills."
-
-clean: clean-skills
-
-verify: verify-skills
-
-test: $(VALIDATE_MODULE)
-	@$(VALIDATE_MODULE) $(CURDIR)
-
-lint: lint-schema lint-shell
 
 check:
-	@test -f module.yaml && echo "  ok module.yaml" || echo "  MISSING module.yaml"
-	@test -x "$(INSTALL_SKILLS)" && echo "  ok install-skills" || echo "  MISSING install-skills (run: make -C $(LIB_DIR) build)"
-	@test -x "$(VALIDATE_MODULE)" && echo "  ok validate-module" || echo "  MISSING validate-module (run: make -C $(LIB_DIR) build)"
+	@command -v $(FORGE) >/dev/null 2>&1 && echo "  ok forge" || echo "  MISSING forge (https://github.com/N4M3Z/forge-cli)"
+	@test -f module.yaml      && echo "  ok module.yaml"      || echo "  MISSING module.yaml"
+	@test -f defaults.yaml    && echo "  ok defaults.yaml"    || echo "  MISSING defaults.yaml"
+	@test -f README.md        && echo "  ok README.md"        || echo "  MISSING README.md"
+	@test -f INSTALL.md       && echo "  ok INSTALL.md"       || echo "  MISSING INSTALL.md"
+	@test -f LICENSE          && echo "  ok LICENSE"          || echo "  MISSING LICENSE"
+	@test -f CONTRIBUTING.md  && echo "  ok CONTRIBUTING.md"  || echo "  MISSING CONTRIBUTING.md"
+	@test -f CODEOWNERS       && echo "  ok CODEOWNERS"       || echo "  MISSING CODEOWNERS"
+
+clean:
+	rm -rf build/

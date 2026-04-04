@@ -10,8 +10,6 @@
 ## Build
 
 ```bash
-git submodule update --init lib
-make -C lib build
 make install
 make verify
 ```

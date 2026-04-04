@@ -10,7 +10,7 @@ Track inheritance of rules, skills, and agents between forge modules and downstr
 
 ## Companion Script
 
-`publish-prompts.sh` is a read-only drift reporter. It scans installed content against upstream module sources and reports provenance state. Manifests are written by `install-rules`, `install-skills`, and `install-agents` binaries during `make install`.
+`publish-prompts.sh` is a read-only drift reporter. It scans installed content against upstream module sources and reports provenance state. Manifests are written by the `forge install` command during `make install`.
 
 ```bash
 bash Modules/forge-core/skills/PublishPrompts/publish-prompts.sh --type all --modules-dir Modules
@@ -19,7 +19,7 @@ bash Modules/forge-core/skills/PublishPrompts/publish-prompts.sh --type all --mo
 For downstream repos (e.g., proton-agents):
 
 ```bash
-bash lib/skills/PublishPrompts/publish-prompts.sh --type all --modules-dir /path/to/forge/Modules
+bash skills/PublishPrompts/publish-prompts.sh --type all --modules-dir /path/to/forge/Modules
 ```
 
 ## Subskill Routing
@@ -132,4 +132,4 @@ For rules and agents, the SHA is the body hash of the upstream source file (fron
 - The manifest records upstream SHAs, not local SHAs — it's the merge-base
 - Local-only files are never added to the manifest
 - Strip forge branding per ContextualNaming when adopting files downstream
-- Manifests are written by install binaries, not by the companion script
+- Manifests are written by `forge install`, not by the companion script

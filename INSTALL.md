@@ -1,92 +1,66 @@
-# Install
+# forge-core
 
-> **For AI agents**: This guide covers installation of forge-core. Follow the steps for your deployment mode.
+> Module-building skills for the forge ecosystem. Teaches AI coding tools to create skills, scaffold agents, and architect modules.
 
-## Requirements
+*This file follows the [install.md](https://github.com/mintlify/install-md) standard — structured instructions for AI agents to execute autonomously. Human readers: see [README.md](README.md) for conventional documentation.*
 
-1. **Git** with submodule support
-2. **Rust toolchain** — `cargo` for building forge-lib binaries
-3. **shellcheck** (recommended) — `brew install shellcheck` for shell script linting
+I want you to install forge-core for me. Execute all the steps below autonomously.
 
-## Build and Deploy
+## OBJECTIVE
 
-**As a submodule** — already included. Deploy skills with `make install`.
+Deploy forge-core skills, agents, and rules to all AI providers via Makefile.
 
-**Standalone** — clone with submodules:
+## DONE WHEN
 
-```bash
-git clone --recurse-submodules https://github.com/N4M3Z/forge-core.git
+`make check` reports all items OK and `ls ~/.claude/skills/BuildSkill/SKILL.md` confirms deployment.
+
+## TODO
+
+- [ ] Clone the repository
+- [ ] Run `make check` to verify prerequisites
+- [ ] Run `make install` to deploy
+- [ ] Verify deployment
+
+## Steps
+
+### Clone
+
+```sh
+git clone https://github.com/N4M3Z/forge-core.git
+cd forge-core
 ```
 
-Or if already cloned:
+If already cloned, pull latest:
 
-```bash
-git submodule update --init
+```sh
+git pull
 ```
 
-This checks out [forge-lib](https://github.com/N4M3Z/forge-lib) into `lib/`, providing shared utilities for skill deployment.
+### Check prerequisites
 
-Deploy skills:
+```sh
+make check
+```
 
-```bash
+If `forge` shows MISSING, install forge-cli first:
+
+```sh
+git clone https://github.com/N4M3Z/forge-cli.git
+cd forge-cli
+make install
+cd ../forge-core
+```
+
+### Install
+
+```sh
 make install
 ```
 
-By default, this installs skills into the local project directory for use in the current workspace (`SCOPE=workspace`):
+### Verify
 
-- Skills: `.claude/skills/`, `.gemini/skills/`, `.codex/skills/`, `.opencode/skills/`
-
-To install globally for your user (available in all projects):
-
-```bash
-make install SCOPE=user
+```sh
+ls ~/.claude/skills/BuildSkill/SKILL.md
 ```
 
-This installs skills to `~/.claude/skills/`, `~/.gemini/skills/`, `~/.codex/skills/`, and `~/.opencode/skills/`.
-
-Use `SCOPE=all` to target both workspace and user home directories.
-
-The Makefile automatically initializes the `lib/` submodule on first run if `Cargo.toml` is not found.
-
-Provider-specific skill installs:
-
-```bash
-make install-skills-claude    # ./.claude/skills/ (SCOPE=workspace) or ~/.claude/skills/ (SCOPE=user|all)
-make install-skills-gemini    # via gemini CLI (skipped if CLI not installed)
-make install-skills-codex     # ./.codex/skills/ (SCOPE=workspace) or ~/.codex/skills/ (SCOPE=user|all)
-make install-skills-opencode  # ./.opencode/skills/ with kebab-case names (SCOPE=workspace|user|all)
-```
-
-Verify the installation:
-
-```bash
-make verify
-```
-
-Skills require a session restart to be discovered.
-
-## Configuration
-
-`defaults.yaml` ships with the skill roster, keyed by provider:
-
-```yaml
-skills:
-    claude:
-        BuildSkill:
-        BuildAgent:
-        BuildModule:
-        # ... more skills
-    gemini:
-        BuildSkill:
-        # ...
-```
-
-Create `config.yaml` (gitignored) to override — same structure, only the fields you want to change.
-
-## Updating
-
-```bash
-git pull --recurse-submodules    # update module + forge-lib
-make clean                      # remove old skills
-make install                    # reinstall everything
-```
+EXECUTE NOW: Complete the above TODO list to achieve: `make check` reports all items OK and `ls ~/.claude/skills/BuildSkill/SKILL.md` confirms deployment.

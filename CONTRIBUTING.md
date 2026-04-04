@@ -34,22 +34,16 @@ Internal authors promote a copy from their authoring environment (e.g., Obsidian
 ## Getting Started
 
 ```bash
-git clone --recurse-submodules https://github.com/N4M3Z/forge-core.git
+git clone https://github.com/N4M3Z/forge-core.git
 cd forge-core
 make install    # deploy skills to all providers
-make verify     # confirm deployment
-make test       # validate conventions (runs validate-module from forge-lib)
+make check      # confirm prerequisites and module structure
+make test       # validate conventions
 make lint       # shellcheck all scripts
 ```
 
-If you cloned without `--recurse-submodules`, initialize the lib submodule first:
-
-```bash
-git submodule update --init lib
-```
-
 Prerequisites:
-- Rust toolchain (`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`) for building [forge-lib](https://github.com/N4M3Z/forge-lib) binaries
+- `forge` CLI on PATH (`make install` checks this automatically)
 - `shellcheck` (`brew install shellcheck`) for linting
 - At least one AI provider CLI (Claude Code, Gemini CLI, Codex, or OpenCode)
 
@@ -106,7 +100,7 @@ The companion lives in the same directory. The `@` reference injects its content
 
 ```bash
 make install    # deploy to providers
-make verify     # confirm installed
+make check      # confirm prerequisites
 make test       # check conventions
 ```
 
@@ -120,26 +114,15 @@ Hooks and markdown serve different roles:
 | **Purpose**       | Enforce mandatory rules               | Document all conventions |
 | **Failure mode**  | Block the action                      | Advisory only            |
 
-Use hooks wherever a convention can be automated. Validation logic lives in [forge-lib](https://github.com/N4M3Z/forge-lib) (`validate-module`, `validate-skill` binaries). Hook registration is platform-specific — each provider has its own mechanism for wiring hooks to events.
+Use hooks wherever a convention can be automated. Hook registration is platform-specific — each provider has its own mechanism for wiring hooks to events.
 
 ## Validation
 
-`validate-module` runs five test suites:
-
-| Suite                | What it checks                                                          |
-|----------------------|-------------------------------------------------------------------------|
-| Module Structure     | `module.yaml` exists with name/version/description, `plugin.json` valid |
-| Agent Frontmatter    | Agent files match roster, required fields present                       |
-| Defaults Consistency | Config files are well-formed                                            |
-| Skill Integrity      | SKILL.md + SKILL.yaml present, required fields, structure               |
-| Deploy Parity        | Deployed files match source                                             |
-
-Run it:
+`forge validate` checks module structure and conventions:
 
 ```bash
-make test                     # via Makefile
-validate-module .             # directly
-validate-module . --verbose   # detailed output
+make test            # via Makefile
+forge validate .     # directly
 ```
 
 ## Contributing via PR

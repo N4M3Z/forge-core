@@ -28,7 +28,7 @@ SCOPE=workspace make install      # install to ./.claude/skills/ (project-local)
 See [INSTALL.md](INSTALL.md) for detailed setup instructions.
 
 ```bash
-git clone --recurse-submodules https://github.com/N4M3Z/forge-core.git
+git clone https://github.com/N4M3Z/forge-core.git
 cd forge-core
 make install
 ```
@@ -41,25 +41,22 @@ make install
 | [**BuildAgent**](skills/BuildAgent/SKILL.md)                           | Agents   | Scaffold, validate, and audit agent markdown files (frontmatter, body structure, deployment) |
 | [**BuildModule**](skills/BuildModule/SKILL.md)                         | Modules  | Design and validate modules (directory layout, config convention, three-layer architecture)  |
 | [**BuildHook**](skills/BuildHook/SKILL.md)                             | Hooks    | Hook registration, event handling, platform-specific wiring                                 |
-| [**ArchitectureDecision**](skills/ArchitectureDecision/SKILL.md)       | —        | Find, read, create, validate, and capture Architecture Decision Records                     |
-| [**VersionControl**](skills/VersionControl/SKILL.md)                   | —        | Git conventions, repo governance (GitHub rulesets, GitLab branches, CODEOWNERS)              |
-| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)                       | —        | Format and lint markdown — backtick code references, fix bare URLs, heading hierarchy       |
-| [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)                   | —        | Create, derive, and validate .mdschema files for markdown documents                         |
-| [**SettingsMaintenance**](skills/SettingsMaintenance/SKILL.md)          | —        | Audit and clean AI tool settings — permissions, plugins, hooks, cross-layer conflicts       |
-| [**SystemCheck**](skills/SystemCheck/SKILL.md)                         | —        | Ecosystem staleness — binary freshness, version drift, submodule pointers                   |
-| [**AdaptPrompts**](skills/AdaptPrompts/SKILL.md)                       | —        | Adapt generic rules for independent repos — strip branding, scope, preserve overrides       |
-| [**RTK**](skills/RTK/SKILL.md)                                         | —        | Token-optimized CLI proxy (60-90% savings)                                                  |
+| [**ArchitectureDecision**](skills/ArchitectureDecision/SKILL.md)       | --       | Find, read, create, validate, and capture Architecture Decision Records                     |
+| [**VersionControl**](skills/VersionControl/SKILL.md)                   | --       | Git conventions, repo governance (GitHub rulesets, GitLab branches, CODEOWNERS)              |
+| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)                       | --       | Format and lint markdown -- backtick code references, fix bare URLs, heading hierarchy      |
+| [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)                   | --       | Create, derive, and validate .mdschema files for markdown documents                         |
+| [**SettingsMaintenance**](skills/SettingsMaintenance/SKILL.md)          | --       | Audit and clean AI tool settings -- permissions, plugins, hooks, cross-layer conflicts      |
+| [**SystemCheck**](skills/SystemCheck/SKILL.md)                         | --       | Ecosystem staleness -- binary freshness, version drift, submodule pointers                  |
+| [**AdaptPrompts**](skills/AdaptPrompts/SKILL.md)                       | --       | Adapt generic rules for independent repos -- strip branding, scope, preserve overrides      |
+| [**RTK**](skills/RTK/SKILL.md)                                         | --       | Token-optimized CLI proxy (60-90% savings)                                                  |
 
 ## Requirements
 
-| Dependency                                         | Required         | Purpose                                            |
-|----------------------------------------------------|------------------|----------------------------------------------------|
-| [forge-lib](https://github.com/N4M3Z/forge-lib)   | Yes (standalone) | Shared skill deployment utilities                  |
-| Rust toolchain                                     | Yes (standalone) | Building forge-lib binaries (`cargo build`)        |
-| shellcheck                                         | Recommended      | Shell script linting (`brew install shellcheck`)   |
-
-When running as a submodule of forge-dev, forge-lib is provided by the parent project — the module's own `lib/` submodule is not used.
+| Dependency                                         | Required    | Purpose                                          |
+|----------------------------------------------------|-------------|--------------------------------------------------|
+| [forge](https://github.com/N4M3Z/forge-cli)       | Yes         | Module validation and skill deployment            |
+| shellcheck                                         | Recommended | Shell script linting (`brew install shellcheck`) |
 
 ## License
 
-EUPL 1.2 — see [LICENSE](LICENSE).
+EUPL 1.2 -- see [LICENSE](LICENSE).

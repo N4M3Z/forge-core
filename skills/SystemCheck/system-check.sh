@@ -101,7 +101,7 @@ if [ -f "$MANIFEST" ]; then
             continue
         fi
 
-        # Compare body only (install-skills merges claude: keys into frontmatter)
+        # Compare body only (forge install merges claude: keys into frontmatter)
         installed_hash=$(strip_body "$installed_md" | shasum -a 256 | awk '{print $1}')
         source_hash=$(strip_body "$source_md" | shasum -a 256 | awk '{print $1}')
 

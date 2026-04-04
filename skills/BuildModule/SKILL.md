@@ -22,7 +22,6 @@ module-name/
     hooks/              Bash scripts triggered by events
     bin/                Entry points or build scripts
     src/                Source code (typically Rust)
-    lib/                forge-lib submodule (shared tooling)
     .claude-plugin/     Claude Code plugin manifest
     Makefile            Multi-provider install/verify/test
     CLAUDE.md           Project instructions for Claude Code (generated)
@@ -113,9 +112,9 @@ providers:
         strong: claude-opus-4-6
 ```
 
-The `skills:` section uses provider-keyed allowlists. `install-skills` reads this to decide which skills deploy to which provider. Skills omitted from a provider's list are skipped. This allows Claude-only skills (e.g., those using agent teams) to be excluded from Gemini/Codex without per-skill configuration.
+The `skills:` section uses provider-keyed allowlists. `forge install` reads this to decide which skills deploy to which provider. Skills omitted from a provider's list are skipped. This allows Claude-only skills (e.g., those using agent teams) to be excluded from Gemini/Codex without per-skill configuration.
 
-**Critical**: The `providers:` section drives agent deployment. `install-agents` reads provider keys from this section to determine target directories. A provider missing from `providers:` means agents will NOT deploy there, even if the `agents:` section is correct.
+**Critical**: The `providers:` section drives agent deployment. `forge install` reads provider keys from this section to determine target directories. A provider missing from `providers:` means agents will NOT deploy there, even if the `agents:` section is correct.
 
 ## plugin.json
 
@@ -133,46 +132,32 @@ Add `"hooks": "./hooks/hooks.json"` only if the module has hooks.
 
 ## Makefile Pattern
 
-Modules use forge-lib's mk/ include fragments for shared targets. Declare roster variables, include fragments, and wire top-level targets:
+Modules use the `forge` CLI for install, verify, and validate targets:
 
 ```makefile
 AGENTS   = AgentName
 SKILLS   = SkillOne SkillTwo SkillThree
 AGENT_SRC = agents
 SKILL_SRC = skills
-LIB_DIR  = $(or $(FORGE_LIB),lib)
 
-# Fallbacks when common.mk is not yet available (uninitialized submodule)
-INSTALL_AGENTS  ?= $(LIB_DIR)/bin/install-agents
-INSTALL_SKILLS  ?= $(LIB_DIR)/bin/install-skills
-VALIDATE_MODULE ?= $(LIB_DIR)/bin/validate-module
+.PHONY: help install clean verify test lint check
 
-.PHONY: help install clean verify test lint check init
+install:
+	forge install
 
-init:
-	@if [ ! -f $(LIB_DIR)/Cargo.toml ]; then \
-	  echo "Initializing forge-lib submodule..."; \
-	  git submodule update --init $(LIB_DIR); \
-	fi
+clean:
+	forge clean
 
-ifneq ($(wildcard $(LIB_DIR)/mk/common.mk),)
-  include $(LIB_DIR)/mk/common.mk
-  include $(LIB_DIR)/mk/skills/install.mk
-  include $(LIB_DIR)/mk/skills/verify.mk
-  include $(LIB_DIR)/mk/agents/install.mk
-  include $(LIB_DIR)/mk/agents/verify.mk
-  include $(LIB_DIR)/mk/lint.mk
-endif
+verify:
+	forge verify
 
-install: install-agents install-skills
-clean: clean-agents clean-skills
-verify: verify-skills verify-agents
-test: $(VALIDATE_MODULE)
-	@$(VALIDATE_MODULE) $(CURDIR)
+test:
+	forge validate $(CURDIR)
+
 lint: lint-schema lint-shell
 ```
 
-**SKILLS variable**: Lists skills for verification and cleanup only. `install-skills` reads `defaults.yaml` directly to decide what deploys where. Provider-specific skills (e.g., Claude-only) should be excluded from the global SKILLS list since `verify` checks all providers. The skill will still install correctly via defaults.yaml.
+**SKILLS variable**: Lists skills for verification and cleanup only. `forge install` reads `defaults.yaml` directly to decide what deploys where. Provider-specific skills (e.g., Claude-only) should be excluded from the global SKILLS list since `verify` checks all providers. The skill will still install correctly via defaults.yaml.
 
 For skills-only modules (no agents), omit `AGENTS`, `AGENT_SRC`, and the agent mk includes.
 
@@ -193,7 +178,7 @@ These files are the primary way AI agents understand the module when working ins
 ## Validation Flow
 
 1. **Unit Tests**: `cargo test` (or equivalent) for Rust modules
-2. **Module Conventions**: `validate-module .` checks structure
+2. **Module Conventions**: `forge validate .` checks structure
 3. **Skill Verification**: `make verify` confirms deployment
 4. **Binary Availability**: Check binaries respond to `--help` or `--version`
 
@@ -205,5 +190,5 @@ These files are the primary way AI agents understand the module when working ins
 
 - ALL CAPS filenames = system-provided (SYSTEM.md, CONVENTIONS.md). Title Case = user-authored.
 - `config.yaml` is always gitignored at every level
-- forge-lib is consumed as a git submodule in `lib/`
+- The `forge` CLI provides install, validate, and assembly operations
 - Modules must work standalone -- no dependency on a parent monorepo

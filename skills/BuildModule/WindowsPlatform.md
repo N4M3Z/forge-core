@@ -14,19 +14,10 @@ Prefer WSL or Git Bash -- the Makefile uses POSIX shell syntax.
 If staying in PowerShell:
 
 ```powershell
-git submodule update --init lib
 $env:PATH = "$env:USERPROFILE\.cargo\bin;$env:PATH"
-cargo build --release --manifest-path lib/Cargo.toml
-
-.\lib\target\release\install-skills.exe skills --provider claude --scope workspace
-.\lib\target\release\install-skills.exe skills --provider codex --scope workspace
-.\lib\target\release\install-skills.exe skills --provider opencode --scope workspace
-```
-
-Modules with agents also need:
-
-```powershell
-.\lib\target\release\install-agents.exe agents --scope workspace
+forge install --provider claude --scope workspace
+forge install --provider codex --scope workspace
+forge install --provider opencode --scope workspace
 ```
 
 ## Notes

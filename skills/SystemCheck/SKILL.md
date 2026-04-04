@@ -40,7 +40,7 @@ bash "${FORGE_MODULE_ROOT:-Modules/forge-core}/skills/SystemCheck/system-check.s
 
 ### Check 1: Installed Skills vs Source
 
-Read `.claude/skills/.manifest` (written by `install-skills`) to determine which module owns each installed skill. For each entry, compare the installed SKILL.md body against its source using `shasum -a 256` (strip frontmatter first — `install-skills` merges `claude:` keys, so frontmatter will differ by design).
+Read `.claude/skills/.manifest` (written by `forge install`) to determine which module owns each installed skill. For each entry, compare the installed SKILL.md body against its source using `shasum -a 256` (strip frontmatter first — `forge install` merges `claude:` keys, so frontmatter will differ by design).
 
 Three failure modes:
 - **stale**: installed body differs from source
@@ -53,9 +53,9 @@ Falls back to directory scanning if `.manifest` is absent.
 
 For each symlink in `~/.local/bin` that points into the forge root, find the crate's `src/` directory and compare the binary mtime against the newest `.rs` source file. If any source is newer, the binary is stale.
 
-### Check 3: Lib Submodule Consistency
+### Check 3: forge CLI Availability
 
-For each module that has a `lib/` submodule, read its commit SHA. Report if any module's `lib/` points to a different commit than the others. All modules should track the same forge-lib commit.
+Verify that the `forge` binary is on PATH and responds to `forge --version`. Report the installed version.
 
 ### Check 4: Version Drift
 
@@ -81,9 +81,9 @@ Read `.claude/settings.json` and verify all expected dispatch events are present
 
 | Problem | Fix |
 |---------|-----|
-| Skills stale | `make install-skills` |
+| Skills stale | `make install` |
 | Binaries stale | `make build && make install-binaries` |
-| Lib drift | Update lib submodules to canonical commit |
+| forge CLI missing | Install forge-cli: `cargo install forge-cli` |
 | Version drift | Align versions in the affected module |
 | Submodule pointers dirty | Commit parent repo |
 | Hook config incomplete | `make install-hooks` |

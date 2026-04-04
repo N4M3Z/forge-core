@@ -30,7 +30,7 @@ Flag and remove entries matching these patterns:
 | **Env-prefixed commands**    | One-shot invocations with env context baked in                       | `Bash(FORGE_LIB=... command make:*)`                       |
 | **Path-pinned duplicates**   | Same binary via absolute or relative path when bare wildcard exists  | `Bash(/Users/.../safe-read:*)` when `safe-read:*` present  |
 | **Stale build paths**        | `target/release/` or `target/debug/` paths for binaries now on PATH  | `Bash(Modules/.../target/release/insight:*)`                |
-| **One-shot debug**           | Pinned invocations to `/tmp/`, `Scratch/`, or test paths             | `Bash(builtin .../install-agents --dst /tmp/test/...)`     |
+| **One-shot debug**           | Pinned invocations to `/tmp/`, `Scratch/`, or test paths             | `Bash(builtin .../forge install --dst /tmp/test/...)`      |
 | **File existence checks**    | One-off `[ -f ... ]` tests                                          | `Bash([ -f "$SCRIPT_DIR/Core/..." ])`                      |
 | **Internal functions**       | Bash function names, not external commands                           | `Bash(strip_front:*)`, `Bash(parse_yaml_list:*)`           |
 | **Multi-line blobs**         | Entire scripts pasted as a single permission entry                   | Long `for`/`do`/`done` blocks spanning multiple lines      |

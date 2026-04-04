@@ -54,7 +54,7 @@ system_prompt = "You are a code reviewer."
 
 ## Skill Support
 
-Gemini CLI follows the [Agent Skills](https://agentskills.io) standard. Skills live in `.gemini/skills/` or `.agents/skills/`, each with `SKILL.md`. Forge's `install-skills` binary handles deployment.
+Gemini CLI follows the [Agent Skills](https://agentskills.io) standard. Skills live in `.gemini/skills/` or `.agents/skills/`, each with `SKILL.md`. The `forge install` command handles deployment.
 
 ## Portability Patterns
 

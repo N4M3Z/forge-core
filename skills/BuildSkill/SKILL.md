@@ -114,7 +114,7 @@ user:                                 # free-form namespace (personal metadata)
     priority: high
 ```
 
-**`claude:` key details:** `install-skills` reads all key-value pairs under `claude:` and merges them into the installed SKILL.md frontmatter. Any [Claude Code skill frontmatter field](https://code.claude.com/docs/en/skills) can go here. Put them in the sidecar instead of SKILL.md to protect them from Obsidian Linter reformatting. Codex uses TOML-based [multi-agent configuration](https://developers.openai.com/codex/multi-agent/), not YAML skill frontmatter — check the provider docs for the latest supported keys.
+**`claude:` key details:** `forge install` reads all key-value pairs under `claude:` and merges them into the installed SKILL.md frontmatter. Any [Claude Code skill frontmatter field](https://code.claude.com/docs/en/skills) can go here. Put them in the sidecar instead of SKILL.md to protect them from Obsidian Linter reformatting. Codex uses TOML-based [multi-agent configuration](https://developers.openai.com/codex/multi-agent/), not YAML skill frontmatter — check the provider docs for the latest supported keys.
 
 The sidecar is also the landing zone for Obsidian Linter — any `title:`, `aliases:`, `tags:`, or other vault metadata the Linter injects lands here, not in the canon. The `user:` namespace is free-form for personal metadata.
 
@@ -134,7 +134,7 @@ Skills should ship with an `Example.md` demo file showing a concrete invocation 
 
 ### Multi-Provider Routing
 
-Provider routing is controlled by the module's `defaults.yaml`, not by individual SKILL.yaml files. The `install-skills` binary reads provider-keyed allowlists to decide which skills deploy where:
+Provider routing is controlled by the module's `defaults.yaml`, not by individual SKILL.yaml files. `forge install` reads provider-keyed allowlists to decide which skills deploy where:
 
 ```yaml
 # defaults.yaml

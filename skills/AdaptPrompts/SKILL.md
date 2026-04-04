@@ -30,7 +30,7 @@ Take a source rule set and adapt it for a target repo that consumes the lib subm
 
 4. For each rule being ported, apply these transformations:
 
-   - **Strip forge branding** per ContextualNaming: "forge-lib" becomes "the lib submodule", "forge-core" becomes "the core module", skill names drop forge prefix.
+   - **Strip forge branding** per ContextualNaming: "forge-cli" becomes "the CLI tool", "forge-core" becomes "the core module", skill names drop forge prefix.
    - **Add `paths:` frontmatter** when the rule should be scoped (e.g., `SelfLearning.md` scoped to the target's skill paths).
    - **Preserve existing adaptations** — if the target already has a modified version, merge source updates into the existing adaptation rather than overwriting.
    - **Match the target's naming** — if the target uses different filenames, rename accordingly.

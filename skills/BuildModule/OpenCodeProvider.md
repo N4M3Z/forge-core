@@ -38,7 +38,7 @@ Built-in agents: Build, Plan (primary), General, Explore (subagents).
 
 ## Skill Support
 
-OpenCode follows the [Agent Skills](https://agentskills.io) standard. Skills live in `.opencode/skills/`, and it also searches `.claude/skills/` and `.agents/skills/`. Forge's `install-skills` binary handles deployment.
+OpenCode follows the [Agent Skills](https://agentskills.io) standard. Skills live in `.opencode/skills/`, and it also searches `.claude/skills/` and `.agents/skills/`. The `forge install` command handles deployment.
 
 ## Event Mapping
 

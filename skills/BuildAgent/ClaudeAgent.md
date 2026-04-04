@@ -1,6 +1,6 @@
 # Claude Code Agent Deployment
 
-How forge agents deploy to Claude Code. The `install-agents` binary transforms source agents into Claude Code format.
+How forge agents deploy to Claude Code. The `forge install` command transforms source agents into Claude Code format.
 
 ## Deployed Format
 

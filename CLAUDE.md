@@ -20,7 +20,7 @@ Module-building skills for the forge ecosystem. Teaches AI coding tools to creat
 make install          # deploy skills (Claude, Gemini, Codex, OpenCode)
 make verify           # check skills deployed across all providers
 make clean            # remove previously installed skills
-make test             # validate-module convention checks
+make test             # forge validate convention checks
 make lint             # shellcheck all scripts
 ```
 
@@ -33,7 +33,6 @@ skills/
   BuildModule/      SKILL.md + SKILL.yaml
   BuildHook/        SKILL.md + SKILL.yaml
   RTK/              SKILL.md + SKILL.yaml
-lib/                git submodule -> forge-lib (Rust binaries for deployment + validation)
 defaults.yaml       skill roster
 config.yaml         user overrides (gitignored), same structure as defaults
 module.yaml         module metadata (name, version)
@@ -57,9 +56,9 @@ Each skill directory contains:
 - `config.yaml`: user overrides (gitignored) -- same structure, only changed fields
 - `module.yaml`: module metadata -- update `version` on releases
 
-### forge-lib Submodule (`lib/`)
+### forge-cli
 
-Git submodule from `forge-lib`. Provides Rust binaries: `install-skills` (provider-aware skill installer), `validate-module` (convention test suite). Built via `make -C lib build`. If missing: `git submodule update --init`.
+External binary (`forge`) providing install, validate, and assembly operations. Install via `cargo install forge-cli` or from the forge-cli repo.
 
 ### Git
 

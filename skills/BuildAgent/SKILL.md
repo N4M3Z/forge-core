@@ -6,7 +6,7 @@ description: "Create, validate, or audit agent definitions. USE WHEN create agen
 
 # BuildAgent
 
-Scaffold, validate, and audit agent markdown files following forge conventions. Agents are markdown files with frontmatter that deploy to provider-specific directories via `install-agents`.
+Scaffold, validate, and audit agent markdown files following forge conventions. Agents are markdown files with frontmatter that deploy to provider-specific directories via `forge install`.
 
 ## Workflow Routing
 
@@ -140,11 +140,11 @@ Structured template for findings using markdown headings.
 
 ### Deployment
 
-Module agents deploy via `install-agents` from forge-lib:
+Module agents deploy via `forge install`:
 
 ```bash
-make install-agents                        # all providers
-lib/bin/install-agents agents --scope user  # user-level install
+make install                              # all providers
+forge install --scope user                # user-level install
 ```
 
 **Provider-specific behaviour:**
@@ -158,9 +158,9 @@ lib/bin/install-agents agents --scope user  # user-level install
 
 Deployment adds a `# synced-from: OriginalFilename.md` header for provenance tracking. Tool mapping to provider equivalents happens automatically.
 
-**Critical**: `install-agents` reads provider keys from the `providers:` section in defaults.yaml to determine deployment targets. If a provider is missing from `providers:`, agents will not deploy there.
+**Critical**: `forge install` reads provider keys from the `providers:` section in defaults.yaml to determine deployment targets. If a provider is missing from `providers:`, agents will not deploy there.
 
-**User-created detection**: If an agent file already exists in the target directory without a `# synced-from:` header, `install-agents` skips it to avoid overwriting user-created agents. When migrating from a committed provider dir to `agents/` source: delete the old file from disk first, then run `make install-agents`.
+**User-created detection**: If an agent file already exists in the target directory without a `# synced-from:` header, `forge install` skips it to avoid overwriting user-created agents. When migrating from a committed provider dir to `agents/` source: delete the old file from disk first, then run `make install`.
 
 ---
 
@@ -195,7 +195,7 @@ Follow the frontmatter and body structure from [Agent Conventions](#agent-conven
 ### Step 5: Deploy
 
 ```bash
-make install-agents
+make install
 ```
 
 ### Step 6: Verify

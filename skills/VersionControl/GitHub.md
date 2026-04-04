@@ -96,7 +96,7 @@ Lives in `.github/CODEOWNERS` (preferred), repo root, or `docs/`. Requires `requ
 
 # Per-directory ownership
 /src/payments/ @payments-team
-/lib/           @OWNER
+/src/           @OWNER
 ```
 
 ### Quick Reference

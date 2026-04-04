@@ -3,7 +3,7 @@
 # Usage: publish-prompts.sh [--type rules|skills|agents|all] [--modules-dir DIR] [--target-dir DIR]
 #
 # Scans target directory against all forge modules to determine provenance.
-# Manifests are written by install-rules, install-skills, and install-agents binaries.
+# Manifests are written by the forge install command.
 set -euo pipefail
 
 TYPE="all"
