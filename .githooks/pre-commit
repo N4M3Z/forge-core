@@ -5,7 +5,7 @@ set -euo pipefail
 # Canonical source: https://github.com/N4M3Z/forge-cli/blob/main/templates/git/pre-commit
 
 SCRIPT_URL="https://raw.githubusercontent.com/N4M3Z/forge-cli/main/scripts/validate.sh"
-SCRIPT_SHA="417efbe6f5141644a6fa676135eb45d8243c65a52baf4775198d71d73904864a"
+SCRIPT_SHA="ab1ff2a0de44ede2f2b273150dc775e4de7f158aaf1d2032a82e698ebee33063"
 
 if command -v forge >/dev/null 2>&1; then
     forge validate .
@@ -14,10 +14,13 @@ fi
 
 echo "forge not found, falling back to validate.sh"
 
-curl -sfL "$SCRIPT_URL" -o /tmp/validate.sh 2>/dev/null \
+tmpdir=$(mktemp -d)
+trap 'rm -rf "$tmpdir"' EXIT
+
+curl --max-time 30 -sfL "$SCRIPT_URL" -o "$tmpdir/validate.sh" 2>/dev/null \
     || { echo "validate.sh unreachable — install forge-cli or check connectivity"; exit 1; }
 
-actual=$(sha256sum /tmp/validate.sh 2>/dev/null || shasum -a 256 /tmp/validate.sh)
+actual=$(sha256sum "$tmpdir/validate.sh" 2>/dev/null || shasum -a 256 "$tmpdir/validate.sh")
 actual=${actual%% *}
 
 if [ "$actual" != "$SCRIPT_SHA" ]; then
@@ -26,4 +29,4 @@ if [ "$actual" != "$SCRIPT_SHA" ]; then
     exit 1
 fi
 
-bash /tmp/validate.sh .
+bash "$tmpdir/validate.sh" .
