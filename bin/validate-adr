@@ -292,7 +292,7 @@ def run_fixture_tests(schema_path, fixture_root):
 def main():
     if len(sys.argv) >= 2 and sys.argv[1] == "--test":
         script_directory = Path(__file__).resolve().parent
-        module_root = script_directory.parent.parent
+        module_root = script_directory.parent
         fixture_root = module_root / "tests" / "fixtures"
 
         print("Unit tests:")

@@ -113,7 +113,7 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
 
     c. Python fallback:
     ```sh
-    python3 skills/ArchitectureDecision/validate-adr.py $ADR_SCHEMA $ADR_DIRECTORY/
+    validate-adr $ADR_SCHEMA $ADR_DIRECTORY/
     ```
 
 3. Check structural compliance if `$ADR_MDSCHEMA` exists in the ADR directory.

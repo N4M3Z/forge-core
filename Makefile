@@ -20,7 +20,7 @@ validate:
 	@bash .githooks/pre-commit
 
 test: validate
-	python3 skills/ArchitectureDecision/validate-adr.py --test
+	bin/validate-adr --test
 
 clean:
 	rm -rf build/

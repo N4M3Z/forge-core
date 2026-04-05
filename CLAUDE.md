@@ -34,21 +34,25 @@ make test             # validate + ADR validator self-tests
 make clean            # remove build artifacts
 ```
 
-Validate a single ADR: `python3 skills/ArchitectureDecision/validate-adr.py templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"`
+Validate a single ADR: `validate-adr templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"`
 
-Run validator self-tests: `python3 skills/ArchitectureDecision/validate-adr.py --test`
+Run validator self-tests: `validate-adr --test`
 
 ## Architecture
 
 ```
+bin/                      CLI tools added to PATH when loaded as a plugin
+  validate-adr            ADR frontmatter validator (Python 3 stdlib)
 skills/                   Skill definitions deployed to all providers
-  ArchitectureDecision/   SKILL.md + companions + validate-adr.py + user/ overlay
+  ArchitectureDecision/   SKILL.md + companions + user/ overlay
   BuildSkill/             SKILL.md + SKILL.yaml + ClaudeSkill.md
   */                      SKILL.md + SKILL.yaml + optional companions
+agents/                   Agent definitions deployed to all providers
 docs/decisions/           ADRs with prefix sections (CORE-, ARCH-, PROV-, MVPR-)
 templates/                ADR templates + JSON schemas
 rules/                    Behavioral rules deployed to .claude/rules/
 tests/fixtures/           Canary fixtures: valid/ must pass, invalid/ must fail (CORE-0012)
+.claude-plugin/           Plugin manifest for CLI and Cowork distribution
 .githooks/pre-commit      Validation gate: forge validate . with validate.sh fallback
 .github/workflows/        CI runs make validate + make test
 defaults.yaml             Skill roster + ADR config
