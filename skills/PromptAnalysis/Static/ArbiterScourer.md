@@ -37,4 +37,4 @@ Three consecutive models setting `should_send_another: false` triggers terminati
 
 To run Arbiter-style scouring on a forge module's deployed prompt, assemble all rules into one document and send through multiple models sequentially. Each model receives the full prompt + prior findings. Collect findings until convergence.
 
-[1]: https://arxiv.org/html/2603.08993v1 "Arbiter paper"
+[ARBITER]: https://arxiv.org/html/2603.08993v1 "Arbiter paper"

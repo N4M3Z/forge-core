@@ -4,13 +4,13 @@
 
 A build system for AI instructions. Treats prompts the way software engineering treats source code: authored in version-controlled markdown, validated by schemas, assembled per target, deployed with provenance records.
 
-Three artifact types map to how [Claude Code][1] loads instructions:
+Three artifact types map to how [Claude Code][CC] loads instructions:
 
-- **[Rules][2]** — small instruction files, always in context. One file, one behavior. When something goes wrong, the filename tells you which rule caused it.
-- **[Skills][3]** — lazy-loaded capabilities. The AI reads the description at session start but loads full instructions only when invoked.
-- **[Agents][4]** — markdown files that define a persona and role for agent delegation.
+- **[Rules][CC-RULES]** — small instruction files, always in context. One file, one behavior. When something goes wrong, the filename tells you which rule caused it.
+- **[Skills][CC-SKILLS]** — lazy-loaded capabilities. The AI reads the description at session start but loads full instructions only when invoked.
+- **[Agents][CC-AGENTS]** — markdown files that define a persona and role for agent delegation.
 
-This is not a plugin system. Plugins are deployed artifacts for end users (one-click install via [Cowork][5]). forge is what happens before that: authoring, validating, assembling, and tracking instructions across teams, models, and providers.
+This is not a plugin system. Plugins are deployed artifacts for end users (one-click install via [Cowork][COWORK]). forge is what happens before that: authoring, validating, assembling, and tracking instructions across teams, models, and providers.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the structural overview. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to contribute.
 
@@ -76,7 +76,7 @@ Architecture Decision Records document the why behind structural choices. Each p
 | `PROV` | Manifest and provenance  | `PROV-0002 Manifest for Deployment Tracking` |
 | `MVPR` | Prompt optimization      | `MVPR-0001 Minimum Viable Prompt`            |
 
-ADRs use [structured-madr][6] frontmatter with forge extensions. Validate with `python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/`.
+ADRs use [structured-madr][MADR] frontmatter with forge extensions. Validate with `python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/`.
 
 ## Contributing
 
@@ -95,9 +95,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, skill autho
 
 [EUPL-1.2](LICENSE)
 
-[1]: https://code.claude.com/docs/en/overview
-[2]: https://code.claude.com/docs/en/memory
-[3]: https://code.claude.com/docs/en/skills
-[4]: https://code.claude.com/docs/en/sub-agents
-[5]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
-[6]: https://github.com/zircote/structured-madr
+[CC]: https://code.claude.com/docs/en/overview
+[CC-RULES]: https://code.claude.com/docs/en/memory
+[CC-SKILLS]: https://code.claude.com/docs/en/skills
+[CC-AGENTS]: https://code.claude.com/docs/en/sub-agents
+[COWORK]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
+[MADR]: https://github.com/zircote/structured-madr

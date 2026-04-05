@@ -27,9 +27,9 @@ upstream: []
 
 ## Context and Problem Statement
 
-[CORE-0005](CORE-0005 ADR Template Choice.md) adopts [structured-madr][1] as the ADR template. The upstream schema covers universal ADR fields (title, description, type, category, tags, status, created, updated, author, project, related). But the forge ecosystem needs additional fields for RACI accountability, rule promotion tracking, and cross-repo provenance.
+[CORE-0005](CORE-0005 ADR Template Choice.md) adopts [structured-madr][MADR] as the ADR template. The upstream schema covers universal ADR fields (title, description, type, category, tags, status, created, updated, author, project, related). But the forge ecosystem needs additional fields for RACI accountability, rule promotion tracking, and cross-repo provenance.
 
-The [structured-madr schema][1] allows additional properties prefixed with `x-`, providing a sanctioned extension mechanism.
+The [structured-madr schema][MADR] allows additional properties prefixed with `x-`, providing a sanctioned extension mechanism.
 
 ## Decision Drivers
 
@@ -45,7 +45,7 @@ The [structured-madr schema][1] allows additional properties prefixed with `x-`,
 
 ## Decision Outcome
 
-Forge ADRs use `x-forge-` prefixed extension fields alongside [structured-madr][1] required fields. For brevity, the short form (without prefix) is the canonical name in forge repos. Both forms are valid in the schema.
+Forge ADRs use `x-forge-` prefixed extension fields alongside [structured-madr][MADR] required fields. For brevity, the short form (without prefix) is the canonical name in forge repos. Both forms are valid in the schema.
 
 ### Extension Fields
 
@@ -67,6 +67,6 @@ Forge ADRs use `x-forge-` prefixed extension fields alongside [structured-madr][
 
 - **Positive:** ADRs carry full accountability and provenance metadata
 - **Positive:** Extensions use the sanctioned `x-` mechanism — upstream schema validation passes
-- **Negative:** Forge ADRs have more frontmatter fields than upstream [structured-madr][1] — mitigated by all extension fields being optional
+- **Negative:** Forge ADRs have more frontmatter fields than upstream [structured-madr][MADR] — mitigated by all extension fields being optional
 
-[1]: https://github.com/zircote/structured-madr
+[MADR]: https://github.com/zircote/structured-madr

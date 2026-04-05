@@ -116,9 +116,9 @@ rules/
 Council skills MUST use agent teams. Always TeamCreate
 before spawning any agents.
 
-Never use bare Agent calls for council specialists. [1]
+Never use bare Agent calls for council specialists. [CC-AGENTS]
 
-[1]: https://docs.anthropic.com/en/docs/claude-code/sub-agents
+[CC-AGENTS]: https://docs.anthropic.com/en/docs/claude-code/sub-agents
 ```
 
 **Codex variant** (`rules/codex/AgentTeams.md`):
@@ -183,7 +183,7 @@ Base body                          Variant body
          ▼                                   ▼
 ```
 
-The variant body replaces the base entirely. No frontmatter in the variant, so nothing to strip. The base's wiki-refs (`[1]`) are extracted for provenance but don't appear in the output (the variant doesn't contain them).
+The variant body replaces the base entirely. No frontmatter in the variant, so nothing to strip. The base's reference links are extracted for provenance but don't appear in the output (the variant doesn't contain them).
 
 **Step 4:** Three files written to `.codex/rules/`
 
@@ -291,12 +291,12 @@ Variant files default to **replace** (swap entire base content). For partial ove
 Source files cite external authorities using GFM reference links:
 
 ```markdown
-Always parameterize SQL queries [1].
+Always parameterize SQL queries [OWASP].
 
-[1]: https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html
+[OWASP]: https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html
 ```
 
-At deploy time, `[N]` markers and the `[N]:` reference block are stripped from the deployed file. The extracted URLs flow into the `.prov.yaml` `sources:` array. See [ADR 0017](docs/decisions/CORE-0017 GFM Reference Links for Prompt Provenance.md) and [ADR 0020](docs/decisions/CORE-0020 W3C PROV Provenance Records.md).
+At deploy time, reference markers and the reference block are stripped from the deployed file. The extracted URLs flow into the `.prov.yaml` `sources:` array. See [ADR 0017](docs/decisions/CORE-0017 GFM Reference Links for Prompt Provenance.md) and [ADR 0020](docs/decisions/CORE-0020 W3C PROV Provenance Records.md).
 
 ### Output Summary
 
@@ -343,7 +343,7 @@ rules/*.md                           PromptProvenance scan
 
 | Check | Method | What it catches |
 |-------|--------|-----------------|
-| Missing provenance | No `[N]:` wiki-refs in source | Rules without external source citations |
+| Missing provenance | No mnemonic ref definitions in source | Rules without external source citations |
 | Missing targets | Provider-specific content without `targets:` | Rules that should be filtered per provider |
 | Needs qualifier split | References provider-specific tools/APIs | Rules that need variant directories |
 | Conflict detection | Scope overlap analysis (Arbiter-style) | Two rules that contradict each other |
@@ -508,7 +508,7 @@ Both exist. Hooks are preferred for anything that can be automated. Markdown cov
 
 ## References
 
-[1]: https://docs.anthropic.com/en/docs/claude-code/skills "Claude Code Skills"
-[2]: https://docs.anthropic.com/en/docs/claude-code/sub-agents "Claude Code Sub-agents"
-[3]: https://docs.anthropic.com/en/docs/claude-code/hooks "Claude Code Hooks"
-[4]: skills/BuildModule/SKILL.md "Forge Module Convention"
+[CC-SKILLS]: https://docs.anthropic.com/en/docs/claude-code/skills "Claude Code Skills"
+[CC-SUBAGENTS]: https://docs.anthropic.com/en/docs/claude-code/sub-agents "Claude Code Sub-agents"
+[CC-HOOKS]: https://docs.anthropic.com/en/docs/claude-code/hooks "Claude Code Hooks"
+[BUILD-MODULE]: skills/BuildModule/SKILL.md "Forge Module Convention"

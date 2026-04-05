@@ -29,7 +29,7 @@ AI instructions need traceable provenance — where did this knowledge come from
 
 ## Considered Options
 
-- **Reference-style links** — `[1]: https://owasp.org/...` in source, stripped at deploy
+- **Reference-style links** — `[OWASP]: https://owasp.org/...` in source, stripped at deploy
 - **Sidecar-only** — companion file carries all provenance metadata
 - **Inline HTML comments** — invisible in rendered markdown
 - **Extended frontmatter injected at deploy** — install binary adds metadata to deployed files
@@ -39,13 +39,13 @@ AI instructions need traceable provenance — where did this knowledge come from
 Chosen option: **Reference-style links**, because they're standard markdown, human-readable in source, and the install binary can strip them at deploy for zero token overhead. Stripping is configurable (`--provenance strip|inline`). External URLs extracted from stripped refs feed into provenance tracking records ([PROV-0003](PROV-0003 Provenance Tracking.md)).
 
 ```markdown
-Always parameterize SQL queries [1].
+Always parameterize SQL queries [OWASP].
 
-[1]: https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html
+[OWASP]: https://cheatsheetseries.owasp.org/cheatsheets/Query_Parameterization_Cheat_Sheet.html
 ```
 
 ## Consequences
 
 - Positive: source files are self-documenting with auditable provenance
 - Positive: deployed files remain token-clean when stripping is enabled
-- Tradeoff: rules that cite external sources need `[N]:` reference blocks added
+- Tradeoff: rules that cite external sources need mnemonic reference blocks added

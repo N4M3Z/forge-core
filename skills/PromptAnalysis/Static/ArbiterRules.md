@@ -69,4 +69,4 @@ Initial space: O(n^2 x R) where n = blocks, R = rules. For 56 blocks and 5 rules
 
 Critical findings: TodoWrite mandate contradicts commit and PR restrictions (4 patterns). Scope overlap: read-before-edit restated across general section, Edit tool, and Write tool definitions.
 
-[1]: https://arxiv.org/html/2603.08993v1 "Arbiter paper"
+[ARBITER]: https://arxiv.org/html/2603.08993v1 "Arbiter paper"

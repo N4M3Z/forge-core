@@ -28,7 +28,7 @@ upstream: [PlaintextTemplateVariables.md]
 
 Markdown instructions (skills, agents, rules) need to reference configurable values — file paths, directory locations, tool names, feature flags. Templates need placeholder values that get filled at creation time. Both must be resolvable by shell tools and readable by AI.
 
-Three placeholder patterns had emerged organically: inline descriptions ("Title — a short noun phrase"), `{{VARIABLE}}` ([Obsidian Templater][1] syntax), and `{VARIABLE}` (structured-madr convention). None of these are shell-resolvable.
+Three placeholder patterns had emerged organically: inline descriptions ("Title — a short noun phrase"), `{{VARIABLE}}` ([Obsidian Templater][TEMPLATER] syntax), and `{VARIABLE}` (structured-madr convention). None of these are shell-resolvable.
 
 ## Decision Drivers
 
@@ -67,4 +67,4 @@ Obsidian Templater templates continue using `{{VARIABLE}}`. The two patterns do 
 - [-] ENV vars must be populated before the instruction is useful — requires a config loading layer
 - [-] Two coexisting patterns (`${VAR}` and `{{VAR}}`) — mitigated by the rule that they never mix in one file
 
-[1]: https://silentvoid13.github.io/Templater/
+[TEMPLATER]: https://silentvoid13.github.io/Templater/

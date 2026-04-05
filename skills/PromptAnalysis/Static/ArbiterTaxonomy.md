@@ -49,4 +49,4 @@ Non-monotonic discovery: pass 7 (MiniMax) produced 20 findings after pass 6 yiel
 | Flat         | Simplicity trade-offs                   | Identity confusion, leaked implementation details    |
 | Modular      | Design-level bugs at composition seams  | Gemini save_memory data loss during compression      |
 
-[1]: https://arxiv.org/html/2603.08993v1 "Arbiter paper"
+[ARBITER]: https://arxiv.org/html/2603.08993v1 "Arbiter paper"

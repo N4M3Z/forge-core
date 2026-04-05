@@ -6,7 +6,7 @@ Add a module to a Claude Code plugin marketplace for Cowork distribution.
 
 - Module passes BuildPlugin validation
 - Module has a public GitHub repo (for plugin source)
-- Marketplace repo is **private** ([Cowork requirement][1])
+- Marketplace repo is **private** ([Cowork requirement][COWORK])
 - Cowork GitHub App installed on the marketplace repo
 
 ### Add to marketplace
@@ -89,6 +89,6 @@ If sync fails:
 - Confirm source URLs are accessible
 - Confirm `.claude-plugin/marketplace.json` is valid JSON
 
-[1]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
-[2]: https://code.claude.com/docs/en/plugin-marketplaces
-[3]: https://code.claude.com/docs/en/plugins-reference
+[COWORK]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
+[MARKETPLACE]: https://code.claude.com/docs/en/plugin-marketplaces
+[PLUGINS-REF]: https://code.claude.com/docs/en/plugins-reference

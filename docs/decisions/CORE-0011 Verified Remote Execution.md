@@ -31,7 +31,7 @@ CI pipelines and pre-commit hooks sometimes fetch scripts from the network. Blin
 - Remote scripts are convenient — always current, zero local maintenance
 - The risk is unverified execution, not remote fetching
 - A committed hash acts as a trust anchor — the script can change, but execution requires explicit hash update
-- Supply chain attacks target the gap between "fetched" and "verified" ([SLSA threat model][1])
+- Supply chain attacks target the gap between "fetched" and "verified" ([SLSA threat model][SLSA-THREATS])
 
 ## Considered Options
 
@@ -67,7 +67,7 @@ fi
 - [+] Remote scripts execute only when their content matches the committed hash
 - [+] Compromised upstream is detected immediately — hash mismatch blocks execution
 - [+] Fallback to local copy means CI never breaks due to network issues
-- [+] Consistent with SLSA build integrity requirements ([SLSA L2][2])
+- [+] Consistent with SLSA build integrity requirements ([SLSA L2][SLSA-LEVELS])
 - [-] Hash must be updated manually when adopting upstream changes (intentional friction)
 
 ## Links
@@ -75,5 +75,5 @@ fi
 - [SLSA Threats and mitigations](https://slsa.dev/spec/v1.0/threats) — supply chain threat model
 - [CORE-0010 Unified Module Validation](CORE-0010 Unified Module Validation.md) — the validation script this decision protects
 
-[1]: https://slsa.dev/spec/v1.0/threats
-[2]: https://slsa.dev/spec/v1.0/levels
+[SLSA-THREATS]: https://slsa.dev/spec/v1.0/threats
+[SLSA-LEVELS]: https://slsa.dev/spec/v1.0/levels
