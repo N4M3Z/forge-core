@@ -1,0 +1,72 @@
+frontmatter:
+    fields:
+        - name: name
+          type: string
+        - name: description
+          type: string
+        - name: model
+          type: string
+          optional: true
+        - name: tools
+          type: array
+          optional: true
+        - name: disallowedTools
+          type: array
+          optional: true
+        - name: permissionMode
+          type: string
+          optional: true
+        - name: maxTurns
+          type: string
+          optional: true
+        - name: effort
+          type: string
+          optional: true
+        - name: skills
+          type: array
+          optional: true
+        - name: memory
+          type: string
+          optional: true
+        - name: isolation
+          type: string
+          optional: true
+        - name: color
+          type: string
+          optional: true
+        - name: hooks
+          type: string
+          optional: true
+        - name: mcpServers
+          type: array
+          optional: true
+
+heading_rules:
+    no_skip_levels: true
+    max_depth: 3
+
+structure:
+    - heading:
+          pattern: "^# .+"
+          regex: true
+      allow_additional: true
+      children:
+          - heading:
+                pattern: "## Role"
+            word_count:
+                min: 5
+                max: 50
+          - heading:
+                pattern: "## Expertise"
+            lists:
+                - min: 1
+          - heading:
+                pattern: "## Instructions"
+            word_count:
+                min: 10
+          - heading:
+                pattern: "## Output Format"
+          - heading:
+                pattern: "## Constraints"
+            lists:
+                - min: 1

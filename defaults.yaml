@@ -9,6 +9,35 @@ adr:
     schema: templates/forge-adr.json
     mdschema: docs/decisions/.mdschema
 
+agents:
+    DataAnalyst:
+        model: fast
+        tools: Read, Grep, Glob, WebSearch, WebFetch
+    DocumentationWriter:
+        model: fast
+        tools: Read, Grep, Glob
+    ForensicAgent:
+        model: fast
+        tools: Read, Grep, Glob, Bash
+    ProductManager:
+        model: fast
+        tools: Read, Grep, Glob, WebSearch, WebFetch
+    ProvenanceAuditor:
+        model: fast
+        tools: Read, Grep, Glob, Bash
+    SecurityArchitect:
+        model: fast
+        tools: Read, Grep, Glob, Bash, WebSearch
+    SystemArchitect:
+        model: fast
+        tools: Read, Grep, Glob
+    TheOpponent:
+        model: fast
+        tools: Read, Grep, Glob, WebSearch
+    WebResearcher:
+        model: fast
+        tools: Read, Grep, Glob, WebSearch, WebFetch
+
 hooks:
     PlanCopy:
         destination: ""                     # override in config.yaml (e.g., docs/plans)
