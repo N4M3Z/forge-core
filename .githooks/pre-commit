@@ -5,25 +5,28 @@ set -euo pipefail
 # Canonical source: https://github.com/N4M3Z/forge-cli/blob/main/templates/git/pre-commit
 
 SCRIPT_URL="https://raw.githubusercontent.com/N4M3Z/forge-cli/main/scripts/validate.sh"
-SCRIPT_SHA="e5fea8f10359807b72e719d9e475eb0257de9df8303a0476fd639b6f882832e7"
+SCRIPT_SHA="f1fc47c463097005152ff2dcd5c8e57e7bb55d9b8c7a61c5b697fc662aeb5bde"
 
 if command -v forge >/dev/null 2>&1; then
     forge validate .
     exit $?
 fi
 
-script=$(curl -sfL "$SCRIPT_URL" 2>/dev/null || true)
-if [ -z "$script" ]; then
-    echo "error: forge not installed and validate.sh unreachable"
-    echo "  install forge-cli: https://github.com/N4M3Z/forge-cli"
-    exit 1
-fi
+echo "forge not found, falling back to validate.sh"
 
-actual=$(echo "$script" | shasum -a 256 | cut -d' ' -f1)
+tmpdir=$(mktemp -d)
+trap 'rm -rf "$tmpdir"' EXIT
+
+curl --max-time 30 -sfL "$SCRIPT_URL" -o "$tmpdir/validate.sh" 2>/dev/null \
+    || { echo "validate.sh unreachable — install forge-cli or check connectivity"; exit 1; }
+
+actual=$(sha256sum "$tmpdir/validate.sh" 2>/dev/null || shasum -a 256 "$tmpdir/validate.sh")
+actual=${actual%% *}
+
 if [ "$actual" != "$SCRIPT_SHA" ]; then
-    echo "error: validate.sh hash mismatch (expected $SCRIPT_SHA, got $actual)"
-    echo "  update SCRIPT_SHA in .githooks/pre-commit after verifying the new script"
+    echo "validate.sh hash mismatch (expected $SCRIPT_SHA, got $actual)"
+    echo "  update SCRIPT_SHA after verifying the new script"
     exit 1
 fi
 
-echo "$script" | bash -s -- .
+bash "$tmpdir/validate.sh" .

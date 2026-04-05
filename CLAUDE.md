@@ -29,30 +29,32 @@ Module-building skills for the forge ecosystem. Teaches AI coding tools to creat
 
 ```sh
 make install          # deploy skills + activate git pre-commit hooks (requires forge-cli)
-make test             # forge validate + ADR schema self-test + frontmatter validation
-make lint             # shellcheck (CI also runs ruff + tsc)
-make check            # verify prerequisites and module structure
-make verify           # forge validate only
+make validate         # validate module structure and code (same as pre-commit hook)
+make test             # validate + ADR validator self-tests
 make clean            # remove build artifacts
 ```
 
-Validate a single ADR: `python3 bin/validate-adr.py templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"`
+Validate a single ADR: `validate-adr templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"`
 
-Run validator self-tests: `python3 bin/validate-adr.py --test`
+Run validator self-tests: `validate-adr --test`
 
 ## Architecture
 
 ```
+bin/                      CLI tools added to PATH when loaded as a plugin
+  validate-adr            ADR frontmatter validator (Python 3 stdlib)
 skills/                   Skill definitions deployed to all providers
   ArchitectureDecision/   SKILL.md + companions + user/ overlay
   BuildSkill/             SKILL.md + SKILL.yaml + ClaudeSkill.md
   */                      SKILL.md + SKILL.yaml + optional companions
+agents/                   Agent definitions deployed to all providers
 docs/decisions/           ADRs with prefix sections (CORE-, ARCH-, PROV-, MVPR-)
 templates/                ADR templates + JSON schemas
-bin/                      validate-adr.py (ADR frontmatter validator)
 rules/                    Behavioral rules deployed to .claude/rules/
-.githooks/                Git pre-commit hook (ADR, shell, rust, python, typescript, gitleaks)
-.github/workflows/        CI pipeline (ADR validation, shellcheck, ruff, tsc)
+tests/fixtures/           Canary fixtures: valid/ must pass, invalid/ must fail (CORE-0012)
+.claude-plugin/           Plugin manifest for CLI and Cowork distribution
+.githooks/pre-commit      Validation gate: forge validate . with validate.sh fallback
+.github/workflows/        CI runs make validate + make test
 defaults.yaml             Skill roster + ADR config
 config.yaml               User overrides (gitignored)
 module.yaml               Module metadata (name, version)
@@ -104,9 +106,21 @@ Each prefix numbers independently. ADRs use [structured-madr](https://github.com
 - `config.yaml`: user overrides (gitignored) — same structure, only changed fields
 - `module.yaml`: module metadata — update `version` on releases
 
+### Validation chain
+
+`make validate` → `.githooks/pre-commit` → `forge validate .` (with hash-verified `validate.sh` fallback). CI, pre-commit hook, and local dev all follow the same path. SCRIPT_SHA lives in `.githooks/pre-commit` only.
+
 ### forge-cli
 
-External binary (`forge`) providing install, validate, and assembly operations. Required for `make install` and `make test`.
+External binary (`forge`) providing install, validate, and assembly operations. Required for `make install`.
+
+### Installation
+
+`INSTALL.md` follows the [Mintlify install.md](https://github.com/mintlify/install-md) standard for agent-executable installation. AI agents can read and execute it autonomously.
+
+### mdschema
+
+`.mdschema` files enforce markdown structure. Present at root, `rules/`, `skills/`, and `docs/decisions/`. Check for a sibling `.mdschema` before writing any markdown file.
 
 ### Git
 

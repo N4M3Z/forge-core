@@ -54,7 +54,7 @@ npx ajv validate -s templates/forge-adr.json -d docs/decisions/*.md
 When no other tool is available (Python 3 stdlib only):
 
 ```sh
-python3 bin/validate-adr.py templates/forge-adr.json docs/decisions/
+validate-adr templates/forge-adr.json docs/decisions/
 ```
 
 [MADR]: https://github.com/zircote/structured-madr

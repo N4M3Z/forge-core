@@ -14,7 +14,12 @@
         "created",
         "updated",
         "author",
-        "project"
+        "project",
+        "responsible",
+        "accountable",
+        "consulted",
+        "informed",
+        "upstream"
     ],
     "properties": {
         "title": {
