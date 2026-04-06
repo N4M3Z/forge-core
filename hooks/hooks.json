@@ -1,43 +1,31 @@
 {
     "hooks": {
-        "SessionStart": [
-            {
-                "matcher": "compact",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/SessionStart.sh"
-                    }
-                ]
-            },
-            {
-                "matcher": "resume",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/SessionStart.sh"
-                    }
-                ]
-            }
-        ],
-        "PostToolUse": [
-            {
-                "matcher": "ExitPlanMode",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/PostToolUse.sh"
-                    }
-                ]
-            }
-        ],
         "PreCompact": [
             {
                 "matcher": "",
                 "hooks": [
                     {
                         "type": "command",
-                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/PreCompact.sh"
+                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/preserve-adrs.sh"
+                    }
+                ]
+            }
+        ],
+        "PreToolUse": [
+            {
+                "matcher": "Write|Edit",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/gate-frontmatter.sh"
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/guard-naming.sh"
+                    },
+                    {
+                        "type": "command",
+                        "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/adr-context.sh"
                     }
                 ]
             }
