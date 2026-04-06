@@ -16,6 +16,9 @@ jobs:
               with:
                   python-version: "3.12"
 
+            - name: Setup forge
+              uses: N4M3Z/forge-cli/.github/actions/setup-forge@main
+
             - name: Install tools
               run: |
                   pip install pyyaml ruff semgrep

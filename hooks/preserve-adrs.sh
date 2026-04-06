@@ -4,7 +4,7 @@ set -euo pipefail
 # preserve-adrs — inject ADR index before compaction erases architectural context
 # Event: PreCompact
 
-INPUT=$(cat)
+cat > /dev/null
 
 ADR_DIR="${FORGE_ADR_DIR:-docs/decisions}"
 [ -d "$ADR_DIR" ] || exit 0
