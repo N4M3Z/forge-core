@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: .gitlab-ci.yml
+          digest:
+              sha256: 424d6bde355c60f41b64a71c1a46baa1c7f07a861187923ccca7bf21d29f4b2b
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/init/v1
+            externalParameters:
+                source: https://github.com/N4M3Z/forge-cli
+            resolvedDependencies:
+                - uri: templates/init/.gitlab-ci.yml
+                  digest:
+                      sha256: 424d6bde355c60f41b64a71c1a46baa1c7f07a861187923ccca7bf21d29f4b2b
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.0
+            metadata:
+                startedOn: "2026-04-07T21:06:24.258099+00:00"

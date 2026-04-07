@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: agents/.mdschema
+          digest:
+              sha256: ae52030ed8dd0761400444b8f5f7b9de8af4677d9c84729dbdeb98719234457f
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/init/v1
+            externalParameters:
+                source: https://github.com/N4M3Z/forge-cli
+            resolvedDependencies:
+                - uri: templates/init/agents/.mdschema
+                  digest:
+                      sha256: ae52030ed8dd0761400444b8f5f7b9de8af4677d9c84729dbdeb98719234457f
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.0
+            metadata:
+                startedOn: "2026-04-07T21:06:24.259975+00:00"

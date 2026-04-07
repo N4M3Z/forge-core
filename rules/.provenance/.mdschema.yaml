@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: rules/.mdschema
+          digest:
+              sha256: 4e6c78b7d14eeef521baf44acd73a6201e76174002bff5f83c2f699f0a2e6ed8
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/init/v1
+            externalParameters:
+                source: https://github.com/N4M3Z/forge-cli
+            resolvedDependencies:
+                - uri: templates/init/rules/.mdschema
+                  digest:
+                      sha256: 4e6c78b7d14eeef521baf44acd73a6201e76174002bff5f83c2f699f0a2e6ed8
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.0
+            metadata:
+                startedOn: "2026-04-07T21:06:24.260621+00:00"

@@ -1,0 +1,28 @@
+.gitattributes:
+  fingerprint: d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c
+  provenance: .provenance/.gitattributes.yaml
+.githooks:
+  pre-commit:
+    fingerprint: aaa2ebe74042b0f2f0169bf8587c1728d579b1223c3ec6f42e73e90f88ae4ed1
+    provenance: .githooks/.provenance/pre-commit.yaml
+.gitlab-ci.yml:
+  fingerprint: 424d6bde355c60f41b64a71c1a46baa1c7f07a861187923ccca7bf21d29f4b2b
+  provenance: .provenance/.gitlab-ci.yaml
+.gitleaks.toml:
+  fingerprint: 124bdbb5a4901a47e119dc7597b21003bdd4787c67b2757f975e238a956a226e
+  provenance: .provenance/.gitleaks.yaml
+LICENSE:
+  fingerprint: 57fb42fbcd0b037ce528ed8f72f1ec095d67bc6825ecf1448ff39be1fe68a4b4
+  provenance: .provenance/LICENSE.yaml
+agents:
+  .mdschema:
+    fingerprint: ae52030ed8dd0761400444b8f5f7b9de8af4677d9c84729dbdeb98719234457f
+    provenance: agents/.provenance/.mdschema.yaml
+rules:
+  .mdschema:
+    fingerprint: 4e6c78b7d14eeef521baf44acd73a6201e76174002bff5f83c2f699f0a2e6ed8
+    provenance: rules/.provenance/.mdschema.yaml
+skills:
+  .mdschema:
+    fingerprint: 6b7e7a30c6c6ce613f60997a7dec5520b6fac000a3fea8d1258138cf01504b41
+    provenance: skills/.provenance/.mdschema.yaml

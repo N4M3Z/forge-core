@@ -1,0 +1,11 @@
+quality:
+    image: python:3.12
+    stage: test
+    before_script:
+        - pip install ruff semgrep prek
+        - apt-get update && apt-get install -y gitleaks shellcheck
+    script:
+        - prek run --all-files
+    rules:
+        - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+        - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH

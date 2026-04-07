@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: .gitleaks.toml
+          digest:
+              sha256: 124bdbb5a4901a47e119dc7597b21003bdd4787c67b2757f975e238a956a226e
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/init/v1
+            externalParameters:
+                source: https://github.com/N4M3Z/forge-cli
+            resolvedDependencies:
+                - uri: templates/init/.gitleaks.toml
+                  digest:
+                      sha256: 124bdbb5a4901a47e119dc7597b21003bdd4787c67b2757f975e238a956a226e
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.0
+            metadata:
+                startedOn: "2026-04-07T21:06:24.258256+00:00"

@@ -1,0 +1,23 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: skills/.mdschema
+          digest:
+              sha256: 6b7e7a30c6c6ce613f60997a7dec5520b6fac000a3fea8d1258138cf01504b41
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://github.com/N4M3Z/forge-cli/init/v1
+            externalParameters:
+                source: https://github.com/N4M3Z/forge-cli
+            resolvedDependencies:
+                - uri: templates/init/skills/.mdschema
+                  digest:
+                      sha256: 6b7e7a30c6c6ce613f60997a7dec5520b6fac000a3fea8d1258138cf01504b41
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.0
+            metadata:
+                startedOn: "2026-04-07T21:06:24.260945+00:00"
