@@ -1,6 +1,6 @@
 # Claude Code Agent Deployment
 
-How forge agents deploy to Claude Code. The `forge install` command transforms source agents into Claude Code format.
+How forge agents deploy to Claude Code. Following [ArtifactComposition](../../rules/ArtifactComposition.md), the `forge install` command transforms source agents into Claude Code format.
 
 ## Deployed Format
 

@@ -30,7 +30,8 @@ At the global level, both files are personal — the `settings.json` / `settings
 | ClaudePermissions | "permissions", "allowed commands", "settings cruft"  | @ClaudePermissions.md  |
 | ClaudePlugins     | "plugins", "plugin conflicts", "disable plugins"     | @ClaudePlugins.md      |
 | ClaudeHooks       | "hooks", "hook config", "dispatch"                   | @ClaudeHooks.md        |
-| Full audit        | "full audit", "review settings", "clean everything"  | All three              |
+| GeminiSettings    | "gemini settings", "audit gemini"                    | @GeminiSettings.md     |
+| Full audit        | "full audit", "review settings", "clean everything"  | All of the above       |
 
 ## Common Procedure
 

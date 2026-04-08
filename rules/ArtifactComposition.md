@@ -1,3 +1,12 @@
-Forge modules produce three artifact types: rules (always loaded), skills (lazy loaded on invocation), and agents (off-session delegation). Each has a defined file composition. See RuleStructure, SkillStructure, and AgentStructure for specifics.
+Forge modules follow the **Agent Skills** ([agentskills.io][SKILLS]) standard for cross-provider compatibility.
 
-Assembly transforms artifacts for each provider — stripping frontmatter, remapping tool names, converting filenames to kebab-case. The source files in the module are the canonical form; the deployed files are derived.
+Modules produce three artifact types:
+- **Rules**: Always loaded behavioral instructions.
+- **Skills**: Lazy-loaded capabilities invoked by the AI.
+- **Agents**: Persona definitions for delegation.
+
+Each artifact is authored once as Markdown in its respective directory (`rules/`, `skills/`, or `agents/`).
+
+Assembly transforms these canonical sources for each target provider — see [CrossProviderAssembly][CrossProviderAssembly.md] for the assembly pipeline specifics.
+
+[SKILLS]: https://agentskills.io "Agent Skills Standard"

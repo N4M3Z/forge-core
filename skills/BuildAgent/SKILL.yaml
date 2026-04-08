@@ -1,3 +1,4 @@
 sources:
     - https://code.claude.com/docs/en/agents
     - https://github.com/anthropics/claude-code/blob/main/plugins/README.md
+    - https://github.com/google-gemini/gemini-cli

@@ -1,3 +1,6 @@
+---
+targets: [claude]
+---
 Cowork silently drops all plugin hooks. The CLI is spawned with `--setting-sources user`, which excludes plugin-scoped hook discovery ([GitHub #27398][ISSUE]). All hook types (command, prompt, agent) are affected. No error is surfaced.
 
 Skills, agents, and MCP servers work in Cowork ([plugins reference][PLUGINS]). Hooks are unsupported at this time.

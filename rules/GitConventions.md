@@ -8,4 +8,4 @@ Never skip hooks (`--no-verify`) or bypass signing (`--no-gpg-sign`, `-c commit.
 
 Before pushing to main, squash fix/chore/test commits into their parent `feat:` commit. Git history on main should read as a sequence of features, not a trail of corrections.
 
-PR titles and commit messages describe what changed, not why it was discovered. Never use "session learnings", "council findings", or similar process artifacts as framing. The change stands on its own.
+Manage the entire PR lifecycle using platform-native CLIs (`gh`, `glab`) — see [PullRequests][PullRequests.md] for body structure, test plans, and feedback retrieval mandates.

@@ -1,0 +1,5 @@
+---
+mode: append
+---
+
+@GeminiAgent.md
