@@ -35,7 +35,7 @@ repos:
 
           - id: validate-adr
             name: validate-adr
-            entry: bin/validate-adr --test
+            entry: scripts/validate-adr.py --test
             language: system
             pass_filenames: false
 

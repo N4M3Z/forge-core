@@ -20,7 +20,7 @@ validate:
 	@bash .githooks/pre-commit
 
 test: validate
-	bin/validate-adr --test
+	scripts/validate-adr.py --test
 
 clean:
 	rm -rf build/

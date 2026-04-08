@@ -50,7 +50,7 @@ The validation architecture has two tiers:
 
 **Fallback (hash-verified):** `.githooks/pre-commit` tries `forge validate .` first. If the binary isn't installed, it downloads `validate.sh` from forge-cli with SHA-256 verification per [CORE-0011](CORE-0011 Verified Remote Execution.md). `make validate` delegates to this hook.
 
-**Module-specific validators:** `bin/validate-adr` is a permanent companion that validates ADR frontmatter against `forge-adr.json`. It runs as a prek hook and via `make test`.
+**Module-specific validators:** `scripts/validate-adr.py` is a permanent companion that validates ADR frontmatter against `forge-adr.json`. It runs as a prek hook and via `make test`.
 
 ### Consequences
 

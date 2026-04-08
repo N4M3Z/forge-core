@@ -51,12 +51,4 @@ npx ajv validate -s templates/forge-adr.json -d docs/decisions/*.md
       fail-on-error: true
 ```
 
-### 5. Python fallback
-
-When no other tool is available (Python 3 stdlib only):
-
-```sh
-validate-adr templates/forge-adr.json docs/decisions/
-```
-
 [MADR]: https://github.com/zircote/structured-madr

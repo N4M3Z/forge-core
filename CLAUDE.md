@@ -35,15 +35,15 @@ make test             # validate + ADR validator self-tests
 make clean            # remove build artifacts
 ```
 
-Validate a single ADR: `validate-adr templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"`
+Validate a single ADR: `scripts/validate-adr.py templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"`
 
-Run validator self-tests: `validate-adr --test`
+Run validator self-tests: `scripts/validate-adr.py --test`
 
 ## Architecture
 
 ```
-bin/                      CLI tools added to PATH when loaded as a plugin
-  validate-adr            ADR frontmatter validator (Python 3 stdlib)
+scripts/                  Build-time tools (not on plugin PATH)
+  validate-adr.py         ADR frontmatter validator (Python 3 stdlib)
 skills/                   Skill definitions deployed to all providers
   ArchitectureDecision/   SKILL.md + companions + user/ overlay
   BuildSkill/             SKILL.md + SKILL.yaml + ClaudeSkill.md

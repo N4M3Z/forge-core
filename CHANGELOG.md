@@ -13,7 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - ADR renumbering with prefix-based sections (CORE, ARCH, PROV, MVPR)
 - structured-madr frontmatter adoption with forge extensions (CORE-0005, CORE-0007)
 - forge-adr template and JSON schema for ADR validation
-- `bin/validate-adr.py` with type, const, format, and pattern enforcement
+- `scripts/validate-adr.py` with type, const, format, and pattern enforcement
 - GitHub Actions CI workflow (`validate.yaml`)
 - Git pre-commit hooks with hash-verified validate.sh fallback
 - GitHub push protection for secret scanning

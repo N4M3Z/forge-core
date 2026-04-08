@@ -87,7 +87,7 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
     - **Contradiction**: reverses an existing decision — create with `accepted`, mark old `superseded`.
     - **Complementary**: genuinely different ground — proceed, add cross-references.
 
-6. Use the `$ADR_TEMPLATE` (default `templates/forge-adr.md`). Fill in all frontmatter fields and body sections. Write to the ADR directory.
+6. Use the `$ADR_TEMPLATE` (default `templates/structured-madr.md`). Fill in all frontmatter fields and body sections. Write to the ADR directory.
 
 7. Set status to `proposed` unless the decision is already confirmed — then set `accepted`.
 
@@ -99,7 +99,7 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
 
 1. If a file path was provided, validate that file. Otherwise, ask which ADR to validate or validate the entire ADR directory.
 
-2. Run frontmatter schema validation against `$ADR_SCHEMA` (default `templates/forge-adr.json`). Use the first available tool:
+2. Run frontmatter schema validation against `$ADR_SCHEMA` (default `templates/structured-madr.json`). Use the first available tool:
 
     a. `structured-madr` local checkout at `~/Data/Developer/zircote/structured-madr`:
     ```sh
@@ -109,11 +109,6 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
     b. `check-jsonschema`:
     ```sh
     check-jsonschema --schemafile $ADR_SCHEMA $ADR_DIRECTORY/*.md
-    ```
-
-    c. Python fallback:
-    ```sh
-    validate-adr $ADR_SCHEMA $ADR_DIRECTORY/
     ```
 
 3. Check structural compliance if `$ADR_MDSCHEMA` exists in the ADR directory.

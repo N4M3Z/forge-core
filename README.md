@@ -76,7 +76,7 @@ Architecture Decision Records document the why behind structural choices. Each p
 | `PROV` | Manifest and provenance  | `PROV-0002 Manifest for Deployment Tracking` |
 | `MVPR` | Prompt optimization      | `MVPR-0001 Minimum Viable Prompt`            |
 
-ADRs use [structured-madr][MADR] frontmatter with forge extensions. Validate with `validate-adr templates/forge-adr.json docs/decisions/`.
+ADRs use [structured-madr][MADR] frontmatter with forge extensions. Validate with `scripts/validate-adr.py templates/forge-adr.json docs/decisions/`.
 
 ## Contributing
 
