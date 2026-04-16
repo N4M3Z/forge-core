@@ -199,6 +199,15 @@ For other providers: run `make install` from the module's Makefile.
 1. Test invocation: does the description trigger correctly?
 2. Review: does the procedure work end-to-end?
 
+### Step 6: Pressure Test
+
+Apply TDD to the skill itself — write a scenario where the skill should apply but might be rationalized away, then verify it holds.
+
+1. **Write a pressure scenario** — describe a situation where someone would think "this skill doesn't apply here" but it actually does. Example for a debugging skill: "The fix seems obvious, I'll just change it."
+2. **Test the trigger** — does the description match this scenario? Would the AI load this skill?
+3. **Test the procedure** — does following the skill's steps produce the right outcome in this scenario?
+4. **Tighten** — if the skill would be bypassed, improve the description's USE WHEN triggers or add entries to the Red Flags table.
+
 ---
 
 ## Validate Workflow
