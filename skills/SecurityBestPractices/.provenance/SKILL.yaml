@@ -1,0 +1,44 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: skills/SecurityBestPractices/SKILL.md
+          digest:
+              sha256: 59e7ac3a651c86137eadb761aa50b53d2b3196c159ff56fa5ffaacff15aa5c40
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://forge-cli/adopt/v1
+            externalParameters:
+                upstream_url: https://github.com/davila7/claude-code-templates/blob/72b67369cb085cb416a8bf85b747450a0d716e33/cli-tool/components/skills/security/security-best-practices/SKILL.md
+            resolvedDependencies:
+                - name: upstream
+                  uri: https://github.com/davila7/claude-code-templates/blob/72b67369cb085cb416a8bf85b747450a0d716e33/cli-tool/components/skills/security/security-best-practices/SKILL.md
+                  digest:
+                      sha256: 93222336cbb0e6745f95ce8ca0e2095f7fcdc7fb062d8e4cf0ecb38fa01fe75b
+                - name: ForgeAdopt
+                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                  digest:
+                      sha256: dda5e9d68b9f46eaa1cca9df5975591ac0f933e49d80716a84417f1cb23bbe0c
+                - name: AlignPrompt
+                  uri: forge-core/skills/AlignPrompt/SKILL.md
+                  digest:
+                      sha256: 1f16a4bd57021cd7802ac1e99975811dd2a749960e5898ebdab50f570bd75f90
+                - name: RescopePrompt
+                  uri: forge-core/skills/RescopePrompt/SKILL.md
+                  digest:
+                      sha256: f9219dd6a0b47d8ffd6aceb2b9e3c3835fe7f7f022c0448d60fb8519322431cd
+                - name: DebrandPrompt
+                  uri: forge-core/skills/DebrandPrompt/SKILL.md
+                  digest:
+                      sha256: ff0c248906d89d94be5b7a8a75453d796e72fe9d8698162eaaaaca905eaef016
+                - name: MinimizePrompt
+                  uri: forge-core/skills/MinimizePrompt/SKILL.md
+                  digest:
+                      sha256: 09cc1baa8e0e25d0514dba717008df249f4ad07ff54b3a318839f69df9a47794
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-17T00:00:00Z"

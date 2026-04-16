@@ -1,0 +1,40 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: skills/FrontendDesign/SKILL.md
+          digest:
+              sha256: a0533daaf6235789b6dbdbbdcc14632eb372b1920bd37ced37fa07719fe35d31
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://forge-cli/adopt/v1
+            externalParameters:
+                upstream_url: https://github.com/davila7/claude-code-templates/blob/1deb97c72161528f6b7d84bc5117ae4be2e42735/cli-tool/components/skills/creative-design/frontend-design/SKILL.md
+            resolvedDependencies:
+                - name: upstream
+                  uri: https://github.com/davila7/claude-code-templates/blob/1deb97c72161528f6b7d84bc5117ae4be2e42735/cli-tool/components/skills/creative-design/frontend-design/SKILL.md
+                  digest:
+                      sha256: b81e2ff87ed8fa4d6c377ccb127a7254c9e6a77e3ae94f21e6b514f7bb2945a0
+                - name: ForgeAdopt
+                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                  digest:
+                      sha256: dda5e9d68b9f46eaa1cca9df5975591ac0f933e49d80716a84417f1cb23bbe0c
+                - name: AlignPrompt
+                  uri: forge-core/skills/AlignPrompt/SKILL.md
+                  digest:
+                      sha256: 1f16a4bd57021cd7802ac1e99975811dd2a749960e5898ebdab50f570bd75f90
+                - name: RescopePrompt
+                  uri: forge-core/skills/RescopePrompt/SKILL.md
+                  digest:
+                      sha256: f9219dd6a0b47d8ffd6aceb2b9e3c3835fe7f7f022c0448d60fb8519322431cd
+                - name: MinimizePrompt
+                  uri: forge-core/skills/MinimizePrompt/SKILL.md
+                  digest:
+                      sha256: 09cc1baa8e0e25d0514dba717008df249f4ad07ff54b3a318839f69df9a47794
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.1.0
+            metadata:
+                startedOn: "2026-04-17T00:30:00Z"
