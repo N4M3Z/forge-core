@@ -9,7 +9,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Removed
 
 - `scripts/validate-adr.py` — superseded by `forge validate .`, which runs both mdschema and JSON Schema (`templates/forge-adr.json`) against every ADR. The wrapper script and its self-tests are redundant. `templates/forge-adr.json` is kept; forge-cli reads it.
-- `ruff` hook from `.pre-commit-config.yaml` — no Python files remain after the wrapper removal.
 
 ### Changed
 

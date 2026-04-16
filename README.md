@@ -93,6 +93,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, skill autho
 | ------------------------------------------------ | ----------- | -------------------------------- |
 | [forge-cli](https://github.com/N4M3Z/forge-cli) | Yes         | Module validation and deployment |
 | shellcheck                                       | Recommended | Shell script linting             |
+| ruff                                             | Recommended | Python linting                   |
 
 ## References
 

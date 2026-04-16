@@ -14,6 +14,13 @@ repos:
             language: system
             types: [shell]
 
+          - id: ruff
+            name: ruff check
+            entry: ruff check .
+            language: system
+            pass_filenames: false
+            types: [python]
+
           - id: gitleaks
             name: gitleaks
             entry: gitleaks detect --no-banner --no-git -s .
