@@ -3,7 +3,7 @@ provenance:
     subject:
         - name: skills/SkillDiscipline/SKILL.md
           digest:
-              sha256: a68ea2edb8b65478b4ed30147f5652dfa2d9c3b6f0f1b9cf8a19731fb6593711
+              sha256: e4279a289b9db52cdda1945a69c4c534650ddedce9977969c6ce0ffeea599c80
     predicateType: https://slsa.dev/provenance/v1
     predicate:
         buildDefinition:
