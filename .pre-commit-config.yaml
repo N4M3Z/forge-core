@@ -14,13 +14,6 @@ repos:
             language: system
             types: [shell]
 
-          - id: ruff
-            name: ruff check
-            entry: ruff check .
-            language: system
-            pass_filenames: false
-            types: [python]
-
           - id: gitleaks
             name: gitleaks
             entry: gitleaks detect --no-banner --no-git -s .
@@ -30,12 +23,6 @@ repos:
           - id: semgrep
             name: semgrep OWASP
             entry: semgrep scan --config=p/owasp-top-ten --metrics=off --quiet .
-            language: system
-            pass_filenames: false
-
-          - id: validate-adr
-            name: validate-adr
-            entry: scripts/validate-adr.py --test
             language: system
             pass_filenames: false
 

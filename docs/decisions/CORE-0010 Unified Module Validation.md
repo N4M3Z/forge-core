@@ -9,7 +9,7 @@ tags:
     - pre-commit
 status: accepted
 created: 2026-04-02
-updated: 2026-04-06
+updated: 2026-04-17
 author: "@N4M3Z"
 project: forge-core
 related:
@@ -32,7 +32,7 @@ Validation logic must be identical across CI, pre-commit, and local development.
 
 - Single validation path — never duplicate logic across Makefile, CI, and hook scripts
 - CI must work without the forge binary (portable fallback)
-- Module-specific validators (like `validate-adr`) coexist as permanent companions
+- Forge-cli handles all validation — no module-specific validator scripts required
 
 ## Considered Options
 
@@ -46,17 +46,17 @@ Chosen option: **prek as primary runner**, with hash-verified validate.sh as fal
 
 The validation architecture has two tiers:
 
-**Primary (prek):** `.pre-commit-config.yaml` declares all checks — shellcheck, ruff, gitleaks, semgrep, `forge validate`, `validate-adr`. CI runs `j178/prek-action@v2`. Local pre-commit runs via `prek run`.
+**Primary (prek):** `.pre-commit-config.yaml` declares all checks — shellcheck, gitleaks, semgrep, `forge validate`. CI runs `j178/prek-action@v2`. Local pre-commit runs via `prek run`.
 
 **Fallback (hash-verified):** `.githooks/pre-commit` tries `forge validate .` first. If the binary isn't installed, it downloads `validate.sh` from forge-cli with SHA-256 verification per [CORE-0011](CORE-0011 Verified Remote Execution.md). `make validate` delegates to this hook.
 
-**Module-specific validators:** `scripts/validate-adr.py` is a permanent companion that validates ADR frontmatter against `forge-adr.json`. It runs as a prek hook and via `make test`.
+ADR frontmatter validation is performed by `forge validate .` directly against `templates/forge-adr.json`; no module-specific validator is required. Canary fixtures under `tests/fixtures/` ([CORE-0012](CORE-0012 Fixture-Based Canary Testing.md)) prove that forge-cli catches the failure modes the previous custom wrapper caught.
 
 ### Consequences
 
 - [+] Single source of truth — prek config is the canonical check list
 - [+] CI and local dev run identical checks
-- [+] Module-specific validators coexist without upstream coupling
+- [+] No module-specific validator to maintain alongside forge-cli
 - [-] Two validation tiers to maintain (prek config + pre-commit fallback)
 
 ## Related Decisions

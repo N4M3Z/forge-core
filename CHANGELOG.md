@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+### Removed
+
+- `scripts/validate-adr.py` — superseded by `forge validate .`, which runs both mdschema and JSON Schema (`templates/forge-adr.json`) against every ADR. The wrapper script and its self-tests are redundant. `templates/forge-adr.json` is kept; forge-cli reads it.
+- `ruff` hook from `.pre-commit-config.yaml` — no Python files remain after the wrapper removal.
+
+### Changed
+
+- CORE-0010 amended — validation is now fully handled by `forge validate .`; there are no module-specific validators.
+- `make test` removed. `make validate` is the single entry point.
+
 ## [0.5.0] - 2026-04-04
 
 ### Added

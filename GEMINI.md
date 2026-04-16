@@ -29,14 +29,10 @@ The project uses a `Makefile` to manage the lifecycle of AI instruction artifact
     -   `SCOPE=user make install`: Deploys to global user directories (e.g., `~/.claude/skills/`).
     -   `SCOPE=workspace make install`: Deploys to project-local directories.
 -   **`make validate`**: Performs structural validation of the module, ensuring all files adhere to naming and schema conventions.
--   **`make test`**: Runs the full validation suite plus self-tests for the ADR validator.
 -   **`make clean`**: Removes generated provider directories and build artifacts.
 
 ### ADR Validation
-To validate a specific Architecture Decision Record:
-```sh
-scripts/validate-adr.py templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"
-```
+ADRs are validated by `forge validate .` (which runs on every commit via the pre-commit hook). The schema lives at `templates/forge-adr.json`.
 
 ---
 

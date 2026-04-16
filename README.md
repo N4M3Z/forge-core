@@ -81,7 +81,7 @@ Architecture Decision Records document the why behind structural choices. Each p
 | `PROV` | Manifest and provenance  | `PROV-0002 Manifest for Deployment Tracking` |
 | `MVPR` | Prompt optimization      | `MVPR-0001 Minimum Viable Prompt`            |
 
-ADRs use [structured-madr][MADR] frontmatter with forge extensions. Validate with `scripts/validate-adr.py templates/forge-adr.json docs/decisions/`.
+ADRs use [structured-madr][MADR] frontmatter with forge extensions. Validated by `forge validate .`.
 
 ## Contributing
 
@@ -92,9 +92,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, skill autho
 | Dependency                                       | Required    | Purpose                          |
 | ------------------------------------------------ | ----------- | -------------------------------- |
 | [forge-cli](https://github.com/N4M3Z/forge-cli) | Yes         | Module validation and deployment |
-| python3                                          | Yes         | ADR frontmatter validation       |
 | shellcheck                                       | Recommended | Shell script linting             |
-| ruff                                             | Recommended | Python linting                   |
 
 ## References
 

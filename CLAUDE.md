@@ -31,19 +31,14 @@ Module-building skills for the forge ecosystem. Teaches AI coding tools to creat
 ```sh
 make install          # deploy skills + activate git pre-commit hooks (requires forge-cli)
 make validate         # validate module structure and code (same as pre-commit hook)
-make test             # validate + ADR validator self-tests
 make clean            # remove build artifacts
 ```
 
-Validate a single ADR: `scripts/validate-adr.py templates/forge-adr.json "docs/decisions/CORE-0001 Markdown as System Language.md"`
-
-Run validator self-tests: `scripts/validate-adr.py --test`
+Validation runs through `forge validate .`, which checks module structure, mdschemas, and ADR frontmatter against `templates/forge-adr.json`.
 
 ## Architecture
 
 ```
-scripts/                  Build-time tools (not on plugin PATH)
-  validate-adr.py         ADR frontmatter validator (Python 3 stdlib)
 skills/                   Skill definitions deployed to all providers
   ArchitectureDecision/   SKILL.md + companions + user/ overlay
   BuildSkill/             SKILL.md + SKILL.yaml + ClaudeSkill.md
@@ -55,7 +50,7 @@ rules/                    Behavioral rules deployed to .claude/rules/
 tests/fixtures/           Canary fixtures: valid/ must pass, invalid/ must fail (CORE-0012)
 .claude-plugin/           Plugin manifest for CLI and Cowork distribution
 .githooks/pre-commit      Validation gate: forge validate . with validate.sh fallback
-.github/workflows/        CI runs make validate + make test
+.github/workflows/        CI runs make validate
 defaults.yaml             Skill roster + ADR config
 config.yaml               User overrides (gitignored)
 module.yaml               Module metadata (name, version)
