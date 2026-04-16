@@ -21,28 +21,16 @@ Before responding to a user message:
 
 ## Flow
 
-```dot
-digraph skill_flow {
-    "user message" [shape=doublecircle];
-    "any skill apply?" [shape=diamond];
-    "invoke Skill" [shape=box];
-    "announce usage" [shape=box];
-    "has checklist?" [shape=diamond];
-    "create tasks per item" [shape=box];
-    "follow skill" [shape=box];
-    "respond" [shape=doublecircle];
+For every incoming user message:
 
-    "user message" -> "any skill apply?";
-    "any skill apply?" -> "invoke Skill" [label="yes, even 1%"];
-    "any skill apply?" -> "respond" [label="definitely not"];
-    "invoke Skill" -> "announce usage";
-    "announce usage" -> "has checklist?";
-    "has checklist?" -> "create tasks per item" [label="yes"];
-    "has checklist?" -> "follow skill" [label="no"];
-    "create tasks per item" -> "follow skill";
-    "follow skill" -> "respond";
-}
-```
+1. Read the message and identify intent — including clarifying questions, exploration, or apparently trivial answers.
+2. Ask "does any skill plausibly match this intent?"
+    - If definitely no, respond directly.
+    - If there is even a 1% chance yes, invoke the Skill tool first.
+3. Announce which skill was chosen and why.
+4. If the skill has a checklist, convert each item into a task before proceeding.
+5. Follow the skill as written.
+6. Respond.
 
 ## Red Flags
 
