@@ -64,6 +64,11 @@ Skills teach AI coding tools new capabilities. Invoke them with `/SkillName` in 
 | [**SystemCheck**](skills/SystemCheck/SKILL.md)                   | Ecosystem staleness and version drift checks                    |
 | [**RTK**](skills/RTK/SKILL.md)                                   | Token-optimized CLI proxy                                       |
 | [**HtmlPlayground**](skills/HtmlPlayground/SKILL.md)             | Generate single-file HTML demos comparing techniques            |
+| [**Brainstorming**](skills/Brainstorming/SKILL.md)               | Collaborative ideation before implementation                    |
+| [**DesignSpec**](skills/DesignSpec/SKILL.md)                      | Formal design spec from brainstorming output                    |
+| [**WritePlan**](skills/WritePlan/SKILL.md)                        | Bite-sized implementation plans with plan mode                  |
+| [**ExecutePlan**](skills/ExecutePlan/SKILL.md)                    | Inline sequential plan execution                                |
+| [**VerifyCompletion**](skills/VerifyCompletion/SKILL.md)          | Evidence-based verification gate                                |
 
 ### ADR Prefix Sections
 
@@ -91,6 +96,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, skill autho
 | shellcheck                                       | Recommended | Shell script linting             |
 | ruff                                             | Recommended | Python linting                   |
 
+## References
+
+Workflow skills (Brainstorming, DesignSpec, WritePlan, ExecutePlan, VerifyCompletion) and behavioral patterns (rationalization resistance, pressure testing, Red Flags tables) adapted from [superpowers][SUPERPOWERS] by Jesse Vincent.
+
 ## License
 
 [EUPL-1.2](LICENSE)
@@ -101,3 +110,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, skill autho
 [CC-AGENTS]: https://code.claude.com/docs/en/sub-agents
 [COWORK]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
 [MADR]: https://github.com/zircote/structured-madr
+[SUPERPOWERS]: https://github.com/obra/superpowers
