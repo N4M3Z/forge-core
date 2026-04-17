@@ -55,7 +55,7 @@ Skills teach AI coding tools new capabilities. Invoke them with `/SkillName` in 
 | [**BuildPlugin**](skills/BuildPlugin/SKILL.md)                   | Create, validate, and publish Claude Code plugins               |
 | [**ArchitectureDecision**](skills/ArchitectureDecision/SKILL.md) | Find, create, validate, and capture ADRs with schema validation |
 | [**VersionControl**](skills/VersionControl/SKILL.md)             | Git conventions, repo governance, CODEOWNERS                    |
-| [**MarkdownLint**](skills/MarkdownLint/SKILL.md)                 | Format and lint markdown documents                              |
+| [**MarkdownConventions**](skills/MarkdownConventions/SKILL.md)   | Markdown authoring and linting conventions                      |
 | [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)             | Create, derive, and validate .mdschema files                    |
 | [**PublishPrompts**](skills/PublishPrompts/SKILL.md)              | Provenance tracking and sync for inherited content              |
 | [**AdaptPrompts**](skills/AdaptPrompts/SKILL.md)                 | Adapt generic rules for independent repos                       |

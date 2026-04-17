@@ -84,7 +84,7 @@ Utility skills handle operational concerns:
 |--------------------------------------------------------------------|--------------------------------------------------------------------|
 | [ArchitectureDecision](skills/ArchitectureDecision/SKILL.md)       | Find, read, create, validate, and capture Architecture Decision Records |
 | [VersionControl](skills/VersionControl/SKILL.md)                   | Git conventions, repo governance (GitHub rulesets, GitLab branches) |
-| [MarkdownLint](skills/MarkdownLint/SKILL.md)                       | Formatting, backtick references, heading hierarchy                 |
+| [MarkdownConventions](skills/MarkdownConventions/SKILL.md)         | Markdown conventions and linting workflow                          |
 | [MarkdownSchema](skills/MarkdownSchema/SKILL.md)                   | .mdschema creation, derivation, and validation                     |
 | [SettingsMaintenance](skills/SettingsMaintenance/SKILL.md)          | AI tool settings audit — permissions, plugins, hooks               |
 | [SystemCheck](skills/SystemCheck/SKILL.md)                          | Ecosystem staleness — binary freshness, version drift              |

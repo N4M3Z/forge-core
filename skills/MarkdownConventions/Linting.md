@@ -1,10 +1,4 @@
----
-name: MarkdownLint
-version: 0.1.0
-description: Format and lint a markdown document — backtick code references, fix bare URLs, check list formatting and heading hierarchy. USE WHEN a document needs formatting cleanup, code references are not backticked, markdown quality needs improvement, or lint markdown.
----
-
-# MarkdownLint
+# Linting
 
 Format and lint a markdown document for consistent code formatting, proper list structure, heading hierarchy, and link hygiene. Reads a file, applies all rules, writes the corrected version after confirmation.
 
