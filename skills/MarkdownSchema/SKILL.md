@@ -1,12 +1,19 @@
 ---
 name: MarkdownSchema
-description: "Create, derive, and validate .mdschema files for markdown documents. USE WHEN create schema, add schema, derive schema, validate schema, check schema, mdschema, lint schema, heading rules, frontmatter validation."
+description: "Create, derive, and validate .mdschema files for markdown documents. USE WHEN create schema, add schema, derive schema, validate schema, check schema, mdschema, lint schema, heading rules, frontmatter validation, or editing any markdown file in a directory that contains a .mdschema."
 version: 0.1.0
+paths:
+    - "**/*.md"
+    - "**/.mdschema"
 ---
 
 # MarkdownSchema
 
 Create and validate `.mdschema` files that enforce frontmatter fields and heading structure across forge artifacts. Wraps the `mdschema` CLI with forge-specific conventions.
+
+## When editing any markdown file
+
+See [MarkdownSchema.md](MarkdownSchema.md) — the rule for conforming to a sibling `.mdschema` when one exists in the file's directory.
 
 ## Workflow Routing
 
