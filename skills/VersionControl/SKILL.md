@@ -43,6 +43,31 @@ Keep the first line under 72 characters. Add a blank line and body for context w
 - Body format: `## Summary` (1-3 bullets) + `## Test plan` (checklist)
 - Create from a feature branch, never directly from main
 
+## Post-Merge Branch Cleanup
+
+After a PR merges, delete the local and remote branch — feature branches accumulate fast and squash-merges leave them behind.
+
+Squash-merge changes the commit hash, so `git branch -d` refuses with "not fully merged." Verify state via the platform first, then force-delete:
+
+```sh
+# Verify merge state per branch (gh / glab)
+gh pr list --head feat/my-branch --state all --limit 1
+
+# Local — squash-merged branches need -D
+git branch -D feat/my-branch
+
+# Remote — separate operation
+git push origin --delete feat/my-branch
+```
+
+If the [safety-net][SAFETY] plugin is installed, `git branch -D` is blocked from AI agents (force-delete bypasses the merge check). Hand the command back to the user to run in their own terminal — write out the exact command in a shell block and ask them to execute it. Same applies for `git push origin --delete` if the safety net is configured to block remote-destructive operations.
+
+[SAFETY]: https://github.com/kenryu42/claude-code-safety-net
+
+For local branches whose remote was deleted but the local copy lingers, use `git fetch --prune` then the `commit-commands:clean_gone` skill (or `git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D`).
+
+Use `git switch <branch>` rather than `git checkout <branch>` — checkout's positional args parse ambiguously and trip safety nets.
+
 ## Repo Governance
 
 Platform-specific branch protection, rulesets, and code ownership.

@@ -19,3 +19,9 @@ When a repository is managed by a supported platform (GitHub, GitLab), you MUST 
 - **Feedback First**: If told there is feedback, immediately use `gh pr view --comments` or `gh pr view --web` before asking for clarification.
 - **Discovery**: Check `gh pr list` or `gh issue list` to avoid duplicating existing work.
 - **Operations**: Use CLI tools for PR creation (`--fill`), status checks, and merging.
+
+### Stacked PRs
+
+When a feature branch targets another feature branch as its base, the child PR's content does not cascade to main when the parent PR merges. Squash-merging PR A (`feature-A` → `main`) creates a new commit on main with A's content but leaves `origin/feature-A` as a divergent branch. PR B (`feature-B` → `feature-A`) then merges into the divergent `feature-A`, not main.
+
+Retarget PR B to main after PR A merges, or it will appear "merged" on GitHub while its content never reaches main.

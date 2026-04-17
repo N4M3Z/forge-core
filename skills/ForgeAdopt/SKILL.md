@@ -125,3 +125,4 @@ One commit per adoption. Commit message carries the prose rationale — what was
 - Every adoption writes a provenance sidecar; an adoption without provenance is not an adoption
 - Defer the adoption if no existing module is a natural home; do not create new modules for one skill
 - Adopt at most 3-5 skills in the initial phase — selectivity is the point
+- Recompute the adopted artifact's SHA-256 and sync it to the provenance sidecar after ANY post-adoption edit. The sidecar's `subject.digest.sha256` must match the current file content, not the initial adoption state

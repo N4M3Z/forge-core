@@ -6,4 +6,6 @@ Before proposing architectural changes or challenging existing patterns, check t
 
 After writing an ADR with body-level links to other ADRs, backfill those references into the `related:` frontmatter field. Body links are for human navigation; `related:` is for machine-readable cross-referencing.
 
+When modifying code in an area governed by an ADR, re-read the ADR and verify it still describes reality. Drift between ADR claims and actual behavior is a docs bug — fix the ADR (or the code) before layering new behavior on top.
+
 [MADR]: https://github.com/zircote/structured-madr

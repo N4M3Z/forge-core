@@ -9,45 +9,6 @@ permissions:
 
 jobs:
     release:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v6
-
-            - uses: N4M3Z/forge-cli/.github/actions/setup-forge@main
-
-            - name: Assemble
-              run: forge assemble .
-
-            - name: Package providers
-              env:
-                  VERSION: ${{ github.ref_name }}
-              run: |
-                  for provider in build/*/; do
-                      name=$(basename "$provider")
-                      stage="dist/forge-core-${name}-${VERSION}"
-                      mkdir -p "$stage"
-                      cp -r "$provider" "$stage/.${name}"
-                      cp README.md "$stage/README.md"
-                      cat > "$stage/Makefile" <<MAKEFILE
-                  # forge-core ${name} release
-                  #   make install                  # user scope
-                  #   make install SCOPE=workspace  # project scope
-                  SCOPE ?= user
-                  ifeq (\$(SCOPE),workspace)
-                      TARGET := .${name}
-                  else
-                      TARGET := \$(HOME)/.${name}
-                  endif
-                  .PHONY: install
-                  install:
-                  	@cp -r .${name}/* "\$(TARGET)/"
-                  	@echo "Installed to \$(TARGET)/"
-                  MAKEFILE
-                      tar czf "${stage}.tar.gz" -C dist "forge-core-${name}-${VERSION}"
-                  done
-
-            - name: Create release
-              env:
-                  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                  VERSION: ${{ github.ref_name }}
-              run: gh release create "$VERSION" dist/forge-core-*-"${VERSION}".tar.gz --title "$VERSION" --generate-notes
+        uses: N4M3Z/forge-cli/.github/workflows/module-release.yaml@main
+        permissions:
+            contents: write

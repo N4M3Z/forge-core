@@ -7,3 +7,5 @@ Assembly deploys only `.md` files. Non-markdown files (Python scripts, shell scr
 `--target ~` deploys to user scope (`~/.claude/`, `~/.codex/`, etc.). The flag sets the base directory for provider directories. `--target ~/.claude` is wrong — it nests `~/.claude/.claude/`.
 
 In CI, install forge via the composite action: `uses: N4M3Z/forge-cli/.github/actions/setup-forge@main`. Supports version pinning (`version: v0.3.0`), caching, and platform detection.
+
+`build/` is transient — `forge assemble` wipes it on every run. `dist/` is preserved — release artifacts and anything that must survive subsequent `forge install` calls go there. Don't put release tarballs in `build/`; subsequent install will silently destroy them.
