@@ -6,14 +6,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
-### Removed
+### Added
 
-- `scripts/validate-adr.py` — superseded by `forge validate .`, which runs both mdschema and JSON Schema (`templates/forge-adr.json`) against every ADR. The wrapper script and its self-tests are redundant. `templates/forge-adr.json` is kept; forge-cli reads it.
+- `skills/BashConventions/` + `BashPatterns.md` companion — Bash pitfalls (BSD vs GNU, `set -euo pipefail` traps, subprocess env) relocated from forge-dev
+- `skills/VersionControl/GitWorktrees.md` — companion covering parallel feature work via `git worktree`, with SLSA provenance (adapted from [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) MIT under EUPL-1.2)
 
 ### Changed
 
+- `skills/ForgeAdopt/SKILL.md` — removed the 3–5 initial cap and the skills-only restriction; agents are now eligible for adoption
 - CORE-0010 amended — validation is now fully handled by `forge validate .`; there are no module-specific validators.
 - `make test` removed. `make validate` is the single entry point.
+
+### Removed
+
+- `scripts/validate-adr.py` — superseded by `forge validate .`, which runs both mdschema and JSON Schema (`templates/forge-adr.json`) against every ADR. The wrapper script and its self-tests are redundant. `templates/forge-adr.json` is kept; forge-cli reads it.
 
 ## [0.5.0] - 2026-04-04
 

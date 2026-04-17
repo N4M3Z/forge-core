@@ -120,9 +120,8 @@ One commit per adoption. Commit message carries the prose rationale — what was
 
 ## Constraints
 
-- Skills only — rules and agents are excluded from adoption ([ARCH-0012](docs/decisions/ARCH-0012 Community Adoption Strategy.md))
+- Skills and agents are eligible for adoption; rules are not ([ARCH-0012](docs/decisions/ARCH-0012 Community Adoption Strategy.md))
 - First-party forge skills take precedence on name conflicts; rename the adoption or reject it
 - Every adoption writes a provenance sidecar; an adoption without provenance is not an adoption
 - Defer the adoption if no existing module is a natural home; do not create new modules for one skill
-- Adopt at most 3-5 skills in the initial phase — selectivity is the point
 - Recompute the adopted artifact's SHA-256 and sync it to the provenance sidecar after ANY post-adoption edit. The sidecar's `subject.digest.sha256` must match the current file content, not the initial adoption state

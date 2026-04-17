@@ -84,3 +84,9 @@ Auto-detect from the remote origin URL. If ambiguous, ask the user.
 - Prefer rulesets over legacy branch protection (GitHub) — rulesets are more granular and support bypass actors
 - Document governance in the repo itself (CODEOWNERS, branch rules) not just in external settings
 - Always read current rules before modifying — audit first, change second
+
+## Parallel Work
+
+For parallel feature work in a single clone, use git worktrees instead of stashing or switching.
+
+@GitWorktrees.md
