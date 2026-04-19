@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 - `skills/BashConventions/` + `BashPatterns.md` companion — Bash pitfalls (BSD vs GNU, `set -euo pipefail` traps, subprocess env) relocated from forge-dev
 - `skills/VersionControl/GitWorktrees.md` — companion covering parallel feature work via `git worktree`, with SLSA provenance (adapted from [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) MIT under EUPL-1.2)
+- `VersionControl` now serves as the canonical home for git conventions and platform-specific repo governance (absorbing the retired forge-dev `Git` skill). forge-dev's `GitHub` skill remains distinct — it covers CI, Actions, releases, and operational `gh` workflows
 
 ### Changed
 
