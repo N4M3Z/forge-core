@@ -10,6 +10,8 @@ A skill is a directory under `skills/` containing `SKILL.md` as the entrypoint (
 | `user/`       | Qualifier directory, flattened at assembly     |
 | `@` includes  | Companion file references, resolved by forge    |
 
+**`@` includes vs plain references**: use `@File.md` only for companions that should be auto-injected alongside SKILL.md on every invocation. For optional or variant companions (e.g. a multi-mode skill where only one mode is loaded per run), use plain filename references like `` `File.md` `` and let the AI load on demand. Over-use of `@` wastes tokens on unused companions.
+
 ## SKILL.md frontmatter
 
 ```yaml
@@ -67,5 +69,7 @@ All parent directories must be registered in `plugin.json` under the `skills` ar
 | Skill directory   | PascalCase        | `BuildSkill`, `DailyPlan`, `VaultOperations`  |
 | Single-word skill | Natural case      | `Log`, `Draft`, `Init`, `Update`              |
 | SKILL.md          | Always `SKILL.md` | —                                             |
+
+**Naming around variants**: when a skill could plausibly spawn siblings (e.g. `StyleCzech` may want `Fantasy`, `Scifi`, `Noir`), don't bake the variant into the skill name. Name the skill for its stable scope and push variants into companion files (`Fantasy.md`, `Scifi.md`). Prefer `StyleCzech` with `Fantasy.md` over `StyleCzechFantasy`. Apply this only when variants are plausible — a truly single-purpose skill stays named for its purpose.
 
 [CCDOCS]: https://code.claude.com/docs/en/skills
