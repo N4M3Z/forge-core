@@ -33,9 +33,31 @@ Keep the first line under 72 characters. Add a blank line and body for context w
 
 ## Push Policy
 
-- Never force-push (`--force`, `--force-with-lease`) unless the user explicitly asks
+- Never force-push unless the user explicitly asks. When force-pushing is sanctioned, default to `--force-with-lease` not `--force` — lease fails fast if the remote moved since your last fetch, and safety-net plugins allow lease while blocking raw force
 - Never skip hooks (`--no-verify`) unless the user explicitly asks
 - Do not push unless the user asks — committing and pushing are separate actions
+
+## History Rewrite
+
+When squashing, reordering, or rebuilding a linear history, `git read-tree -u --reset <sha>` is the cleanest primitive — it snaps the index and working tree to any commit's tree state without running a merge or rebase. Build the new history by iterating target commits:
+
+```sh
+git branch backup-pre-squash            # always create a safety branch first
+git checkout --orphan squashed-tmp
+git read-tree -u --reset <end-of-group-1-sha>
+git commit -m "<new message 1>"
+git read-tree -u --reset <end-of-group-2-sha>
+git commit -m "<new message 2>"
+# repeat for each group, then swap branches
+git branch -f main squashed-tmp
+git switch main
+git branch -d squashed-tmp
+git push --force-with-lease origin main
+```
+
+Respect commit chronology when grouping. Squashing by theme fails when commits are interleaved across themes — the end-of-group tree snapshot inherits every earlier commit's content, so a commit titled "Rust rules" also carries whatever unrelated work preceded it. Group along the chronological spine and name commits by the actual content in each tree snapshot.
+
+Before any destructive rewrite, create a backup branch (`git branch backup-pre-<op>`). Costs nothing, preserves the old tip for recovery, and lets you diff the rewritten history against the original to confirm content parity before force-pushing.
 
 ## Pull Requests
 
