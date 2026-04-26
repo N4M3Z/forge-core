@@ -17,9 +17,11 @@ Extract reusable learnings from the current session and apply them as updates to
 
 ## Analyze the Session
 
-**First pass — scan for user-correction signals.** Re-read the conversation specifically looking for: user messages containing "no", "don't", "actually", "wait", "stop", "that's wrong"; follow-up questions that reveal you missed something ("did you X?", "is it still Y?"); user edits or rewrites of your output; requests that imply a prior step should have been done differently. These are the highest-value learnings — they encode behaviors the user actively wants changed. Surface them first.
+**First pass — find the friction points.** Identify each area of the session where work cycled more than once: same problem revisited multiple turns, repeated "still doesn't work" exchanges, user pushback on the same theme across several messages, debugging loops that bounced between hypotheses. List the 1-3 biggest friction zones explicitly by topic ("QR code validation", "visual styling", "Python env"). Each friction zone is a learning gold mine — the cycling itself proves a missing rule, skill, or workflow guard would have prevented it. Skipping friction zones in favor of small surface fixes (a typo, a flag) is the most common LearnFrom failure mode. For each friction zone, ask: what specific instruction, if it had existed at session start, would have collapsed the cycle to one turn?
 
-**Second pass — walk the scan checklist below.** Walk through each category and list concrete findings before filtering.
+**Second pass — scan for user-correction signals.** Re-read the conversation specifically looking for: user messages containing "no", "don't", "actually", "wait", "stop", "that's wrong"; follow-up questions that reveal you missed something ("did you X?", "is it still Y?"); user edits or rewrites of your output; requests that imply a prior step should have been done differently. These encode behaviors the user actively wants changed; surface them alongside the friction zones.
+
+**Third pass — walk the scan checklist below.** Walk through each category and list concrete findings before filtering.
 
 ### Scan Checklist
 
@@ -29,6 +31,8 @@ Extract reusable learnings from the current session and apply them as updates to
 4. **Cross-tool interactions** — when tool A's output feeds tool B, ordering dependencies, cleanup side effects
 5. **Patterns discovered** — reusable conventions, architectural decisions, workflow improvements
 6. **Process improvements** — better ways to approach tasks discovered during work
+
+Cross-reference against friction zones — items inside a friction zone matter more than isolated ones.
 
 For each finding, apply the reusability test: will this come up again in a different session? If no, skip it. If uncertain, include it: a skipped learning is lost, an extra proposal can be rejected.
 
@@ -41,7 +45,9 @@ Concrete signals you should be editing not creating:
 - Adjacent guidance: existing skill mentions the same tool or workflow
 - Sibling concept: existing rule covers the inverse or a related case
 
-Only create a new file when the learning is genuinely orthogonal to everything that exists. If you find yourself writing a rule shorter than ~3 sentences, it almost certainly belongs as a paragraph in an existing file.
+Only create a new rule or short file when the learning is genuinely orthogonal to everything that exists. If you find yourself writing a rule shorter than ~3 sentences, it almost certainly belongs as a paragraph in an existing file.
+
+**Exception — when friction reveals a missing domain skill, propose a new skill, not a paragraph in a general one.** If the friction zone was about a specific tool, format, protocol, or domain operation that no existing skill covers (Czech SPAYD QR generation, GraphQL schema design, Stripe webhook handling, Apple Numbers automation), the right output is a new skill with reusable scaffolding — templates, validation steps, default config, examples — that prevents the friction next time. A bullet in `SystematicDebug` about "clarify failure mode" still has value, but it's the secondary capture; the primary one is the missing domain skill itself. Trigger conditions: friction took 5+ turns to resolve, the operation has multi-step structure (build → validate → render → verify), and the next user invocation would benefit from `/SkillName` rather than from a rule firing on every session. When in doubt, surface this option to the user alongside the edit-existing proposal so they can pick.
 
 Determine the target artifact. The categorization decision matters — rules cost tokens every session; skills cost tokens only when invoked.
 
