@@ -1,0 +1,6 @@
+sources:
+    - https://github.com/MrLesk/Backlog.md
+    - https://adr.github.io/
+
+claude:
+    argument-hint: "[capture <title> | list | update <id> | close <id>]"
