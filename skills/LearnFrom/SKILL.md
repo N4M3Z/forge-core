@@ -19,13 +19,18 @@ Extract reusable learnings from the current session and apply them as updates to
 
 **First pass — scan for user-correction signals.** Re-read the conversation specifically looking for: user messages containing "no", "don't", "actually", "wait", "stop", "that's wrong"; follow-up questions that reveal you missed something ("did you X?", "is it still Y?"); user edits or rewrites of your output; requests that imply a prior step should have been done differently. These are the highest-value learnings — they encode behaviors the user actively wants changed. Surface them first.
 
-**Second pass — scan for other categories:**
+**Second pass — walk the scan checklist below.** Walk through each category and list concrete findings before filtering.
 
-1. **Patterns discovered** — reusable conventions, architectural decisions, workflow improvements
-2. **Tool behaviors learned** — CLI flags, API quirks, platform constraints
-3. **Process improvements** — better ways to do things discovered during work
+### Scan Checklist
 
-For each item, apply the reusability test: will I encounter this again? If no, skip it.
+1. **Corrections made** — wrong assumptions that were fixed, approaches rejected by the user, things that didn't work the first time
+2. **Tool behaviors learned** — CLI flags, API quirks, platform constraints, output format surprises, command interactions (e.g., one command cleaning another's output)
+3. **Packaging and deployment** — build pipelines, release workflows, distribution patterns, CI/CD discoveries
+4. **Cross-tool interactions** — when tool A's output feeds tool B, ordering dependencies, cleanup side effects
+5. **Patterns discovered** — reusable conventions, architectural decisions, workflow improvements
+6. **Process improvements** — better ways to approach tasks discovered during work
+
+For each finding, apply the reusability test: will this come up again in a different session? If no, skip it. If uncertain, include it: a skipped learning is lost, an extra proposal can be rejected.
 
 ## Scan Existing Artifacts FIRST
 
@@ -49,6 +54,14 @@ Determine the target artifact. The categorization decision matters — rules cos
 | Existing file refinement   | edit in place     | "add RACI to required frontmatter list"      |
 
 If the guidance only matters when working on certain files (shell scripts, Python, Markdown), make it a skill with `paths:` frontmatter so it auto-triggers on relevant file edits — don't put it in `rules/` where it loads on every session regardless of relevance.
+
+## Source vs Deployed; Local vs Upstream
+
+LearnFrom always edits source files in the module root (`rules/`, `skills/`, `agents/`). Never edit deployed copies under `.claude/`, `.codex/`, `.gemini/`, or `.opencode/` — those are `forge install` outputs that get overwritten on every sync.
+
+Start with the source artifact relevant to the current workload, then check its provenance record (`.provenance/<file>.yaml` sidecar). If `resolvedDependencies` lists an upstream module (forge-core, forge-dev, etc.), the artifact is inherited content. Propose the change upstream; the local copy refreshes via `forge install` after the upstream merges. Edit the local copy directly only when the change is genuinely repo-specific (project-only convention, local override).
+
+Skipping this check creates drift: a local edit to inherited content silently shadows future upstream improvements, and a local edit to a deployed copy is overwritten on the next sync.
 
 ## Draft Proposals
 
@@ -90,8 +103,11 @@ List what was captured: rules created or updated, skills updated, agents updated
 ## Constraints
 
 - Scan existing `rules/`, `skills/`, and `agents/` BEFORE drafting — a new file is the last resort, not the first instinct
+- Edit source artifacts in the module root, never deployed copies under `.claude/`, `.codex/`, `.gemini/`, or `.opencode/`
+- For inherited artifacts (provenance sidecar lists an upstream module), propose the change upstream first; touch the local copy only for repo-specific overrides
 - A learning shorter than ~3 sentences belongs in an existing file as an appended paragraph
 - Keep rules concise (max 120 words per section per the rules `.mdschema`)
 - New rules follow the `.mdschema` in `rules/` if present
-- Apply the reusability filter strictly — session-specific fixes are not rules
+- Prefer over-proposing to under-proposing: a skipped learning is permanently lost, an extra proposal costs one "Skip" click
+- Session-specific fixes are not rules, but tool behaviors and packaging patterns often are
 - Validate against the target directory's `.mdschema` before writing
