@@ -80,3 +80,92 @@ glab api projects/:id/repository/files/.gitlab%2FCODEOWNERS?ref=main
 | Push rules         | `glab api projects/:id/push_rule`                             |
 | Project settings   | `glab api projects/:id`                                       |
 | Check CODEOWNERS   | `glab api projects/:id/repository/files/CODEOWNERS?ref=main`  |
+
+## GitLab MR Operations
+
+Read-only by default. Confirm with the user before merging, approving, or closing.
+
+```sh
+glab mr list [--assignee X] [--label Y] [--state opened|merged|closed] [-R group/project]
+glab mr view <ID> [-R group/project]
+glab mr diff <ID> [--stat] [-R group/project]
+glab mr note <ID> -m "comment" [-R group/project]
+glab mr approve <ID> [-R group/project]
+```
+
+Always pass `-R <group/project>` when targeting a specific repository.
+
+## GitLab Pipeline Operations
+
+```sh
+glab ci status [-R group/project]
+glab ci view <pipeline_id> [-R group/project]
+glab ci list [-R group/project]
+```
+
+When a pipeline fails, drill into the failing job with `glab ci view` and extract the relevant error.
+
+## GitLab Issue Operations
+
+```sh
+glab issue list [--assignee X] [--label Y] [--state opened|closed] [-R group/project]
+glab issue view <ID> [-R group/project]
+glab issue note <ID> -m "comment" [-R group/project]
+```
+
+## GitLab Releases
+
+GitLab release publishing has two pitfalls. Both have stable workarounds, but neither is intuitive.
+
+### Source archives are auto-attached and cannot be hidden
+
+Every GitLab release ships with auto-generated source archives (`.zip`, `.tar.gz`, `.tar.bz2`, `.tar`) attached automatically ([gitlab-org/gitlab#282486][GLSRC]). This has been an open issue since 2020 with no plan to make it configurable. Users browsing the release page see the source archives at the top, often before the asset you uploaded.
+
+When you publish a release with a real asset (a binary, a packaged tarball, an installer), document the link to that asset explicitly in the README and release notes. Do not assume users will scroll past the source archives to find it.
+
+### Permanent download URL bypasses the release page
+
+GitLab supports a permanent URL for the latest release of any asset:
+
+```
+https://<host>/<group>/<project>/-/releases/permalink/latest/downloads/<asset-name>
+```
+
+This URL always resolves to the most recent release's asset of that name. It bypasses the release page entirely, sidestepping the source-archive confusion. Use it in:
+
+- README install instructions ("Download the latest release")
+- CI scripts that pull the latest binary
+- External documentation that links into the release
+
+### Publishing a release with assets
+
+```sh
+glab release create v1.0.0 \
+    --name "v1.0.0" \
+    --notes "Release notes here" \
+    --assets-links '[{"name":"repo-claude-v1.0.0.tar.gz","url":"https://uploads.example.com/repo-claude-v1.0.0.tar.gz"}]' \
+    -R group/project
+```
+
+The asset URL must already be reachable when the release is created -- GitLab does not host attached files inline; it only links to them. Upload to the project's package registry or an external CDN first.
+
+### Listing, inspecting, deleting
+
+```sh
+glab release list -R group/project
+glab release view v1.0.0 -R group/project
+glab release delete v1.0.0 -R group/project
+```
+
+Release deletion removes the release entry but does not remove the underlying tag or any external assets. Use `git push origin :refs/tags/v1.0.0` to remove the tag if needed.
+
+## Advanced API queries
+
+For operations not covered by `glab` subcommands, hit the GitLab API directly:
+
+```sh
+glab api projects/:id/merge_requests?state=opened
+glab api projects/:id/pipelines/:pipeline_id/jobs
+```
+
+[GLSRC]: https://gitlab.com/gitlab-org/gitlab/-/issues/282486
