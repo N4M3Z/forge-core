@@ -1,0 +1,32 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: agents/SkillReviewer.md
+          digest:
+              sha256: 7b99ed963e3291d15e3736627b9346f1bc48974e3746b50d4f273df8e377f1dd
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://forge-cli/adopt/v1
+            externalParameters:
+                upstream_url: https://github.com/anthropics/claude-plugins-public/blob/82d041227f42a61ac0797301d49d699c952326cf/plugins/plugin-dev/agents/skill-reviewer.md
+            resolvedDependencies:
+                - name: upstream
+                  uri: https://github.com/anthropics/claude-plugins-public/blob/82d041227f42a61ac0797301d49d699c952326cf/plugins/plugin-dev/agents/skill-reviewer.md
+                  digest:
+                      sha256: 78ac55ddc31dd78227df90029d9c2333bdd97567296ddd4a9b23c090a94fc09a
+                - name: AdoptArtifact
+                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                  digest:
+                      sha256: 7797fadf85662149c1f94054efc8bcbaa06f44efa185eafbdc07fee9eadfd623
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.0
+            metadata:
+                startedOn: "2026-05-04T10:49:38Z"
+            transforms:
+                - align        # kebab-case → PascalCase; restructure to forge agent schema (Role/Expertise/Instructions/Output Format/Constraints); strip XML example commentary from description
+                - debrand      # remove "plugin-dev's own skills" reference, generalize to forge convention
+                - minimize     # collapse description from multi-paragraph examples to single-line USE WHEN; drop trailing tagline
