@@ -17,12 +17,13 @@ Extract reusable learnings from the current session and apply them as updates to
 
 ## Analyze the Session
 
-Review the current conversation and identify:
+**First pass — scan for user-correction signals.** Re-read the conversation specifically looking for: user messages containing "no", "don't", "actually", "wait", "stop", "that's wrong"; follow-up questions that reveal you missed something ("did you X?", "is it still Y?"); user edits or rewrites of your output; requests that imply a prior step should have been done differently. These are the highest-value learnings — they encode behaviors the user actively wants changed. Surface them first.
+
+**Second pass — scan for other categories:**
 
 1. **Patterns discovered** — reusable conventions, architectural decisions, workflow improvements
-2. **Corrections made** — wrong assumptions that were fixed, pitfalls encountered
-3. **Tool behaviors learned** — CLI flags, API quirks, platform constraints
-4. **Process improvements** — better ways to do things discovered during work
+2. **Tool behaviors learned** — CLI flags, API quirks, platform constraints
+3. **Process improvements** — better ways to do things discovered during work
 
 For each item, apply the reusability test: will I encounter this again? If no, skip it.
 

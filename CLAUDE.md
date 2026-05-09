@@ -15,7 +15,7 @@ Module-building skills for the forge ecosystem. Teaches AI coding tools to creat
 | **BuildPlugin**          | Create, validate, and publish Claude Code plugins from forge modules                 |
 | **ArchitectureDecision** | Find, create, validate, and capture ADRs with forge-adr schema validation            |
 | **VersionControl**       | Git best practices, conventional commits, staging, push policy, repo governance      |
-| **MarkdownLint**         | Format and lint markdown documents (backtick refs, bare URLs, list formatting)        |
+| **MarkdownConventions**  | Markdown conventions and linting (fence tags, table alignment, links, reflinks)        |
 | **MarkdownSchema**       | Create, derive, and validate .mdschema files for structured markdown                 |
 | **SettingsMaintenance**  | Audit and clean AI coding tool settings (permissions, plugins, hooks, conflicts)      |
 | **SystemCheck**          | Check forge ecosystem for staleness (skills, binaries, lib consistency, version drift)|
