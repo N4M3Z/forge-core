@@ -60,7 +60,7 @@ When a new tool integration arrives (e.g., Codex creates its own `AGENTS.md` wit
 ### Mitigations
 
 - Periodic doc reviews catch material drift between files.
-- The companion rule [PerToolMemoryFiles][RULE] gives an always-loaded directive against merging or cross-importing these files.
+- The companion rule [IsolateHarnessMemory][RULE] gives an always-loaded directive against merging or cross-importing these files.
 - Content that genuinely belongs in one place (deployment internals, ADR index, FAQ) lives in `docs/` or `ARCHITECTURE.md`, not in tool memory files.
 
 ## Related Decisions
@@ -70,4 +70,4 @@ When a new tool integration arrives (e.g., Codex creates its own `AGENTS.md` wit
 
 [AGENTSMD]: https://agents.md "AGENTS.md cross-tool standard"
 [CCMEM]: https://code.claude.com/docs/en/memory "Claude Code memory documentation"
-[RULE]: ../../rules/PerToolMemoryFiles.md
+[RULE]: ../../rules/IsolateHarnessMemory.md
