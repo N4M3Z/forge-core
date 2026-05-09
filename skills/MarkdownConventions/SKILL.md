@@ -4,6 +4,7 @@ version: 0.1.0
 description: "Markdown authoring and linting conventions for forge — fence tags, table alignment, link paths, reference-style labels, README language switchers, and the Linting workflow. USE WHEN editing any markdown file, or invoking lint."
 paths:
     - "**/*.md"
+argument-hint: "[path to markdown file]"
 ---
 
 # MarkdownConventions

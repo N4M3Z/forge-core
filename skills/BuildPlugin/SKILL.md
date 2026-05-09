@@ -2,6 +2,7 @@
 name: BuildPlugin
 version: 0.1.0
 description: "Create, validate, and publish Claude Code plugins from forge modules. USE WHEN create plugin, validate plugin, publish plugin, marketplace, plugin.json, cowork plugin."
+argument-hint: "[create|validate|marketplace] [module-path]"
 ---
 
 # BuildPlugin
@@ -76,3 +77,8 @@ Verdict: READY / NOT READY
 - Plugin names must be lowercase kebab-case
 - Version in plugin.json and module.yaml must match
 - Never publish a module that fails validation
+
+## Sources
+
+- <https://code.claude.com/docs/en/plugin-marketplaces>
+- <https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization>

@@ -54,3 +54,7 @@ Run these regardless of which subskill is active:
 | **Permission scattering**          | Same entry in both `settings.json` and `settings.local.json` at the same level            |
 | **Plugin enable/disable conflict** | Global disables a plugin but project re-enables it (or vice versa)                        |
 | **Redundant local file**           | At global level, `settings.local.json` entries that already exist in `settings.json`      |
+
+## Sources
+
+- <https://docs.anthropic.com/en/docs/claude-code>

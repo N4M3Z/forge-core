@@ -50,3 +50,7 @@ Skip any step and the claim is unverified.
 - Never trust a previous run — re-run now
 - Never trust agent success reports without checking the diff
 - "Should", "probably", "seems to" are never verification
+
+## Sources
+
+- <https://github.com/obra/superpowers>

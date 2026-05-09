@@ -60,3 +60,11 @@ For each fixable issue, present via AskUserQuestion. Only structural fixes (add 
 ## Output Format
 
 Follow @Output.md for the ASCII dashboard layout, card types, optional gauges, and batch decision flow.
+
+## Sources
+
+- <https://github.com/N4M3Z/forge-core>
+- <https://arxiv.org/html/2603.08993v1>
+- <https://www.promptfoo.dev/docs/intro/>
+- <https://www.llmlingua.com/>
+- <https://artificialanalysis.ai/documentation>

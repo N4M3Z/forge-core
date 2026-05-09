@@ -43,3 +43,8 @@ Create and validate skills following forge conventions. Skills are markdown file
 - PascalCase for multi-word skill names, natural case for single words
 - Skill directory name must match the `name:` field
 - Prefer one SKILL.md per skill — extract reference material into companion files when body exceeds ~150 lines or contains dense static data
+
+## Sources
+
+- <https://code.claude.com/docs/en/skills>
+- <https://github.com/anthropics/skills>

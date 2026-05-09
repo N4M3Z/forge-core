@@ -2,6 +2,7 @@
 name: LearnFrom
 description: "Extract session learnings and apply them as updates to rules, skills, and agents. USE WHEN session produced reusable patterns, corrections, or conventions worth capturing."
 version: 0.1.0
+argument-hint: "extract learnings from this session"
 ---
 
 # LearnFrom

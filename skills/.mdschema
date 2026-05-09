@@ -1,11 +1,54 @@
 frontmatter:
     fields:
+        # forge convention: required for module skills
         - name: name
           type: string
         - name: description
           type: string
         - name: version
           type: string
+
+        # Claude Code optional fields
+        # https://code.claude.com/docs/en/skills#frontmatter-reference
+        # `hooks` is intentionally omitted: mdschema has no `object` type yet,
+        # and a hooks map (`{ PreToolUse: [...] }`) cannot be represented as
+        # one of string|number|boolean|array|date.
+        - name: when_to_use
+          type: string
+          optional: true
+        - name: argument-hint
+          type: string
+          optional: true
+        - name: arguments
+          type: array
+          optional: true
+        - name: allowed-tools
+          type: array
+          optional: true
+        - name: disable-model-invocation
+          type: boolean
+          optional: true
+        - name: user-invocable
+          type: boolean
+          optional: true
+        - name: model
+          type: string
+          optional: true
+        - name: effort
+          type: string
+          optional: true
+        - name: context
+          type: string
+          optional: true
+        - name: agent
+          type: string
+          optional: true
+        - name: paths
+          type: array
+          optional: true
+        - name: shell
+          type: string
+          optional: true
 
 heading_rules:
     no_skip_levels: true

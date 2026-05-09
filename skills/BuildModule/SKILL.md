@@ -192,3 +192,8 @@ These files are the primary way AI agents understand the module when working ins
 - `config.yaml` is always gitignored at every level
 - The `forge` CLI provides install, validate, and assembly operations
 - Modules must work standalone -- no dependency on a parent monorepo
+
+## Sources
+
+- <https://github.com/anthropics/claude-code/blob/main/plugins/README.md>
+- <https://code.claude.com/docs/en/skills>

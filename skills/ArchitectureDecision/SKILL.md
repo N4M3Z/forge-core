@@ -4,6 +4,7 @@ version: 0.3.0
 description: "Find, read, create, validate, and capture Architecture Decision Records. USE WHEN ADR lookup, architecture decision, project context, decision history, create ADR, new ADR, validate ADR, capture ADRs, decisions directory, or editing any ADR file."
 paths:
     - "docs/decisions/*.md"
+argument-hint: "[topic to search | 'list' | 'create: <title>' | 'validate' | 'capture']"
 ---
 
 # Architecture Decisions
@@ -163,3 +164,8 @@ Triggered post-compaction or by the user asking to capture decisions from the cu
 - Status must be set at creation — never leave it blank
 - Always search multiple common locations before concluding no ADRs exist
 - Include links to related ADRs when decisions are connected
+
+## Sources
+
+- <https://adr.github.io/>
+- <https://adr.github.io/madr/>

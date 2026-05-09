@@ -112,3 +112,9 @@ Auto-detect from the remote origin URL. If ambiguous, ask the user.
 For parallel feature work in a single clone, use git worktrees instead of stashing or switching.
 
 @GitWorktrees.md
+
+## Sources
+
+- <https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets>
+- <https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners>
+- <https://docs.gitlab.com/user/project/protected_branches/>

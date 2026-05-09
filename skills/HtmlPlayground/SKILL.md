@@ -80,3 +80,9 @@ Each card is a self-contained demo. Use these conventions:
 - File goes to `/tmp/` — never write preview HTML into the project directory
 - Source attribution is mandatory when the technique has a known origin
 - Mock data must feel realistic, not lorem ipsum
+
+## Sources
+
+- <https://gist.github.com/kaushikgopal/5e3018581946e09c49ac43aa8657b94c>
+- <https://github.com/obsidian-tasks-group/obsidian-tasks/discussions/3359>
+- <https://github.com/obsidian-tasks-group/obsidian-tasks/discussions/3421>

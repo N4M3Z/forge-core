@@ -35,6 +35,6 @@ repos:
 
           - id: forge-validate
             name: forge validate
-            entry: forge validate .
+            entry: forge validate
             language: system
             pass_filenames: false

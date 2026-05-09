@@ -133,3 +133,7 @@ For rules and agents, the SHA is the body hash of the upstream source file (fron
 - Local-only files are never added to the manifest
 - Strip forge branding per ContextualNaming when adopting files downstream
 - Manifests are written by `forge install`, not by the companion script
+
+## Sources
+
+- <https://github.com/N4M3Z/forge-core>
