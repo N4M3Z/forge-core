@@ -1,0 +1,1 @@
+Before writing a new helper, search the file and its neighbors for existing logic that does the same thing. Duplicated workaround code diverges silently when one copy gets fixed and the other does not.
