@@ -9,3 +9,7 @@ Fabricated names erode trust faster than any bug.
 When claiming that Tool B supersedes Tool A, prove it empirically. Run both tools against identical fixtures and show the error output matches. Schema-level analysis ("they both check required fields") is insufficient — a subtle constraint in one tool might be missing from the other, and only running them reveals the gap.
 
 When an agent returns assertions about file existence or constraint compliance ("all files verified on disk", "no duplicates against the exclusion list"), spot-check the critical claims before applying the output. Agents hallucinate about these reliably — treat such claims as proposals to verify, not facts.
+
+Counts that subagents report ("12 files verified", "3 sidecars updated") violate [NoItemCounts][NIC] and are unreliable besides. If one slips through, recompute it yourself with `ls | wc -l`, `rg -c`, or equivalent before citing it. The specialist's count is a proposal; your recount is the fact.
+
+[NIC]: NoItemCounts.md
