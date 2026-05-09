@@ -7,7 +7,7 @@ keywords:
 related:
 ---
 
-So I am first going to share this here. As I mentioned, my main focus these days outside Proton is on building an open LLM orchestration infrastructure. The core concept is to keep all AI context (identity, preferences, goals, behavioral rules) as plain markdown files, and the system crunches them into whatever format it currently needs using leveraging tools available on the machine. Key principles:
+So I am first going to share this here. As I mentioned, my main focus these days outside the day job is on building an open LLM orchestration infrastructure. The core concept is to keep all AI context (identity, preferences, goals, behavioral rules) as plain markdown files, and the system crunches them into whatever format it currently needs using leveraging tools available on the machine. Key principles:
 
 Tool-agnostic — the same source files generate CLAUDE.md (Claude Code), GEMINI.md (Gemini), AGENTS.md (Codex/OpenCode), etc. You write the repo once, use it everywhere. Markdown is plain-text instructions, so just like Obsidian notes, it's future-proof.
 Modular architecture — every piece is a standalone git repo, usable individually. You don't need the full stack. Each module leverages different CLI tools and offers specialized agents for async tasks.
