@@ -10,7 +10,7 @@ SCRIPT_SHA="f1fc47c463097005152ff2dcd5c8e57e7bb55d9b8c7a61c5b697fc662aeb5bde"
 if command -v prek >/dev/null 2>&1; then
     prek run --all-files
 elif command -v forge >/dev/null 2>&1; then
-    forge validate .
+    forge validate
 else
     echo ""
     echo "  ⚠  Neither prek nor forge found — using validate.sh fallback"
