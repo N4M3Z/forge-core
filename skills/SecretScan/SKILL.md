@@ -28,6 +28,16 @@ gitleaks detect --source . --no-git
 gitleaks detect --source .
 ```
 
+### Scan staged files only
+
+For pre-commit checks where only staged content matters:
+
+```sh
+gitleaks protect --source . --staged --no-banner
+```
+
+`gitleaks protect` (vs `detect`) operates on the working-tree diff and is faster than a full scan when integrated into a pre-commit flow.
+
 ### Baseline known findings
 
 If the repo has historical secrets that have been rotated, create a baseline so future scans only flag new leaks:
@@ -61,10 +71,34 @@ paths = [
 ]
 ```
 
+## Output format
+
+Present findings grouped by severity, never echoing the secret value:
+
+```markdown
+## Secret Scan: <repo>
+
+**Mode**: working tree | staged | history
+**Findings**: <count>
+
+### Critical (must fix before merge)
+- <file>:<line> <rule-id> — short description
+
+### Allowlisted (known safe)
+- <file>:<line> <rule-id> — reason
+
+### Recommendation
+<fix | baseline | allowlist guidance>
+```
+
 ## Constraints
 
+- Never display the actual secret value in scan output — show only rule ID, file, and line
 - Never commit `.env`, credentials, or API keys — even to private repos
-- If gitleaks blocks a commit, fix the leak. Don't bypass with `--no-verify`.
-- Different gitleaks versions detect different patterns. If local passes but CI fails, check version mismatch.
+- If gitleaks is not installed, print the install command (`brew install gitleaks`) and stop — do not partially scan
+- If gitleaks blocks a commit, fix the leak; do not bypass with `--no-verify`
+- Recommend baselining over `--no-verify` for historical secrets that have already been rotated
+- Flag any `.env` file that is not in `.gitignore` as a configuration issue
+- Different gitleaks versions detect different patterns; if local passes but CI fails, check version mismatch
 
 [GITLEAKS]: https://github.com/gitleaks/gitleaks
