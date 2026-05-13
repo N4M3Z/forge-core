@@ -20,7 +20,7 @@ Follow the structure from [SkillStructure.md](SkillStructure.md).
 - [ ] If wrapping a CLI tool: usage examples, intent-to-flag mapping, output format (see [CliToolIntegration.md](CliToolIntegration.md))
 - [ ] Constraints section with boundary conditions
 - [ ] No unnecessary complexity — minimum needed for the task
-- [ ] If module skill: SKILL.yaml sidecar with `sources:` field (see [CanonSidecar.md](CanonSidecar.md))
+- [ ] If module skill: `sources:` list in SKILL.md frontmatter (upstream documentation URLs)
 - [ ] Skill listed in module's `defaults.yaml` under each target provider (see [MultiProviderRouting.md](MultiProviderRouting.md))
 
 ## Step 3: Create the skill directory and file

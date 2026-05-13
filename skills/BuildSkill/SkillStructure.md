@@ -1,12 +1,11 @@
 A skill is a directory under `skills/` containing `SKILL.md` as the entrypoint ([Claude Code docs][CCDOCS]).
 
-`SKILL.md` carries YAML frontmatter (`name`, `description`, and optionally `argument-hint`, `allowed-tools`, `model`, `effort`, `context`, `hooks`, `paths`, `shell`) plus the workflow body. Companion files (templates, examples, reference material) live alongside. Skills are lazy-loaded: `SKILL.md` is only injected into context when the user invokes the skill or the AI matches the description. Companion files are loaded on demand when the AI decides it needs them during execution.
+`SKILL.md` carries YAML frontmatter (`name`, `description`, `version`, `sources`, and optionally `argument-hint`, `allowed-tools`, `model`, `effort`, `context`, `hooks`, `paths`, `shell`) plus the workflow body. Companion files (templates, examples, reference material) live alongside. Skills are lazy-loaded: `SKILL.md` is only injected into context when the user invokes the skill or the AI matches the description. Companion files are loaded on demand when the AI decides it needs them during execution.
 
 ## Forge additions beyond the native spec
 
 | File          | Purpose                                        |
 | ------------- | ---------------------------------------------- |
-| `SKILL.yaml`  | Sidecar for reference URLs and provider hints  |
 | `user/`       | Qualifier directory, flattened at assembly     |
 | `@` includes  | Companion file references, resolved by forge    |
 
@@ -17,7 +16,10 @@ A skill is a directory under `skills/` containing `SKILL.md` as the entrypoint (
 ```yaml
 ---
 name: SkillName
+version: 0.1.0
 description: What it does. USE WHEN trigger phrase one, trigger phrase two, or trigger phrase three.
+sources:
+    - https://upstream.example/docs
 ---
 ```
 
@@ -25,6 +27,7 @@ description: What it does. USE WHEN trigger phrase one, trigger phrase two, or t
 - `name:` — PascalCase for multi-word (`VaultOperations`, `DailyPlan`), natural casing for single words (`Log`, `Draft`, `Init`)
 - `version:` — semantic version (required for module skills, optional for personal/vault skills)
 - `description:` — single line, under 1024 characters, includes `USE WHEN` with intent-based triggers joined by commas/OR
+- `sources:` — list of upstream documentation URLs the skill references (optional but recommended for module skills)
 - Optional: `argument-hint:` for skills invoked with `/SkillName <args>` (e.g., `"[natural language description]"`)
 - No separate `triggers:` or `workflows:` arrays in YAML
 

@@ -2,6 +2,9 @@
 name: BuildSkill
 version: 0.1.0
 description: "Create and validate skills for forge modules. USE WHEN create skill, new skill, write skill, validate skill, check skill, skill structure, skill conventions."
+sources:
+    - https://code.claude.com/docs/en/skills
+    - https://github.com/anthropics/skills
 ---
 
 # BuildSkill
@@ -20,7 +23,6 @@ Create and validate skills following forge conventions. Skills are markdown file
 | Topic                                                       | Companion                                                |
 | ----------------------------------------------------------- | -------------------------------------------------------- |
 | SKILL.md structure, frontmatter, body layout, naming        | [@SkillStructure.md](SkillStructure.md)                    |
-| SKILL.yaml sidecar + `Example.md` demo pattern              | [@CanonSidecar.md](CanonSidecar.md)                        |
 | Multi-provider routing via `defaults.yaml`                  | [@MultiProviderRouting.md](MultiProviderRouting.md)        |
 | Wrapping a CLI tool in a skill                              | [@CliToolIntegration.md](CliToolIntegration.md)            |
 | Platform-agnostic writing — no placeholders or `/` prefix   | [@PlatformAgnostic.md](PlatformAgnostic.md)                |
@@ -29,7 +31,6 @@ Create and validate skills following forge conventions. Skills are markdown file
 
 | Thought                                                  | Reality                                                                              |
 | -------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| "Put argument-hint in SKILL.md frontmatter"              | Obsidian Linter reformats frontmatter. Provider-specific fields go in SKILL.yaml.     |
 | "Use `/SkillName` inside a skill body"                   | Slashes are user-facing invocation syntax, not internal references.                    |
 | "Skip the `USE WHEN` clause"                             | Claude uses it to route. Missing trigger = skill never fires.                         |
 | "Leave a stub section as a placeholder"                  | Skill bodies are plain prose. Delete empty sections, don't scaffold them.             |
