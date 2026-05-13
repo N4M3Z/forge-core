@@ -56,3 +56,7 @@ Lead with your recommendation and explain why.
 - Always propose at least two approaches with trade-offs
 - Scale design detail to complexity — don't over-specify simple projects
 - Hand off to DesignSpec or WritePlan, never directly to code
+
+## Sources
+
+- <https://github.com/obra/superpowers>

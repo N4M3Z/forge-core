@@ -40,3 +40,7 @@ Execute a WritePlan output in the current session, one task at a time. This is t
 - No scope expansion beyond the plan
 - Use git worktrees when modifying existing code
 - For plans with independent tracks, use DeveloperSprint instead
+
+## Sources
+
+- <https://github.com/obra/superpowers>

@@ -211,3 +211,8 @@ Read the hook script and `module.yaml`.
 - Gate hooks MUST exit 0 on infrastructure failure — never block Claude due to a broken hook
 - Stdin is consumed once — read it into a variable (`INPUT=$(cat)`) before processing
 - Output is mode-dependent — Passive hooks cannot communicate back to the AI
+
+## Sources
+
+- <https://code.claude.com/docs/en/hooks>
+- <https://code.claude.com/docs/en/common-workflows>

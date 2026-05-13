@@ -136,3 +136,7 @@ Report results. If violations are found, present them and ask whether to fix the
 - Never make frontmatter fields optional unless the artifact type genuinely doesn't use them -- `version` should be required for skills and agents to catch nesting errors
 - `no_skip_levels` is always `true` -- no exceptions
 - If `mdschema` is not installed, tell the user: `brew install jackchuka/tap/mdschema`
+
+## Sources
+
+- <https://github.com/jackchuka/mdschema>

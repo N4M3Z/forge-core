@@ -54,3 +54,7 @@ Before presenting the spec, verify:
 - Spec must be saved as a file, not just presented in conversation
 - User must approve the spec before implementation begins
 - Hand off to WritePlan or DeveloperSprint after approval
+
+## Sources
+
+- <https://github.com/obra/superpowers>

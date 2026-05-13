@@ -2,6 +2,7 @@
 name: AdaptPrompts
 description: "Adapt generic rules and prompts for independent repos — strip forge branding, add path scoping, drop irrelevant rules, preserve custom overrides. USE WHEN adapt rules, adapt prompts, port rules, specialize rules, sync rules, update rules for repo, rules for proton, rules for lb-agent."
 version: 0.1.0
+argument-hint: "[target repo path or name]"
 ---
 
 # AdaptPrompts

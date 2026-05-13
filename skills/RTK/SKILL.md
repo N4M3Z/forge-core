@@ -155,3 +155,7 @@ rtk wget <url>          # Compact download output (65%)
 | Network          | curl, wget                       | 65-70%          |
 
 Overall average: **60-90% token reduction** on common development operations.
+
+## Sources
+
+- <https://github.com/reachingforthejack/rtk>

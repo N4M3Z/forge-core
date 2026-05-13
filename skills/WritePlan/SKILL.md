@@ -48,3 +48,7 @@ Each task must contain:
 - Tasks include actual code, not descriptions of code
 - Plan must reference which spec it implements
 - Save as a file, not just conversation output
+
+## Sources
+
+- <https://github.com/obra/superpowers>

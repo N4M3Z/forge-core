@@ -272,3 +272,9 @@ Total agents, compliant count, issues found, recommended fixes.
 - Agent descriptions must follow pattern: `"Role -- capabilities. USE WHEN triggers."`
 - For council/team agents, include scope note in description
 - After creating or modifying agents, deploy to see changes
+
+## Sources
+
+- <https://code.claude.com/docs/en/agents>
+- <https://github.com/anthropics/claude-code/blob/main/plugins/README.md>
+- <https://github.com/google-gemini/gemini-cli>
