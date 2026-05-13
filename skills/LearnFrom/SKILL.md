@@ -37,6 +37,21 @@ Cross-reference against friction zones — items inside a friction zone matter m
 
 For each finding, apply the reusability test: will this come up again in a different session? If no, skip it. If uncertain, include it: a skipped learning is lost, an extra proposal can be rejected.
 
+## Pick the Right Repo First
+
+Forge modules are one home for learnings, not the only home. Before scanning a module's `rules/skills/agents`, decide whether the learning even belongs in a forge module. Many "platform quirks" are actually shell-env exports or install steps that belong in `dotfiles` or `mac-setup`, not in a forge rule pile.
+
+| Question                                                                | Target                                                       | Example                                                                                            |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| Can a shell-env export, alias, or shell-config change fix this?         | `dotfiles/` (zshenv, zshrc, zprofile)                        | `export SSH_ASKPASS=/opt/homebrew/bin/ssh-askpass` to fix YubiKey commit signing in subprocesses    |
+| Can a `brew install`, `defaults write`, or macOS setup step fix this?   | `mac-setup/`                                                 | "install ssh-askpass via brew", "disable Spotlight indexing of node_modules"                       |
+| Is this a decision about a specific project's identity or architecture? | That project's `docs/decisions/` ADR                          | "we chose forgeworld.ai as the apex", "we use EUPL-1.2"                                            |
+| Is this a forge-ecosystem convention or workflow?                       | Appropriate forge module's `rules/`, `skills/`, or `agents/`  | "skill bodies stay under 150 lines", "ADRs use the structured-madr schema"                          |
+| Is this a personal preference about the user the AI should remember?    | `forge-avatar/` or `forge-learn/`                            | "user prefers concise responses", "user works in Czech locale"                                     |
+| Is this an unfixable platform quirk — workaround only lives in head?    | forge-core `rules/KnownIssues.md` (last resort)              | "Obsidian Linter auto-formats frontmatter between read and write"                                  |
+
+`KnownIssues.md` is the **last resort**, not the default. If a config change, install step, or env export would actually fix the problem, the learning belongs at the source of that fix — never as a workaround documented in KnownIssues. Adding a fixable quirk to KnownIssues teaches future sessions to tolerate the breakage forever instead of resolving it once.
+
 ## Scan Existing Artifacts FIRST
 
 Before drafting any proposal, list every file in `rules/`, `skills/`, and `agents/` of the target module. For each candidate learning, search by topic for an existing artifact that already touches the same area. The default outcome is a one-line edit to an existing file, NOT a new file.
@@ -109,6 +124,7 @@ List what was captured: rules created or updated, skills updated, agents updated
 
 ## Constraints
 
+- Pick the right repo before drafting — shell-env fixes → dotfiles, install/setup steps → mac-setup, project-specific decisions → that project's ADRs, forge conventions → forge module. Reserve forge-core `rules/KnownIssues.md` for unfixable platform quirks only
 - Scan existing `rules/`, `skills/`, and `agents/` BEFORE drafting — a new file is the last resort, not the first instinct
 - Edit source artifacts in the module root, never deployed copies under `.claude/`, `.codex/`, `.gemini/`, or `.opencode/`
 - For inherited artifacts (provenance sidecar lists an upstream module), propose the change upstream first; touch the local copy only for repo-specific overrides
