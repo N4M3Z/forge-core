@@ -16,7 +16,7 @@ Track inheritance of rules, skills, and agents between forge modules and downstr
 bash Modules/forge-core/skills/PublishPrompts/publish-prompts.sh --type all --modules-dir Modules
 ```
 
-For downstream repos (e.g., proton-agents):
+For downstream repos:
 
 ```bash
 bash skills/PublishPrompts/publish-prompts.sh --type all --modules-dir /path/to/forge/Modules
