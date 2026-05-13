@@ -10,7 +10,29 @@ A skill is a directory under `skills/` containing `SKILL.md` as the entrypoint (
 | `user/`       | Qualifier directory, flattened at assembly     |
 | `@` includes  | Companion file references, resolved by forge    |
 
-**`@` includes vs plain references**: use `@File.md` only for companions that should be auto-injected alongside SKILL.md on every invocation. For optional or variant companions (e.g. a multi-mode skill where only one mode is loaded per run), use plain filename references like `` `File.md` `` and let the AI load on demand. Over-use of `@` wastes tokens on unused companions.
+**`@` includes vs plain references**: use `@File.md` only for companions that should be auto-injected alongside SKILL.md on every invocation. For optional or variant companions (e.g. a multi-mode skill where only one mode is loaded per run), use plain filename references like `` `File.md` `` and let the AI load on demand. Over-use of `@` wastes tokens on unused companions. Never mix the forms.
+
+```markdown
+GOOD — always-loaded reference (forge inlines content into SKILL.md at parse time)
+@SkillStructure.md
+
+GOOD — load-on-demand reference (AI reads via Read tool when the workflow needs it)
+See [`Linting.md`](Linting.md) for the full lint pipeline.
+
+GOOD — same companion table, different intent
+| Workflow | Companion           |
+| -------- | ------------------- |
+| Create   | @CreateWorkflow.md   |       <- always inline
+| Validate | `ValidateWorkflow.md` |     <- load on demand
+
+BAD — `@` inside a markdown link reads as "auto-inject", looks like a regular link, behaves like neither
+[@File.md](File.md)
+
+BAD — `@` on a multi-mode router; every variant inlines on every invocation, defeating routing
+@FantasyMode.md
+@SciFiMode.md
+@NoirMode.md
+```
 
 ## SKILL.md frontmatter
 

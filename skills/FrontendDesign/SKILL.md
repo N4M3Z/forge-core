@@ -34,6 +34,7 @@ Match implementation complexity to the vision: maximalist designs get elaborate 
 
 - Overused font families (Inter, Roboto, Arial, system fonts, Space Grotesk — don't converge on "safe" choices across generations)
 - Cliched color schemes (purple gradients on white is the canonical offender)
+- Charity/wellness clichés — cream backgrounds with forest green and warm orange/terracotta accents read as spa-yoga-retreat, undermine credibility for donor-facing, institutional, or business audiences. For serious contexts, default to editorial palettes (white + hard black + one decisive accent)
 - Predictable layouts and component patterns
 - Cookie-cutter design that lacks context-specific character
 
@@ -46,3 +47,4 @@ No two designs should be the same. Vary themes (light/dark), fonts, aesthetics a
 - Produce real, working code — HTML/CSS/JS, React, Vue, etc. — not mockups
 - Maintain a single aesthetic point-of-view across the whole output; do not mix brutalist typography with pastel gradients
 - Accessibility and performance are not aesthetic concessions; they are part of production-grade
+- Iterate one visual variable per round when refining a design with the user. Bundling changes (illustration + color logic + label edits in one push) forces the user to accept or reject the whole package; they can't keep the parts that landed and discard the parts that didn't. This costs at least one extra round per bundle.
