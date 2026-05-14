@@ -3,7 +3,7 @@ provenance:
     subject:
         - name: skills/.mdschema
           digest:
-              sha256: 6b7e7a30c6c6ce613f60997a7dec5520b6fac000a3fea8d1258138cf01504b41
+              sha256: 8037ade9a7b7cc00f5ad717b54a68a26ed5553dd1969389472561cac1e162d20
     predicateType: https://slsa.dev/provenance/v1
     predicate:
         buildDefinition:
