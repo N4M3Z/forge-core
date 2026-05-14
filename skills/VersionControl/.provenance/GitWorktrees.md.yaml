@@ -15,8 +15,8 @@ provenance:
                   uri: https://raw.githubusercontent.com/davila7/claude-code-templates/d8e7e60f6fa962bd7842ae2a287361b0a6477f6a/cli-tool/components/skills/development/using-git-worktrees/SKILL.md
                   digest:
                       sha256: 4e2aeeb740335d9160ee3a6da66ca6b2ceea8e1e03b9835b5ee357a17500f2bc
-                - name: ForgeAdopt
-                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
                       sha256: bdf75d591841d6267de31ef0eceead4e74d1691596675a8db7f92f54f797beec
         runDetails:

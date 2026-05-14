@@ -15,8 +15,8 @@ provenance:
                   uri: https://raw.githubusercontent.com/davila7/claude-code-templates/d8e7e60f6fa962bd7842ae2a287361b0a6477f6a/cli-tool/components/skills/development/bash-pro/SKILL.md
                   digest:
                       sha256: 6cefe6c36cecc4dee371363744c345e8bb522b8bbda8c635ea9e35e9675290e6
-                - name: ForgeAdopt
-                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
                       sha256: bdf75d591841d6267de31ef0eceead4e74d1691596675a8db7f92f54f797beec
         runDetails:

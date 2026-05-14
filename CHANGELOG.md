@@ -14,7 +14,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 
-- `skills/ForgeAdopt/SKILL.md` — removed the 3–5 initial cap and the skills-only restriction; agents are now eligible for adoption
+- `skills/AdoptArtifact/SKILL.md` — removed the 3–5 initial cap and the skills-only restriction; agents are now eligible for adoption
+- `skills/ForgeAdopt/` renamed to `skills/AdoptArtifact/` for brand-neutral naming
 - CORE-0010 amended — validation is now fully handled by `forge validate .`; there are no module-specific validators.
 - `make test` removed. `make validate` is the single entry point.
 

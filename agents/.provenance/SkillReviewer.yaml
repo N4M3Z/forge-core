@@ -16,7 +16,7 @@ provenance:
                   digest:
                       sha256: 78ac55ddc31dd78227df90029d9c2333bdd97567296ddd4a9b23c090a94fc09a
                 - name: AdoptArtifact
-                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
                       sha256: 7797fadf85662149c1f94054efc8bcbaa06f44efa185eafbdc07fee9eadfd623
         runDetails:
