@@ -34,7 +34,7 @@ upstream: []
 ## Decision Drivers
 
 - [SLSA v1.0][SLSA]'s `resolvedDependencies` is designed to record every input that produced the artifact, including tooling — a transform skill applied during adoption is precisely an input in the SLSA sense
-- Recording transform skills as dependencies pins them by SHA, which means Phase 2 evals can answer "which version of `/MinimizePrompt` was applied to this adoption" without any forge-local schema
+- Recording transform skills as dependencies pins them by SHA, which means Phase 2 evals can answer "which version of `/RefinePrompt` was applied to this adoption" without any forge-local schema
 - Duplicating the same data into a forge-local `transforms_applied` array would be redundant with `resolvedDependencies` and create two places to update
 - Git diffs and commit messages remain the lossless record of exactly what changed and why; structured dependency entries complement them, do not replace them
 
@@ -64,18 +64,10 @@ predicate:
               uri: https://github.com/davila7/claude-code-templates/blob/<sha>/cli-tool/components/skills/security/security-best-practices/SKILL.md
               digest:
                   sha256: <upstream-sha>
-            - name: DebrandPrompt
-              uri: forge-core/skills/DebrandPrompt/SKILL.md
+            - name: RefinePrompt
+              uri: forge-core/skills/RefinePrompt/SKILL.md
               digest:
-                  sha256: <DebrandPrompt-sha>
-            - name: MinimizePrompt
-              uri: forge-core/skills/MinimizePrompt/SKILL.md
-              digest:
-                  sha256: <MinimizePrompt-sha>
-            - name: RescopePrompt
-              uri: forge-core/skills/RescopePrompt/SKILL.md
-              digest:
-                  sha256: <RescopePrompt-sha>
+                  sha256: <RefinePrompt-sha>
         runDetails:
             builder:
                 id: forge-cli
@@ -115,12 +107,12 @@ All other adoption metadata is sidecar-only or git-native.
 ### Consequences
 
 - [+] Pure SLSA: every structural concept used here is defined by the spec; no forge-local schema invention
-- [+] Transform skills are pinned by SHA in every adoption that used them — Phase 2 can answer "which version of `/MinimizePrompt` was applied" without inspecting forge's tooling version
+- [+] Transform skills are pinned by SHA in every adoption that used them — Phase 2 can answer "which version of `/RefinePrompt` was applied" without inspecting forge's tooling version
 - [+] One source of truth per axis: structured dependencies in the sidecar, exact changes in the diff, prose rationale in the commit
 - [+] Extending from inline transforms to per-skill transforms requires zero schema change — `resolvedDependencies` just grows entries
 - [+] Assembly continues to strip frontmatter at deploy; adopted skills cost the same runtime tokens as any other skill
 - [-] A reader of the bare `SKILL.md` sees only `upstream:` and must open the sidecar for the dependency chain or run `git log` for rationale — mitigated by the fact that the adoption story is usually not what the reader needs when invoking the skill
-- [-] Cross-adoption queries ("how many adoptions applied `/MinimizePrompt`?") require YAML parsing of the `resolvedDependencies` arrays — straightforward but not a single-field scan
+- [-] Cross-adoption queries ("how many adoptions applied `/RefinePrompt`?") require YAML parsing of the `resolvedDependencies` arrays — straightforward but not a single-field scan
 
 ## Related Decisions
 

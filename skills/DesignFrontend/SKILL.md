@@ -1,12 +1,12 @@
 ---
-name: FrontendDesign
+name: DesignFrontend
 description: "Build distinctive, production-grade frontend interfaces that avoid generic AI aesthetics. USE WHEN the user asks for web components, pages, landing pages, dashboards, React / HTML / CSS layouts, or styling of any web UI. Not for backend or non-UI work."
 version: 0.1.0
 allowed-tools: Read, Grep, Write, Edit
 upstream: https://github.com/davila7/claude-code-templates/blob/main/cli-tool/components/skills/creative-design/frontend-design/SKILL.md
 ---
 
-# FrontendDesign
+# DesignFrontend
 
 Create distinctive, production-grade web interfaces. Commit to an aesthetic direction and execute with precision — intentionality wins over intensity, whether the direction is bold maximalism or refined minimalism.
 

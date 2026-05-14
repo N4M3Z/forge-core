@@ -19,8 +19,8 @@ Module-building skills for the forge ecosystem. Teaches AI coding tools to creat
 | **MarkdownSchema**       | Create, derive, and validate .mdschema files for structured markdown                 |
 | **SettingsMaintenance**  | Audit and clean AI coding tool settings (permissions, plugins, hooks, conflicts)      |
 | **SystemCheck**          | Check forge ecosystem for staleness (skills, binaries, lib consistency, version drift)|
-| **AdaptPrompts**         | Adapt generic rules and prompts for independent repos (strip branding, scope paths)   |
-| **PublishPrompts**       | Provenance tracking and sync for inherited rules, skills, and agents                 |
+| **RefinePrompt**         | Refine prompts (align, debrand, minimize, rescope, extract, adapt) with composable transforms |
+| **PublishArtifact**      | Ship artifacts (rules, skills, agents) into downstream repos with provenance tracking |
 | **PromptAnalysis**       | Validate and minimize prompts (provenance, targeting, staleness, redundancy)          |
 | **RTK**                  | RTK (Rust Token Killer) token-optimized CLI proxy setup and reference                |
 | **HtmlPlayground**       | Generate single-file HTML demos comparing techniques side-by-side                    |

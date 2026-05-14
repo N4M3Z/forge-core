@@ -46,11 +46,11 @@ The temptation is to scaffold a `forge adopt` CLI with gates, transforms, and an
 
 1. **CLI-first** — ship `forge adopt <url>` as a subcommand from day one with transforms encoded as internal functions. Pattern-guessing before evidence.
 2. **Single monolithic workflow skill** — `/AdoptArtifact` as a standard skill with all transform logic embedded in its body. Simple but bundles unrelated concerns (debranding a vendor reference vs minimizeing pep-talk prose).
-3. **Workflow skill composing per-transform skills as build steps** — `/AdoptArtifact` as the orchestrator; each transform (`/DebrandPrompt`, `/MinimizePrompt`, `/RescopePrompt`, `/AlignPrompt`, `/ExtractPrompt`) is a separate skill invoked as a build step. Transforms become reusable outside adoption and each pins independently in provenance.
+3. **Workflow skill composing per-transform companions as build steps** — `/AdoptArtifact` as the orchestrator; transforms (Debrand, Minimize, Rescope, Align, Extract, Adapt) live as companions of `/RefinePrompt` invoked as build steps. Each companion is independently invokable and pins in provenance via the RefinePrompt SHA.
 
 ## Decision Outcome
 
-Chosen option: **workflow skill composing per-transform skills as build steps.**
+Chosen option: **workflow skill composing per-transform companions as build steps.**
 
 `/AdoptArtifact` is a standard skill at `skills/AdoptArtifact/SKILL.md`, following the existing skill `.mdschema` ([ARCH-0001](ARCH-0001 Skills Agents and Rules.md), [ARCH-0002](ARCH-0002 Skills Companion Files.md)). It orchestrates a sequence of per-transform skills, each of which is a first-class skill usable independently of adoption.
 
@@ -71,17 +71,18 @@ Choosing the destination is part of the adoption decision. In a project with mul
 
 Companion files (where upstream content is better extracted than inlined) follow [ARCH-0002](ARCH-0002 Skills Companion Files.md) — same `@` include conventions as any skill.
 
-### Transform skills (build steps)
+### Transform companions (build steps)
 
-Each transform is a standalone skill with its own `SKILL.md`, invocable directly on any prompt-shaped content and composable by `/AdoptArtifact` during adoption. Initial vocabulary:
+Transforms live as companions of `/RefinePrompt`, invocable directly on any prompt-shaped content and composable by `/AdoptArtifact` during adoption. Vocabulary:
 
-- **`/DebrandPrompt`** — remove hardcoded vendor references; replace with category-level variables where the instruction generalizes
-- **`/MinimizePrompt`** — collapse motivational / marketing / filler prose while preserving directive content
-- **`/RescopePrompt`** — add or tighten `allowed-tools` frontmatter to the narrowest set the skill actually uses
-- **`/AlignPrompt`** — fix indentation, fence language tags, heading depth, and other convention mismatches
-- **`/ExtractPrompt`** — move bulk reference material into `@`-included companion files so the always-loaded content stays lean
+- **`@Debrand.md`** — remove hardcoded vendor references; replace with category-level variables where the instruction generalizes
+- **`@Minimize.md`** — collapse motivational / marketing / filler prose while preserving directive content
+- **`@Rescope.md`** — add or tighten `allowed-tools` frontmatter to the narrowest set the skill actually uses
+- **`@Align.md`** — fix indentation, fence language tags, heading depth, and other convention mismatches
+- **`@Extract.md`** — move bulk reference material into `@`-included companion files so the always-loaded content stays lean
+- **`@Adapt.md`** — port a source rule or prompt set into a downstream/consumer repo
 
-v1 note: these transform skills may not all exist at the first adoption. `/AdoptArtifact` v1 can embed transform logic inline while the vocabulary stabilizes; as a transform proves recurring, it extracts into its own skill and subsequent adoptions record it in `resolvedDependencies`. The schema in [PROV-0006](PROV-0006 Adoption Metadata in Provenance Sidecars.md) supports both modes transparently.
+`/AdoptArtifact` records `/RefinePrompt` in `resolvedDependencies` whenever any transform fires; the SHA captures the transform vocabulary applied at adoption time. The schema in [PROV-0006](PROV-0006 Adoption Metadata in Provenance Sidecars.md) treats RefinePrompt as a single pinned dependency. Earlier roster: each transform shipped as a standalone skill (`AlignPrompt`, `DebrandPrompt`, `ExtractPrompt`, `MinimizePrompt`, `RescopePrompt`, `AdaptPrompts`). Consolidated into `RefinePrompt` to reduce routing surface; the composition and pinning semantics are unchanged.
 
 ### What the mechanism does NOT do
 
@@ -103,6 +104,6 @@ v1 note: these transform skills may not all exist at the first adoption. `/Adopt
 
 - [ARCH-0012](ARCH-0012 Community Adoption Strategy.md) — the strategic decision this mechanism implements
 - [ARCH-0001](ARCH-0001 Skills Agents and Rules.md) — the skill artifact class `/AdoptArtifact` and its transform skills belong to
-- [ARCH-0002](ARCH-0002 Skills Companion Files.md) — companion-file conventions used by `/ExtractPrompt` and adopted skills with extracted content
+- [ARCH-0002](ARCH-0002 Skills Companion Files.md) — companion-file conventions used by `/RefinePrompt`'s Extract transform and adopted skills with extracted content
 - [PROV-0006](PROV-0006 Adoption Metadata in Provenance Sidecars.md) — the sidecar schema that records transform skills as build dependencies
 - [CORE-0001](CORE-0001 Markdown as System Language.md) — the underlying principle that makes skill-first natural

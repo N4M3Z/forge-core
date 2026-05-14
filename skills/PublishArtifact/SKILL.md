@@ -1,25 +1,25 @@
 ---
-name: PublishPrompts
+name: PublishArtifact
 version: 0.2.0
-description: "Provenance tracking and sync for inherited rules, skills, and agents. USE WHEN drift, sync, publish prompts, inheritance, upstream, propagate, adapt rules, check provenance."
+description: "Ship artifacts (rules, skills, agents) from forge into downstream repos with provenance tracking and sync. USE WHEN drift, sync, publish artifact, publish prompts, publish skills, publish agents, inheritance, upstream, propagate, check provenance."
 ---
 
-# PublishPrompts
+# PublishArtifact
 
 Track inheritance of rules, skills, and agents between forge modules and downstream company repos. Detects which files came from upstream, what's been adapted, and what upstream changes are available.
 
 ## Companion Script
 
-`publish-prompts.sh` is a read-only drift reporter. It scans installed content against upstream module sources and reports provenance state. Manifests are written by the `forge install` command during `make install`.
+`publish-artifact.sh` is a read-only drift reporter. It scans installed content against upstream module sources and reports provenance state. Manifests are written by the `forge install` command during `make install`.
 
 ```bash
-bash Modules/forge-core/skills/PublishPrompts/publish-prompts.sh --type all --modules-dir Modules
+bash Modules/forge-core/skills/PublishArtifact/publish-artifact.sh --type all --modules-dir Modules
 ```
 
 For downstream repos:
 
 ```bash
-bash skills/PublishPrompts/publish-prompts.sh --type all --modules-dir /path/to/forge/Modules
+bash skills/PublishArtifact/publish-artifact.sh --type all --modules-dir /path/to/forge/Modules
 ```
 
 ## Subskill Routing
@@ -36,7 +36,7 @@ bash skills/PublishPrompts/publish-prompts.sh --type all --modules-dir /path/to/
 
 Run the companion script to show the current state of all inherited content.
 
-1. Run `publish-prompts.sh --type all` and present the table to the user.
+1. Run `publish-artifact.sh --type all` and present the table to the user.
 2. Explain the states:
    - **pristine** — exact copy of upstream. Safe to auto-update.
    - **adapted** — intentionally modified from upstream. Needs manual review on sync.
@@ -46,7 +46,7 @@ Run the companion script to show the current state of all inherited content.
 
 Propagate upstream changes to files tracked in the manifest.
 
-1. Run `publish-prompts.sh --type all` to get current state.
+1. Run `publish-artifact.sh --type all` to get current state.
 2. For each file in the manifest, compare the current upstream body SHA against the manifest SHA:
    - **Match** → upstream unchanged since adoption. Nothing to do.
    - **Mismatch** → upstream has changed. Check local state:

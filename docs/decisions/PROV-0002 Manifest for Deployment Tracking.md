@@ -20,7 +20,7 @@ responsible: ["@N4M3Z"]
 accountable: ["@N4M3Z"]
 consulted: ["DeveloperCouncil"]
 informed: []
-upstream: [PublishPrompts.md, DeployManifest.md]
+upstream: [PublishArtifact.md, DeployManifest.md]
 ---
 
 # Manifest for Deployment Tracking
@@ -113,4 +113,4 @@ A file is **pristine** when its body fingerprint matches the upstream source exa
 - [ARCH-0005](ARCH-0005 Platform-Specific Companion Files.md): skills use companion files for derived-specific content
 - [ARCH-0004](ARCH-0004 Rules as Shared Ecosystem Conventions.md): rules are module-delivered, installed by `make install`
 - Provenance tracking extends the manifest with provenance paths and SLSA sidecars
-- PublishPrompts skill provides Drift, Sync, Adopt, Promote, Setup subskills
+- PublishArtifact skill provides Drift, Sync, Adopt, Promote, Setup subskills

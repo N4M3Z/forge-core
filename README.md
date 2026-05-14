@@ -58,8 +58,8 @@ Skills teach AI coding tools new capabilities. Invoke them with `/SkillName` in 
 | [**BashConventions**](skills/BashConventions/SKILL.md)           | Bash pitfalls — BSD vs GNU, `set -euo pipefail` traps, subprocess env |
 | [**MarkdownConventions**](skills/MarkdownConventions/SKILL.md)   | Markdown authoring and linting conventions                      |
 | [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)             | Create, derive, and validate .mdschema files                    |
-| [**PublishPrompts**](skills/PublishPrompts/SKILL.md)              | Provenance tracking and sync for inherited content              |
-| [**AdaptPrompts**](skills/AdaptPrompts/SKILL.md)                 | Adapt generic rules for independent repos                       |
+| [**PublishArtifact**](skills/PublishArtifact/SKILL.md)            | Ship artifacts (rules, skills, agents) into downstream repos    |
+| [**RefinePrompt**](skills/RefinePrompt/SKILL.md)                 | Refine prompts (align, debrand, minimize, rescope, extract, adapt) |
 | [**PromptAnalysis**](skills/PromptAnalysis/SKILL.md)             | Validate and minimize prompts                                   |
 | [**SettingsMaintenance**](skills/SettingsMaintenance/SKILL.md)    | Audit and clean AI tool settings                                |
 | [**SystemCheck**](skills/SystemCheck/SKILL.md)                   | Ecosystem staleness and version drift checks                    |

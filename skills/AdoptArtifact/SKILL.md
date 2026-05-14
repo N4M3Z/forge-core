@@ -112,7 +112,7 @@ provenance:
                 startedOn: <iso-8601>
 ```
 
-Every adoption records `AdoptArtifact` itself as a dependency — the orchestrator is a build input. When individual transform skills extract (`DebrandPrompt`, `MinimizePrompt`, etc.), each applied transform adds its own entry under `resolvedDependencies`.
+Every adoption records `AdoptArtifact` and `RefinePrompt` as dependencies — the orchestrator and the transform pack are build inputs. Each adoption pins one `RefinePrompt` entry whose SHA captures the transform vocabulary applied at adoption time.
 
 ### 7. Commit
 
