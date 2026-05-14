@@ -3,7 +3,7 @@ provenance:
     subject:
         - name: .githooks/pre-commit
           digest:
-              sha256: aaa2ebe74042b0f2f0169bf8587c1728d579b1223c3ec6f42e73e90f88ae4ed1
+              sha256: 87ec1f5151495b1e0322341ced833d14b6801212c592e2196be0345707f1abc4
     predicateType: https://slsa.dev/provenance/v1
     predicate:
         buildDefinition:

@@ -18,23 +18,23 @@ provenance:
                 - name: AdoptArtifact
                   uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
-                      sha256: dda5e9d68b9f46eaa1cca9df5975591ac0f933e49d80716a84417f1cb23bbe0c
+                      sha256: f672615fffe1b219d4b8200fc8e105d260bd4a1c4ba355e0a3543be9fe2373ef
                 - name: AlignPrompt
                   uri: forge-core/skills/AlignPrompt/SKILL.md
                   digest:
-                      sha256: 1f16a4bd57021cd7802ac1e99975811dd2a749960e5898ebdab50f570bd75f90
+                      sha256: 17377e6a9aa21adbf2609add25efd5f40cfa3c8af1687f31d85f0e41a51ef49a
                 - name: RescopePrompt
                   uri: forge-core/skills/RescopePrompt/SKILL.md
                   digest:
-                      sha256: f9219dd6a0b47d8ffd6aceb2b9e3c3835fe7f7f022c0448d60fb8519322431cd
+                      sha256: 93c671d3189cb4f1f1cd573cd87bfb1d33f8f45ac18d08ec7758b95995a530a1
                 - name: DebrandPrompt
                   uri: forge-core/skills/DebrandPrompt/SKILL.md
                   digest:
-                      sha256: ff0c248906d89d94be5b7a8a75453d796e72fe9d8698162eaaaaca905eaef016
+                      sha256: 20da971b5a5eba94acae6ccb257b02f8eb2fae86b71dd65e4bd3885c433deaa4
                 - name: MinimizePrompt
                   uri: forge-core/skills/MinimizePrompt/SKILL.md
                   digest:
-                      sha256: 09cc1baa8e0e25d0514dba717008df249f4ad07ff54b3a318839f69df9a47794
+                      sha256: 813de312acb35aa1b86f88bd36d204a08ea5ee7491bda860583877420d900f1d
         runDetails:
             builder:
                 id: forge-cli
