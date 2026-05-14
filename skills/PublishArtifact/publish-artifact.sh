@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# publish-prompts — read-only provenance scan and drift detection for rules, skills, agents
-# Usage: publish-prompts.sh [--type rules|skills|agents|all] [--modules-dir DIR] [--target-dir DIR]
+# publish-artifact — read-only provenance scan and drift detection for rules, skills, agents
+# Usage: publish-artifact.sh [--type rules|skills|agents|all] [--modules-dir DIR] [--target-dir DIR]
 #
 # Scans target directory against all forge modules to determine provenance.
 # Manifests are written by the forge install command.
@@ -16,7 +16,7 @@ while [ $# -gt 0 ]; do
         --modules-dir) MODULES_DIR="$2"; shift 2 ;;
         --target-dir) TARGET_DIR="$2"; shift 2 ;;
         --help|-h)
-            echo "Usage: publish-prompts.sh [--type rules|skills|agents|all] [--modules-dir DIR] [--target-dir DIR]"
+            echo "Usage: publish-artifact.sh [--type rules|skills|agents|all] [--modules-dir DIR] [--target-dir DIR]"
             exit 0
             ;;
         *) echo "Unknown option: $1" >&2; exit 1 ;;
@@ -25,7 +25,7 @@ done
 
 # --- Resolve paths ---
 SCRIPT_DIR="$(command cd "$(dirname "$0")" && pwd)"
-MODULE_ROOT="${SCRIPT_DIR%/skills/PublishPrompts}"
+MODULE_ROOT="${SCRIPT_DIR%/skills/PublishArtifact}"
 FORGE_ROOT="${FORGE_ROOT:-${MODULE_ROOT%/Modules/forge-core}}"
 
 if [ -z "$MODULES_DIR" ]; then

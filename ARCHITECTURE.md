@@ -89,8 +89,8 @@ Utility skills handle operational concerns:
 | [SettingsMaintenance](skills/SettingsMaintenance/SKILL.md)          | AI tool settings audit — permissions, plugins, hooks               |
 | [SystemCheck](skills/SystemCheck/SKILL.md)                          | Ecosystem staleness — binary freshness, version drift              |
 | [RTK](skills/RTK/SKILL.md)                                         | Token-optimized CLI proxy setup and reference                      |
-| [PublishPrompts](skills/PublishPrompts/SKILL.md)                    | Provenance tracking and sync for inherited rules, skills, agents   |
-| [AdaptPrompts](skills/AdaptPrompts/SKILL.md)                       | Adapt generic rules for independent repos                          |
+| [PublishArtifact](skills/PublishArtifact/SKILL.md)                  | Ship artifacts (rules, skills, agents) into downstream repos       |
+| [RefinePrompt](skills/RefinePrompt/SKILL.md)                       | Refine prompt-shaped documents (align, debrand, minimize, rescope, extract, adapt) |
 | [PromptAnalysis](skills/PromptAnalysis/SKILL.md)                   | Validate and minimize prompts — staleness, redundancy, ablation    |
 | [HtmlPlayground](skills/HtmlPlayground/SKILL.md)                   | Generate single-file HTML demos comparing techniques               |
 
@@ -405,7 +405,7 @@ Derived repos inherit rules, skills, and agents from forge modules. Each install
 | **local**            | Not from any upstream module                          | Not tracked            |
 | **upstream updated** | Upstream source changed since last install            | Sync available         |
 
-Install binaries write `.manifest` files with dual SHA digest maps. The `publish-prompts.sh` companion script reads these manifests and reports drift.
+Install binaries write `.manifest` files with dual SHA digest maps. The `publish-artifact.sh` companion script reads these manifests and reports drift.
 
 ### Keeping files pristine
 

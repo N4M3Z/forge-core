@@ -21,6 +21,7 @@ For a full lint pass on a file: see [Linting.md](Linting.md). That workflow read
 - [TableAlignment.md](TableAlignment.md) — tables must have column-aligned pipes
 - [MarkdownLinks.md](MarkdownLinks.md) — use literal spaces in link paths, never `%20`
 - [MarkdownReflinks.md](MarkdownReflinks.md) — reference-style link labels use mnemonic abbreviations, not numbers
+- [SourceCitations.md](SourceCitations.md) — cite origins for factual data points (numbers, dates, limits)
 - [ReadmeLanguageSwitcher.md](ReadmeLanguageSwitcher.md) — multilingual README switcher pattern
 
 ## Constraints
