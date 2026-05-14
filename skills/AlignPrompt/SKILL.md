@@ -7,7 +7,7 @@ allowed-tools: Read, Edit, Write
 
 # AlignPrompt
 
-Bring a prompt-shaped document into forge convention without changing its meaning. Referenced by [ForgeAdopt](../ForgeAdopt/SKILL.md) as the `align` transform.
+Bring a prompt-shaped document into forge convention without changing its meaning. Referenced by [AdoptArtifact](../AdoptArtifact/SKILL.md) as the `align` transform.
 
 ## What to fix
 

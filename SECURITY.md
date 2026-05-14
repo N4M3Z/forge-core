@@ -10,17 +10,17 @@ forge-core documents the **adoption mechanism** — how external content enters 
 
 ## Supply Chain Model
 
-### `ForgeAdopt` contract
+### `AdoptArtifact` contract
 
 Every external adoption must:
 
 1. Fetch upstream content via a commit-pinned raw URL (never a mutable branch reference)
 2. Record the upstream `sha256` digest in a SLSA provenance sidecar under `.provenance/`
 3. Record the deployed file's `sha256` digest in the same sidecar (`subject.digest.sha256`)
-4. List `ForgeAdopt` itself as a build dependency in `resolvedDependencies`
+4. List `AdoptArtifact` itself as a build dependency in `resolvedDependencies`
 5. Preserve copyright / attribution as required by the upstream license
 
-The `skills/ForgeAdopt/SKILL.md` file is the canonical workflow.
+The `skills/AdoptArtifact/SKILL.md` file is the canonical workflow.
 
 ### Sidecar schema
 
@@ -42,10 +42,10 @@ provenance:
                   uri: <commit-pinned-url>
                   digest:
                       sha256: <upstream-sha>
-                - name: ForgeAdopt
-                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
-                      sha256: <forgeadopt-sha>
+                      sha256: <adoptartifact-sha>
 ```
 
 ### Verification procedure
@@ -59,7 +59,7 @@ forge provenance .      # deployed-vs-sidecar digest match
 
 ## Maintainer Responsibilities
 
-- New adoptions go through `ForgeAdopt` — SHA-pinned URLs, provenance sidecars, attribution footers
+- New adoptions go through `AdoptArtifact` — SHA-pinned URLs, provenance sidecars, attribution footers
 - Pin bumps re-verify the SLSA chain and re-read behavioural content before merging
 - Release tags pin `validate.sh` and schema artifacts so downstream modules' pre-commit hooks have stable hashes to anchor
 
@@ -67,7 +67,7 @@ forge provenance .      # deployed-vs-sidecar digest match
 
 In scope:
 
-- Weaknesses in the `ForgeAdopt` workflow that would allow unverified content to enter the ecosystem
+- Weaknesses in the `AdoptArtifact` workflow that would allow unverified content to enter the ecosystem
 - Missing or falsifiable provenance fields in sidecars
 - Schema or attribution requirements that fail to protect license compliance
 

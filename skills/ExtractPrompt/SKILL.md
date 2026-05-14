@@ -7,7 +7,7 @@ allowed-tools: Read, Edit, Write
 
 # ExtractPrompt
 
-Move bulk reference material out of `SKILL.md` into companion files referenced with `@` includes. The SKILL.md stays the entrypoint an AI reads to decide behavior; companions load on demand when the AI needs the reference data. Referenced by [ForgeAdopt](../ForgeAdopt/SKILL.md) as the `extract` transform.
+Move bulk reference material out of `SKILL.md` into companion files referenced with `@` includes. The SKILL.md stays the entrypoint an AI reads to decide behavior; companions load on demand when the AI needs the reference data. Referenced by [AdoptArtifact](../AdoptArtifact/SKILL.md) as the `extract` transform.
 
 Follows [ARCH-0002](docs/decisions/ARCH-0002 Skills Companion Files.md).
 

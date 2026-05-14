@@ -7,7 +7,7 @@ allowed-tools: Read, Edit, Grep
 
 # RescopePrompt
 
-Narrow a skill's `allowed-tools` frontmatter to the tools the workflow actually invokes. Implicit `"*"` and undeclared scope are treated as bugs. Referenced by [ForgeAdopt](../ForgeAdopt/SKILL.md) as the `rescope` transform.
+Narrow a skill's `allowed-tools` frontmatter to the tools the workflow actually invokes. Implicit `"*"` and undeclared scope are treated as bugs. Referenced by [AdoptArtifact](../AdoptArtifact/SKILL.md) as the `rescope` transform.
 
 ## What to narrow
 

@@ -98,7 +98,7 @@ All structural fields are [SLSA v1.0][SLSA] standards-defined:
 
 ### The v1 mode: inline transforms
 
-Before individual transform skills exist, `/ForgeAdopt` performs the transforms inline. In that mode, `resolvedDependencies` contains only the upstream entry; the fact that `buildType: https://forge-cli/adopt/v1` records an adoption and the diff shows what changed is sufficient. As transforms extract into skills ([ARCH-0013](ARCH-0013 Markdown-First Adoption Mechanism.md)), subsequent adoptions grow their dependency lists naturally. The schema supports both phases without change.
+Before individual transform skills exist, `/AdoptArtifact` performs the transforms inline. In that mode, `resolvedDependencies` contains only the upstream entry; the fact that `buildType: https://forge-cli/adopt/v1` records an adoption and the diff shows what changed is sufficient. As transforms extract into skills ([ARCH-0013](ARCH-0013 Markdown-First Adoption Mechanism.md)), subsequent adoptions grow their dependency lists naturally. The schema supports both phases without change.
 
 ### Where transform detail and rationale live
 

@@ -7,7 +7,7 @@ allowed-tools: Read, Edit, Grep
 
 # DebrandPrompt
 
-Strip vendor and brand references from a prompt-shaped document so the skill generalizes across ecosystems. Referenced by [ForgeAdopt](../ForgeAdopt/SKILL.md) as the `debrand` transform.
+Strip vendor and brand references from a prompt-shaped document so the skill generalizes across ecosystems. Referenced by [AdoptArtifact](../AdoptArtifact/SKILL.md) as the `debrand` transform.
 
 ## What to remove
 

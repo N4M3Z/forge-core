@@ -1,12 +1,12 @@
 ---
-name: ForgeAdopt
+name: AdoptArtifact
 description: "Adopt a community skill from an upstream URL into forge. Fetches the source, applies transforms, produces a working SKILL.md with SLSA provenance. USE WHEN adopting a community skill from aitmpl, anthropics/skills, or a similar catalog."
 version: 0.1.0
 argument-hint: <upstream-url>
 allowed-tools: Bash, WebFetch, Read, Write, Edit, Grep, Glob
 ---
 
-# ForgeAdopt
+# AdoptArtifact
 
 Orchestrating workflow for adopting a community skill into forge. Produces a first-class `SKILL.md` with a SLSA provenance sidecar, following the strategy in [ARCH-0012](docs/decisions/ARCH-0012 Community Adoption Strategy.md) and the mechanism in [ARCH-0013](docs/decisions/ARCH-0013 Markdown-First Adoption Mechanism.md).
 
@@ -99,10 +99,10 @@ provenance:
                   uri: <commit-pinned-url>
                   digest:
                       sha256: <upstream-sha256>
-                - name: ForgeAdopt
-                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
-                      sha256: <ForgeAdopt-sha256>
+                      sha256: <AdoptArtifact-sha256>
         runDetails:
             builder:
                 id: forge-cli
@@ -112,7 +112,7 @@ provenance:
                 startedOn: <iso-8601>
 ```
 
-Every adoption records `ForgeAdopt` itself as a dependency — the orchestrator is a build input. When individual transform skills extract (`DebrandPrompt`, `MinimizePrompt`, etc.), each applied transform adds its own entry under `resolvedDependencies`.
+Every adoption records `AdoptArtifact` itself as a dependency — the orchestrator is a build input. When individual transform skills extract (`DebrandPrompt`, `MinimizePrompt`, etc.), each applied transform adds its own entry under `resolvedDependencies`.
 
 ### 7. Commit
 

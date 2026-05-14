@@ -9,7 +9,7 @@ allowed-tools: Read, Edit, Write
 
 Cut motivational, marketing, and emphasis-inflated prose from prompt-shaped documents. Preserve the directive content and the facts that make the artifact work.
 
-Aligned with [MVPR-0001](docs/decisions/MVPR-0001 Minimum Viable Prompt.md) and [MVPR-0002](docs/decisions/MVPR-0002 Prompt Minimalization Metrics.md). Referenced by [ForgeAdopt](../ForgeAdopt/SKILL.md) as the `minimize` transform.
+Aligned with [MVPR-0001](docs/decisions/MVPR-0001 Minimum Viable Prompt.md) and [MVPR-0002](docs/decisions/MVPR-0002 Prompt Minimalization Metrics.md). Referenced by [AdoptArtifact](../AdoptArtifact/SKILL.md) as the `minimize` transform.
 
 ## What to remove
 

@@ -15,8 +15,8 @@ provenance:
                   uri: https://github.com/davila7/claude-code-templates/blob/af0b99278d2f8b705bdf700f19c3125c05de7ede/cli-tool/components/skills/development/using-superpowers/SKILL.md
                   digest:
                       sha256: 6a4a4159bf8f784672460f0ec438d4f87adecd54413fdde7e5f0fe66eea3855e
-                - name: ForgeAdopt
-                  uri: forge-core/skills/ForgeAdopt/SKILL.md
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
                       sha256: dda5e9d68b9f46eaa1cca9df5975591ac0f933e49d80716a84417f1cb23bbe0c
                 - name: AlignPrompt
