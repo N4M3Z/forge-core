@@ -34,10 +34,10 @@ A `✗` means at least one deployed file's digest doesn't match its sidecar — 
 Deployed sidecars carry the `assemble/v1` buildType with a single input (the source file). The richer `adopt/v1` sidecar — with upstream URL, pinned commit, AdoptArtifact reference, and transform-skill digests — exists only in the source repo.
 
 ```sh
-cat Modules/forge-dev/agents/.provenance/CodeReviewer.yaml
+cat agents/.provenance/CodeReviewer.yaml
 # resolvedDependencies:
 #   - name: upstream
-#     uri: https://raw.githubusercontent.com/davila7/...
+#     uri: https://raw.githubusercontent.com/...
 #     digest: sha256:...
 #   - name: AdoptArtifact
 #     uri: forge-core/skills/AdoptArtifact/SKILL.md
@@ -81,7 +81,7 @@ find . -name "*.yaml" -path "*.provenance*" | while read -r f; do
 done
 ```
 
-Before calling a rename complete, grep the entire `Modules/` tree for the old name — sidecars in sibling modules are the most-missed targets.
+Before calling a rename complete, grep every checked-out forge module repo for the old name — sidecars in sibling modules are the most-missed targets.
 
 ## Debug orphan reports
 
