@@ -109,7 +109,7 @@ Auto-detect from the remote origin URL. If ambiguous, ask the user.
 
 ## Commit Signing
 
-SSH-format signing with FIDO2 hardware keys (YubiKey, etc.) plus macOS-specific gotchas around Apple's bundled `ssh-agent`.
+GPG with the YubiKey OpenPGP slot and `pinentry-mac` is the preferred path on macOS. SSH with FIDO2 hardware keys (`sk-ssh-ed25519`) is the alternative; on macOS it needs a wrapper around Apple's bundled `ssh-agent`.
 
 @CommitSigning.md
 

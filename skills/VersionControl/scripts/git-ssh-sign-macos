@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Wrapper around ssh-keygen that bypasses macOS launchd's ssh-agent for git
+# commit signing. Apple's bundled ssh-agent lacks libfido2 middleware and
+# refuses to sign with sk-ssh-ed25519 (FIDO2) keys. By unsetting SSH_AUTH_SOCK,
+# ssh-keygen goes direct to libfido2 → YubiKey, which handles touch + PIN.
+# See ../CommitSigning.md for the full diagnosis. Install via
+# forge-provision/scripts/configure/git-ssh-sign.sh.
+exec env -u SSH_AUTH_SOCK /opt/homebrew/bin/ssh-keygen "$@"
