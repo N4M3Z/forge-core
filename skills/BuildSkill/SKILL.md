@@ -20,7 +20,6 @@ Create and validate skills following forge conventions. Skills are markdown file
 | Topic                                                       | Companion                                                |
 | ----------------------------------------------------------- | -------------------------------------------------------- |
 | SKILL.md structure, frontmatter, body layout, naming        | [@SkillStructure.md](SkillStructure.md)                    |
-| SKILL.yaml sidecar + `Example.md` demo pattern              | [@CanonSidecar.md](CanonSidecar.md)                        |
 | Multi-provider routing via `defaults.yaml`                  | [@MultiProviderRouting.md](MultiProviderRouting.md)        |
 | Wrapping a CLI tool in a skill                              | [@CliToolIntegration.md](CliToolIntegration.md)            |
 | Platform-agnostic writing — no placeholders or `/` prefix   | [@PlatformAgnostic.md](PlatformAgnostic.md)                |
