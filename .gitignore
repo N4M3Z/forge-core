@@ -9,6 +9,9 @@ config.yaml
 build/
 dist/
 
+# Parallel feature work
+.worktrees/
+
 # Plans (gitignored but folder kept)
 docs/plans/*
 !docs/plans/.gitkeep
