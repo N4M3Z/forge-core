@@ -27,9 +27,9 @@ Keep the first line under 72 characters. Add a blank line and body for context w
 
 ## Staging
 
-- Stage specific files by name — never use `git add -A` or `git add .`
-- Review `git diff --staged` before committing
+- Stage specific files by name; never use `git add -A` or `git add .`
 - Never commit files that contain secrets (`.env`, credentials, API keys)
+- Stage and pause for the user to self-review before the commit lands. See [StageForReview](../../rules/StageForReview.md) for the rule, [StagedReview](../StagedReview/SKILL.md) for the review workflow with `tuicr` / `revdiff` / `git diff --cached`.
 
 ## Push Policy
 
@@ -106,6 +106,12 @@ Auto-detect from the remote origin URL. If ambiguous, ask the user.
 - Prefer rulesets over legacy branch protection (GitHub) — rulesets are more granular and support bypass actors
 - Document governance in the repo itself (CODEOWNERS, branch rules) not just in external settings
 - Always read current rules before modifying — audit first, change second
+
+## Commit Signing
+
+SSH-format signing with FIDO2 hardware keys (YubiKey, etc.) plus macOS-specific gotchas around Apple's bundled `ssh-agent`.
+
+@CommitSigning.md
 
 ## Parallel Work
 
