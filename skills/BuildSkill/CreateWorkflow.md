@@ -20,7 +20,6 @@ Follow the structure from [SkillStructure.md](SkillStructure.md).
 - [ ] If wrapping a CLI tool: usage examples, intent-to-flag mapping, output format (see [CliToolIntegration.md](CliToolIntegration.md))
 - [ ] Constraints section with boundary conditions
 - [ ] No unnecessary complexity — minimum needed for the task
-- [ ] If module skill: SKILL.yaml sidecar with `sources:` field (see [CanonSidecar.md](CanonSidecar.md))
 - [ ] Skill listed in module's `defaults.yaml` under each target provider (see [MultiProviderRouting.md](MultiProviderRouting.md))
 - [ ] If locale-specific (e.g., Czech tax): description mixes English action phrases ("record transaction", "validate balance") with backticked native terms (`účetní deník`, `bilance`). Avoid diacritic-stripped czenglish (`podvojne ucetnictvi`) — matches neither natural English nor natural Czech queries
 
