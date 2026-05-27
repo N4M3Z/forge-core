@@ -2,15 +2,18 @@ PR titles and commit messages describe what changed, not why it was discovered. 
 
 ### Body Structure
 
-PR bodies must follow a structured format:
+PR bodies explain the *why* before the *what* in as few sentences as possible. One-sentence sections beat padded sections. Code snippets, bulleted "Summary" lists, and prose that paraphrases the diff are forbidden. The diff already shows the code.
 
-1. **## Summary**
-   - Bulleted list of key changes.
-   - Reference relevant files or architectural decisions using `[Name][Path.md]` syntax.
+Sections, in order, omitting any that add nothing:
 
-2. **## Test plan**
-   - Use standard markdown task lists: `- [x]` for completed tests, `- [ ]` for pending.
-   - Describe commands run and their results.
+1. **## Problem** — what does not work, from the user's or operator's perspective. Include the failing invocation, error message, or surprising output. For features, name the missing capability.
+2. **## Fix** (or **## Approach** for features) — what changes, in prose. Do not duplicate the diff.
+3. **## Out of scope** — what is deliberately *not* changed. Omit when obvious.
+4. **## Test plan** — markdown task list: `- [x]` completed, `- [ ]` pending. Cite the commands run.
+
+Link the closing issue with `Closes #NN` at the top of the body.
+
+For pure chores (version bumps, lockfile updates) Problem + Test plan suffice.
 
 ### Platform Tooling
 
