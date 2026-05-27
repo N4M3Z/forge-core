@@ -49,6 +49,14 @@ Chosen option: **Companion files with `@` includes**, following the pattern esta
 - [+] Same pattern works for reference material, examples, and templates
 - [+] `@` includes are optional — Claude Code autodiscovers files in skill directories — but explicit references provide composition control over which companion loads when
 
+## Standard companion types
+
+The companion-file pattern accommodates several recognized types, each with its own naming and content discipline:
+
+- **Platform overlays** — `ClaudeSkill.md`, `CodexAgent.md`, etc. Hold provider-specific guidance loaded only when the deploy target matches.
+- **Reference material** — long tables, schemas, sample data extracted to keep the SKILL.md scannable (see [ExtractPrompt](../../skills/ExtractPrompt/SKILL.md)).
+- **Templates** — boilerplate files the skill instructs the user to copy or adapt.
+- **`INSTALL.md`** — actionable setup steps following the Mintlify install.md standard, per the [InstallInstructions](../../rules/InstallInstructions.md) rule. Required when a skill needs setup beyond `make install`: hooks to wire, configs to drop, services to configure. SKILL.md stays behavioral; INSTALL.md stays actionable.
 
 ## More Information
 
