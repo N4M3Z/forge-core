@@ -22,6 +22,7 @@ Deploy forge-core skills, agents, and rules to all AI providers via Makefile.
 - Claude Code (or another AI provider CLI)
 - Rust toolchain (`rustup` + `cargo`) — [rustup.rs](https://rustup.rs)
 - forge-cli (`cargo install` from source, see step below)
+- gitleaks (`brew install gitleaks`) — shared by SecretScan, VersionControl, and ForensicAgent
 
 Without Rust: copy `skills/`, `agents/`, `rules/` into the provider config directory (e.g., `~/.claude/`) directly.
 
@@ -73,9 +74,13 @@ make install
 
 ### Wire Claude Code hooks
 
-`forge install` deploys skills, agents, and rules, but not hooks. Claude Code hooks must be wired manually into `~/.claude/settings.json`.
+**Plugin users:** hooks are auto-discovered from `hooks/hooks.json` when forge-core is installed as a Claude Code plugin (`claude plugins add`). No manual wiring needed.
 
-Read `hooks/hooks.json` in this repository: it lists every hook, its event, matcher, and command. For each entry, add a corresponding record to the `hooks` key in `~/.claude/settings.json`, replacing `${CLAUDE_PLUGIN_ROOT}` with the absolute path to your clone.
+**forge-install users:** `forge install` deploys skills, agents, and rules, but not hooks. Read `hooks/hooks.json` in this repository and add a corresponding record for each hook to `~/.claude/settings.json`, replacing `${CLAUDE_PLUGIN_ROOT}` with the absolute path to your clone.
+
+### Per-skill configuration
+
+Some skills require user-config files the plugin system cannot create. Check for an `INSTALL.md` inside each skill directory (e.g., `skills/VersionControl/INSTALL.md`) and follow its setup steps after the module install.
 
 ### Verify skill deployment
 

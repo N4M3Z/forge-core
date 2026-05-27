@@ -33,57 +33,37 @@ Keep the first line under 72 characters. Add a blank line and body for context w
 
 ## Pre-commit Gates
 
-Every repo runs two stacked gates: gitleaks (categorical, pattern-based) and a known-dangerous-strings grep (specific, user-curated). gitleaks alone misses anything that doesn't match its built-in rules — legacy email addresses, retired internal hostnames, an old phone number — because those look like ordinary text. The user knows them; encode that knowledge in the hook.
+Two stacked gates protect against leaking PII or secrets into git history. Both must pass before a commit lands.
 
-### Layer 1: gitleaks
+**Layer 1 — gitleaks.** Categorical scanner for API tokens, private keys, connection strings. Fires via the repo's `.githooks/pre-commit` for user-typed commits. See [SecretScan](../SecretScan/SKILL.md) for `.gitleaks.toml` and baseline workflow.
 
-See the [SecretScan](../SecretScan/SKILL.md) skill for install, `.gitleaks.toml`, and baseline workflow. This is the categorical layer — API tokens, private keys, connection strings.
+**Layer 2 — safety-net.** A user-curated regex list at `~/.config/forge/safety-net` (per the [UserConfig](../../rules/UserConfig.md) rule) catches everything gitleaks misses: deprecated emails, personal phones, internal hostnames, legacy handles. The `safety-net` Claude Code hook (`hooks/safety-net.sh`, auto-discovered via `hooks.json`) intercepts AI-initiated `git commit` calls, walks staged blobs, and emits a block decision on any match. CI runs the same regex check as second-line defense.
 
-### Layer 2: known-dangerous strings
+### Which layer owns what
 
-Maintain a per-user list of literal strings that must never enter any repo. Typical entries:
+| Pattern type                                | Layer      | Why                                            |
+| ------------------------------------------- | ---------- | ---------------------------------------------- |
+| API keys, tokens, private key blocks        | gitleaks   | Categorical rules updated by the community     |
+| Credentials in `.env` or config files       | gitleaks   | Pattern-based detection                        |
+| User-specific identifiers (emails, phones)  | safety-net | Only you know what's dangerous for you         |
+| Deprecated addresses, legacy handles        | safety-net | Not in any public rule database                |
 
-- Deprecated email addresses (`@protonmail.com`, `@me.com`, old company addresses)
-- Retired internal hostnames or IPs
-- Personal phone numbers in any format
-- Legacy handles or usernames you no longer want indexed
+When in doubt, add to safety-net. gitleaks rules evolve upstream; safety-net patterns are yours to control.
 
-Keep the list at `~/.config/git/danger-strings` (plain text, one regex per line, `#` comments allowed). Manage it alongside dotfiles so the same list deploys to every machine.
+### When a gate blocks
 
-```text
-# ~/.config/git/danger-strings — extended regex, one per line
-@protonmail\.(com|ch)
-@me\.com
-\b\+420[\s-]?\d{3}[\s-]?\d{3}[\s-]?\d{3}\b
-oldhost\.internal\.example
-```
+1. Read the block reason (match count, config path)
+2. Inspect the staged diff to find the offending lines
+3. Fix the content, re-stage, and retry
+4. If it's a false positive (test fixture, inert example), update `~/.config/forge/safety-net` to exclude the pattern or add the file to `.gitleaks.toml` allowlist. Never bypass with `--no-verify`.
 
-Install one hook in `~/.config/git/hooks/pre-commit` and point every clone at the shared hooks directory:
+### Relationship to ForensicAgent
 
-```sh
-git config --global core.hooksPath ~/.config/git/hooks
-```
+Safety-net is the **deterministic prevention layer** (regex, runs on every commit, no AI). [ForensicAgent](../../agents/ForensicAgent.md) is the **AI-driven detection layer** (prose rules from `~/.config/forge/forensic.yaml`, runs on demand or during audits). The hook reads `safety-net`; the agent reads `forensic.yaml`. They complement each other but never share config files.
 
-The hook (POSIX, exit 1 on hit):
+After a ForensicAgent scan surfaces a new leaked pattern, add it to `~/.config/forge/safety-net` so the hook prevents recurrence.
 
-```sh
-#!/bin/sh
-set -e
-list="${HOME}/.config/git/danger-strings"
-[ -r "$list" ] || exit 0
-staged=$(git diff --cached --name-only --diff-filter=ACMR)
-[ -z "$staged" ] && exit 0
-patterns=$(grep -Ev '^\s*(#|$)' "$list" | paste -sd '|' -)
-[ -z "$patterns" ] && exit 0
-if printf '%s\n' "$staged" | xargs -I{} git show ":{}" 2>/dev/null | grep -E "$patterns"; then
-    echo "pre-commit: known-dangerous string in staged content — fix or update danger-strings list" >&2
-    exit 1
-fi
-```
-
-`grep` over `git show ":path"` (the staged blob), not the working tree, so a partial `git add -p` is checked at the actual byte content about to be committed.
-
-CI runs the same two gates as the second line of defense: a workflow step that reads the same `danger-strings` file (committed to the dotfiles repo, fetched in CI) and fails the build if the diff against the base branch contains a hit. See [SecretScan](../SecretScan/SKILL.md) for the gitleaks CI integration.
+See [INSTALL.md](INSTALL.md) for config-file setup and verification.
 
 ## Push Policy
 
