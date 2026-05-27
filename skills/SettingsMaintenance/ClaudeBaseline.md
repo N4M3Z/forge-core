@@ -26,7 +26,6 @@ Follow the 6-phase workflow from `SKILL.md` (Scope, Inventory, Audit, Report, Ap
         ]
     },
     "env": {
-        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
         "BASH_DEFAULT_TIMEOUT_MS": "180000",
         "BASH_MAX_TIMEOUT_MS": "900000"
     },
@@ -45,11 +44,13 @@ Targets adapted from [Trail of Bits config][TOB]. SSH gets both Read and Edit de
 
 | Var | Value | Rationale |
 |---|---|---|
-| `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC` | `"1"` | Documented rollup per [env-vars][ENV]: telemetry, autoupdater, feedback survey, error reporting |
 | `BASH_DEFAULT_TIMEOUT_MS` | `"180000"` | 2 min default per [ENV], bump to 3 min |
 | `BASH_MAX_TIMEOUT_MS` | `"900000"` | 10 min default per [ENV], bump to 15 min |
 
-Excluded by design: `CLAUDE_CODE_MAX_OUTPUT_TOKENS` (no documented numeric default, "varies by model"), `MAX_THINKING_TOKENS` (appears only contextually in the docs). Setting either to a fabricated value risks regressions.
+Excluded by design:
+
+- `CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1` rolls up telemetry, autoupdater, feedback survey, and error reporting per [env-vars][ENV]. It also blocks the outbound channel Remote Control uses to bridge terminal sessions to claude.ai and the mobile app. Set it only if you do not use Remote Control and accept the autoupdater opt-out.
+- `CLAUDE_CODE_MAX_OUTPUT_TOKENS` (no documented numeric default, "varies by model") and `MAX_THINKING_TOKENS` (appears only contextually in the docs). Setting either to a fabricated value risks regressions.
 
 ## Model pin
 
