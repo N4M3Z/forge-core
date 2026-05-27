@@ -10,7 +10,11 @@ Fix first, then find and fix what caused it. Two phases, no pause between them.
 
 ## Phase 1: Immediate Fix
 
-Execute the user's correction exactly as instructed. No clarifying questions, no debate, no "are you sure." The user knows what they want. If the instruction is ambiguous, pick the most conservative interpretation and move.
+The user is frustrated, possibly confused. Do not assume they know the exact fix, and do not blindly execute a vague correction.
+
+1. **Brief investigation** (under 30 seconds): re-read the last few exchanges, identify what went wrong and the likely cause. One sentence of context, no lengthy analysis.
+2. **Offer correction options** via AskUserQuestion: present 2-3 concrete fixes based on what you found. Each option should describe the specific change, not abstract categories. Include "I'll explain what happened first" as a fallback option.
+3. **Execute** the chosen fix. No debate, no "are you sure" follow-up. If the user typed a clear correction ("no, do X instead"), skip the AskUserQuestion and execute directly.
 
 Confirm the fix in one sentence, then proceed directly to Phase 2.
 
@@ -24,10 +28,12 @@ Use the mistake type to focus the search:
 
 | Mistake type                          | Start looking at                                      |
 | ------------------------------------- | ----------------------------------------------------- |
+| Did something completely unexpected   | Hooks (may silently inject context), conflicting rules, agent definition with surprising defaults |
+| Blanketly ignored explicit instructions | Session compaction dropped context; a rule contradicted the instruction; a skill workflow overrode the user's approach |
+| Ignored explicit instruction          | Re-read the user's exact words; check if a rule or skill overrode them |
 | Wrong file location, path, or format  | Rules about paths, naming, directory conventions       |
 | Wrong tone, phrasing, or prose style  | Rules about writing, memory about user preferences     |
 | Wrong tool, command, or flag          | Skills, settings, CLAUDE.md                            |
-| Ignored explicit instruction          | Current context (re-read the user's exact words)       |
 | Repeated past mistake                 | Memory (stale entry reinforcing the wrong pattern)     |
 | Wrong default or assumption           | Agent definitions, CLAUDE.md, code defaults            |
 | Overstepped scope or permission       | Settings, rules about confirmation, agent constraints  |
@@ -41,9 +47,10 @@ Walk these in order, stop at the first hit that explains the behavior:
 3. **Agents** (`~/.claude/agents/`, project `.claude/agents/`) — agent definition with wrong instructions, missing constraints, or bad defaults
 4. **Skills** (`~/.claude/skills/`) — skill body that gave bad instructions or missed a case
 5. **Settings** (`~/.claude/settings.json`, `.claude/settings.json`) — wrong permission, missing config
-6. **CLAUDE.md** (project or user) — missing or misleading instruction
-7. **Current context** — information available in the conversation that was ignored, misread, or not acted on (user messages, tool output, prior findings)
-8. **Code** — implementation bug, wrong default, missing guard
+6. **Hooks** (`settings.json` hooks, module `hooks/`) — a PreToolUse or PostToolUse hook silently injecting or blocking context. Check `hookSpecificOutput.additionalContext` for invisible context injection.
+7. **CLAUDE.md** (project or user) — missing or misleading instruction
+8. **Current context** — information available in the conversation that was ignored, misread, or not acted on (user messages, tool output, prior findings)
+9. **Code** — implementation bug, wrong default, missing guard
 
 For each candidate artifact, state what it says (or fails to say) and how that led to the wrong behavior. Present findings inline, not as a separate report.
 
