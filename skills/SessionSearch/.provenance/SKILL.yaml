@@ -1,0 +1,32 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: skills/SessionSearch/SKILL.md
+          digest:
+              sha256: f417c9d5fae934573dd0cdb0ac9d84200faa902b56d1024d000dc98f5cc00410
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://forge-cli/adopt/v1
+            externalParameters:
+                upstream_url: https://github.com/entireio/skills/blob/bc03dd32aa88148310cc801eba1aa8c1f87cafc6/skills/search/SKILL.md
+            resolvedDependencies:
+                - name: upstream
+                  uri: https://github.com/entireio/skills/blob/bc03dd32aa88148310cc801eba1aa8c1f87cafc6/skills/search/SKILL.md
+                  digest:
+                      sha256: 27b566d3bc56e27c5a7c23cd42fbcadfff6bc35f612c451156c3e6079890c782
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
+                  digest:
+                      sha256: 9dd33f5bb58579c93784d9a7b1f098d87d8c0b05c6e47c0942a6e30e96159bf8
+                - name: RefinePrompt
+                  uri: forge-core/skills/RefinePrompt/SKILL.md
+                  digest:
+                      sha256: d04d2610148eb9ec2589cd521f1214b6a11d033600335c0295f2fc7a472ca87c
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.2
+            metadata:
+                startedOn: 2026-06-10T23:32:21Z
