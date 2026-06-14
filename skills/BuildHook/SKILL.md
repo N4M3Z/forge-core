@@ -17,6 +17,10 @@ Create and validate hook scripts for forge modules. Hooks are bash scripts trigg
 
 ## Hook Conventions
 
+### Design Principles
+
+Hooks must block or inject, never advise. A hook that "reminds" or "nudges" is a rule or skill in disguise. Before proposing a hook, check whether Claude Code already injects this context: rules are always loaded, skills are auto-discovered; don't duplicate what the runtime provides. Kill test: if a hook breaks silently and nobody notices for a month, it wasn't worth shipping. See [ARCH-0011](../../docs/decisions/ARCH-0011 Hook Design Principles.md) for the full design criteria.
+
 ### Events and Output Modes
 
 Every hook handles one of 9 Claude Code events. Each event has a fixed output mode that determines how module output is handled:
@@ -79,6 +83,10 @@ Claude Code pipes a JSON payload to hook scripts on stdin. The schema varies by 
 
 Read stdin once: `INPUT=$(cat)`. Parse with `yq -p json` or a compiled binary.
 
+### Windows
+
+Claude Code on Windows requires Git for Windows, which provides Git Bash. Plugin hooks run in Git Bash, not PowerShell or cmd. Write hooks as standard bash scripts; they work cross-platform without `.cmd` or `.ps1` wrappers. Platform detection inside a hook when needed: `$OS == "Windows_NT"`.
+
 ### Registration Chain
 
 For dispatch to find a hook:
@@ -89,15 +97,19 @@ For dispatch to find a hook:
 
 The 3-tier event check: `config.yaml` override (authoritative) > `module.yaml` events > hook file existence (fallback).
 
-### Exit Code Conventions
+### Exit Code and Output Contract
 
-| Mode        | Exit 0  | Exit 2 | Other                       |
-|-------------|---------|--------|-----------------------------|
-| Gate        | Allow   | Block  | Treated as allow            |
-| Concatenate | Success | N/A    | Output included regardless  |
-| Passive     | Success | N/A    | Output discarded regardless |
+Claude Code distinguishes three exit classes ([hooks reference][CCHOOKS]): exit 0 (success; stdout is parsed for JSON control fields), exit 2 (blocking error; stdout is ignored, stderr is fed back, and whether it blocks depends on the event), and any other code (non-blocking error; the action proceeds). The trap: `exit 1` blocks nothing despite being the conventional Unix failure code.
 
-Gate hooks that cannot build or run should exit 0 (graceful degradation — never block Claude on infrastructure failure).
+Forge hooks block via exit 0 plus stdout JSON rather than exit 2: a structured decision carries its reason through the documented protocol and cannot be confused with an infrastructure failure.
+
+- Empty stdout = allow
+- `{"decision":"block","reason":"..."}` = block
+- `{"hookSpecificOutput":{"additionalContext":"..."}}` = context injection
+
+Guard files use `$PPID` or `$SESSION_ID` scoping to prevent repeat firing within a session. Hooks that cannot build or run must exit 0 (graceful degradation: never block Claude on infrastructure failure).
+
+[CCHOOKS]: https://code.claude.com/docs/en/hooks
 
 ---
 

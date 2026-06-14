@@ -21,17 +21,6 @@ Execute a WritePlan output in the current session, one task at a time. This is t
 6. **Final verification** — after all tasks, run the full build + test suite
 7. **Report** — summarize what was done, what was skipped, what needs follow-up
 
-## Red Flags
-
-| Thought                                           | Reality                                                      |
-| ------------------------------------------------- | ------------------------------------------------------------ |
-| "I'll do tasks 3 and 4 together, they're related" | One task at a time. Verify each before moving on.            |
-| "This task is wrong, let me improvise"            | Stop. Fix the plan or ask the user. Don't freelance.         |
-| "I can skip verification on this one"             | No. VerifyCompletion on every task.                          |
-| "I'm blocked but I can probably work around it"   | Stop and ask. Workarounds create hidden dependencies.        |
-| "Let me also fix this while I'm here"             | Scope creep. Do what the plan says, nothing more.            |
-| "The plan is mostly done, close enough"           | Partially executed plans are worse than unstarted ones.      |
-
 ## Constraints
 
 - One task at a time — never batch or skip ahead

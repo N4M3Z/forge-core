@@ -23,11 +23,7 @@ Every project goes through this process. "Simple" projects are where unexamined 
 
 Ask one question at a time. Wait for the answer before asking the next. Bundling questions overwhelms and produces shallow answers.
 
-Good questions uncover constraints the user hasn't stated:
-- "Who will use this?" (audience shapes API design)
-- "What happens when this fails?" (error handling strategy)
-- "Does this need to work with X?" (integration constraints)
-- "What's the simplest version that would be useful?" (scope discipline)
+Good questions uncover constraints the user hasn't stated.
 
 ## Proposing Approaches
 
@@ -48,14 +44,6 @@ Lead with your recommendation and explain why.
 | "The user seems impatient, skip to building"   | Rushing produces rework. A short design is still a design.       |
 | "I'll figure it out as I go"                   | That's exploration, not implementation. Explore, then design.    |
 | "There's only one way to do this"              | There are always trade-offs. Name them.                          |
-
-## Constraints
-
-- Never start implementation before design approval — this is a hard gate
-- Ask one question at a time, not batches
-- Always propose at least two approaches with trade-offs
-- Scale design detail to complexity — don't over-specify simple projects
-- Hand off to DesignSpec or WritePlan, never directly to code
 
 ## Sources
 

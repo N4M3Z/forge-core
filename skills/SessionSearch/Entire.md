@@ -34,4 +34,4 @@ entire explain --checkpoint <checkpoint-id> --raw-transcript --no-pager
 
 - "authentication required" → the user must run `entire login`
 - Command not found → install: `brew tap entireio/tap && brew install --cask entire`
-- Older CLI builds expose the same verbs under `entire checkpoint search` / `entire checkpoint explain`; if a bare verb is rejected, retry the namespaced form
+- The namespaced forms `entire checkpoint search` / `entire checkpoint explain` are the current verbs; if a bare verb is rejected, retry the namespaced form

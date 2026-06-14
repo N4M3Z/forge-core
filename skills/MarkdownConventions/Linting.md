@@ -6,8 +6,6 @@ Format and lint a markdown document for consistent code formatting, proper list 
 
 ### Step 1: Read the target file
 
-If an argument was provided, use it as the file path. Otherwise, ask which file to lint.
-
 Check TLP before reading:
 - GREEN/CLEAR: Read directly
 - AMBER: Use `safe-read` via Bash
@@ -43,17 +41,15 @@ Process only unprotected text spans.
 
 ### Step 4: Apply formatting rules
 
-**3a: Backtick filenames**
+**4a: Backtick filenames**
 
 Any word ending in a code-associated extension:
 
 `.md`, `.yaml`, `.yml`, `.json`, `.rs`, `.sh`, `.ts`, `.js`, `.toml`, `.base`, `.css`, `.html`, `.py`, `.go`, `.lua`, `.sql`, `.env`, `.tlp`, `.gitignore`, `.claudeignore`
 
-Examples: CLAUDE.md becomes `CLAUDE.md`, config.yaml becomes `config.yaml`.
-
 Skip if already backticked, inside a wikilink, or part of a URL path.
 
-**3b: Backtick CLI commands and tool names**
+**4b: Backtick CLI commands and tool names**
 
 Recognized patterns:
 - Known tools: `safe-read`, `safe-write`, `blind-metadata`, `obsidian-base`, `build-templates`, `surface`, `insight`, `reflect`, `ekctl`, `cargo`, `make`, `git`, `npm`, `shellcheck`, `jq`
@@ -63,7 +59,7 @@ Recognized patterns:
 
 Backtick the full command phrase, not individual words.
 
-**3c: Backtick technical identifiers**
+**4c: Backtick technical identifiers**
 
 | Pattern                          | Example                          | Rule                                                                    |
 |----------------------------------|----------------------------------|-------------------------------------------------------------------------|
@@ -75,7 +71,7 @@ Backtick the full command phrase, not individual words.
 
 Exceptions: Tags used as actual functional Obsidian tags — leave as-is. Env vars inside code blocks — skip.
 
-**3d: Convert bare URLs**
+**4d: Convert bare URLs**
 
 Bare URLs (`<https://...>` or plain `https://...` in text):
 
@@ -86,13 +82,13 @@ Bare URLs (`<https://...>` or plain `https://...` in text):
 
 Never convert URLs already inside markdown links `[text](url)` or code blocks.
 
-**3e: Fix list formatting**
+**4e: Fix list formatting**
 
 - Use `-` for unordered lists (Obsidian convention)
 - Proper indentation for child items
 - Blank line before and after list blocks (unless inside a callout)
 
-**3f: Check heading hierarchy**
+**4f: Check heading hierarchy**
 
 - No skipped levels (e.g., `##` followed by `####`)
 - Single `#` H1 at document start (after frontmatter)
@@ -110,8 +106,8 @@ Do NOT lint these as errors:
 ### Step 6: Confirm changes
 
 Present a summary:
-- Count of backticked items by category (filenames, commands, tags, env vars)
-- Count of URLs converted
+- Backticked items by category (filenames, commands, tags, env vars)
+- URLs converted
 - List/heading fixes
 - 2-3 representative before/after examples
 
@@ -132,4 +128,3 @@ Ask the user to confirm before writing.
 - Never change semantic meaning — only formatting
 - Never add backticks to regular English words (e.g., "base" as a noun, "draft" as a verb)
 - Preserve all Obsidian-specific syntax
-- After linting, suggest the WikiLink skill if the document could benefit from knowledge graph links

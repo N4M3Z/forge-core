@@ -4,27 +4,7 @@ How forge agents deploy to Claude Code. Following [ArtifactComposition](../../ru
 
 ## Deployed Format
 
-Source (`agents/SecurityArchitect.md`):
-```yaml
----
-name: SecurityArchitect
-description: "Security policy architect — threat modeling..."
-version: 0.3.0
----
-```
-
-Deployed (`~/.claude/agents/SecurityArchitect.md`):
-```yaml
----
-name: SecurityArchitect
-description: Security policy architect — threat modeling...
-model: sonnet
-tools: Read, Grep, Glob, Bash, WebSearch
----
-# synced-from: SecurityArchitect.md
-```
-
-The binary resolves `model` and `tools` from `defaults.yaml` and adds the `# synced-from:` provenance header.
+Deployment passes agent frontmatter through unchanged: the deployed file carries `name` and `description`. `model` and `tools` stay in `defaults.yaml` and are never written into the agent file. Provenance is recorded in a `.provenance/` sidecar directory next to the deployed agents.
 
 ## Model Resolution
 

@@ -24,7 +24,13 @@ This skill is paired with the [StageForReview][SFR] rule: agents stage but do no
 ## Flow
 
 1. **Stage**: `git add <files>` by name. Never `-A` or `.`.
-2. **Open the staged diff** with one of:
+2. **Open the diff for review.** When both `tuicr` and `cmux` are present, open it automatically in a side pane (the CmuxToolkit skill) so review sits beside the work, rather than telling the user to run a command:
+    ```sh
+    surf=$(cmux new-split right --focus true | grep -oE 'surface:[0-9]+')
+    cmux send --surface "$surf" "tuicr -w\n"                         # staged / working tree
+    # jj-colocated repo: send tuicr -r 'main@origin..<bookmark>' for the outgoing change instead
+    ```
+    Otherwise (no cmux, or no tuicr) run a reviewer in the current pane:
     ```sh
     revdiff --staged                   # purpose-built for the staged set
     tuicr -w                            # working-tree mode; see `tuicr --help` for revset combos

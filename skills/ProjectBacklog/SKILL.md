@@ -63,48 +63,27 @@ The created date is implicit in the filename — never restate it as an inline f
 
 Newest item at the top of the file. Items captured on later days go in their own dated files. Closed items stay in their original file with `- [x]` and `[completion:: YYYY-MM-DD]` — never deleted, never moved.
 
-## Workflow Routing
-
-| Workflow | Trigger | Section |
-| -------- | ------- | ------- |
-| Capture  | "capture todo", "new todo", "add backlog item" | [Capture](#capture-workflow) |
-| List     | "list todos", "show backlog", "open todos" | [List](#list-workflow) |
-| Update   | "update todo", "mark in-progress", "set priority" | [Update](#update-workflow) |
-| Close    | "close todo", "mark done", "won't do" | [Close](#close-workflow) |
-
 ## Capture Workflow
 
-1. If `docs/todos/` does not exist, create it.
+1. Resolve today's date and target file `docs/todos/YYYY-MM-DD.md`, creating the directory and file as needed. New files start with a `# Todos — YYYY-MM-DD` heading.
 
-2. Resolve today's date and target file `docs/todos/YYYY-MM-DD.md`. If the file does not exist, create it with a `# Todos — YYYY-MM-DD` heading.
+2. Scan all existing daily files for description overlap. If a related open item exists, propose updating it instead of duplicating.
 
-3. Extract from the user input: short imperative description, priority (default `medium`), tags, optional acceptance criteria.
+3. Assign the next 4-digit id (max existing `[id:: NNNN]` across all daily files + 1, starting at `0001`).
 
-4. Scan all existing daily files for description overlap. If a related open item exists, propose updating it instead of duplicating.
+4. Insert the new item at the top of today's file with `- [ ]` status, the assigned id, and tags. Add indented sub-bullets only if acceptance criteria or context are non-trivial.
 
-5. Assign the next 4-digit id (max existing `[id:: NNNN]` across all daily files + 1, starting at `0001`).
-
-6. Insert the new item at the top of today's file with `- [ ]` status, the assigned id, and tags. Add indented sub-bullets only if acceptance criteria or context are non-trivial.
-
-7. Report the id, file path, and line written.
+5. Report the id, file path, and line written.
 
 ## List Workflow
 
-1. Glob `docs/todos/*.md`. Read all items.
-
-2. Default view: open + in-progress, grouped by priority. Show id, description, age (days since created, derived from filename).
-
-3. On request, filter by tag, priority, status, or date range.
+Default view: open + in-progress, grouped by priority. Show id, description, age (days since created, derived from filename).
 
 ## Update Workflow
 
-1. Identify the item by id (`[id:: NNNN]`) or description fragment.
+1. Status transitions: `[ ]` → `[/]` → `[x]`. `[-]` is terminal. Reopening requires `[x]` → `[ ]` with a sub-bullet explaining why.
 
-2. Edit the line in place — flip the checkbox, change priority, add/remove tags, append a sub-bullet.
-
-3. Status transitions: `[ ]` → `[/]` → `[x]`. `[-]` is terminal. Reopening requires `[x]` → `[ ]` with a sub-bullet explaining why.
-
-4. Never edit the `[id:: NNNN]` once assigned. Never move the item to a different daily file.
+2. Never edit the `[id:: NNNN]` once assigned. Never move the item to a different daily file.
 
 ## Close Workflow
 
@@ -118,10 +97,7 @@ Newest item at the top of the file. Items captured on later days go in their own
 
 ## Constraints
 
-- One file per capture day. Never split items by status, priority, or tag across files.
-- The filename date is canonical for `created`. Never duplicate it as an inline field.
 - Every item carries a stable `[id:: NNNN]` so external references (commits, ADRs, other todos) survive description edits.
-- Closed items stay in their original daily file. Never delete, never move.
 - Sub-bullets are optional but encouraged when acceptance criteria are non-trivial. Trivial todos can be a single line.
 - Use Dataview inline-field syntax (`[key:: value]`) for metadata, not emojis. The plain-text form is git-diff-friendly and survives non-Obsidian tooling.
 - Don't introduce non-standard inline fields. Stick to Obsidian Tasks-recognised keys so third-party queries keep working.

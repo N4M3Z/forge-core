@@ -10,7 +10,7 @@ Generate a self-contained HTML file that renders techniques as side-by-side card
 
 ## When to use
 
-Before adding CSS to a project (snippets, themes, component styles), render the candidates visually so the user can compare and choose. One HTML file, no dependencies, no build step.
+Before adding CSS to a project (snippets, themes, component styles), render the candidates visually so the user can compare and choose.
 
 ## Instructions
 
@@ -46,43 +46,9 @@ Each card is a self-contained demo. Use these conventions:
 - Demo content uses the same CSS variable names as the target platform (Obsidian vars for vault snippets, standard custom properties for web projects)
 - Mock data should feel real — use the user's actual project names, task descriptions, and entity types when known from conversation context
 
-## HTML template skeleton
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{Topic} — CSS Preview</title>
-<style>
-    :root { /* dark mode variables */ }
-    @media (prefers-color-scheme: light) { :root { /* light overrides */ } }
-    /* page layout, card grid, shared base */
-    /* per-technique CSS in labeled sections */
-</style>
-</head>
-<body>
-    <h1>{Topic}</h1>
-    <p class="subtitle">{Context line}</p>
-    <div class="grid">
-        <!-- one .card per technique -->
-    </div>
-</body>
-</html>
-```
-
 ## Constraints
 
 - Maximum 6 cards per preview (4 techniques + 1 combined is ideal)
-- All CSS inline in a single `<style>` block — no external sheets
 - No JavaScript unless the comparison requires interactivity (hover states, toggles)
 - File goes to `/tmp/` — never write preview HTML into the project directory
 - Source attribution is mandatory when the technique has a known origin
-- Mock data must feel realistic, not lorem ipsum
-
-## Sources
-
-- <https://gist.github.com/kaushikgopal/5e3018581946e09c49ac43aa8657b94c>
-- <https://github.com/obsidian-tasks-group/obsidian-tasks/discussions/3359>
-- <https://github.com/obsidian-tasks-group/obsidian-tasks/discussions/3421>

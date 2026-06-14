@@ -4,21 +4,18 @@ Language and framework specific security best practices: secure-by-default codin
 
 ### Scope
 
-Triggers only for python, javascript/typescript, and go. For other languages, rely on general knowledge and flag that concrete guidance is not available.
+Primary coverage is python, javascript/typescript, and go. For other languages, perform the review from general security knowledge and flag that language-specific guidance is not available.
 
 ### Workflow
 
 1. **Identify** the languages and frameworks in use; frontend and backend separately for web apps. Focus on the primary core frameworks.
-2. **Load guidance**: if this skill's `references/` directory contains `<language>-<framework>-<stack>-security.md` or a general `<language>-general-<stack>-security.md`, read all matching files. Web apps need both frontend and backend references.
-3. **Operate in one of three modes**:
+2. **Operate in one of three modes**:
 
     | Mode                    | Trigger                                  | Behavior                                                          |
     | ----------------------- | ---------------------------------------- | ----------------------------------------------------------------- |
     | Write secure-by-default | Starting new project or writing new code | Apply guidance proactively                                        |
     | Passively detect        | Working in an existing project           | Flag critical findings to the user inline                         |
     | Full report             | User explicitly requests it              | Write `security_best_practices_report.md` with prioritized issues |
-
-If no references exist for the stack, note that concrete guidance is unavailable but still perform the action based on general security knowledge.
 
 ### Overrides
 
@@ -49,9 +46,3 @@ Use UUID4 or random hex strings instead of small auto-incrementing integers. Pre
 #### TLS and secure cookies
 
 Do not report missing TLS as a security issue: dev environments rarely have TLS or use an out-of-scope proxy. Set `Secure` on cookies only when the app is actually over TLS; otherwise local dev and testing break. Provide an env flag to gate `Secure`. Avoid recommending HSTS: its lasting impact (including major user lockouts) requires deep understanding.
-
-### Constraints
-
-- Trigger only on explicit security-review requests, never on generic code review or debugging.
-- Do not argue with project-level overrides; document them instead.
-- Report dev-only TLS gaps as best-practice notes, not vulnerabilities.

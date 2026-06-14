@@ -37,7 +37,5 @@ Ask: if I replaced this vendor name with `<category>`, does the sentence still c
 
 ### Constraints
 
-- Never remove vendor names from anti-pattern lists; they are the directive.
-- Do not neutralize protocol names (HTTP, TLS, OAuth); these are universal.
 - If the skill is explicitly about a specific vendor (for example a Fakturoid skill), do not debrand; the vendor is the scope.
 - When in doubt between debranding and preserving, preserve and flag for review.

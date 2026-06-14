@@ -6,7 +6,7 @@ description: "Design, build, and validate forge modules. USE WHEN create module,
 
 # BuildModule
 
-Guide for creating robust forge modules. Focuses on the three-layer concern architecture and ensures modules are portable across AI coding tools.
+Guide for creating robust forge modules. Focuses on the three-layer concern architecture and ensures modules are portable across AI coding tools. Modules follow the [Agent Skills](https://agentskills.io) standard for cross-provider compatibility.
 
 ## Module Structure
 
@@ -23,13 +23,12 @@ module-name/
     bin/                Entry points or build scripts
     src/                Source code (typically Rust)
     .claude-plugin/     Claude Code plugin manifest
-    Makefile            Multi-provider install/verify/test
+    Makefile            install/validate/clean targets delegating to forge
     CLAUDE.md           Project instructions for Claude Code (generated)
     AGENTS.md           Project overview for Codex/OpenCode (generated)
     GEMINI.md           Project context for Gemini CLI (generated)
     README.md           Human-facing documentation
-    INSTALL.md          Installation guide
-    VERIFY.md           Post-installation checklist
+    INSTALL.md          Agent-executable installation guide
 ```
 
 Not all directories are required. A skills-only module (no hooks, no Rust) only needs: `skills/`, `module.yaml`, `defaults.yaml`, `.claude-plugin/plugin.json`, `Makefile`.
@@ -42,7 +41,7 @@ Not all directories are required. A skills-only module (no hooks, no Rust) only 
 
 3. **Lazy Compilation**: Use `bin/_build.sh` to compile binaries on first hook invocation, ensuring low overhead.
 
-4. **Validation Driven**: Always provide a `VERIFY.md` that allows an AI agent to confirm the module is functional without manual intervention.
+4. **Validation Driven**: Ship an `INSTALL.md` following the [Mintlify install.md](https://github.com/mintlify/install-md) standard. Its DONE WHEN section embeds a measurable success condition so an AI agent can confirm the module is functional without manual intervention.
 
 ## Three-Layer Architecture
 
@@ -99,17 +98,21 @@ agents:
 
 providers:
     claude:
-        fast: claude-sonnet-4-6
-        strong: claude-opus-4-6
+        models:
+            fast: [claude-sonnet-4-6]
+            strong: [claude-opus-4-6]
     gemini:
-        fast: gemini-2.0-flash
-        strong: gemini-2.5-pro
+        models:
+            fast: [gemini-2.0-flash]
+            strong: [gemini-2.5-pro]
     codex:
-        fast: o4-mini
-        strong: o4-mini
+        models:
+            fast: [gpt-5.3-codex]
+            strong: [gpt-5.4]
     opencode:
-        fast: claude-sonnet-4-6
-        strong: claude-opus-4-6
+        models:
+            fast: [claude-sonnet-4-6]
+            strong: [claude-opus-4-6]
 ```
 
 The `skills:` section uses provider-keyed allowlists. `forge install` reads this to decide which skills deploy to which provider. Skills omitted from a provider's list are skipped. This allows Claude-only skills (e.g., those using agent teams) to be excluded from Gemini/Codex without per-skill configuration.
@@ -132,34 +135,27 @@ Add `"hooks": "./hooks/hooks.json"` only if the module has hooks.
 
 ## Makefile Pattern
 
-Modules use the `forge` CLI for install, verify, and validate targets:
+All module build, install, test, and lint logic runs through Makefiles. No standalone shell scripts that duplicate or bypass Make targets; they become invisible, untested, and unmaintainable.
+
+Modules ship a minimal Makefile (~20 lines, not 200) that activates git hooks and delegates to the `forge` CLI:
 
 ```makefile
-AGENTS   = AgentName
-SKILLS   = SkillOne SkillTwo SkillThree
-AGENT_SRC = agents
-SKILL_SRC = skills
+FORGE ?= forge
 
-.PHONY: help install clean verify test lint check
+.PHONY: help install validate clean
 
 install:
-	forge install
+	git config core.hooksPath .githooks
+	$(FORGE) install --target ~
+
+validate:
+	@bash .githooks/pre-commit
 
 clean:
-	forge clean
-
-verify:
-	forge verify
-
-test:
-	forge validate $(CURDIR)
-
-lint: lint-schema lint-shell
+	rm -rf build/
 ```
 
-**SKILLS variable**: Lists skills for verification and cleanup only. `forge install` reads `defaults.yaml` directly to decide what deploys where. Provider-specific skills (e.g., Claude-only) should be excluded from the global SKILLS list since `verify` checks all providers. The skill will still install correctly via defaults.yaml.
-
-For skills-only modules (no agents), omit `AGENTS`, `AGENT_SRC`, and the agent mk includes.
+`forge install` reads `defaults.yaml` directly to decide what deploys where, so the Makefile needs no agent or skill roster variables.
 
 ## Provider Documentation
 
@@ -173,13 +169,23 @@ Every module ships platform-specific instruction files at its root:
 
 Generate these files by running each platform's CLI init command inside the module directory. The CLI analyzes the codebase and produces platform-appropriate instructions. To update an existing file, rename it to `.bak`, re-run init, and diff.
 
-These files are the primary way AI agents understand the module when working inside it. Generate them after the module structure is complete and before first commit.
+Generate them after the module structure is complete and before first commit.
+
+## Session Capture
+
+Once the module is a git repository — and before substantial agent work begins — enable [Entire](https://github.com/entireio/cli) so every coding session is checkpointed onto a commit-anchored branch from the start. Match `--agent` to the tool in use (`claude-code`, `codex`, `gemini`, `opencode`, and others):
+
+```bash
+entire enable --agent <agent> --skip-push-sessions --local --telemetry=false
+```
+
+`--skip-push-sessions` keeps the transcript branch local-only, which is mandatory for a public module: a default enable would publish the verbatim session transcript on `git push`. `--local` writes gitignored settings. See the SessionContinuity skill (forge-dev) for the resume, rewind, and review workflows.
 
 ## Validation Flow
 
 1. **Unit Tests**: `cargo test` (or equivalent) for Rust modules
-2. **Module Conventions**: `forge validate .` checks structure
-3. **Skill Verification**: `make verify` confirms deployment
+2. **Module Conventions**: `forge validate` checks structure
+3. **Pre-commit Gate**: `make validate` runs `.githooks/pre-commit`
 4. **Binary Availability**: Check binaries respond to `--help` or `--version`
 
 ## Validate

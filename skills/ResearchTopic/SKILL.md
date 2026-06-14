@@ -6,7 +6,7 @@ description: "Decompose a research question into sub-queries, spawn parallel Web
 
 # ResearchTopic
 
-Single-pass parallel web research. Decompose, fan out, synthesize. Not a council — no rounds, no debate. The goal is a structured answer with citations and explicit confidence levels, returned in one cycle.
+Single-pass parallel web research. Decompose, fan out, synthesize. The goal is a structured answer with citations and explicit confidence levels, returned in one cycle.
 
 For multi-perspective research where specialists challenge each other across rounds, use [ResearchCouncil](https://github.com/N4M3Z/forge-council/blob/main/skills/ResearchCouncil/SKILL.md).
 
@@ -59,14 +59,5 @@ What couldn't be determined; what would need primary-source access.
 | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | "I'll just search directly without spawning agents"   | Parallel fan-out is why this skill exists; in-context serial searches eat the context window.                         |
 | "Top search results are good enough"                  | Vendor blogs, AI-summary spam, out-of-date posts rank well. Evaluate authority + recency.                             |
-| "Paste the agent reports verbatim"                    | Synthesize. One structured answer, not N raw reports.                                                                 |
 | "If only one source says X, drop it"                  | Often the most valuable signal. Flag as low-confidence, don't drop.                                                  |
 | "Skip Conflicts if all sources agree"                 | Agreement is itself a finding — write "all sources concur on X" explicitly.                                          |
-
-## Constraints
-
-- Every factual claim has a citation; no unsourced assertions
-- Confidence levels are explicit (established / likely / uncertain)
-- Conflicts get their own section
-- "What this means for you" is mandatory for decision-triggered research
-- Use the WebResearcher agent for searches; don't reimplement search logic

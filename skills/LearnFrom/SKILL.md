@@ -110,13 +110,7 @@ After the first batch, dig deeper before declaring done. Most sessions have 2-3 
 
 ## Apply Changes
 
-For each confirmed proposal:
-
-- **New rules**: write to `rules/` using the Write tool
-- **Updates**: use the Edit tool on the target file
-- **New skills/agents**: write to `skills/` or `agents/` using the Write tool
-
-After writing, verify the file exists and has correct content.
+Write each confirmed proposal to its target file in `rules/`, `skills/`, or `agents/`.
 
 ## Summary
 
@@ -124,13 +118,8 @@ List what was captured: rules created or updated, skills updated, agents updated
 
 ## Constraints
 
-- Pick the right repo before drafting — shell-env fixes → dotfiles, install/setup steps → mac-setup, project-specific decisions → that project's ADRs, forge conventions → forge module. Reserve forge-core `rules/KnownIssues.md` for unfixable platform quirks only
-- Scan existing `rules/`, `skills/`, and `agents/` BEFORE drafting — a new file is the last resort, not the first instinct
-- Edit source artifacts in the module root, never deployed copies under `.claude/`, `.codex/`, `.gemini/`, or `.opencode/`
-- For inherited artifacts (provenance sidecar lists an upstream module), propose the change upstream first; touch the local copy only for repo-specific overrides
-- A learning shorter than ~3 sentences belongs in an existing file as an appended paragraph
 - Keep rules concise (max 120 words per section per the rules `.mdschema`)
 - New rules follow the `.mdschema` in `rules/` if present
-- Prefer over-proposing to under-proposing: a skipped learning is permanently lost, an extra proposal costs one "Skip" click
 - Session-specific fixes are not rules, but tool behaviors and packaging patterns often are
+- Captured artifacts describe the current truth, not where it was learned. No "learned from X", "discovered during Y", or "based on the Z codebase" (per StartFresh). The learning stands on its own.
 - Validate against the target directory's `.mdschema` before writing

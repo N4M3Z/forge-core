@@ -1,6 +1,6 @@
 Do not symlink plugins into the cache — Claude Code periodically wipes `~/.claude/plugins/cache/`.
 
-`ekctl` (EventKit CLI) and other data-gathering tools (slackdump, DiscordChatExporter.Cli, sqlite3, m365) are pre-approved in `sandbox.excludedCommands` in both `settings.json` and `settings.local.json`. macOS TCC permissions are separate and must also be granted for EventKit tools.
+macOS TCC permissions are separate from Claude Code sandbox and permission settings: EventKit tools (`ekctl`) need their own TCC grant even when the command itself is allowed.
 
 Subagents spawned with `mode: 'auto'` cannot write to git submodule paths even with `bypassPermissions`. Symptom: agent reports completion but no files were created. Workaround: do the writes from the parent session, or accept the permission prompt manually when it surfaces.
 
