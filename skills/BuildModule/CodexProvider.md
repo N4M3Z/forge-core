@@ -12,18 +12,6 @@ codex init
 
 Codex will not overwrite an existing `AGENTS.md`.
 
-## Update
-
-To regenerate after changes, rename the existing file first, then diff:
-
-```bash
-command mv AGENTS.md AGENTS.md.bak
-codex init
-diff AGENTS.md.bak AGENTS.md
-```
-
-Review the diff. Keep manual additions from `.bak` that the generator missed. Remove the `.bak` when satisfied.
-
 ## Agent Configuration
 
 Codex agents use TOML in `~/.codex/config.toml` or `.codex/config.toml`:
@@ -42,7 +30,7 @@ Built-in roles: `default`, `worker`, `explorer`. Custom roles define `descriptio
 
 ## Skill Compatibility
 
-Codex has no standalone skills format — instructions are embedded in `AGENTS.md` or agent config. Forge skills deploy as content within `AGENTS.md` via the Codex adapter (`Adapters/codex/install.sh`).
+Codex has no standalone markdown skills format. `forge install` assembles each skill file into TOML (`name`, `description`, `developer_instructions`) under `build/codex/skills/<SkillName>/` and deploys it to the `.codex` target directory.
 
 ## Constraints
 

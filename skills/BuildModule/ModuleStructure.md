@@ -11,7 +11,7 @@ Invoke: `/BuildModule validate path/to/module`
 | `module.yaml` exists                  | Has `name`, `version`, `description`                              |
 | `.claude-plugin/plugin.json` exists   | Has `name`, `version`, `description`, `skills`                    |
 | Version match                         | `module.yaml` version == `plugin.json` version                    |
-| `Makefile` exists                     | Has `install`, `verify`, `test`, `lint`, `check`, `clean` targets |
+| `Makefile` exists                     | Has `install`, `validate`, `clean` targets                        |
 | `forge` CLI available                 | `forge --version` succeeds, binary is on PATH                     |
 | `defaults.yaml`                       | Exists if module has configurable behaviour                       |
 | `LICENSE` exists                      | EUPL-1.2 license file present at module root                     |
@@ -22,8 +22,7 @@ Invoke: `/BuildModule validate path/to/module`
 | Check                             | Pass criteria                                                                        |
 |-----------------------------------|--------------------------------------------------------------------------------------|
 | `README.md`                       | Exists, not empty, has `## License` section                                          |
-| `INSTALL.md`                      | Exists, starts with `> **For AI agents**: This guide covers installation of [module].` |
-| `VERIFY.md`                       | Exists, starts with `> **For AI agents**: Complete this checklist after installation.`  |
+| `INSTALL.md`                      | Exists, follows Mintlify install.md: H1 title, blockquote summary, OBJECTIVE, DONE WHEN |
 | `CLAUDE.md`                       | Exists (Claude Code project instructions)                                            |
 | `AGENTS.md`                       | Exists (Codex/OpenCode project overview)                                             |
 | `GEMINI.md`                       | Exists (Gemini CLI project context)                                                  |
@@ -106,26 +105,20 @@ Cross-check directory contents against `defaults.yaml` registration:
 
 ## 9. Makefile Consistency
 
-Cross-check Makefile targets against directory structure:
+Cross-check Makefile targets against the minimal pattern:
 
-| Check                          | Pass criteria                                                                  |
-|--------------------------------|--------------------------------------------------------------------------------|
-| Agent plumbing (if `agents/`)  | Makefile declares `AGENT_SRC`, includes `agents/install.mk` + `agents/verify.mk` |
-| Skill plumbing (if `skills/`)  | Makefile declares `SKILL_SRC`, includes `skills/install.mk` + `skills/verify.mk` |
-| install target                 | Runs `forge install` which deploys agents if `agents/` exists                  |
-| clean target                   | Includes `clean-agents` if `agents/` exists                                    |
-| verify target                  | Includes `verify-agents` if `agents/` exists                                   |
-| check target                   | Tests for `agents/` directory and `forge` binary if `agents/` exists           |
+| Check           | Pass criteria                                                  |
+|-----------------|----------------------------------------------------------------|
+| install target  | Activates `.githooks` and runs `forge install --target ~`      |
+| validate target | Delegates to `.githooks/pre-commit` (single validation path)   |
+| clean target    | Removes `build/`                                               |
+| No roster vars  | No `AGENTS`/`SKILLS` variables; `forge install` reads `defaults.yaml` |
 
 ## 10. Installation Guide
 
 @InstallGuide.md
 
-## 11. Verification Guide
-
-@VerifyGuide.md
-
-## 12. Report
+## 11. Report
 
 Output a summary table:
 
@@ -142,7 +135,6 @@ Configuration        PASS / FAIL (N issues)
 Roster Consistency   PASS / FAIL (N issues)
 Makefile Consistency PASS / FAIL (N issues)
 Installation Guide   PASS / WARN (N) / FAIL (N)  [tier: Full|Standard|Scaffold]
-Verification Guide   PASS / WARN (N) / FAIL (N)  [tier: Full|Standard|Scaffold]
 ```
 
 List specific failures with file paths and remediation hints.

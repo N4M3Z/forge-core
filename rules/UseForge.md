@@ -4,7 +4,7 @@ Assembly deploys only `.md` files. Non-markdown files (Python scripts, shell scr
 
 `forge install` deploys rules, skills, and agents, not hooks. Wire hooks manually into `~/.claude/settings.json` using absolute paths. Read the module's `hooks/hooks.json` for the full hook list and replace `${CLAUDE_PLUGIN_ROOT}` with the absolute path to your clone.
 
-`--force` overwrites user-modified deployed files but does not re-assemble from source. Clear the build cache (`rm -rf build/`) before reinstalling if source changed since last assembly.
+`forge install` re-assembles from source on every run; add `--force` to also overwrite user-modified deployed files.
 
 `--target ~` deploys to user scope (`~/.claude/`, `~/.codex/`, etc.). The flag sets the base directory for provider directories. `--target ~/.claude` is wrong — it nests `~/.claude/.claude/`.
 

@@ -22,5 +22,3 @@
 - [x] Wire pre-commit hook into the validation chain [priority:: high] [id:: 0000] [completion:: 2026-04-25] #setup
     - Closed by commit `abc1234`.
 ```
-
-Closed items stay in the daily file where they were captured. Querying open work means filtering by `- [ ]` and `- [/]` across all daily files.

@@ -43,7 +43,7 @@ Rules:
 | `agents/`            | Module agents (shipped with the module) |
 | User vault workspace | Personal agents                         |
 
-Agent `name` must be **unique across all locations** -- sync overwrites by name.
+An agent is a single `.md` file in `agents/`: flat directory, no subdirectories. Agent `name` must be **unique across all locations** -- sync overwrites by name.
 
 ### Module Agent Frontmatter
 
@@ -64,6 +64,10 @@ version: 0.1.0
 | `name`        | Yes      | PascalCase, matches filename                           |
 | `description` | Yes      | Pattern: `"Role -- capabilities. USE WHEN triggers."`  |
 | `version`     | Yes      | Semantic version                                       |
+
+For council/team agents, include a scope note in `description`.
+
+Claude Code accepts additional frontmatter fields for personal agents (`model`, `tools`, `disallowedTools`, `permissionMode`, `maxTurns`, `effort`, `skills`, `memory`, `isolation`, `color`, `hooks`, `mcpServers`; see Sources). Module agents keep deployment config in `defaults.yaml`.
 
 Model and tool assignments live in `defaults.yaml` (map format, keyed by agent name):
 
@@ -156,11 +160,9 @@ forge install --scope user                # user-level install
 | Codex    | `.toml` | TOML config in `.codex/config.toml`, agent prompt in `.codex/agents/`     |
 | OpenCode | `.md`   | Same format as Claude                                                     |
 
-Deployment adds a `# synced-from: OriginalFilename.md` header for provenance tracking. Tool mapping to provider equivalents happens automatically.
+Tool mapping to provider equivalents happens automatically. Provenance is recorded in `.provenance/` sidecar directories next to the deployed files, and a `.manifest` dotfile at the target root tracks deployment state.
 
-**Critical**: `forge install` reads provider keys from the `providers:` section in defaults.yaml to determine deployment targets. If a provider is missing from `providers:`, agents will not deploy there.
-
-**User-created detection**: If an agent file already exists in the target directory without a `# synced-from:` header, `forge install` skips it to avoid overwriting user-created agents. When migrating from a committed provider dir to `agents/` source: delete the old file from disk first, then run `make install`.
+After creating or modifying an agent, redeploy to pick up changes.
 
 ---
 
@@ -177,28 +179,17 @@ Determine:
 
 If unclear, ask using AskUserQuestion.
 
-### Step 2: Choose the location
+### Step 2: Write the agent file
 
-| Scenario                | Location              |
-|-------------------------|-----------------------|
-| Part of a forge module  | `agents/AgentName.md` |
-| Personal agent          | User vault workspace  |
+Write `agents/AgentName.md` following [Agent Conventions](#agent-conventions).
 
-### Step 3: Check for naming conflicts
-
-The name must be unique across all source directories.
-
-### Step 4: Write the agent file
-
-Follow the frontmatter and body structure from [Agent Conventions](#agent-conventions).
-
-### Step 5: Deploy
+### Step 3: Deploy
 
 ```bash
 make install
 ```
 
-### Step 6: Verify
+### Step 4: Verify
 
 The agent will be available as a `subagent_type` after restarting the session.
 
@@ -206,9 +197,7 @@ The agent will be available as a `subagent_type` after restarting the session.
 
 ## Validate Workflow
 
-### Step 1: Read the agent file
-
-### Step 2: Check frontmatter
+### Step 1: Check frontmatter
 
 - [ ] `name` present and uses PascalCase
 - [ ] `name` has no spaces, hyphens, or abbreviations
@@ -216,7 +205,7 @@ The agent will be available as a `subagent_type` after restarting the session.
 - [ ] `description` follows pattern: `"Role -- capabilities. USE WHEN triggers."`
 - [ ] `version` present
 
-### Step 3: Check body structure
+### Step 2: Check body structure
 
 - [ ] Starts with blockquote summary (`> ...`)
 - [ ] Has Role section (2-3 sentences)
@@ -228,7 +217,7 @@ The agent will be available as a `subagent_type` after restarting the session.
 - [ ] No real PII in examples
 - [ ] Total length is 50-80 lines
 
-### Step 4: Report
+### Step 3: Report
 
 **COMPLIANT** or **NON-COMPLIANT** with specific issues and fixes.
 
@@ -263,15 +252,6 @@ Run the Validate workflow checklist against every agent. Report:
 Total agents, compliant count, issues found, recommended fixes.
 
 ---
-
-## Constraints
-
-- Never create an agent without `name` in frontmatter
-- Always use PascalCase for agent names -- non-negotiable
-- Model and tool config belongs in defaults.yaml, not agent frontmatter
-- Agent descriptions must follow pattern: `"Role -- capabilities. USE WHEN triggers."`
-- For council/team agents, include scope note in description
-- After creating or modifying agents, deploy to see changes
 
 ## Sources
 

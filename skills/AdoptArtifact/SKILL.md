@@ -41,17 +41,9 @@ Pick the destination module. If nothing fits, defer the adoption; do not create 
 
 ### 3. Apply transforms
 
-Transforms are named operations that will extract into their own skills as patterns stabilize. In v1 they run inline:
+Apply the transform pack from [RefinePrompt](../RefinePrompt/SKILL.md): align, rescope, debrand, minimize, extract. Its decision table says when each applies.
 
-| Transform  | What it does                                                                                                |
-| ---------- | ----------------------------------------------------------------------------------------------------------- |
-| `align`    | Rename to PascalCase; fix indent, fence language tags, heading depth; strip upstream frontmatter fields forge doesn't use |
-| `rescope`  | Add or tighten `allowed-tools` to the narrowest set the skill actually uses                                 |
-| `debrand`  | Remove hardcoded vendor references (specific tool names, external services, "powered by X" language)        |
-| `minimize`   | Collapse motivational or marketing prose while preserving directive content                                 |
-| `extract`  | Move bulk reference material into `@`-included companion files so the always-loaded `SKILL.md` stays lean   |
-
-Record which transforms were applied; it guides the commit message and is what future transform-skill dependencies will represent in the sidecar.
+Record which transforms were applied; it guides the commit message, and the sidecar pins the RefinePrompt version that supplied them.
 
 ### 4. Add forge frontmatter
 
@@ -71,11 +63,7 @@ The `upstream` field is a human-facing pointer without SHA ([PROV-0006](docs/dec
 
 ### 5. Write the artifact
 
-Land at `skills/<PascalCaseName>/SKILL.md` in the destination module. Compute its SHA-256 after writing:
-
-```sh
-shasum -a 256 skills/<PascalCaseName>/SKILL.md
-```
+Land at `skills/<PascalCaseName>/SKILL.md` in the destination module. Compute its SHA-256 after writing.
 
 ### 6. Write the provenance sidecar
 
@@ -103,6 +91,10 @@ provenance:
                   uri: forge-core/skills/AdoptArtifact/SKILL.md
                   digest:
                       sha256: <AdoptArtifact-sha256>
+                - name: RefinePrompt
+                  uri: forge-core/skills/RefinePrompt/SKILL.md
+                  digest:
+                      sha256: <RefinePrompt-sha256>
         runDetails:
             builder:
                 id: forge-cli
@@ -123,5 +115,4 @@ One commit per adoption. Commit message carries the prose rationale — what was
 - Skills and agents are eligible for adoption; rules are not ([ARCH-0012](docs/decisions/ARCH-0012 Community Adoption Strategy.md))
 - First-party forge skills take precedence on name conflicts; rename the adoption or reject it
 - Every adoption writes a provenance sidecar; an adoption without provenance is not an adoption
-- Defer the adoption if no existing module is a natural home; do not create new modules for one skill
 - Recompute the adopted artifact's SHA-256 and sync it to the provenance sidecar after ANY post-adoption edit. The sidecar's `subject.digest.sha256` must match the current file content, not the initial adoption state

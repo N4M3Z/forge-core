@@ -23,6 +23,7 @@ Create and validate skills following forge conventions. Skills are markdown file
 | Multi-provider routing via `defaults.yaml`                  | [@MultiProviderRouting.md](MultiProviderRouting.md)        |
 | Wrapping a CLI tool in a skill                              | [@CliToolIntegration.md](CliToolIntegration.md)            |
 | Platform-agnostic writing — no placeholders or `/` prefix   | [@PlatformAgnostic.md](PlatformAgnostic.md)                |
+| User-config schema for AI-first artifacts (autoMode mirror) | [@UserConfigSchema.md](UserConfigSchema.md)                |
 | When to author a per-skill INSTALL.md                       | [@SkillInstallation.md](SkillInstallation.md)              |
 
 ## Red Flags

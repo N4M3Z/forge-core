@@ -12,18 +12,6 @@ gemini init
 
 Gemini will not overwrite an existing `GEMINI.md`.
 
-## Update
-
-To regenerate after changes, rename the existing file first, then diff:
-
-```bash
-command mv GEMINI.md GEMINI.md.bak
-gemini init
-diff GEMINI.md.bak GEMINI.md
-```
-
-Review the diff. Keep manual additions from `.bak` that the generator missed. Remove the `.bak` when satisfied.
-
 ## Configuration
 
 Gemini CLI uses `settings.json` for project config. The instruction filename is configurable:

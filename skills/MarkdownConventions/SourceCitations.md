@@ -32,7 +32,5 @@ OWASP lists SQL injection as #1 in the top 10 ([source][1]).
 
 ### Constraints
 
-- Every number, date, limit, rate, or threshold in prose needs a source.
-- Use mnemonic abbreviations, not `[1]`, `[2]`.
 - Place reference definitions at the bottom of the file, grouped in one block.
 - Reuse the same label across multiple citations of the same source within a file.

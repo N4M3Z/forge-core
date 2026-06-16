@@ -8,7 +8,7 @@ tags:
     - targeting
 status: accepted
 created: 2026-03-15
-updated: 2026-03-30
+updated: 2026-06-11
 author: "@N4M3Z"
 project: forge-core
 related: []
@@ -27,7 +27,7 @@ Models evolve under your feet. Instructions essential for one model version beco
 
 ## Considered Options
 
-- **Qualifier directories** — `rules/claude/opus4.5/Rule.md` overrides the base `rules/Rule.md`
+- **Qualifier directories** — `rules/claude/claude-opus-4-6/Rule.md` overrides the base `rules/Rule.md`
 - **Frontmatter targets** — `targets: [claude]` for include/exclude filtering
 - **Config-driven** — `defaults.yaml` enumerates which rules deploy to which providers
 - **Filename convention** — `Rule.claude.md` suffix-based variants
@@ -36,7 +36,7 @@ Models evolve under your feet. Instructions essential for one model version beco
 
 Chosen option: **qualifier directories + frontmatter targets**, because they solve different problems and compose cleanly.
 
-**Qualifier directories** handle content variants. Same filename in a subdirectory named after a provider or model overrides the base. Resolution precedence: `user/` > `provider/model/` > `provider/` > base. Valid qualifier names come from `defaults.yaml` providers config; `user/` is always valid (gitignored, personal overrides).
+**Qualifier directories** handle content variants. Same filename in a subdirectory named after a provider or model overrides the base. Resolution precedence: `user/` > `provider/model/` > `provider/` > base. Valid provider qualifiers come from the providers config; valid model qualifiers are the exact model IDs listed in `config/models.yaml`, so the directory name is the model ID itself (`rules/claude/claude-opus-4-6/Rule.md`). No aliases, no segment matching. `user/` is always valid (gitignored, personal overrides). An unrecognized subdirectory inside a qualifier directory is a validation error: silent omission would drop content from deployment without trace.
 
 ```
 rules/
@@ -45,6 +45,8 @@ rules/
   gemini/AgentTeams.md           # gemini-specific (no Agent tool)
   user/AgentTeams.md             # personal override
 ```
+
+**Skills** carry qualifier overlays inside the skill directory, reusing the `user/` flatten mechanics: `skills/Name/<provider>/<model>/SKILL.md` overrides `skills/Name/SKILL.md` per file at assembly. Top-level qualifier directories under `skills/` are not valid; the skill directory name must always match the skill's `name:` field.
 
 **Frontmatter targets** handle include/exclude. A rule that applies to some providers but not others declares `targets:` in frontmatter, stripped at deploy. This also serves as a reconstructibility record — if qualifier directories are lost, the frontmatter documents which providers the rule was meant for.
 

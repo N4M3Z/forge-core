@@ -11,5 +11,5 @@
 
 ```bash
 make install
-make verify
+make validate
 ```

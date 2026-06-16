@@ -22,8 +22,11 @@ Three template tiers, from minimal to full:
 ## Filename Convention
 
 Read `$ADR_PREFIX` (default: `number`):
-- `number`: `NNNN Title Name.md` — next available four-digit number
-- `date`: `YYYY-MM-DD Title Name.md` — today's date at creation
+
+- `number`: `NNNN Title Name.md`, the next available four-digit number
+- `date`: `YYYY-MM-DD Title Name.md`, today's date at creation
+
+Repos that group decisions into prefix sections name files `PREFIX-NNNN Title Name.md` (forge-core: `CORE-`, `ARCH-`, `PROV-`, `MVPR-`, `NAME-`). Each section numbers independently; assign the next available number within the matching section.
 
 Prefixes are per-scope. Root and module directories count independently.
 
@@ -42,11 +45,11 @@ Prefixes are per-scope. Root and module directories count independently.
 | `author`      | yes      | string       | GitHub handle (e.g., `@N4M3Z`)                      |
 | `project`     | yes      | string       | Repository name                                     |
 | `related`     | no       | string array | Filenames of related ADRs                           |
-| `responsible` | no       | string array | RACI: who does the work                             |
-| `accountable` | no       | string array | RACI: who approves the decision                     |
-| `consulted`   | no       | string array | RACI: whose input is sought                         |
-| `informed`    | no       | string array | RACI: who is notified                               |
-| `upstream`    | no       | string array | Rules promoted from this ADR, or provenance sources |
+| `responsible` | yes      | string array | RACI: who does the work                             |
+| `accountable` | yes      | string array | RACI: who approves the decision                     |
+| `consulted`   | yes      | string array | RACI: whose input is sought                         |
+| `informed`    | yes      | string array | RACI: who is notified                               |
+| `upstream`    | yes      | string array | Rules promoted from this ADR, or provenance sources |
 
 ## Sections
 
