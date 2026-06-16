@@ -1,8 +1,8 @@
 # TLDR
 
-A **TLDR** is a single-file one-pager about a tool. The audience is a future-you (or future AI session) that has used the tool before, walked away for weeks, and now needs to use it again without re-reading the man page. Not a tutorial. Not an exhaustive reference. The 80% path with the gotchas that hurt.
+A **TLDR** is a [tldr-pages][TLDR-PAGES] page: a command name, a one- or two-line description, and up to eight example/command pairs. The audience is a future-you (or future AI session) that has used the tool before, walked away for weeks, and needs the 80% path back without re-reading the man page. Not a tutorial, not a reference, not a cheatsheet.
 
-Inspired by the [tldr-pages][TLDR-PAGES] CLI ("simplified man pages"), which crowdsourced terse community-maintained examples per tool. tldr-pages itself has slowed considerably; this skill keeps the spirit (the 80% subset, no marketing prose, examples over reference) but scopes each TLDR to *your* config and *your* gotchas, not the lowest-common-denominator usage.
+Write the genuine tldr-pages format, the same shape the project ships, so pages stay portable, predictable, and free of prose to maintain. Tool-specific config, gotchas, and rationale do **not** belong in a TLDR; they live in the tool's ADR or in config and script comments.
 
 [TLDR-PAGES]: https://github.com/tldr-pages/tldr
 
@@ -28,74 +28,55 @@ If two answers say yes, write the TLDR. If only one says yes, an inline comment 
 | Tool spans projects, knowledge module exists                  | `<knowledge-module>/docs/tldrs/<tool>.md`           |
 | Tool is personal-workflow level (cross-project, cross-repo)   | dotfiles or personal knowledge vault                |
 
-Filename: lowercase, kebab-case (`gitui.md`, `git-delta.md`, `tmux.md`).
+Filename: lowercase, kebab-case (`jj.md`, `git-delta.md`, `tmux.md`).
 
 ## Shape
 
-A TLDR follows this skeleton, in order. Skip a section when it doesn't apply; never reorder.
+A TLDR is the tldr-pages format exactly: a title, a blockquote, then example/command pairs. No section headings, no tables, no bold or italics in the body.
 
 ```
-# <tool-name>
+# command-name
 
-<one-line purpose>. <bold the single most load-bearing fact, e.g., the prefix key>.
+> Short, snappy description; one line, two at most.
+> See also: `related-command`.
+> More information: <https://example.com/docs>.
 
-## Invocation
+- Imperative description of what the command does:
 
-<table: shell command → effect>
+`command --flag {{placeholder}}`
 
-## Custom keybindings (in our <config-path>)
+- Another example, described in the imperative and ending with a colon:
 
-<read-this-way preamble if non-obvious>
-
-### <category> (Panes / Windows / etc., if grouping helps)
-
-<table: key → action>
-
-## Save / quit semantics
-<only when non-obvious — explicit save commands, what `q` does, what `:x` does>
-
-## Plugins / extensions (if applicable)
-
-<table: plugin → path → purpose>
-
-## Notable config baked in
-
-<bullet list of one-line settings worth remembering>
-
-## <App-specific interaction notes>
-
-<e.g., URL clicks inside tmux+Ghostty>
-
-## Config + reload
-
-- Canonical: <dotfiles path>
-- Deployed: <deployed path>
-- Deploy: <deploy command, often `chezmoi apply <path>`>
-- Reload: <reload command — don't make readers restart the tool>
-
-## Sources
-
-<bulleted reference list — upstream repo, official docs, key issues>
+`command subcommand {{path/to/file}}`
 ```
 
-Reference implementations: `forge-provision/docs/tldrs/tmux.md` (rich, multi-section), `forge-provision/docs/tldrs/revdiff.md` (terse, single-purpose tool), `forge-provision/docs/tldrs/tuicr.md` (focuses on save semantics).
+Rules:
+
+- **Title**: the command name exactly (`jj`, `git commit`), no backticks.
+- **Description**: at most two lines, each prefixed `>`. An optional `> See also:` line references related commands. The final line is always `> More information: <url>.` in angle brackets, and is the TLDR's only source link.
+- **Examples**: at most eight. Each is a `-` bullet whose description is in the imperative mood ("List all files", not "Lists" or "Listing") and ends with a colon, then a blank line, then exactly one command in backticks.
+- **Placeholders**: `{{placeholder}}`, snake_case for multi-word. Paths `{{path/to/file}}`; multiple values `{{file1 file2 ...}}`; mutually exclusive `{{a|b|c}}`; ranges `{{1..5}}`.
+- **Commands**: prefer GNU-style long options (`--help`), space-separated (`--opt arg`). Keypresses use `<Ctrl c>`, `<Enter>`.
+- **No styling**: no bold, italics, tables, or extra `##` sections; the tldr-pages client renders emphasis itself.
+
+Reference: the [tldr-pages `pages/`][TLDR-PAGES] directory for canonical examples; `forge-provision/docs/tldrs/jujutsu.md` is the first in-repo page in this format. Older `docs/tldrs/*.md` predate it (rich one-pagers) and are queued for migration.
 
 ## Anti-patterns
 
 | Pattern                                                          | Why it fails                                                                          |
 | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| Copying the man page                                             | Readers already have `--help`; TLDR is the curated subset.                            |
-| Listing every flag                                                | Curate. If a flag never comes up, leave it out.                                       |
-| No "Config + reload" section                                      | A TLDR you can't act on is just trivia.                                               |
-| Sources section missing                                           | Readers can't find drift between TLDR and upstream.                                   |
+| Copying the man page                                             | Readers already have `--help`; a TLDR is the curated 80% subset.                      |
+| Listing every flag                                                | Eight examples max; keep the ones that actually recur.                                |
+| Tables, prose paragraphs, or `##` headings                       | tldr-pages is title + blockquote + example pairs only.                                |
+| Bold or italics in the body                                       | Reserved for the client's emphasis rendering.                                         |
+| Config, gotchas, or rationale in the page                         | Those belong in the tool's ADR or in config/script comments, not a TLDR.              |
+| Non-imperative descriptions ("Lists files")                       | Use the imperative and end with a colon ("List files:").                              |
 | Marketing language ("the modern", "the powerful", "the best")    | Future-you doesn't need to be sold on the tool you're already using.                  |
-| Decision-comparison sections                                     | Those belong in a separate landscape skill or ADR, not in the TLDR.                   |
 | Date stamps in the body                                          | TLDRs are evergreen. Date them only when chronology matters.                          |
-| Heading depth past `###`                                          | A TLDR you have to outline is over-structured.                                        |
 
 ## Maintenance
 
-A TLDR drifts the moment upstream changes a default. Two cheap habits keep drift down:
+A TLDR drifts the moment upstream changes a command or flag. Two cheap habits keep drift down:
 
-1. **Touch on every session that touches the tool's config.** If you reload the tool's config during a session, scan its TLDR for accuracy. One-paragraph diff in the same commit.
-2. **Verify sources at touch-time.** Every reference link should resolve and still describe what you cite. Dead links signal stale content.
+1. **Touch on every session that uses the tool.** If a command in the page changed, fix it in the same commit.
+2. **Verify the "More information" link at touch-time.** A dead link signals stale content.
