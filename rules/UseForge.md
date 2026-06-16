@@ -1,6 +1,6 @@
 Forge assembles and deploys module content to AI provider directories. Key behaviors to know:
 
-Assembly deploys only `.md` files. Non-markdown files (Python scripts, shell scripts, YAML sidecars) in skill directories are silently dropped. Ship executables in `bin/` at the plugin root instead.
+A skill directory deploys its whole tree: `SKILL.md` is assembled (frontmatter stripped, provider transforms applied), and every other file is copied verbatim with its extension and subdirectory structure preserved. Ship a text helper inside the skill and call it at runtime via `${CLAUDE_SKILL_DIR}/...`. Non-UTF-8 binary files are skipped with a warning, and the executable bit is not preserved yet, so invoke a deployed script through its interpreter (`uv run helper`), not as a bare `./helper`. Compiled binaries still belong in `bin/` at the plugin root.
 
 `forge install` deploys rules, skills, and agents, not hooks. Wire hooks manually into `~/.claude/settings.json` using absolute paths. Read the module's `hooks/hooks.json` for the full hook list and replace `${CLAUDE_PLUGIN_ROOT}` with the absolute path to your clone.
 
