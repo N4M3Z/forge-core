@@ -1,7 +1,7 @@
 ---
 name: VersionControl
-version: 0.2.0
-description: "Git best practices — conventional commits, staging, push policy, pre-commit gates, repo governance. USE WHEN committing, pushing, creating PRs, branch protection, rulesets, CODEOWNERS, pre-commit hooks, blocking known-dangerous strings."
+version: 0.3.0
+description: "Git best practices: conventional commits, staging, push policy, pre-commit gates, repo governance, plus Jujutsu (jj) colocated repos (commit and push discipline, push-batched signing, secret gates relocated to pre-push). USE WHEN committing, pushing, creating PRs, branch protection, rulesets, CODEOWNERS, pre-commit hooks, blocking known-dangerous strings, or working in a jj / jujutsu / colocated repo."
 ---
 
 # VersionControl
@@ -28,8 +28,13 @@ Keep the first line under 72 characters. Add a blank line and body for context w
 ## Staging
 
 - Stage specific files by name; never use `git add -A` or `git add .`
+- Commit with a pathspec (`git commit -- <path>...`), never a bare `git commit`. A bare commit snapshots the **entire index**, so any work already staged in the repo — the user's in-flight changes — is swept into your commit under your message. Pathspec-commit lands only the files you name. When unsure what is staged, run `git diff --cached --stat` first and confirm it shows only your files.
 - Never commit files that contain secrets (`.env`, credentials, API keys)
 - Stage and pause for the user to self-review before the commit lands. See [StageForReview](../../rules/StageForReview.md) for the rule, [StagedReview](../StagedReview/SKILL.md) for the review workflow with `tuicr` / `revdiff` / `git diff --cached`.
+
+## Jujutsu (jj) repositories
+
+When the repo is colocated with jj (`.jj/` at the root), there is no staging area and the commit and push workflow differs: the working copy is a commit, signing is batched at push, and git hooks (including the gates below) do not fire. See [Jujutsu.md](Jujutsu.md) for the jj commit and push discipline and how the secret gates relocate to pre-push.
 
 ## Pre-commit Gates
 
@@ -64,6 +69,14 @@ Safety-net is the **deterministic prevention layer** (regex, runs on every commi
 After a ForensicAgent scan surfaces a new leaked pattern, add it to `~/.config/forge/safety-net` so the hook prevents recurrence.
 
 See [INSTALL.md](INSTALL.md) for config-file setup and verification.
+
+### Validation chain
+
+Single validation path: `make validate` → `.githooks/pre-commit`; CI runs the same checks via [prek](https://github.com/j178/prek). Never duplicate validation logic across Makefile recipes, CI workflow steps, and hook scripts. Without prek, fall back to `forge validate` or the hash-verified validate.sh download.
+
+## Session checkpointing (Entire)
+
+Repos with Entire enabled install git hooks via `core.hooksPath` that inject a session trailer on commit and ship session logs on push. They run alongside the secret gates on normal `git commit` / `git push`, so keep the gitleaks `pre-commit` hook in the same hooks directory Entire points at, or it stops firing. Capture itself runs off Claude Code hooks, not git, so it is VCS-agnostic. Under jj the git hooks do not fire; see [Jujutsu.md](Jujutsu.md).
 
 ## Push Policy
 
