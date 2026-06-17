@@ -25,13 +25,7 @@ Bring a prompt-shaped document into forge convention without changing its meanin
 
 ### Procedure
 
-1. Read the full document.
-2. Fix frontmatter first; it gates downstream checks.
-3. Walk the heading tree, flagging any skip or over-deep section.
-4. Sweep indentation; convert tabs to four spaces.
-5. Sweep fences; ensure every one has a language tag.
-6. Align tables column by column.
-7. Re-read; the content meaning must be unchanged.
+Fix frontmatter first; it gates downstream checks.
 
 ### Constraints
 

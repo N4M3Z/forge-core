@@ -18,23 +18,15 @@ Checks six staleness vectors across the forge ecosystem and produces a pass/fail
 bash "${FORGE_MODULE_ROOT:-Modules/forge-core}/skills/SystemCheck/system-check.sh"
 ```
 
-For per-item breakdown, add `--verbose`:
-
-```bash
-bash "${FORGE_MODULE_ROOT:-Modules/forge-core}/skills/SystemCheck/system-check.sh" --verbose
-```
+For per-item breakdown, add `--verbose`.
 
 ## Instructions
 
-1. Run the companion script (compact mode).
+1. Present the output table to the user as-is.
 
-2. Present the output table to the user as-is.
+2. If any check fails, the script prints a `Fixes:` section. Offer to run the suggested commands.
 
-3. If any check fails, the script prints a `Fixes:` section. Offer to run the suggested commands.
-
-4. If the user asks to drill down into a specific check, re-run with `--verbose` and explain the details.
-
-5. If the script is unavailable or a check needs manual investigation, use the check procedures below.
+3. If the script is unavailable or a check needs manual investigation, use the check procedures below.
 
 ## Checks
 
@@ -53,9 +45,9 @@ Falls back to directory scanning if `.manifest` is absent.
 
 For each symlink in `~/.local/bin` that points into the forge root, find the crate's `src/` directory and compare the binary mtime against the newest `.rs` source file. If any source is newer, the binary is stale.
 
-### Check 3: forge CLI Availability
+### Check 3: Lib Submodule Consistency
 
-Verify that the `forge` binary is on PATH and responds to `forge --version`. Report the installed version.
+For each `Modules/*/lib` submodule, read its HEAD with `git -C <lib_dir> rev-parse HEAD` and compare across modules. All lib submodules must point at the same canonical commit; more than one unique commit means drift.
 
 ### Check 4: Version Drift
 
@@ -79,14 +71,14 @@ Read `.claude/settings.json` and verify all expected dispatch events are present
 
 ## Fixes Reference
 
-| Problem | Fix |
-|---------|-----|
-| Skills stale | `make install` |
-| Binaries stale | `make build && make install-binaries` |
-| forge CLI missing | Install forge-cli: `cargo install forge-cli` |
-| Version drift | Align versions in the affected module |
-| Submodule pointers dirty | Commit parent repo |
-| Hook config incomplete | `make install-hooks` |
+| Problem                  | Fix                                           |
+| ------------------------ | --------------------------------------------- |
+| Skills stale             | `make install`                                |
+| Binaries stale           | `make build && make install-binaries`         |
+| Lib drift                | Update lib submodules to the canonical commit |
+| Version drift            | Align versions in the affected module         |
+| Submodule pointers dirty | Commit parent repo                            |
+| Hook config incomplete   | `make install-hooks`                          |
 
 ## Constraints
 

@@ -2,7 +2,7 @@
 
 The Documentation section checks that INSTALL.md exists. This companion validates its content — does it actually guide an AI agent through installation on all supported platforms?
 
-Reference standard: [forge-learn INSTALL.md](https://github.com/N4M3Z/forge-learn/blob/main/INSTALL.md).
+Reference standard: [Mintlify install.md](https://github.com/mintlify/install-md), template at [forge-cli templates/init/INSTALL.md](https://github.com/N4M3Z/forge-cli/blob/main/templates/init/INSTALL.md).
 
 ## Per-Platform Reference
 
@@ -26,35 +26,35 @@ Check in order:
 
 ## Scaffold
 
-Report `SCAFFOLD — full validation deferred`, check only:
+Report `SCAFFOLD: full validation deferred`, check only:
 
-| Check | Pass criteria |
-|-------|---------------|
-| AI notice | First blockquote mentions "AI agents" |
-| Planned section | `## Planned` heading has content below it |
+| Check           | Pass criteria                                     |
+|-----------------|---------------------------------------------------|
+| Summary         | H1 title with a blockquote summary directly below |
+| Planned section | `## Planned` heading has content below it         |
 
 ## Standard
 
 All checks required:
 
-| Check | Pass criteria |
-|-------|---------------|
-| AI notice | First blockquote mentions "AI agents" |
-| Requirements | `## Requirements` heading with numbered items |
-| Build / Deploy | Heading matching `## .*(Build\|Deploy).*` with a code block |
-| Platforms | `## Platforms` heading (optional — required for Full tier) |
-| Configuration | `## Configuration` heading (optional) |
+| Check       | Pass criteria                                                        |
+|-------------|----------------------------------------------------------------------|
+| Summary     | H1 title with a blockquote summary directly below                    |
+| Autonomy    | Opening prose instructs the agent to execute the steps autonomously  |
+| OBJECTIVE   | `## OBJECTIVE` heading with a one-sentence goal                      |
+| DONE WHEN   | `## DONE WHEN` heading with a measurable success condition           |
+| TODO        | `## TODO` heading with a checklist of 3-7 items                      |
+| Steps       | Step headings with shell commands in fenced code blocks              |
+| EXECUTE NOW | Closing line starts with `EXECUTE NOW` and restates DONE WHEN        |
 
 ## Full
 
-Standard checks plus cross-platform support:
+Standard checks plus build tooling:
 
-| Check | Pass criteria |
-|-------|---------------|
-| POSIX section | Code block with `bash` or `sh` fence under Build heading |
-| PowerShell fallback | `powershell` code block or heading containing "PowerShell" / "Windows" |
-| PowerShell content | PowerShell blocks contain `.exe` or `cargo build` (not POSIX pasted in) |
-| Platforms | `## Platforms` heading with Windows mentioned in the section body |
+| Check             | Pass criteria                                                 |
+|-------------------|---------------------------------------------------------------|
+| Build step        | Steps include a build command (`cargo build` or equivalent)   |
+| Platform coverage | Steps cover each OS in `platforms:` (or all three if absent)  |
 
 ## Status Levels
 

@@ -16,20 +16,8 @@ Narrow a skill's `allowed-tools` frontmatter to the tools the workflow actually 
 3. Start from zero. Add only the tools the workflow actually uses.
 4. Prefer read-only scope (`Read`, `Grep`, `Glob`) over write or exec when the workflow allows.
 5. If the skill invokes shell commands, grant `Bash` but note the expected command family in a comment or the description.
-6. Write the result as a comma-separated list in the frontmatter.
-
-### Evidence required per tool
-
-| Tool     | Grant only if the skill...           |
-| -------- | ------------------------------------ |
-| Read     | reads a file                         |
-| Grep     | searches file contents               |
-| Glob     | enumerates file paths                |
-| Edit     | modifies an existing file            |
-| Write    | creates or overwrites a file         |
-| Bash     | invokes shell commands               |
-| Skill    | composes other skills as build steps |
-| WebFetch | retrieves remote content over HTTP   |
+6. Grant `Skill` only when the workflow composes other skills as build steps.
+7. Write the result as a comma-separated list in the frontmatter.
 
 ### Constraints
 

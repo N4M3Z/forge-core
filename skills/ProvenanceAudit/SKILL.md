@@ -7,16 +7,27 @@ allowed-tools: Bash, Read, Grep, Glob
 
 # ProvenanceAudit
 
-Operational procedures for auditing `.provenance/` sidecars in forge deployments and source repos. Complements [ProvenanceVerification][PROV] (what provenance means) and [CrossProviderAssembly][ASM] (how assembly rewrites sidecars).
+Operational procedures for auditing `.provenance/` sidecars in forge deployments and source repos. `forge provenance` checks deployment integrity: it reads sidecar SLSA attestations, compares the recorded SHA-256 digest against the deployed file content, and reports per-module verification rates. Complements [NoVendorLockIn][ASM] (how assembly rewrites sidecars).
+
+## Manifest vs provenance
+
+The two records answer different questions:
+
+- **Provenance**: "what produced this file?"
+- **Manifest**: "was this deployed file modified since we last put it there?"
+
+The manifest is created when files land at the target, whether via `forge deploy` (from `build/`) or `forge copy` (direct from source). It lives at the target as a `.manifest` dotfile.
+
+Provenance lives at two layers. Source-side `.provenance/` records adoption (`adopt/v1`): upstream URL, pinned commit, transform skills applied. Build-side `build/<provider>/.provenance/` records assembly (`assemble/v1`), regenerated on every install.
 
 ## Audit a deployed target
 
-`forge provenance` expects a deployed provider directory (`~/.claude`, `~/.opencode`, `~/.codex`, `~/.gemini`) — the deploy sidecars it reads are written by `forge install` in `assemble/v1` form. Running it against a source module (`forge provenance .` inside a repo) reports every subject as orphan, because source sidecars use `adopt/v1` or `init/v1` buildTypes that the audit reader doesn't resolve.
+`forge provenance` expects a deployed provider directory (`~/.claude`, `~/.opencode`, `~/.codex`, `~/.gemini`) — the deploy sidecars it reads are written by `forge install` in `assemble/v1` form. Running it against a source module (`forge provenance` inside a repo, where `--target` defaults to `.`) reports every subject as orphan, because source sidecars use `adopt/v1` or `init/v1` buildTypes that the audit reader doesn't resolve.
 
 ```sh
-forge provenance ~/.claude                  # audit user-scope deployment
-forge provenance ~/.claude --show-orphans   # include unverified files
-forge provenance ~/.claude --json           # machine-readable output
+forge provenance --target ~/.claude                  # audit user-scope deployment
+forge provenance --target ~/.claude --show-orphans   # include unverified files
+forge provenance --target ~/.claude --json           # machine-readable output
 ```
 
 Per-module results look like:
@@ -29,12 +40,23 @@ forge-text                           → ✗ 21/22 verified
 
 A `✗` means at least one deployed file's digest doesn't match its sidecar — either a post-deploy edit or a tamper. Diff the deployed file against `build/<provider>/<path>` to identify what drifted.
 
+## Compare two trees
+
+`forge drift` compares any two directories containing markdown content: modules, build output, or deployed targets.
+
+```sh
+forge drift --upstream ~/upstream-module                 # source (defaults to .) vs upstream
+forge drift --source build/claude --upstream ~/.claude   # assembled vs deployed
+```
+
+Do not compare source against deployed content directly. Assembly transforms (frontmatter stripping, heading removal) always show as drift; compare `build/<provider>` against the target instead.
+
 ## Trace an adoption chain
 
 Deployed sidecars carry the `assemble/v1` buildType with a single input (the source file). The richer `adopt/v1` sidecar — with upstream URL, pinned commit, AdoptArtifact reference, and transform-skill digests — exists only in the source repo.
 
 ```sh
-cat agents/.provenance/CodeReviewer.yaml
+cat agents/.provenance/SkillReviewer.yaml
 # resolvedDependencies:
 #   - name: upstream
 #     uri: https://raw.githubusercontent.com/...
@@ -43,8 +65,6 @@ cat agents/.provenance/CodeReviewer.yaml
 #     uri: forge-core/skills/AdoptArtifact/SKILL.md
 #     digest: sha256:...
 ```
-
-Never expect the deployed sidecar to carry this — assembly strips it by design ([CrossProviderAssembly][ASM]).
 
 ## Clean stale deployments after a rename
 
@@ -68,17 +88,6 @@ Renaming a skill, agent, or transform that appears as a `resolvedDependencies` e
 ```sh
 # Find all sidecars that reference the old name as a dependency
 rg -l "name: OldName" --glob "**/.provenance/*.yaml"
-
-# Update in bulk — reuse a known-good new digest
-find . -name "*.yaml" -path "*.provenance*" | while read -r f; do
-    if grep -q "name: OldName" "$f"; then
-        sed -i '' \
-            -e 's|name: OldName|name: NewName|g' \
-            -e 's|skills/OldName/SKILL\.md|skills/NewName/SKILL.md|g' \
-            -e 's|<old-digest>|<new-digest>|g' \
-            "$f"
-    fi
-done
 ```
 
 Before calling a rename complete, grep every checked-out forge module repo for the old name — sidecars in sibling modules are the most-missed targets.
@@ -89,12 +98,9 @@ Before calling a rename complete, grep every checked-out forge module repo for t
 
 - File was added manually (bypassing `forge install`) — reinstall or delete
 - Sidecar naming mismatch — forge expects `<basename>.yaml` but some writers produce `<basename>.md.yaml` (see [forge-cli#31][CLI31])
-- Provider-specific discovery gap — `.codex` deployments may report "No provenance found" despite sidecars present (see [forge-cli#29][CLI29])
 
 Known forge-cli limitations: `adopt/v1` sidecars aren't rendered by the CLI (schema mismatch on `externalParameters.source` — see [forge-cli#30][CLI30]). For those, `cat` the YAML directly.
 
-[PROV]: ../../rules/ProvenanceVerification.md
-[ASM]: ../../rules/CrossProviderAssembly.md
-[CLI29]: https://github.com/N4M3Z/forge-cli/issues/29
+[ASM]: ../../rules/NoVendorLockIn.md
 [CLI30]: https://github.com/N4M3Z/forge-cli/issues/30
 [CLI31]: https://github.com/N4M3Z/forge-cli/issues/31

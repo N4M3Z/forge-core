@@ -14,13 +14,13 @@ Take a source rule or prompt set and adapt it for a target repo that consumes th
 
 3. For each source rule, decide relevance to the target:
 
-    | Rule type                                                                                                                | Action                                              |
-    | ------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------- |
-    | Generic development (KeepChangelog, KeepCodeowners, UseRTK, GitConventions, LessIsMore, PlatformAgnostic, SanitizeData)  | Port; these apply to any repo                       |
-    | Module-specific (ChooseLicense, MakefileFirst, AuthorInModules, CanonSidecar, SkillNaming)                                | Skip unless the target is a forge module            |
-    | Forge-branded (ContextualNaming)                                                                                          | Skip; meta-rule about adaptation itself             |
-    | Provider-specific (CodexAgents, GeminiAgents, AgentTeams)                                                                 | Port only if the target uses agents                 |
-    | Memory/tooling (MemoryFiles, KnownIssues, ShellAliases)                                                                   | Port only if relevant to the target's stack         |
+    | Rule type                                                                                             | Action                                      |
+    | ----------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+    | Generic development (KeepChangelog, KeepCodeowners, UseRTK, GitConventions, LessIsMore, SanitizeData) | Port; these apply to any repo               |
+    | Module-specific (ChooseLicense, MakefileFirst, AuthorInModules, SkillNaming)                          | Skip unless the target is a forge module    |
+    | Forge-branded (ContextualNaming)                                                                      | Skip; meta-rule about adaptation itself     |
+    | Provider-specific (AgentStructure, ClaudePluginStructure)                                             | Port only if the target uses agents         |
+    | Memory/tooling (MemoryFiles, KnownIssues, ShellAliases)                                               | Port only if relevant to the target's stack |
 
 4. For each rule being ported, apply these transformations:
 

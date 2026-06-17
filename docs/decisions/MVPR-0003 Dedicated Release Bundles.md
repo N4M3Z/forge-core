@@ -8,10 +8,11 @@ tags:
     - deployment
 status: proposed
 created: 2026-03-16
-updated: 2026-03-30
+updated: 2026-06-11
 author: "@N4M3Z"
 project: forge-core
-related: []
+related:
+    - "PROV-0005 Qualifier Directories for Model Targeting.md"
 responsible: ["@N4M3Z"]
 accountable: ["@N4M3Z"]
 consulted: []
@@ -42,6 +43,8 @@ releases/
     forge-core-gemini-v0.6.0.tar.gz
     forge-core-opencode-v0.6.0.tar.gz
 ```
+
+Where model-level qualifier variants exist ([PROV-0005](PROV-0005%20Qualifier%20Directories%20for%20Model%20Targeting.md)), the release matrix extends per model: one bundle per provider and model ID, assembled with `--model <model-id>` and archived as `<module>-<provider>-<model>-v<version>.tar.gz`. A bundle built without `--model` uses base resolution. The bundle's `.manifest` records the target provider and model, so integrity checks also verify which model variant a deployment received.
 
 Each bundle contains:
 

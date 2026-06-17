@@ -33,15 +33,6 @@ When modifying code in an area governed by an ADR, re-read the ADR and verify it
 
 @user/ContextKeeper.md
 
-## Workflow Routing
-
-| Workflow     | Trigger                                             | Section                                |
-| ------------ | --------------------------------------------------- | -------------------------------------- |
-| **Find**     | "list ADRs", "show decisions", "what did we decide" | [Find Workflow](#find-workflow)         |
-| **Create**   | "create ADR", "new ADR", "write ADR"                | [Create Workflow](#create-workflow)     |
-| **Validate** | "validate ADR", "check ADR", "lint ADR"             | [Validate Workflow](#validate-workflow) |
-| **Capture**  | Post-compaction prompt, "capture ADRs from session"  | [Capture Workflow](#capture-workflow)   |
-
 ## ADR Conventions
 
 ### Placement
@@ -82,8 +73,6 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
     | 0001 | Adopt Architecture Decision Records | accepted | 2026-03-02 |
     ```
 
-    Extract title from frontmatter `title:` field, status and date from `status:` and `created:`.
-
 3. When asked about a specific topic, search ADR titles and content for relevant keywords. Read and summarize matching ADRs with: Context, Decision, Consequences, Status.
 
 ---
@@ -104,7 +93,7 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
     - **Contradiction**: reverses an existing decision — create with `accepted`, mark old `superseded`.
     - **Complementary**: genuinely different ground — proceed, add cross-references.
 
-6. Use the `$ADR_TEMPLATE` (default `templates/structured-madr.md`). Fill in all frontmatter fields and body sections. Write to the ADR directory.
+6. Use the `$ADR_TEMPLATE` (default `templates/forge-adr.md`). Fill in all frontmatter fields and body sections. Write to the ADR directory.
 
 7. Set status to `proposed` unless the decision is already confirmed — then set `accepted`.
 
@@ -116,7 +105,7 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
 
 1. If a file path was provided, validate that file. Otherwise, ask which ADR to validate or validate the entire ADR directory.
 
-2. Run frontmatter schema validation against `$ADR_SCHEMA` (default `templates/structured-madr.json`). Use the first available tool:
+2. Run frontmatter schema validation against `$ADR_SCHEMA` (default `templates/forge-adr.json`). Use the first available tool:
 
     a. `structured-madr` local checkout at `~/Data/Developer/zircote/structured-madr`:
     ```sh
@@ -147,23 +136,21 @@ Never modify an accepted ADR's decision text. To revise, create a new ADR and ma
 
 Triggered post-compaction or by the user asking to capture decisions from the current session.
 
-1. If ContextKeeper MCP is available, query `search_archive` for additional session context that may have been compressed away.
+1. Review the current conversation context for architectural decisions. Look for: technology choices, pattern adoptions, convention changes, structural refactors, trade-off evaluations with explicit reasoning.
 
-2. Review the current conversation context for architectural decisions. Look for: technology choices, pattern adoptions, convention changes, structural refactors, trade-off evaluations with explicit reasoning.
+2. For each identified decision, run the Create workflow. Set status to `accepted` if the decision was confirmed during the session, `proposed` if it was discussed but not finalized.
 
-3. For each identified decision, run the Create workflow. Set status to `accepted` if the decision was confirmed during the session, `proposed` if it was discussed but not finalized.
-
-4. If no architectural decisions are found, report that and exit.
+3. If no architectural decisions are found, report that and exit.
 
 ---
 
 ## Constraints
 
-- Never modify an accepted ADR's decision text — create a new ADR and mark old as superseded
 - `$ADR_DIRECTORY` must contain `$ADR_MDSCHEMA` when it exists — scaffold it if missing
 - Status must be set at creation — never leave it blank
 - Always search multiple common locations before concluding no ADRs exist
 - Include links to related ADRs when decisions are connected
+- An ADR records the decision and its rationale, not implementation status. No transient or current-state prose ("currently", "we just enabled it on N repos", "verified on this repo", session counts, dates of execution). State the decision in the timeless present. Session status, verification results, and what-was-done-today belong in journals, commit messages, or the backlog — never the ADR.
 
 ## Sources
 

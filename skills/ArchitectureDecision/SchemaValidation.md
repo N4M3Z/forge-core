@@ -15,10 +15,10 @@ Use the fork of [structured-madr validator][FORK] — the upstream validator enf
 
 ### 1. structured-madr local checkout
 
-Clone [structured-madr][MADR] to `~/Data/Developer/zircote/structured-madr` and use its npm validator:
+Clone the [fork][FORK] to `~/Data/Developer/zircote/structured-madr` and use its npm validator:
 
 ```sh
-git clone https://github.com/zircote/structured-madr.git ~/Data/Developer/zircote/structured-madr
+git clone https://github.com/N4M3Z/structured-madr.git ~/Data/Developer/zircote/structured-madr
 cd ~/Data/Developer/zircote/structured-madr && npm ci
 ```
 
@@ -44,7 +44,7 @@ npx ajv validate -s templates/forge-adr.json -d docs/decisions/*.md
 ### 4. GitHub Action (CI)
 
 ```yaml
-- uses: zircote/structured-madr@main
+- uses: N4M3Z/structured-madr@main
   with:
       path: docs/decisions
       schema: templates/forge-adr.json

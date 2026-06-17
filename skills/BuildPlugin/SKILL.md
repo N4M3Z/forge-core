@@ -16,6 +16,7 @@ Create, validate, and publish forge modules as Claude Code plugins. Covers plugi
 | **Create**    | "create plugin", "add plugin.json"             | Instructions below   |
 | **Validate**  | "validate plugin", "check marketplace readiness" | Instructions below |
 | **Marketplace** | "add to marketplace", "publish to cowork"    | @ClaudeMarketplace   |
+| **Structure** | "plugin layout", "auto-discovery", "bin PATH", "plugin env vars" | @ClaudePlugin |
 
 ## Create plugin.json
 
@@ -74,8 +75,6 @@ Verdict: READY / NOT READY
 
 ## Constraints
 
-- Plugin names must be lowercase kebab-case
-- Version in plugin.json and module.yaml must match
 - Never publish a module that fails validation
 
 ## Sources

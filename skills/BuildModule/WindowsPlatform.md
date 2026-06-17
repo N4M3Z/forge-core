@@ -15,9 +15,9 @@ If staying in PowerShell:
 
 ```powershell
 $env:PATH = "$env:USERPROFILE\.cargo\bin;$env:PATH"
-forge install --provider claude --scope workspace
-forge install --provider codex --scope workspace
-forge install --provider opencode --scope workspace
+forge install --provider claude
+forge install --provider codex
+forge install --provider opencode
 ```
 
 ## Notes

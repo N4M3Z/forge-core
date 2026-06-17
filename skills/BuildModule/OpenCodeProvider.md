@@ -12,18 +12,6 @@ opencode init
 
 OpenCode will not overwrite an existing `AGENTS.md`. It also falls back to reading `CLAUDE.md` if `AGENTS.md` is absent (disableable via env var).
 
-## Update
-
-To regenerate after changes, rename the existing file first, then diff:
-
-```bash
-command mv AGENTS.md AGENTS.md.bak
-opencode init
-diff AGENTS.md.bak AGENTS.md
-```
-
-Review the diff. Keep manual additions from `.bak` that the generator missed. Remove the `.bak` when satisfied.
-
 ## Configuration
 
 OpenCode uses `opencode.json` (JSON/JSONC) at project root or `~/.config/opencode/opencode.json` global. Supports an `instructions` array with glob patterns for additional instruction files.
@@ -49,4 +37,4 @@ OpenCode follows the [Agent Skills](https://agentskills.io) standard. Skills liv
 | `PreCompact` | `experimental.session.compacting` | Context injection via `output.context.push()` |
 | `PreToolUse` | No equivalent | Skills-only in OpenCode |
 
-Modules with lifecycle hooks need a TypeScript plugin adapter at `.opencode/plugins/<module>.ts`. See `Core/docs/OpenCodeModuleCompatibility.md` for the adapter template.
+Modules with lifecycle hooks need a TypeScript plugin adapter at `.opencode/plugins/<module>.ts`.

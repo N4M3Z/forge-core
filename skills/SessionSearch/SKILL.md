@@ -21,14 +21,6 @@ followed by a blank line, then the content.
 - Apply the header to the **first response of the invocation only.** Do not re-print it on follow-up turns within the same invocation (e.g. after the user answers a clarifying question).
 - Do **not** include the header on error or early-exit responses (e.g. "CLI not installed", "authentication required", "no matches"). The header's presence should signal that the skill ran and produced real output.
 
-## When to Use
-
-- The user asks things like "have we done this before?", "search past work", "find the previous implementation", or "look for checkpoints about X"
-- You need prior context from another branch, repo, author, or recent time period
-- You want likely matches first, then a deeper transcript read only for the best hit
-
-Do not use this for the current active session. Use SessionHandoff for that.
-
 ## Process
 
 1. Run a focused search with JSON output so results are easy to inspect — primary command and filter syntax in [@Entire.md](Entire.md). Add filters when the user already gave them or when the first search is too broad.
@@ -37,13 +29,12 @@ Do not use this for the current active session. Use SessionHandoff for that.
 
 ## Search Heuristics
 
-- Start with the user's domain terms, feature name, error text, file name, or ticket ID
-- Prefer narrower searches before increasing the result limit
 - Scope the repository explicitly when it matters (single repo or all repos)
 - If there are no useful hits, broaden in this order: remove branch filter, widen date, simplify query terms
 
 ## Failure Modes
 
 - If search says authentication is required, tell the user to log in (see [@Entire.md](Entire.md))
+- If login is not an option (offline, sessions not pushed), read the local checkpoint refs directly — layout and commands in [@LocalCheckpoints.md](LocalCheckpoints.md)
 - If there are no matches, say that clearly and mention the filters or query terms you tried
 - If the user really wants the current session, switch to SessionHandoff instead of searching checkpoints

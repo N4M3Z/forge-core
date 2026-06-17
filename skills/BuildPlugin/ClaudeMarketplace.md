@@ -10,6 +10,14 @@ A marketplace is a GitHub repo with `.claude-plugin/marketplace.json` at the roo
 
 **Cowork** (organizational plugin management) clones the marketplace repo with plain `git clone`. It does not run `--recursive` or resolve remote source URLs. Only plugins physically present as directories inside the marketplace repo are visible to Cowork. Submodules resolve to empty directories and fail silently.
 
+### Cowork Hook Limitation
+
+Cowork silently drops all plugin hooks. The CLI is spawned with `--setting-sources user`, which excludes plugin-scoped hook discovery ([GitHub #27398][ISSUE]). All hook types (command, prompt, agent) are affected, and no error is surfaced. Skills, agents, and MCP servers work in Cowork.
+
+Any behavior that must work in Cowork cannot rely on hooks. Ship it as a rule (always loaded) or a skill (user-invoked) instead.
+
+[ISSUE]: https://github.com/anthropics/claude-code/issues/27398
+
 ### Prerequisites
 
 - Module passes BuildPlugin validation
@@ -55,20 +63,7 @@ These source types work in the Claude Code CLI but are not visible to Cowork:
 
 ### Plugin Auto-Discovery
 
-Claude Code auto-discovers these directories from a plugin:
-
-| Directory        | Loaded when                            |
-| ---------------- | -------------------------------------- |
-| `skills/`        | User invokes or Claude matches         |
-| `agents/`        | User selects or Claude delegates       |
-| `hooks/`         | Event fires (SessionStart, PreToolUse) |
-| `commands/`      | Legacy name for skills                 |
-| `output-styles/` | Output formatting                      |
-| `.mcp.json`      | MCP server definitions                 |
-| `.lsp.json`      | LSP server definitions                 |
-| `settings.json`  | Default agent settings                 |
-
-**Not discovered: `rules/`, `CLAUDE.md`, `memory/`.** These only load from project-level (`.claude/`) and user-level (`~/.claude/`) paths. See PluginContextInjection rule for the workaround.
+Auto-discovered directories, the `rules/` gap, and the SessionStart `additionalContext` workaround are covered by [ClaudePlugin.md](ClaudePlugin.md).
 
 ### Plugin Requirements
 
@@ -94,7 +89,3 @@ Cannot use: `claude-code-marketplace`, `claude-code-plugins`, `claude-plugins-of
 ### Verify Sync
 
 After pushing, trigger sync in Cowork: Settings > Plugins > Sync marketplace. The plugin should appear in the available plugins list.
-
-[COWORK]: https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization
-[MARKETPLACE]: https://code.claude.com/docs/en/plugin-marketplaces
-[PLUGINS-REF]: https://code.claude.com/docs/en/plugins-reference
