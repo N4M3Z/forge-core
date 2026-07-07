@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
-- `docs/decisions/ARCH-0015 Rendered Design Review.md` — proposes a capture-agnostic `DesignReview` skill that verifies built UI against the `DesignPrinciples` canon from rendered artifacts (screenshot + axe-core JSON), owning the review contract rather than a browser
+- `skills/DesignReview/SKILL.md` — capture-agnostic reviewer that verifies built UI against the `DesignPrinciples` canon from rendered artifacts (screenshot + axe-core JSON per state and viewport); hard numbers come only from axe, and axe `incomplete` or absent states report not-verified rather than pass
+- `docs/decisions/ARCH-0015 Rendered Design Review.md` — records the decision to own the review contract rather than a browser, delegating capture to a tool such as a Playwright MCP
 - `skills/DesignPrinciples/SKILL.md` — canonical cross-cutting design canon (durable foundations, WCAG-anchored hard checks, advisory non-failing thresholds), `disable-model-invocation` so it serves as a reference the other design skills cite rather than an invocable skill
 - `skills/DesignDashboard/SKILL.md` — data-UI design discipline (density, state completeness, chart-to-data-shape matching, progressive disclosure) for dashboards, admin panels, and analytics views, distinct from `DesignFrontend`'s aesthetic scope
 - `skills/BashConventions/` + `BashPatterns.md` companion — Bash pitfalls (BSD vs GNU, `set -euo pipefail` traps, subprocess env) relocated from forge-dev

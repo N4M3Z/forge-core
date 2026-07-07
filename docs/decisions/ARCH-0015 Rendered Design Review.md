@@ -8,9 +8,9 @@ tags:
     - design
     - review
     - accessibility
-status: proposed
+status: accepted
 created: 2026-07-07
-updated: 2026-07-07
+updated: 2026-07-08
 author: "@N4M3Z"
 project: forge-core
 related: []
