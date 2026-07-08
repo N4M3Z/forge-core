@@ -23,6 +23,25 @@ max-cache-ttl 86400
 
 `gpg-agent` discovers the YubiKey OpenPGP slot on first signing operation and prompts for the PIN via pinentry-mac. Touch the YubiKey when the LED blinks.
 
+## Batch re-signing: the `-c` config leak
+
+You land in a re-signing rewrite when commits were authored under an email that does not match the signing key, so they never show Verified despite being signed. jj (and a freshly-initialized submodule's git) authors under whatever `user.email` its own config carries; if that is not the key's email, every commit is a future re-author. Prevent it: set `user.email` to the signing key's email in every colocated repo and every submodule level before the first commit. The rewrite below is the recovery for when you didn't.
+
+When rewriting history and re-signing each commit (identity fix, email change), the natural pattern is to disable signing for the rebase replay and sign once per commit in the exec step:
+
+```sh
+git -c commit.gpgsign=false rebase --root --force-rebase \
+    --exec 'git commit --amend --no-edit -S'
+```
+
+The `-S` is load-bearing. `git -c` exports the override through `GIT_CONFIG_PARAMETERS`, which every child process inherits, including the exec'd `git commit`. Without an explicit `-S`, the amend sees `commit.gpgsign=false` and silently produces unsigned commits: the rebase succeeds, no PIN or touch prompt ever appears, and `git log --format='%h %G?'` shows `N` on every commit. The absence of hardware prompts during a signing rebase is the tell.
+
+The command-line `-S` outranks the inherited config, so the replay picks stay unsigned (no wasted hardware touches) and each amend signs exactly once. Verify after any batch rewrite:
+
+```sh
+git log --format='%h %G? %ae %s'    # expect G on every line
+```
+
 ## SSH with FIDO2 (alternative)
 
 Configure git to sign with an `sk-ssh-ed25519` (FIDO2/U2F) key:
