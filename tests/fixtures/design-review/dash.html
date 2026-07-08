@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test Dashboard</title>
+<style>
+    :root {
+        --bg: #ffffff;
+        --fg: #1a1a1a;
+        --muted: #4b5563;
+        --accent: #0f5132;
+        --card: #f3f4f6;
+        --border: #d1d5db;
+    }
+    * { margin: 0; box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--fg); }
+    .layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+    nav { background: #111827; color: #e5e7eb; padding: 16px 8px; }
+    nav a { display: block; color: #e5e7eb; text-decoration: none; padding: 12px 16px; border-radius: 6px; margin-bottom: 4px; min-height: 44px; display: flex; align-items: center; gap: 8px; }
+    nav a.active { background: #374151; font-weight: 600; }
+    main { padding: 24px; }
+    h1 { font-size: 20px; margin-bottom: 16px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+    .card .label { font-size: 12px; color: var(--muted); }
+    .card .value { font-size: 28px; font-weight: 700; margin-top: 4px; }
+    .chart { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; min-height: 180px; }
+    .bar { display: inline-block; width: 32px; background: var(--accent); margin-right: 8px; vertical-align: bottom; }
+    button { min-width: 44px; min-height: 44px; padding: 8px 16px; border-radius: 6px; border: 1px solid var(--border); background: var(--accent); color: #fff; cursor: pointer; }
+    .state-panel { padding: 32px; text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+    .state-panel p { color: var(--muted); margin: 8px 0 16px; }
+    .skeleton { height: 20px; border-radius: 4px; background: #e5e7eb; margin: 8px 0; animation: none; }
+    .error-msg { color: #991b1b; font-weight: 600; }
+
+    /* seeded defects, active only for variant=bad */
+    body.bad .card .label { color: #c9ccd1; }                 /* contrast violation vs #f3f4f6 card */
+    body.bad button { min-width: 18px; min-height: 18px; padding: 2px 4px; font-size: 10px; } /* tiny targets */
+    body.bad .mini { width: 18px; height: 18px; min-width: 18px; min-height: 18px; padding: 0; margin-right: 2px; font-size: 9px; } /* clustered tiny targets */
+    @media (max-width: 480px) { .layout { grid-template-columns: 1fr; } nav { display: flex; overflow-x: auto; } }
+</style>
+</head>
+<body>
+<div class="layout">
+    <nav aria-label="Main">
+        <a href="#" class="active" id="nav-overview"><span class="icon" aria-hidden="true">●</span> Overview</a>
+        <a href="#"><span class="icon" aria-hidden="true">▲</span> Reports</a>
+        <a href="#"><span class="icon" aria-hidden="true">■</span> Settings</a>
+    </nav>
+    <main>
+        <h1>Fleet Telemetry</h1>
+        <div id="content"></div>
+    </main>
+</div>
+<script>
+    const params = new URLSearchParams(location.search);
+    const state = params.get('state') || 'default';
+    const variant = params.get('variant') || 'good';
+    if (variant === 'bad') {
+        document.body.classList.add('bad');
+        // defect: emoji icons instead of icon set
+        document.querySelectorAll('.icon').forEach((el, i) => el.textContent = ['🚀','📊','⚙️'][i]);
+    }
+    const content = document.getElementById('content');
+    const views = {
+        default: `
+            <div class="cards">
+                <div class="card"><div class="label">Active units</div><div class="value">1,284</div></div>
+                <div class="card"><div class="label">Uptime</div><div class="value">99.2%</div></div>
+                <div class="card"><div class="label">Alerts</div><div class="value">7</div></div>
+            </div>
+            <div class="chart" role="img" aria-label="Weekly throughput bar chart">
+                <div class="bar" style="height:60px"></div><div class="bar" style="height:90px"></div>
+                <div class="bar" style="height:75px"></div><div class="bar" style="height:120px"></div>
+                <div class="bar" style="height:100px"></div>
+            </div>
+            <p style="margin-top:16px"><button type="button">Export report</button>
+                <span class="toolbar"><button type="button" class="mini" aria-label="Refresh">R</button><button type="button" class="mini" aria-label="Filter">F</button><button type="button" class="mini" aria-label="More">M</button></span></p>`,
+        empty: `
+            <div class="state-panel">
+                <h2>No telemetry yet</h2>
+                <p>Connect your first unit to start receiving data.</p>
+                <button type="button">Connect a unit</button>
+            </div>`,
+        loading: `
+            <div class="state-panel" aria-busy="true" aria-live="polite">
+                <div class="skeleton" style="width:40%"></div>
+                <div class="skeleton" style="width:70%"></div>
+                <div class="skeleton" style="width:55%"></div>
+            </div>`,
+        error: `
+            <div class="state-panel" role="alert">
+                <h2 class="error-msg">Telemetry unavailable</h2>
+                <p>The data service did not respond. Your units are unaffected.</p>
+                <button type="button">Retry</button>
+            </div>`
+    };
+    content.innerHTML = views[state] || views.default;
+</script>
+</body>
+</html>

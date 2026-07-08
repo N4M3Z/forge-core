@@ -1,0 +1,83 @@
+{
+  "target": "baddash",
+  "state": "default",
+  "viewport": "desktop",
+  "url": "file:///private/tmp/claude-501/-Users-psvihra-forge/382595d0-8fd9-4975-980f-1f7d9e4d8988/scratchpad/dr-verify/dash.html?state=default&variant=bad",
+  "violations": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": [
+        {
+          "target": [
+            ".card:nth-child(1) > .label"
+          ],
+          "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.46 (foreground color: #c9ccd1, background color: #f3f4f6, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            ".card:nth-child(2) > .label"
+          ],
+          "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.46 (foreground color: #c9ccd1, background color: #f3f4f6, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        },
+        {
+          "target": [
+            ".card:nth-child(3) > .label"
+          ],
+          "summary": "Fix any of the following:\n  Element has insufficient color contrast of 1.46 (foreground color: #c9ccd1, background color: #f3f4f6, font size: 9.0pt (12px), font weight: normal). Expected contrast ratio of 4.5:1"
+        }
+      ]
+    },
+    {
+      "id": "target-size",
+      "impact": "serious",
+      "help": "All touch targets must be 24px large, or leave sufficient space",
+      "nodes": [
+        {
+          "target": [
+            "button[aria-label=\"Refresh\"]"
+          ],
+          "summary": "Fix any of the following:\n  Target has insufficient size (18px by 18px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
+        },
+        {
+          "target": [
+            "button[aria-label=\"Filter\"]"
+          ],
+          "summary": "Fix any of the following:\n  Target has insufficient size (18px by 18px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
+        },
+        {
+          "target": [
+            "button[aria-label=\"More\"]"
+          ],
+          "summary": "Fix any of the following:\n  Target has insufficient size (18px by 18px, should be at least 24px by 24px)\n  Target has insufficient space to its closest neighbors. Safe clickable space has a diameter of 16px instead of at least 24px."
+        }
+      ]
+    }
+  ],
+  "incomplete": [],
+  "passes": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-deprecated-role",
+    "aria-hidden-body",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-required-attr",
+    "aria-roles",
+    "aria-valid-attr-value",
+    "aria-valid-attr",
+    "avoid-inline-spacing",
+    "button-name",
+    "bypass",
+    "color-contrast",
+    "document-title",
+    "html-has-lang",
+    "html-lang-valid",
+    "link-name",
+    "meta-viewport",
+    "nested-interactive",
+    "role-img-alt",
+    "target-size"
+  ]
+}

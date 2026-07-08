@@ -29,10 +29,12 @@ Capture is delegated, not bundled. Produce the artifacts with a tool the environ
 1. **Discover** the artifacts (Glob the capture directory) and confirm which states and viewports exist.
 2. **Hard checks come only from the axe JSON**, never from the image. Map rule results to `DesignPrinciples` checks:
 
-    | axe rule        | DesignPrinciples check          | WCAG        |
-    | --------------- | ------------------------------- | ----------- |
-    | `color-contrast`| text contrast ≥ 4.5:1           | §1.4.3      |
-    | `target-size`   | touch target ≥ 24px             | §2.5.8      |
+    | axe rule        | DesignPrinciples check                            | WCAG        |
+    | --------------- | ------------------------------------------------- | ----------- |
+    | `color-contrast`| text contrast ≥ 4.5:1                             | §1.4.3      |
+    | `target-size`   | touch target ≥ 24px or the spacing exception      | §2.5.8      |
+
+    Note on `target-size`: WCAG 2.5.8 exempts undersized targets whose center is ≥ 24px from every adjacent target's center. An isolated small button passes legitimately; a pass is "meets 2.5.8", not "all targets are 24px". Flag sub-44px targets only as advisory (AAA preference), never as a fail when axe passes.
 
     A rule in axe's `violations` is a verified-fail. A rule in `passes` is a verified-pass. A rule in `incomplete` (contrast over a gradient, image, or transformed node, or an unresolved background) is not-verified, never a pass.
 3. **Judge the screenshots** for what a number cannot capture: structure before style, the anti-slop tells, and whether each state actually renders its job (an empty state with context and guidance, a real loading treatment, a recoverable error).
@@ -45,12 +47,14 @@ One finding per issue, each tagged and citing the principle:
 
 | Field    | Values                                          |
 | -------- | ----------------------------------------------- |
-| verdict  | `verified-fail` / `verified-pass` / `not-verified` |
+| verdict  | `verified-fail` / `verified-pass` / `judgment-fail` / `not-verified` |
 | target   | target, state, viewport                         |
 | check    | the `DesignPrinciples` check or foundation      |
 | evidence | axe rule id, or what the screenshot shows        |
 
-Lead with verified-fails, then not-verified gaps. A review that verified only the happy path says so.
+`verified-*` is reserved for axe-backed findings. Screenshot judgments (structure, anti-slop, state quality, color-never-alone) use `judgment-fail` — real findings, but a human can overrule them without contradicting a spec.
+
+Lead with verified-fails, then judgment-fails, then not-verified gaps. A review that verified only the happy path says so.
 
 ## Red Flags
 
