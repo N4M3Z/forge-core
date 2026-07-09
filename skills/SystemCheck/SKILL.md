@@ -1,6 +1,6 @@
 ---
 name: SystemCheck
-description: "Check the forge ecosystem for staleness — installed skills vs source, binary freshness, lib consistency, version drift, submodule pointers, hook config. USE WHEN stale, freshness, out of date, check staleness, need to rebuild, make install needed, system check."
+description: "Check the forge ecosystem for staleness — installed skills vs source, binary freshness, lib consistency, version drift, submodule pointers, hook config, install-source freshness vs trunk. USE WHEN stale, freshness, out of date, check staleness, need to rebuild, make install needed, install reverted merged changes, system check."
 version: 0.1.0
 ---
 
@@ -8,11 +8,11 @@ version: 0.1.0
 
 Quick diagnostic that answers: "is everything current, or do I need to `make install`?"
 
-Checks six staleness vectors across the forge ecosystem and produces a pass/fail summary with actionable fixes.
+Checks the staleness vectors across the forge ecosystem and produces a pass/fail summary with actionable fixes.
 
 ## Companion Script
 
-`system-check.sh` in this skill directory implements all six checks. Run it first:
+`system-check.sh` in this skill directory implements the scripted checks. Run it first:
 
 ```bash
 bash "${FORGE_MODULE_ROOT:-Modules/forge-core}/skills/SystemCheck/system-check.sh"
@@ -68,6 +68,10 @@ Compare the parent repo's recorded submodule pointer against each submodule's ac
 Read `.claude/settings.json` and verify all expected dispatch events are present:
 
 `SessionStart`, `PreToolUse`, `PostToolUse`, `Stop`, `PreCompact`, `UserPromptSubmit`, `SubagentStop`, `SessionEnd`, `Notification`
+
+### Check 7: Install-Source Freshness
+
+For each module, compare the working copy's merge base against its trunk: `jj log -r 'heads(::@ & ::main@origin)'` in jj repos, `git merge-base HEAD origin/main` vs `git rev-parse origin/main` in git repos (after a fetch). A working copy behind `main@origin` means `make install` deploys pre-merge content and silently reverts changes that already landed on main: rules a merged PR deleted come back, trimmed files fatten again. Fix: rebase the working copy onto `main@origin` (resolving conflicts), then reinstall.
 
 ## Fixes Reference
 

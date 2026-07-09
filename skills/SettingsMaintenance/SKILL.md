@@ -56,6 +56,19 @@ Run these regardless of which subskill is active:
 | **Plugin enable/disable conflict** | Global disables a plugin but project re-enables it (or vice versa)                        |
 | **Redundant local file**           | At global level, `settings.local.json` entries that already exist in `settings.json`      |
 
+## Auto mode policy
+
+`permissions.defaultMode: "auto"` routes every tool call through an AI classifier that blocks anything irreversible, destructive, or aimed outside the trusted environment. Configure that classifier with the `autoMode` block, whose entries are prose natural-language rules, not tool patterns:
+
+- `autoMode.environment`: trusted infrastructure (repos, buckets, domains, local services)
+- `autoMode.soft_deny`: destructive actions, blocked unless the user's explicit, specific intent clears them
+- `autoMode.hard_deny`: unconditional boundaries, intent and allow exceptions do not apply
+- `autoMode.allow`: exceptions to soft blocks
+
+Precedence: hard_deny > soft_deny > allow > explicit intent. Include the literal `"$defaults"` in any list to keep built-in rules. The classifier also reads CLAUDE.md. Validate with `claude auto-mode config` and `claude auto-mode critique`.
+
+This is the soft, AI-judged layer; the hard layer is `permissions.deny` (before the classifier, unoverridable) and command-guard hooks. `permissions.allow`/`deny`/`ask` use structured `Tool(specifier)` syntax, not prose.
+
 ## Sources
 
 - <https://docs.anthropic.com/en/docs/claude-code>

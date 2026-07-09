@@ -88,6 +88,6 @@ Stage the corrective change. If the change is in a git-tracked module, offer to 
 ## Constraints
 
 - Never skip Phase 2. The user invoked this skill because the same class of mistake should not happen again. A fix without a corrective change is half the job.
-- The corrective change describes current behavior, not the history of the mistake (per StartFresh).
+- The corrective change describes current behavior, not the history of the mistake (per PresentTense and NoBackstory).
 - Read the artifact before editing. The root-cause search produces a hypothesis; verify it by reading the actual file before modifying.
 - One corrective change per invocation. If the search surfaces multiple issues, fix the one that caused this specific mistake. File the rest as observations, not edits.
