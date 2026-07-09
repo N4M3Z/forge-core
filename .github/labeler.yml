@@ -1,0 +1,29 @@
+skills:
+    - changed-files:
+          - any-glob-to-any-file: skills/**
+
+rules:
+    - changed-files:
+          - any-glob-to-any-file: rules/**
+
+agents:
+    - changed-files:
+          - any-glob-to-any-file: agents/**
+
+hooks:
+    - changed-files:
+          - any-glob-to-any-file:
+                - hooks/**
+                - .githooks/**
+
+templates:
+    - changed-files:
+          - any-glob-to-any-file: templates/**
+
+docs:
+    - changed-files:
+          - any-glob-to-any-file: docs/**
+
+ci:
+    - changed-files:
+          - any-glob-to-any-file: .github/**
