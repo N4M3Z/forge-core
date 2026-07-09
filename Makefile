@@ -26,7 +26,7 @@ validate:
 	@bash .githooks/pre-push
 
 release:
-	$(FORGE) release .
+	$(FORGE) release
 
 clean:
 	rm -rf build/
