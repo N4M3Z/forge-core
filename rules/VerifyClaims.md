@@ -12,4 +12,8 @@ When an agent returns assertions about file existence or constraint compliance (
 
 Counts that subagents report ("12 files verified", "3 sidecars updated") violate [NoItemCounts][NIC] and are unreliable besides. If one slips through, recompute it yourself with `ls | wc -l`, `rg -c`, or equivalent before citing it. The specialist's count is a proposal; your recount is the fact.
 
+Before claiming a tool "can't do X" or "has no analog for Y", check the tool's own config schema or `--help`, not docs or memory: config keys (sandbox modes, network allowlists, hook tables) are easy to miss, and the absence claim is what misleads. A sub-agent's summary of a doc is a proposal, not the source: when it contradicts a confident user or the decision is load-bearing, fetch and read the primary doc yourself before concluding.
+
+Comparative claims about a third party (a competitor's product, "X beats Y", a rival's limits) must cite that party's primary or binding source, not aggregator or comparison portals — portals are routinely stale or wrong, and one adversarial pass against the primary source overturns many of them. Name the specific subject and read its authoritative document before asserting the comparison, especially where the claim is regulated or published.
+
 [NIC]: NoItemCounts.md
