@@ -6,7 +6,7 @@ description: "Execute an implementation plan inline — task by task in a single
 
 # ExecutePlan
 
-Execute a WritePlan output in the current session, one task at a time, then land the result. This is the sequential alternative to DeveloperSprint (parallel agents). Use ExecutePlan for smaller plans or when tasks have sequential dependencies.
+Execute a Plan task-list output in the current session, one task at a time, then land the result. This is the sequential alternative to DeveloperSprint (parallel agents). Use ExecutePlan for smaller plans or when tasks have sequential dependencies.
 
 1. **Load the plan** — read the plan file from `docs/plans/`
 2. **Critical review** — before starting, check: are tasks ordered correctly? Are dependencies satisfied? Any gaps? If issues found, fix the plan first or ask the user.

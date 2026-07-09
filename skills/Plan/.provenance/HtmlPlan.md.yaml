@@ -1,0 +1,51 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: skills/Plan/HtmlPlan.md
+          digest:
+              sha256: 278c88381220fa3345542a6bd58ad8bcaadf56b810cbc951eaade56e89ba30c3
+        - name: skills/Plan/template.html
+          digest:
+              sha256: 18357f57af8660be8a61254b86a6b8a2cdb739fb6752c88728b00f6954eb23ad
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://forge-cli/adopt/v1
+            externalParameters:
+                upstream_url: https://github.com/anthropics/claude-plugins-official/tree/main/plugins/project-artifact
+            resolvedDependencies:
+                - name: upstream-skill
+                  uri: claude-plugins-official/plugins/project-artifact/skills/project-artifact/SKILL.md
+                  digest:
+                      sha256: 5417e25c920250af113b8e3fe7bf749be71a5d32769a0120e61cd4be8e0ff54f
+                - name: upstream-template
+                  uri: claude-plugins-official/plugins/project-artifact/skills/project-artifact/template.html
+                  digest:
+                      sha256: 467b8ec1ad799591e099012711e072352395c0b897029200661e852374be9764
+                - name: upstream-swe
+                  uri: claude-plugins-official/plugins/project-artifact/skills/project-artifact/swe.md
+                  digest:
+                      sha256: 396b7cfa9c99b78b44326cf4add4f7ac8e07d07d76c56697b84b44197c77b4ce
+                - name: exemplar-render
+                  uri: https://claude.ai/code/artifact/9eec5595-1c33-425f-a608-e14bf78c7629
+                  digest:
+                      sha256: fc0cf5da809dcf3ba224550c827c70e5fd6a88d5aa32519622f6705394380bb0
+                - name: dashboard-style
+                  uri: forge-cli/static/dashboard/dashboard.css
+                - name: annotate-vocabulary
+                  uri: forge-cli/static/dashboard/annotate.js
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
+                  digest:
+                      sha256: 9dd33f5bb58579c93784d9a7b1f098d87d8c0b05c6e47c0942a6e30e96159bf8
+                - name: RefinePrompt
+                  uri: forge-core/skills/RefinePrompt/SKILL.md
+                  digest:
+                      sha256: d04d2610148eb9ec2589cd521f1214b6a11d033600335c0295f2fc7a472ca87c
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.2
+            metadata:
+                startedOn: 2026-07-06T01:15:58Z
