@@ -9,6 +9,6 @@ permissions:
 
 jobs:
     release:
-        uses: N4M3Z/forge-cli/.github/workflows/module-release.yaml@main
+        uses: N4M3Z/forge-cli/.github/workflows/module-release.yaml@v0.3.2
         permissions:
             contents: write
