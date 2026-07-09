@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Added
 
 - `skills/GuardRails/DestructiveCommandGuard.md` companion (dcg block anatomy and workarounds), `skills/IncrementalEdits/` (revise files as reviewable hunks), `skills/SessionSearch/LocalCheckpoints.md`; updates to SettingsMaintenance, SystemCheck, Wtf, ProvenanceAudit, and the ProvenanceAuditor agent
+- `skills/InitProject/` — `project` / `atlas` shell functions that scaffold a workshop project spine (git + jj colocate + entire + forge hooks, private/public/assets flow, `.tlp` manifest, vault-mounted `.claude/`) with on-demand satellites (vault folder-note, `~/Data` domain-path mirror granted to agent sessions, private remote). Config in `~/.config/forge/project.yaml` with `FORGE_*` per-shell overrides; `project init` renders `CLAUDE.md.tmpl` into each project's brief
 - `skills/BashConventions/` + `BashPatterns.md` companion — Bash pitfalls (BSD vs GNU, `set -euo pipefail` traps, subprocess env) relocated from forge-dev
 - `skills/VersionControl/GitWorktrees.md` — companion covering parallel feature work via `git worktree`, with SLSA provenance (adapted from [davila7/claude-code-templates](https://github.com/davila7/claude-code-templates) MIT under EUPL-1.2)
 - `VersionControl` now serves as the canonical home for git conventions and platform-specific repo governance (absorbing the retired forge-dev `Git` skill). forge-dev's `GitHub` skill remains distinct — it covers CI, Actions, releases, and operational `gh` workflows

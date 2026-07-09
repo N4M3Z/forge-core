@@ -1,0 +1,421 @@
+# project — find-or-create + scaffold workshop projects under ~/Agents.
+# Autoloaded via `autoload -Uz` from ~/.zshrc: this file body IS the function.
+# Canonical source: forge-core/skills/InitProject; config: ~/.config/forge/project.yaml.
+#
+#   project                          zoxide popup (jump to a recent project)
+#   project <slug>                   find-or-create + cd  (init on create)
+#   project create [owner/]<slug>    new workshop; flags: --note [Domain], --work [Org],
+#                                    --data [Domain], --remote, --all
+#   project init [dir]               (re)scaffold a dir — idempotent; the retrofit tool
+#   project note [<slug>] [Domain]   vault folder-note satellite (default: current project)
+#   project data [<slug>] [Domain]   ~/Data mirror of the note's domain-path
+#   project remote [<slug>]          private GitHub remote + origin wiring
+#   project open <slug>              cd + zed -n .
+#   project archive <slug>           move to <archive>/<owner>/<slug>
+#   project list                     list workshop projects
+#   project ~/abs/path               cd there, creating if missing
+
+emulate -L zsh
+
+# ---- config (~/.config/forge/project.yaml; FORGE_* env vars override) ----
+local cfg="${XDG_CONFIG_HOME:-$HOME/.config}/forge/project.yaml"
+local workshop owner archive vault work data mount githooks def_domain developer documents
+local -a excludes
+if [[ -r $cfg ]] && (( $+commands[yq] )); then
+    workshop=$(yq -r '.workshop // ""' -- "$cfg" 2>/dev/null)
+    owner=$(yq -r '.owner // ""' -- "$cfg" 2>/dev/null)
+    archive=$(yq -r '.archive // ""' -- "$cfg" 2>/dev/null)
+    vault=$(yq -r '.vault // ""' -- "$cfg" 2>/dev/null)
+    work=$(yq -r '.work // ""' -- "$cfg" 2>/dev/null)
+    data=$(yq -r '.data // ""' -- "$cfg" 2>/dev/null)
+    mount=$(yq -r '.mount // ""' -- "$cfg" 2>/dev/null)
+    githooks=$(yq -r '.githooks // ""' -- "$cfg" 2>/dev/null)
+    def_domain=$(yq -r '.defaults.domain // ""' -- "$cfg" 2>/dev/null)
+    developer=$(yq -r '.developer // ""' -- "$cfg" 2>/dev/null)
+    documents=$(yq -r '.documents // ""' -- "$cfg" 2>/dev/null)
+    excludes=("${(@f)$(yq -r '.exclude[]?' -- "$cfg" 2>/dev/null)}")
+fi
+workshop=${FORGE_WORKSHOP:-$workshop}
+owner=${FORGE_OWNER:-$owner}
+archive=${FORGE_ARCHIVE:-$archive}
+vault=${FORGE_VAULT:-$vault}
+work=${FORGE_WORK:-$work}
+data=${FORGE_DATA:-$data}
+mount=${FORGE_MOUNT:-$mount}
+githooks=${FORGE_GITHOOKS:-$githooks}
+def_domain=${FORGE_DOMAIN:-$def_domain}
+developer=${FORGE_DEVELOPER:-$developer}
+documents=${FORGE_DOCUMENTS:-$documents}
+[[ -n $workshop ]] || workshop="$HOME/Agents"
+[[ -n $owner ]] || owner=$USER
+[[ -n $archive ]] || archive="$workshop/archive"
+[[ -n $developer ]] || developer="$HOME/Developer"
+[[ -n $documents ]] || documents="$HOME/Documents"
+workshop=${workshop/#\~/$HOME}; archive=${archive/#\~/$HOME}
+vault=${vault/#\~/$HOME}; work=${work/#\~/$HOME}; data=${data/#\~/$HOME}
+mount=${mount/#\~/$HOME}; githooks=${githooks/#\~/$HOME}
+developer=${developer/#\~/$HOME}; documents=${documents/#\~/$HOME}
+
+# ---- helpers ----
+_proj_title() { local s=${1//[-_]/ }; print -r -- "${(C)s}" }
+_proj_track() { (( $+commands[zoxide] )) && zoxide add "$PWD" }
+_proj_now() { date -u '+%Y-%m-%d %H:%M UTC' }
+
+# split [owner/]slug -> REPLY_OWNER, REPLY_SLUG
+_proj_split() {
+    if [[ $1 == */* ]]; then
+        REPLY_OWNER=${1%%/*}; REPLY_SLUG=${1#*/}
+    else
+        REPLY_OWNER=$owner; REPLY_SLUG=$1
+    fi
+}
+
+# owner/slug of the project containing $PWD (fails if not in the workshop)
+_proj_current() {
+    [[ $PWD == $workshop/*/* ]] || return 1
+    local rel=${PWD#$workshop/}
+    print -r -- "${rel%%/*}/${${rel#*/}%%/*}"
+}
+
+# resolve [owner/]slug -> REPLY=workshop path (existing casing reused); RESOLVED=1 if on disk
+_proj_resolve() {
+    local child
+    _proj_split "$1"
+    local base=$workshop/$REPLY_OWNER
+    for child in $base/*(/N); do
+        [[ "${(L)${child:t}//[-_ ]/}" == "${(L)REPLY_SLUG//[-_ ]/}" ]] && { REPLY=$child; RESOLVED=1; return }
+    done
+    REPLY=$base/$REPLY_SLUG
+    [[ -d $REPLY ]] && RESOLVED=1 || RESOLVED=0
+}
+
+# idempotent scaffold: every step skips what already exists
+_proj_init() {
+    local dir=${1:-$PWD}
+    [[ -d $dir ]] || mkdir -p -- "$dir"
+    builtin cd -- "$dir" || return 1
+    local title=$(_proj_title "${dir:t}")
+
+    [[ -d .git ]] || git init -q -b main
+    (( $+commands[jj] )) && [[ ! -d .jj ]] && JJ_EDITOR=true jj git init --colocate >/dev/null 2>&1
+    if [[ -n $githooks && -d $githooks && ! -d .githooks ]]; then
+        command cp -R -- "$githooks" .githooks && git config core.hooksPath .githooks
+    fi
+    if (( $+commands[entire] )) && [[ ! -d .entire ]]; then
+        entire enable --agent claude-code --no-github >/dev/null 2>&1
+        entire agent add codex >/dev/null 2>&1
+    fi
+
+    [[ -f .gitignore ]] || print -l -- 'dist/' '.DS_Store' '.specstory/history/' > .gitignore
+    local d
+    for d in private public assets docs/todos; do
+        [[ -d $d ]] || { mkdir -p -- "$d"; command touch "$d/.gitkeep" }
+    done
+
+    if [[ ! -f .tlp ]]; then
+        print -r -- 'AMBER:
+  - "private/**"
+
+GREEN:
+  - "public/**"
+  - "assets/**"
+  - "docs/**"
+
+CLEAR:
+  - ".tlp"
+  - "CLAUDE.md"
+  - "AGENTS.md"
+  - "README.md"' > .tlp
+    fi
+
+    local brief
+    local template=${FORGE_CLAUDE_TEMPLATE:-${XDG_CONFIG_HOME:-$HOME/.config}/forge/CLAUDE.md.tmpl}
+    if [[ -r $template ]]; then
+        brief=$(<"$template")
+        local key value
+        for key value in title "$title" owner "$owner" \
+            workshop "${workshop/#$HOME/~}" archive "${archive/#$HOME/~}" \
+            vault "${vault/#$HOME/~}" mount "${mount/#$HOME/~}" \
+            data "${data/#$HOME/~}" developer "${developer/#$HOME/~}" \
+            documents "${documents/#$HOME/~}"; do
+            brief=${brief//"{{$key}}"/$value}
+        done
+    else
+        brief="# $title
+
+> Brief: TODO
+
+Workshop spine (git, jj, and entire live here). Flow: \`private/\` holds unpublished
+inputs and work in progress, \`public/\` the deliverables, \`assets/\` publishable media;
+\`.tlp\` maps the TLP levels. Knowledge graduates to Atlas, deliverables to ~/Documents.
+Never delete this folder — that orphans the git/jj/entire history and resumable sessions."
+    fi
+    [[ -f CLAUDE.md ]] || print -r -- "$brief" > CLAUDE.md
+    [[ -f AGENTS.md ]] || print -r -- "$brief" > AGENTS.md
+
+    # Mount the vault + shape defaults. Merge (not overwrite): `entire enable`
+    # above may already have written .claude/settings.json with its hooks.
+    mkdir -p .claude
+    local settings=.claude/settings.json
+    if [[ -n $mount ]] && (( $+commands[jq] )); then
+        local -a deny_paths; local x
+        for x in $excludes; do deny_paths+=("Read($mount/$x/**)"); done
+        local deny_json='[]'
+        (( ${#deny_paths} )) && deny_json=$(print -rl -- "${deny_paths[@]}" | jq -R . | jq -s .)
+        [[ -f $settings ]] || print -- '{}' > $settings
+        local temp=$settings.tmp.$$
+        if jq --arg m "$mount" --argjson denies "$deny_json" '
+                .permissions.additionalDirectories = ((.permissions.additionalDirectories // []) + [$m] | unique)
+                | .permissions.deny = ((.permissions.deny // []) + $denies | unique)
+                | .model = (.model // "opus")
+                | .defaultMode = (.defaultMode // "default")
+            ' "$settings" > "$temp" && command mv -- "$temp" "$settings"; then
+            :
+        else
+            command rm -f -- "$temp"
+            print -u2 "project: could not merge vault mount into $settings"
+        fi
+    elif [[ -n $mount && ! -f $settings ]]; then
+        local denies="" x
+        for x in $excludes; do denies+="\"Read($mount/$x/**)\", "; done
+        denies=${denies%, }
+        print -r -- "{
+  \"permissions\": {
+    \"additionalDirectories\": [\"$mount\"],
+    \"deny\": [$denies]
+  },
+  \"model\": \"opus\",
+  \"defaultMode\": \"default\"
+}" > "$settings"
+    fi
+    print -- "project: initialized $PWD"
+}
+
+# vault folder-note satellite: <root>/<Domain-or-Org>/<Title>/<Title>.md
+_proj_note() {
+    local slug=$1 domain=$2 root=${3:-$vault}
+    [[ -n $root ]] || { print -u2 "project note: no vault root configured"; return 1 }
+    [[ -n $domain ]] || domain=$def_domain
+    [[ -n $domain ]] || { print -u2 "project note: no Domain given and no defaults.domain"; return 1 }
+    _proj_split "$slug"
+    local title=$(_proj_title "$REPLY_SLUG")
+    local folder=$root/$domain/$title
+    local note=$folder/$title.md
+    [[ -f $note ]] && { print -- "project: note exists: $note"; return 0 }
+    mkdir -p -- "$folder"
+    local now=$(_proj_now)
+    print -r -- "---
+title: $title
+aliases: []
+tags:
+  - lang/en
+  - schema/project
+  - type/project
+keywords: []
+description:
+collection: \"[[Projects]]\"
+icon: LiWaypoints
+image: Project.svg
+cssclasses:
+created: $now
+updated: $now
+related: []
+upstream:
+reviewed: false
+sources:
+  - ~/${workshop#$HOME/}/$REPLY_OWNER/$REPLY_SLUG
+project.status:
+  - active
+project.priority:
+  - Medium
+project.deadline:
+project.owner:
+project.team: []
+project.weight:
+project.metrics: []
+---
+
+![[Assets.base]]
+
+---
+
+![[Project.base#Resources]]
+
+---
+![[Project.base#Events]]
+
+\`\`\`tasks
+not done
+path includes ${root:t}/$domain/$title
+limit 20
+\`\`\`
+
+## Work log
+" > "$note"
+    print -- "project: note created: $note"
+}
+
+# grant the project's agent sessions access to a dir: upsert into
+# .claude/settings.json permissions.additionalDirectories
+_proj_grant() {
+    local proj=$1 dir=$2
+    (( $+commands[jq] )) || { print -u2 "project: jq not installed; add $dir to $proj/.claude/settings.json additionalDirectories manually"; return 1 }
+    local file=$proj/.claude/settings.json
+    mkdir -p -- "$proj/.claude"
+    if [[ ! -f $file ]]; then
+        if jq -n --arg d "$dir" '{permissions: {additionalDirectories: [$d]}}' > "$file"; then
+            print -- "project: granted $dir in .claude/settings.json"
+        else
+            command rm -f -- "$file"
+            print -u2 "project: could not write $file"
+            return 1
+        fi
+        return 0
+    fi
+    jq -e --arg d "$dir" '(.permissions.additionalDirectories // []) | index($d) != null' "$file" >/dev/null 2>&1 && return 0
+    local temp=$file.tmp.$$
+    if jq --arg d "$dir" '.permissions.additionalDirectories = ((.permissions.additionalDirectories // []) + [$d])' "$file" > "$temp" &&
+        command mv -- "$temp" "$file"; then
+        print -- "project: granted $dir in .claude/settings.json"
+    else
+        command rm -f -- "$temp"
+        print -u2 "project: could not update $file"
+        return 1
+    fi
+}
+
+# ~/Data mirrors the vault tree one-for-one (DataWorkingLayer): the data dir
+# shares the note's <domain-path>, e.g. Technology/Zed or Work/LBG/report.
+# The path is granted to the project's agent sessions so re-running is the retrofit.
+_proj_data() {
+    local slug=$1 domain=$2 prefix=$3
+    [[ -n $data ]] || { print -u2 "project data: no data root configured"; return 1 }
+    [[ -n $domain ]] || domain=$def_domain
+    [[ -n $domain ]] || { print -u2 "project data: no Domain given and no defaults.domain"; return 1 }
+    _proj_split "$slug"
+    local title=$(_proj_title "$REPLY_SLUG")
+    local dir=$data/${prefix:+$prefix/}$domain/$title
+    if [[ -d $dir ]]; then
+        print -- "project: data exists: $dir"
+    else
+        mkdir -p -- "$dir"
+        print -- "project: data created: $dir"
+    fi
+    _proj_resolve "$slug"
+    (( RESOLVED )) || return 0
+    _proj_grant "$REPLY" "$dir"
+}
+
+_proj_remote() {
+    local slug=$1
+    (( $+commands[gh] )) || { print -u2 "project remote: gh not installed"; return 1 }
+    _proj_split "$slug"
+    _proj_resolve "$slug"
+    (( RESOLVED )) || { print -u2 "project remote: no such project: $slug"; return 1 }
+    builtin cd -- "$REPLY"
+    git remote get-url origin >/dev/null 2>&1 && { print -- "project: origin already set"; return 0 }
+    gh repo create "$REPLY_OWNER/$REPLY_SLUG" --private --source . --remote origin &&
+        print -- "project: remote created: $REPLY_OWNER/$REPLY_SLUG (private)"
+}
+
+# ---- dispatch ----
+local REPLY_OWNER REPLY_SLUG REPLY RESOLVED
+case $1 in
+    help|-h|--help)
+        print -- "project [<slug> | create [owner/]<slug> [--note [D]] [--work [O]] [--data [D]] [--remote] [--all]"
+        print -- "         | init [dir] | note [<slug>] [Domain] | data [<slug>] [Domain] | remote [<slug>]"
+        print -- "         | open <slug> | archive <slug> | list | <path>]"
+        return 0 ;;
+    list|ls)
+        local o p
+        for o in $workshop/*(/N); do
+            [[ $o == $archive ]] && continue
+            for p in $o/*(/N); do print -- "${o:t}/${p:t}"; done
+        done
+        return 0 ;;
+    init)  shift; _proj_init "$1"; return ;;
+    create)
+        shift
+        local slug="" want_note=0 want_data=0 want_remote=0 note_domain="" note_root="" data_prefix=""
+        while (( $# )); do
+            case $1 in
+                --all)    want_note=1; want_data=1; want_remote=1 ;;
+                --note)   want_note=1; [[ -n $2 && $2 != --* ]] && { note_domain=$2; shift } ;;
+                --work)   want_note=1; note_root=$work; data_prefix=Work
+                          [[ -n $2 && $2 != --* ]] && { note_domain=$2; shift } ;;
+                --data)   want_data=1; [[ -n $2 && $2 != --* ]] && { note_domain=$2; shift } ;;
+                --remote) want_remote=1 ;;
+                *)        slug=$1 ;;
+            esac
+            shift
+        done
+        [[ -n $slug ]] || { print -u2 "usage: project create [owner/]<slug> [flags]"; return 1 }
+        _proj_resolve "$slug"
+        _proj_init "$REPLY" || return 1
+        (( want_note ))   && _proj_note "$slug" "$note_domain" "${note_root:-$vault}"
+        (( want_data ))   && _proj_data "$slug" "$note_domain" "$data_prefix"
+        (( want_remote )) && _proj_remote "$slug"
+        _proj_track
+        (( $+commands[zed] )) && zed -n .
+        return 0 ;;
+    note)
+        shift
+        local s
+        if [[ -n $1 && $1 != --* ]] && { _proj_resolve "$1" } && (( RESOLVED )); then
+            s=$1; shift
+        else
+            s=$(_proj_current) || { print -u2 "project note: give a slug or run inside a project"; return 1 }
+        fi
+        _proj_note "$s" "$1"
+        return ;;
+    data)
+        shift
+        local s
+        if [[ -n $1 ]] && { _proj_resolve "$1" } && (( RESOLVED )); then
+            s=$1; shift
+        else
+            s=$(_proj_current) || { print -u2 "project data: give a slug or run inside a project"; return 1 }
+        fi
+        _proj_data "$s" "$1" ""
+        return ;;
+    remote)
+        shift
+        local s=${1:-$(_proj_current)}
+        [[ -n $s ]] || { print -u2 "project remote: give a slug or run inside a project"; return 1 }
+        _proj_remote "$s"
+        return ;;
+    open)
+        shift
+        _proj_resolve "${1:?usage: project open <slug>}"
+        (( RESOLVED )) || { print -u2 "project open: no such project: $1"; return 1 }
+        builtin cd -- "$REPLY" && _proj_track
+        (( $+commands[zed] )) && zed -n .
+        return 0 ;;
+    archive)
+        shift
+        _proj_resolve "${1:?usage: project archive <slug>}"
+        (( RESOLVED )) || { print -u2 "project archive: no such project: $1"; return 1 }
+        _proj_split "$1"
+        mkdir -p -- "$archive/$REPLY_OWNER"
+        command mv -- "$REPLY" "$archive/$REPLY_OWNER/" &&
+            print -- "project: archived to $archive/$REPLY_OWNER/${REPLY:t}"
+        return ;;
+esac
+
+# no arg -> zoxide popup
+if [[ -z $1 ]]; then
+    local pick; pick=$(zoxide query -i 2>/dev/null) && builtin cd -- "$pick" && _proj_track
+    return
+fi
+# explicit path -> cd, create if missing
+if [[ $1 == (/|'~')* ]]; then
+    local p=${1/#\~/$HOME}; [[ -d $p ]] || mkdir -p -- "$p"
+    builtin cd -- "$p" && _proj_track; return
+fi
+# bare slug -> find-or-create (init when newly created)
+_proj_resolve "$1"
+if (( RESOLVED )); then
+    builtin cd -- "$REPLY" && _proj_track
+else
+    _proj_init "$REPLY" && _proj_track
+fi
