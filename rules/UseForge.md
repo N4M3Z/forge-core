@@ -6,6 +6,8 @@ A skill directory deploys its whole tree: `SKILL.md` is assembled (frontmatter s
 
 `forge install` re-assembles from source on every run; add `--force` to also overwrite user-modified deployed files.
 
+`forge install` prunes deployed rules/skills/agents that are absent from `--source` (quarantined to `<target>/.trash/`). A forge module is often a jj repo with several workspaces sharing one backend, and content can live in a sibling workspace, not the one you install from, which then prunes it. Before installing, check `jj workspace list` and `jj log` for content in other workspaces (`git worktree list` does NOT show jj workspaces); install from the working copy that holds the complete module, consolidate first, or pass `--no-prune`.
+
 `--target ~` deploys to user scope (`~/.claude/`, `~/.codex/`, etc.). The flag sets the base directory for provider directories. `--target ~/.claude` is wrong — it nests `~/.claude/.claude/`.
 
 In CI, install forge via the composite action: `uses: N4M3Z/forge-cli/.github/actions/setup-forge@main`. Supports version pinning (`version: v0.3.0`), caching, and platform detection.
