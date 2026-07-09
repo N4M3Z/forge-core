@@ -1,19 +1,24 @@
 ---
-name: BuildSkill
+name: ForgeSkill
 version: 0.1.0
-description: "Create and validate skills for forge modules. USE WHEN create skill, new skill, write skill, validate skill, check skill, skill structure, skill conventions."
+description: "Create, validate, evaluate, and iterate skills for forge modules. USE WHEN create skill, new skill, write skill, validate skill, check skill, skill structure, skill conventions, test a skill, run skill evals, benchmark a skill, skill not triggering, optimize skill description. Not for adopting community skills (AdoptArtifact) or shipping artifacts downstream (PublishArtifact)."
+upstream: https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md
 ---
 
-# BuildSkill
+# ForgeSkill
 
-Create and validate skills following forge conventions. Skills are markdown files (`SKILL.md`) with YAML frontmatter that teach AI coding tools new capabilities. Load only the companion relevant to the current task.
+Create, validate, evaluate, and iterate skills following forge conventions. Skills are markdown files (`SKILL.md`) with YAML frontmatter that teach AI coding tools new capabilities. Load only the companion relevant to the current task.
+
+The evaluation machinery (grader/comparator/analyzer prompts, eval scripts, browser viewer) lives in `agents/`, `scripts/`, `references/`, `eval-viewer/`, and `assets/`. Scripts run with `python -m scripts.<name>` from this skill's directory (`${CLAUDE_SKILL_DIR}` when deployed). The files under `agents/` are worker prompt templates this skill feeds to generic subagents during the eval loop, not standalone agent definitions; harness-discoverable agents belong in the module-level `agents/` directory.
 
 ## Workflow Routing
 
-| Workflow     | Trigger                                          | Companion                                         |
-| ------------ | ------------------------------------------------ | ------------------------------------------------- |
-| Create       | "create a skill", "new skill", "write a skill"   | [@CreateWorkflow.md](CreateWorkflow.md)             |
-| Validate     | "validate skill", "check skill structure"        | [@ValidateWorkflow.md](ValidateWorkflow.md)         |
+| Workflow           | Trigger                                                      | Companion                                                 |
+| ------------------ | ------------------------------------------------------------ | --------------------------------------------------------- |
+| Create             | "create a skill", "new skill", "write a skill"               | [@CreateWorkflow.md](CreateWorkflow.md)                     |
+| Validate           | "validate skill", "check skill structure"                    | [@ValidateWorkflow.md](ValidateWorkflow.md)                 |
+| Evaluate           | "test this skill", "run skill evals", "benchmark the skill"  | [@EvalLoop.md](EvalLoop.md)                                 |
+| Optimize triggering | "skill doesn't trigger", "improve the skill description"     | [@DescriptionOptimization.md](DescriptionOptimization.md)  |
 
 ## Topics
 
@@ -27,6 +32,7 @@ Create and validate skills following forge conventions. Skills are markdown file
 | User-config schema for AI-first artifacts (autoMode mirror) | [@UserConfigSchema.md](UserConfigSchema.md)                |
 | Claude-only features: `@` refs, skill discovery, `allowed-tools` | [@ClaudeSkill.md](ClaudeSkill.md)              |
 | When to author a per-skill INSTALL.md                       | [@SkillInstallation.md](SkillInstallation.md)              |
+| Eval JSON structures (evals.json, grading.json, benchmark.json) | [@references/schemas.md](references/schemas.md)        |
 
 ## Red Flags
 
@@ -41,6 +47,8 @@ Create and validate skills following forge conventions. Skills are markdown file
 | "Put a `!` injection in a companion file"                | `!` runs only in the SKILL.md body; in a companion it renders as literal text. See [@ClaudeSkill.md](ClaudeSkill.md). |
 | "Inject a secret value with `!` (e.g. `pass show`)"      | Injection lands in the transcript. Inject structure/status (names, vault list), never secret values. |
 | "It ran in my sandbox, so the probe is done"             | Your sandbox has tooling (uv, personal paths, aliases) the target machine lacks — resolve interpreters at preflight and assume a clean environment. |
+| "I'll write custom HTML to show eval results"            | `eval-viewer/generate_review.py` already renders outputs and benchmarks. Use it.      |
+| "The skill passed its three evals, ship it"              | A handful of examples overfits. Generalize the fix; don't patch the skill to the test set. |
 
 ## Constraints
 
@@ -49,6 +57,7 @@ Create and validate skills following forge conventions. Skills are markdown file
 - PascalCase for multi-word skill names, natural case for single words
 - Skill directory name must match the `name:` field
 - Prefer one SKILL.md per skill — extract reference material into companion files when body exceeds ~150 lines or contains dense static data
+- Eval artifacts land in `<skill-name>-workspace/` as a sibling of the skill directory, never inside the skill
 
 ## Sources
 
