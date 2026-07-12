@@ -1,0 +1,27 @@
+{
+  "target": "baddash",
+  "state": "empty",
+  "viewport": "desktop",
+  "url": "file:///private/tmp/claude-501/-Users-psvihra-forge/382595d0-8fd9-4975-980f-1f7d9e4d8988/scratchpad/dr-verify/dash.html?state=empty&variant=bad",
+  "violations": [],
+  "incomplete": [],
+  "passes": [
+    "aria-allowed-attr",
+    "aria-conditional-attr",
+    "aria-hidden-body",
+    "aria-hidden-focus",
+    "aria-prohibited-attr",
+    "aria-valid-attr-value",
+    "aria-valid-attr",
+    "button-name",
+    "bypass",
+    "color-contrast",
+    "document-title",
+    "html-has-lang",
+    "html-lang-valid",
+    "link-name",
+    "meta-viewport",
+    "nested-interactive",
+    "target-size"
+  ]
+}
