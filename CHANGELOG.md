@@ -15,6 +15,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Changed
 
+- `skills/WritePlan/`, `skills/BuildPlan/`, and `skills/HtmlPlan/` merged into `skills/Plan/` — a router `SKILL.md` with `TaskPlan.md` (task-list planning), `ReviewPlan.md` (reviewable-artifact loop), and `HtmlPlan.md` (rendering, with `template.html`) companions; provenance sidecars moved alongside. Brainstorming and DesignSpec hand-offs now point at Plan; ExecutePlan stays separate
 - `skills/AdoptArtifact/SKILL.md` — removed the 3–5 initial cap and the skills-only restriction; agents are now eligible for adoption
 - `skills/ForgeAdopt/` renamed to `skills/AdoptArtifact/` for brand-neutral naming
 - `skills/RefinePrompt/` consolidates the former Prompt cluster (`AlignPrompt`, `DebrandPrompt`, `ExtractPrompt`, `MinimizePrompt`, `RescopePrompt`, `AdaptPrompts`) into one skill with six companions. Adoption sidecars collapse the per-transform `resolvedDependencies` entries to a single `RefinePrompt` SHA pin.

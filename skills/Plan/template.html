@@ -1,0 +1,432 @@
+<title>PLAN TITLE — Plan Review</title>
+<style>
+/* forge-cli dashboard design language (static/dashboard/dashboard.css tokens) */
+:root {
+    --bg: #0a0f1a;
+    --surface: #121a2a;
+    --surface2: #1a2438;
+    --surface3: #243149;
+    --border: #2a3a56;
+    --border-strong: #3e5177;
+    --text: #e8ecf4;
+    --text-dim: #a1aec5;
+    --muted: #7a879f;
+    --dim: #8b97ad;
+    --accent: #5b8def;
+    --accent-soft: #1e3a7a44;
+    --green: #44b77a;
+    --amber: #e0a94a;
+    --red: #e15555;
+    --purple: #a374e0;
+    --mono: 'SF Mono', 'Cascadia Code', 'JetBrains Mono', Menlo, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', system-ui, sans-serif;
+    --radius: 6px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: var(--sans); background: var(--bg); color: var(--text);
+    font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code, pre, .mono { font-family: var(--mono); }
+code { background: var(--surface2); border: 1px solid var(--border); border-radius: 3px; padding: 0 5px; font-size: .86em; }
+pre {
+    background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 12px 14px; overflow-x: auto; font-size: 12.5px; line-height: 1.55; margin: 12px 0;
+}
+pre code { background: none; border: none; padding: 0; font-size: inherit; }
+
+.summary-bar {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; align-items: center; gap: 1.2rem; flex-wrap: wrap;
+    padding: 0.6rem 1.2rem; background: var(--surface); border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+.summary-bar .brand { font-weight: 600; font-size: 14px; }
+.summary-bar .brand .v { font-family: var(--mono); font-size: 11.5px; color: var(--muted); margin-left: 6px; }
+.summary-bar .spacer { flex: 1; }
+.summary-bar .count { font-family: var(--mono); font-weight: 600; margin-right: 0.2rem; }
+.count-issue { color: var(--red); }
+.count-suggestion { color: var(--amber); }
+.count-note { color: var(--accent); }
+.count-praise { color: var(--green); }
+.tcount { color: var(--text-dim); }
+button {
+    font-family: var(--sans); font-size: 12.5px; cursor: pointer;
+    background: var(--surface2); color: var(--text); border: 1px solid var(--border);
+    border-radius: 4px; padding: 5px 12px; transition: background .1s, border-color .1s;
+}
+button:hover { background: var(--surface3); border-color: var(--border-strong); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.primary { background: var(--accent-soft); border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+main { max-width: 860px; margin: 0 auto; padding: 28px 20px 25vh; }
+.page-eyebrow {
+    font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--dim); margin: 40px 0 6px;
+}
+h1 { font-size: 26px; line-height: 1.2; letter-spacing: -0.015em; margin: 4px 0 4px; text-wrap: balance; }
+h2 {
+    font-size: 17px; font-weight: 600; margin: 26px 0 8px; padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--border); text-wrap: balance;
+}
+h3 { font-size: 14.5px; margin: 16px 0 6px; }
+.sub { color: var(--muted); font-size: 13px; margin-bottom: 6px; }
+p { margin: 9px 0; color: var(--text-dim); }
+p strong, li strong { color: var(--text); }
+ul, ol { margin: 8px 0; padding-left: 22px; color: var(--text-dim); }
+li { margin: 4px 0; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); margin: 12px 0; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 7px 11px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--text-dim); }
+tr:last-child td { border-bottom: none; }
+th { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); font-weight: 700; background: var(--surface2); }
+td:first-child { white-space: nowrap; font-weight: 600; color: var(--text); }
+.chip {
+    display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em;
+    text-transform: uppercase; font-weight: 700; border-radius: 3px; padding: 1px 7px;
+    vertical-align: 2px; margin-left: 8px; background: rgba(255,255,255,0.05);
+}
+.chip.done { color: var(--green); border: 1px solid var(--green); }
+.chip.revised { color: var(--amber); border: 1px solid var(--amber); }
+.chip.open { color: var(--accent); border: 1px solid var(--accent); }
+.legend {
+    color: var(--text-dim); font-size: 13px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; margin: 16px 0;
+}
+kbd {
+    font-family: var(--mono); font-size: .82em; border: 1px solid var(--border-strong);
+    border-bottom-width: 2px; border-radius: 3px; padding: 0 5px; background: var(--surface2);
+}
+footer { margin-top: 3rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--dim); text-align: center; }
+footer .bookmark { display: block; margin-top: 4px; font-family: var(--mono); font-size: 11.5px; }
+
+
+/* ---- optional tabs (project-artifact Mechanism B, dashboard-styled) ----
+   For a plan too big for one scroll: add a <div class="tabbar"> of
+   <button class="tab" data-pane="id"> and wrap sections in
+   <section class="pane" id="id">. The script below wires itself only
+   when a .tabbar exists. Keep pane ids stable across redeploys. */
+.tabbar { display: flex; flex-wrap: wrap; gap: 2px; border-bottom: 2px solid var(--border); margin: 1.2em 0 1.5em; }
+.tabbar .tab {
+    padding: 7px 14px; cursor: pointer; border: 1px solid transparent; border-bottom: none;
+    border-radius: var(--radius) var(--radius) 0 0; font: inherit; font-size: 13px;
+    color: var(--muted); background: none; margin-bottom: -2px;
+}
+.tabbar .tab:hover { color: var(--text); }
+.tabbar .tab.active { color: var(--accent); border-color: var(--border); border-bottom: 2px solid var(--bg); background: var(--surface); font-weight: 600; }
+.pane { display: none; } .pane.active { display: block; }
+
+/* ---- commentable blocks (tuicr-style, block-level) ---- */
+.c { position: relative; border-radius: var(--radius); padding: 2px 8px; margin-left: -8px; margin-right: -8px; }
+.c:hover, .c:focus-within { background: rgba(91,141,239,0.06); }
+.c .cbtn {
+    position: absolute; left: -62px; top: 3px; opacity: 0; font-size: 11px; padding: 2px 8px;
+    font-family: var(--mono); transition: opacity .12s;
+}
+.c:hover .cbtn, .c:focus-within .cbtn, .c.has .cbtn { opacity: 1; }
+@media (max-width: 1020px) { .c .cbtn { position: static; display: inline-block; margin: 4px 0; } }
+
+.annotation {
+    display: flex; align-items: center; gap: 8px; margin: 6px 0;
+    padding: 8px 12px; border-radius: var(--radius); border-left: 3px solid;
+    background: var(--surface); font-family: var(--sans);
+}
+.annot-badge {
+    font-size: 10.5px; font-weight: 700; white-space: nowrap; padding: 2px 7px;
+    border-radius: 3px; background: rgba(255,255,255,0.06); letter-spacing: 0.04em;
+    font-family: var(--mono);
+}
+.annot-badge.cyclable { cursor: pointer; border: 1px dashed var(--border-strong); }
+.annot-text {
+    flex: 1; background: transparent; border: none; color: var(--text);
+    font-size: 13px; font-family: var(--sans); outline: none; padding: 2px 0;
+}
+.annot-text::placeholder { color: var(--dim); }
+.annot-hint { font-size: 10.5px; color: var(--dim); white-space: nowrap; }
+.annot-del { font-size: 10.5px; padding: 1px 7px; opacity: 0; }
+.annotation:hover .annot-del { opacity: 1; }
+
+.toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: var(--surface3); color: var(--text); border: 1px solid var(--border-strong);
+    border-radius: var(--radius); padding: 9px 18px; font-size: 13px;
+    opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 50;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+.toast.show { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<header class="summary-bar">
+    <span class="brand">PLAN TITLE<span class="v">plan review</span></span>
+    <span class="spacer"></span>
+    <span><span class="count count-issue" id="n-issue">0</span>ISSUE</span>
+    <span><span class="count count-suggestion" id="n-suggestion">0</span>SUGG</span>
+    <span><span class="count count-note" id="n-note">0</span>NOTE</span>
+    <span><span class="count count-praise" id="n-praise">0</span>PRAISE</span>
+    <button id="exportBtn" class="primary">Export notes</button>
+    <button id="clearBtn" title="Delete all notes">Clear</button>
+</header>
+
+<main>
+    <div class="page-eyebrow">MODULE · plan for review</div>
+    <h1>PLAN TITLE — one-line thesis of the plan</h1>
+    <p class="sub">version · date</p>
+
+<div class="legend">
+        Hover a block → <span class="mono">+ note</span> (left margin). While typing, <kbd>Tab</kbd> cycles the
+        comment type (<span class="count-issue">ISSUE</span> → <span class="count-note">NOTE</span> →
+        <span class="count-suggestion">SUGGESTION</span> → <span class="count-praise">PRAISE</span>, tuicr vocabulary),
+        <kbd>Enter</kbd> saves, <kbd>Esc</kbd> cancels. Notes persist in this browser.
+        <strong>Export notes</strong> copies a tuicr review digest — paste it back into the Claude session.
+        Chips: <span class="chip done">done</span> executed · <span class="chip revised">revised</span> changed after approval · <span class="chip open">open</span> wants your input.
+    </div>
+
+    <!-- CONTENT CONTRACT ============================================
+         Replace everything from here to the footer with the plan.
+         - Sections: <div class="page-eyebrow">N · Name</div> then <h2>.
+         - Every commentable unit is <div class="c" data-c="unique-id">…</div>
+           (unique kebab-case ids; they key the notes and the export digest).
+         - Status chips: <span class="chip done|revised|open">label</span>.
+         - Wide tables go inside <div class="tablewrap"><table>…</table></div>.
+         - Always end with the open-decisions block and the catch-all block.
+         ============================================================== -->
+
+    <div class="page-eyebrow">1 · Context</div>
+    <div class="c" data-c="context">
+        <p>Why this plan exists — the problem, what prompted it, the intended outcome.</p>
+    </div>
+
+    <div class="page-eyebrow">2 · Approach</div>
+    <h2>First workstream <span class="chip open">open</span></h2>
+    <div class="c" data-c="workstream-1">
+        <p>One commentable block per reviewable decision or work package.</p>
+    </div>
+
+    <div class="page-eyebrow">3 · Decisions on the table</div>
+    <div class="c" data-c="decisions">
+        <ul>
+            <li><span class="chip open">open</span> <strong>Decision name</strong> — the question, with the recommended answer stated.</li>
+        </ul>
+    </div>
+
+    <div class="c" data-c="general">
+        <h3>Anything else</h3>
+        <p class="sub">Attach general comments here — anything the sections above don't cover.</p>
+    </div>
+
+    <footer>
+        forge-core · HtmlPlan · comments stay local until exported
+        <!-- optional bookmark: <a class="bookmark" href="ARTIFACT_URL">ARTIFACT_URL</a> -->
+    </footer>
+</main>
+
+
+<div class="toast" id="toast">Copied</div>
+
+<!-- STATE BLOCK (adapted from project-artifact) — machine-readable snapshot of this
+     render; the next refresh diffs against it to report deltas instead of re-narrating.
+     Invisible on the page. One entry per commentable block: id + status (open|revised|done).
+     Strings derived from fetched text are untrusted markup: write < as \u003c inside this
+     JSON so a literal "</" can never terminate the block, and entity-encode them in the
+     visible HTML. -->
+<script type="application/json" id="plan-state">
+{"as_of": "YYYY-MM-DD HH:MM UTC", "url": "", "blocks": [{"id": "context", "status": "open"}]}
+</script>
+
+
+
+<script>
+// tuicr-style block annotation, adapted from forge-cli static/dashboard/annotate.js.
+// Block-level (data-c) instead of line-level; Tab cycles the comment type while
+// composing; notes persist in localStorage; export emits the tuicr review digest.
+(function () {
+    var KEY = 'planreview-' + document.title.replace(/\W+/g, '-').toLowerCase() + '-v1';
+    var TYPES = [
+        { id: 'issue', label: 'ISSUE', color: 'var(--red)', def: 'problems to fix' },
+        { id: 'note', label: 'NOTE', color: 'var(--accent)', def: 'observations' },
+        { id: 'suggestion', label: 'SUGGESTION', color: 'var(--amber)', def: 'improvements' },
+        { id: 'praise', label: 'PRAISE', color: 'var(--green)', def: 'positive feedback' }
+    ];
+    function typeById(id) {
+        for (var i = 0; i < TYPES.length; i++) if (TYPES[i].id === id) return TYPES[i];
+        return TYPES[1];
+    }
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+    function save(d) { localStorage.setItem(KEY, JSON.stringify(d)); }
+    var data = load();
+
+    function titleFor(block) {
+        var h = block.querySelector('h2,h3');
+        if (h) return h.textContent.replace(/\s+/g, ' ').trim();
+        var prev = block.previousElementSibling;
+        while (prev) {
+            if (/^H[123]$/.test(prev.tagName)) return prev.textContent.replace(/\s+/g, ' ').trim();
+            if (prev.classList && prev.classList.contains('page-eyebrow')) return prev.textContent.trim();
+            prev = prev.previousElementSibling;
+        }
+        return block.dataset.c;
+    }
+
+    var blocks = document.querySelectorAll('.c[data-c]');
+    blocks.forEach(function (block) {
+        var cid = block.dataset.c;
+        var btn = document.createElement('button');
+        btn.className = 'cbtn';
+        btn.type = 'button';
+        btn.setAttribute('aria-label', 'Add note on ' + titleFor(block));
+        block.prepend(btn);
+        var notes = document.createElement('div');
+        notes.className = 'notes';
+        block.appendChild(notes);
+
+        function render() {
+            var list = data[cid] || [];
+            block.classList.toggle('has', list.length > 0);
+            btn.textContent = list.length ? '▣ ' + list.length : '+ note';
+            notes.innerHTML = '';
+            list.forEach(function (n, i) {
+                var type = typeById(n.type);
+                var row = document.createElement('div');
+                row.className = 'annotation';
+                row.style.borderLeftColor = type.color;
+                var badge = document.createElement('span');
+                badge.className = 'annot-badge';
+                badge.style.color = type.color;
+                badge.textContent = type.label;
+                var txt = document.createElement('span');
+                txt.className = 'annot-text';
+                txt.textContent = n.text;
+                var del = document.createElement('button');
+                del.className = 'annot-del';
+                del.type = 'button';
+                del.textContent = 'delete';
+                del.onclick = function () {
+                    list.splice(i, 1);
+                    if (!list.length) delete data[cid];
+                    save(data); render(); updateCounts();
+                };
+                row.appendChild(badge); row.appendChild(txt); row.appendChild(del);
+                notes.appendChild(row);
+            });
+            updateCounts();
+        }
+
+        btn.onclick = function () {
+            if (block.querySelector('.annotation.editing')) return;
+            var typeIndex = 1; /* NOTE default, like an observation */
+            var row = document.createElement('div');
+            row.className = 'annotation editing';
+            var badge = document.createElement('span');
+            badge.className = 'annot-badge cyclable';
+            badge.title = 'Tab cycles type';
+            var input = document.createElement('input');
+            input.className = 'annot-text';
+            input.placeholder = 'Comment on “' + titleFor(block) + '”…';
+            var hint = document.createElement('span');
+            hint.className = 'annot-hint';
+            hint.textContent = 'Tab: type · Enter: save · Esc: cancel';
+            function paint() {
+                var t = TYPES[typeIndex];
+                badge.textContent = t.label;
+                badge.style.color = t.color;
+                row.style.borderLeftColor = t.color;
+            }
+            function cycle(back) {
+                typeIndex = (typeIndex + (back ? TYPES.length - 1 : 1)) % TYPES.length;
+                paint();
+            }
+            badge.onclick = function () { cycle(false); input.focus(); };
+            input.addEventListener('keydown', function (event) {
+                if (event.key === 'Tab') { event.preventDefault(); cycle(event.shiftKey); return; }
+                if (event.key === 'Enter') {
+                    var v = input.value.trim();
+                    if (v) {
+                        (data[cid] = data[cid] || []).push({ type: TYPES[typeIndex].id, text: v, ts: Date.now() });
+                        save(data);
+                    }
+                    row.remove(); render();
+                }
+                if (event.key === 'Escape') { row.remove(); }
+            });
+            paint();
+            row.appendChild(badge); row.appendChild(input); row.appendChild(hint);
+            notes.before(row);
+            input.focus();
+        };
+        block._render = render;
+        render();
+    });
+
+    function allNotes() {
+        var items = [];
+        blocks.forEach(function (block) {
+            var cid = block.dataset.c;
+            (data[cid] || []).forEach(function (n) {
+                items.push({ type: n.type, text: n.text, cid: cid, title: titleFor(block) });
+            });
+        });
+        return items;
+    }
+    function updateCounts() {
+        var per = { issue: 0, note: 0, suggestion: 0, praise: 0 };
+        allNotes().forEach(function (n) { per[n.type] = (per[n.type] || 0) + 1; });
+        ['issue', 'note', 'suggestion', 'praise'].forEach(function (t) {
+            var el = document.getElementById('n-' + t);
+            if (el) el.textContent = per[t];
+        });
+    }
+    function toast(msg) {
+        var t = document.getElementById('toast');
+        t.textContent = msg; t.classList.add('show');
+        setTimeout(function () { t.classList.remove('show'); }, 1800);
+    }
+    document.getElementById('exportBtn').onclick = function () {
+        var items = allNotes();
+        if (!items.length) { toast('No notes to export'); return; }
+        var used = {};
+        items.forEach(function (n) { used[n.type] = true; });
+        var legend = TYPES.filter(function (t) { return used[t.id]; })
+            .map(function (t) { return t.label + ' (' + t.def + ')'; }).join(', ');
+        var out = [];
+        out.push('I reviewed your plan and have the following comments. Please address them.');
+        out.push('');
+        out.push('Comment types: ' + legend);
+        out.push('');
+        out.push('## Plan Review Comments');
+        out.push('');
+        items.forEach(function (n, i) {
+            out.push((i + 1) + '. **[' + n.type.toUpperCase() + ']** `#' + n.cid + '` (' + n.title + ') - ' + n.text);
+        });
+        var text = out.join('\n');
+        (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(
+            function () { toast('Copied ' + items.length + ' notes — paste to Claude'); },
+            function () {
+                var ta = document.createElement('textarea');
+                ta.value = text; document.body.appendChild(ta);
+                ta.select(); document.execCommand('copy'); ta.remove();
+                toast('Copied ' + items.length + ' notes — paste to Claude');
+            });
+    };
+    document.getElementById('clearBtn').onclick = function () {
+        if (!confirm('Delete all notes?')) return;
+        data = {}; save(data);
+        blocks.forEach(function (b) { b._render(); });
+    };
+
+    /* optional tabs — wires itself only when a .tabbar exists (Mechanism B) */
+    var tabbar = document.querySelector('.tabbar');
+    if (tabbar) {
+        function goTab(id) {
+            document.querySelectorAll('.tabbar .tab').forEach(function (t) { t.classList.toggle('active', t.dataset.pane === id); });
+            document.querySelectorAll('.pane').forEach(function (p) { p.classList.toggle('active', p.id === id); });
+        }
+        tabbar.querySelectorAll('.tab').forEach(function (t) {
+            t.addEventListener('click', function () { goTab(t.dataset.pane); });
+        });
+    }
+    updateCounts();
+})();
+</script>
