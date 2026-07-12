@@ -1,0 +1,189 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/N4M3Z/forge-core/skills/VisualIdentity/visual-profile.schema.yaml
+title: Forge visual profile v1
+type: object
+additionalProperties: false
+required: [version, id, name, license, provenance, modes, typography, spacing, radii, focus, motion]
+properties:
+    version:
+        const: 1
+    id:
+        type: string
+        pattern: ^[a-z][a-z0-9-]*$
+    name:
+        type: string
+        minLength: 1
+    description:
+        type: string
+    license:
+        type: string
+        minLength: 1
+    provenance:
+        type: array
+        minItems: 1
+        items:
+            type: object
+            additionalProperties: false
+            required: [kind, source, note]
+            properties:
+                kind:
+                    enum: [seed-colors, logo, visual-reference, website, deck, guidelines, brief]
+                source:
+                    type: string
+                    minLength: 1
+                license:
+                    type: string
+                note:
+                    type: string
+    modes:
+        type: object
+        additionalProperties: false
+        required: [light]
+        properties:
+            light: {$ref: "#/$defs/mode"}
+            dark: {$ref: "#/$defs/mode"}
+    typography:
+        type: object
+        additionalProperties: false
+        required: [display, body, mono, math, weights]
+        properties:
+            display: {type: string, minLength: 1}
+            body: {type: string, minLength: 1}
+            mono: {type: string, minLength: 1}
+            math: {type: string, minLength: 1}
+            weights:
+                type: object
+                additionalProperties: false
+                required: [regular, medium, bold]
+                properties:
+                    regular: {$ref: "#/$defs/fontWeight"}
+                    medium: {$ref: "#/$defs/fontWeight"}
+                    bold: {$ref: "#/$defs/fontWeight"}
+    spacing:
+        type: object
+        additionalProperties: false
+        required: [scale]
+        properties:
+            scale:
+                type: object
+                minProperties: 5
+                additionalProperties: {$ref: "#/$defs/cssLength"}
+    radii:
+        type: object
+        additionalProperties: false
+        required: [sm, md, lg, pill]
+        properties:
+            sm: {$ref: "#/$defs/cssLength"}
+            md: {$ref: "#/$defs/cssLength"}
+            lg: {$ref: "#/$defs/cssLength"}
+            pill: {$ref: "#/$defs/cssLength"}
+    focus:
+        type: object
+        additionalProperties: false
+        required: [width, offset]
+        properties:
+            width: {$ref: "#/$defs/cssLength"}
+            offset: {$ref: "#/$defs/cssLength"}
+    motion:
+        type: object
+        additionalProperties: false
+        required: [durations, easing, reducedMotion]
+        properties:
+            durations:
+                type: object
+                additionalProperties: false
+                required: [fast, base, slow]
+                properties:
+                    fast: {$ref: "#/$defs/cssTime"}
+                    base: {$ref: "#/$defs/cssTime"}
+                    slow: {$ref: "#/$defs/cssTime"}
+            easing:
+                type: object
+                additionalProperties: false
+                required: [standard, emphasized]
+                properties:
+                    standard: {type: string, minLength: 1}
+                    emphasized: {type: string, minLength: 1}
+            reducedMotion: {$ref: "#/$defs/cssTime"}
+$defs:
+    cssColor:
+        type: string
+        minLength: 1
+    cssLength:
+        type: string
+        pattern: ^-?(0|[0-9]+(\.[0-9]+)?(px|rem|em|ch|vw|vh|%))$
+    cssTime:
+        type: string
+        pattern: ^[0-9]+(\.[0-9]+)?(ms|s)$
+    fontWeight:
+        type: integer
+        minimum: 1
+        maximum: 1000
+    mode:
+        type: object
+        additionalProperties: false
+        required: [colors]
+        properties:
+            colors:
+                type: object
+                additionalProperties: false
+                required:
+                    - canvas
+                    - surface
+                    - elevated
+                    - ink
+                    - muted
+                    - inverse
+                    - border
+                    - rule
+                    - brand-primary
+                    - brand-secondary
+                    - brand-accent
+                    - on-primary
+                    - focus
+                    - success
+                    - warning
+                    - danger
+                    - info
+                    - link
+                    - series-1
+                    - series-2
+                    - series-3
+                    - series-4
+                    - series-5
+                    - series-6
+                    - series-7
+                    - series-8
+                    - grid
+                    - axis
+                    - annotation
+                properties:
+                    canvas: {$ref: "#/$defs/cssColor"}
+                    surface: {$ref: "#/$defs/cssColor"}
+                    elevated: {$ref: "#/$defs/cssColor"}
+                    ink: {$ref: "#/$defs/cssColor"}
+                    muted: {$ref: "#/$defs/cssColor"}
+                    inverse: {$ref: "#/$defs/cssColor"}
+                    border: {$ref: "#/$defs/cssColor"}
+                    rule: {$ref: "#/$defs/cssColor"}
+                    brand-primary: {$ref: "#/$defs/cssColor"}
+                    brand-secondary: {$ref: "#/$defs/cssColor"}
+                    brand-accent: {$ref: "#/$defs/cssColor"}
+                    on-primary: {$ref: "#/$defs/cssColor"}
+                    focus: {$ref: "#/$defs/cssColor"}
+                    success: {$ref: "#/$defs/cssColor"}
+                    warning: {$ref: "#/$defs/cssColor"}
+                    danger: {$ref: "#/$defs/cssColor"}
+                    info: {$ref: "#/$defs/cssColor"}
+                    link: {$ref: "#/$defs/cssColor"}
+                    series-1: {$ref: "#/$defs/cssColor"}
+                    series-2: {$ref: "#/$defs/cssColor"}
+                    series-3: {$ref: "#/$defs/cssColor"}
+                    series-4: {$ref: "#/$defs/cssColor"}
+                    series-5: {$ref: "#/$defs/cssColor"}
+                    series-6: {$ref: "#/$defs/cssColor"}
+                    series-7: {$ref: "#/$defs/cssColor"}
+                    series-8: {$ref: "#/$defs/cssColor"}
+                    grid: {$ref: "#/$defs/cssColor"}
+                    axis: {$ref: "#/$defs/cssColor"}
+                    annotation: {$ref: "#/$defs/cssColor"}

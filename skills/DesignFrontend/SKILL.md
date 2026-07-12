@@ -23,6 +23,8 @@ Hard accessibility self-checks before shipping (verify against the rendered UI, 
 
 Before coding, decide on a clear aesthetic direction. Pick one and stay true to it:
 
+If `visual-profile.yaml` exists, load it first and treat it as authoritative. Compile it with `VisualIdentity` when CSS is missing. Components reference `--forge-*` semantic variables without literal identity fallbacks. Invoke `VisualIdentity` when the request needs a new or revised cross-output identity.
+
 - Brutally minimal, maximalist chaos, retro-futuristic, organic, luxury, playful, editorial, brutalist, art deco, pastel, industrial — or a point of your own choosing.
 
 Name the context, the audience, and the one thing someone will remember about the result.
@@ -54,6 +56,7 @@ No two designs should be the same. Vary themes (light/dark), fonts, aesthetics a
 ## Constraints
 
 - Produce real, working code — HTML/CSS/JS, React, Vue, etc. — not mockups
+- Keep identity-specific values in `visual-profile.yaml` or generated profile CSS, never component code
 - Maintain a single aesthetic point-of-view across the whole output; do not mix brutalist typography with pastel gradients
 - Accessibility and performance are not aesthetic concessions; they are part of production-grade
 - Iterate one visual variable per round when refining a design with the user. Bundling changes (illustration + color logic + label edits in one push) forces the user to accept or reject the whole package; they can't keep the parts that landed and discard the parts that didn't. This costs at least one extra round per bundle.

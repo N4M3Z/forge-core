@@ -65,6 +65,10 @@ Skills teach AI coding tools new capabilities. Invoke them with `/SkillName` in 
 | [**SystemCheck**](skills/SystemCheck/SKILL.md)                   | Ecosystem staleness and version drift checks                    |
 | [**RTK**](skills/RTK/SKILL.md)                                   | Token-optimized CLI proxy                                       |
 | [**HtmlPlayground**](skills/HtmlPlayground/SKILL.md)             | Generate single-file HTML demos comparing techniques            |
+| [**VisualIdentity**](skills/VisualIdentity/SKILL.md)             | Create shared visual profiles, previews, and CSS tokens          |
+| [**DesignPrinciples**](skills/DesignPrinciples/SKILL.md)         | Shared token, accessibility, and rendered-design canon           |
+| [**DesignFrontend**](skills/DesignFrontend/SKILL.md)             | Build distinctive profile-driven frontend interfaces            |
+| [**DesignDashboard**](skills/DesignDashboard/SKILL.md)           | Build profile-driven data-dense interfaces                       |
 | [**Brainstorming**](skills/Brainstorming/SKILL.md)               | Collaborative ideation before implementation                    |
 | [**DesignSpec**](skills/DesignSpec/SKILL.md)                      | Formal design spec from brainstorming output                    |
 | [**WritePlan**](skills/WritePlan/SKILL.md)                        | Bite-sized implementation plans with plan mode                  |

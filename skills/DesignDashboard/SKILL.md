@@ -22,6 +22,8 @@ Hard accessibility self-checks before shipping (verify against the rendered UI, 
 
 Let the data's shape drive the component, not the reverse. Prototype against real or realistic data before choosing a pattern: a single value is a stat card, a metric with 50 categories is a table, not a pie. Component choice is a data-shape decision, not an aesthetic one.
 
+If `visual-profile.yaml` exists, use its mode colors, typography, spacing, radii, focus, and motion tokens. Compile it with `VisualIdentity` when CSS is missing. Dashboard components reference `--forge-*` variables without literal identity fallbacks; changing profile must not change markup or selectors.
+
 ## Layout
 
 - The sidebar is the product's spine: group nav by relevance, sink low-frequency items (settings) to the bottom, pair icons with short labels, and always mark the active item.
@@ -67,6 +69,7 @@ Optimistic updates (apply instantly, reconcile with the backend after) keep a da
 ## Constraints
 
 - Produce real, working code, not mockups.
+- Keep identity-specific values in `visual-profile.yaml` or generated profile CSS, never component code.
 - Self-check the hard accessibility thresholds from the shared principles before shipping; contrast against the rendered UI, not the source literal.
 - Advisory thresholds (spacing grid, metric count, motion) parameterize to the target design system, do not hard-fail on them.
 

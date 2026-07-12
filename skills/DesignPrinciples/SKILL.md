@@ -20,6 +20,15 @@ Framework-agnostic and durable. These hold regardless of stack (Tailwind, CSS-in
 - **Progressive disclosure.** The default view shows what a user checks at a glance; detail is revealed on demand.
 - **Reference, don't invent.** Study real top-tier examples for the surface being built, then adapt. A blank page converges on the statistical-average output.
 
+## Shared visual profile
+
+Use `skills/VisualIdentity/visual-profile.schema.yaml` v1 when one identity must span multiple outputs. `VisualIdentity` creates the profile and compiled CSS. `DesignFrontend`, `DesignDashboard`, `HtmlPlayground`, `PublicationFigures`, and presentation modules consume the same semantic contract.
+
+- Identity values live in `visual-profile.yaml`; generated CSS exposes `--forge-*` custom properties.
+- Components use semantic variables without literal fallbacks. Profile switching changes CSS or `data-theme`, never markup or selectors.
+- Data and state palettes come from active `modes.*.colors` and retain redundant non-color encodings.
+- If no profile exists, create one before implementing reusable components. One-off exploratory sketches may use temporary tokens, but must normalize them into a profile before delivery.
+
 ## Hard checks
 
 Spec-defined, verifiable against rendered/computed output. Run as a self-check before shipping. These are the only thresholds worth failing on.

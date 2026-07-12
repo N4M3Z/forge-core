@@ -23,7 +23,9 @@ Before adding CSS to a project (snippets, themes, component styles), render the 
 
 3. Generate a single HTML file at `/tmp/css-preview-{topic}.html` with this structure:
 
-   - Dark theme by default using CSS variables (adapts if user prefers light)
+   - Load the active `visual-profile.yaml` through its compiled CSS when present
+   - Otherwise use temporary semantic `--forge-*` variables and label them as an unselected preview profile
+   - Dark theme by default when the profile provides it (adapts if user prefers light)
    - `prefers-color-scheme` media query with light mode fallback
    - A grid of cards, one per technique, each self-contained
    - Each card has: title, source link, the rendered demo with realistic data
@@ -44,6 +46,7 @@ Each card is a self-contained demo. Use these conventions:
 - Subtle border, rounded corners (12px)
 - Title in the card header with source attribution as small text below
 - Demo content uses the same CSS variable names as the target platform (Obsidian vars for vault snippets, standard custom properties for web projects)
+- Reusable web demos use the shared `--forge-*` visual-profile contract; component rules contain no raw identity values or literal fallbacks
 - Mock data should feel real — use the user's actual project names, task descriptions, and entity types when known from conversation context
 
 ## Constraints
@@ -52,3 +55,4 @@ Each card is a self-contained demo. Use these conventions:
 - No JavaScript unless the comparison requires interactivity (hover states, toggles)
 - File goes to `/tmp/` — never write preview HTML into the project directory
 - Source attribution is mandatory when the technique has a known origin
+- Profile switching must not require markup or selector changes

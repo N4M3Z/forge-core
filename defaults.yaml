@@ -9,6 +9,15 @@ adr:
     schema: templates/forge-adr.json
     mdschema: docs/decisions/.mdschema
 
+visual_identity:
+    schema: skills/VisualIdentity/visual-profile.schema.yaml
+    example: skills/VisualIdentity/visual-profile.example.yaml
+    css_prefix: forge
+    contrast:
+        normal_text: 4.5
+        large_text: 3.0
+        ui_and_focus: 3.0
+
 agents:
     DataAnalyst:
         model: fast

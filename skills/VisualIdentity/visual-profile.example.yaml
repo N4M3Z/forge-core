@@ -1,0 +1,87 @@
+version: 1
+id: forge-editorial
+name: Forge Editorial
+description: Neutral editorial profile showing the visual-profile v1 contract.
+license: CC0-1.0
+provenance:
+    - kind: brief
+      source: original-generalized-brief
+      license: CC0-1.0
+      note: General-purpose editorial identity; no external brand assets used.
+modes:
+    light:
+        colors:
+            canvas: "#f7f5f0"
+            surface: "#ffffff"
+            elevated: "#ffffff"
+            ink: "#171a1f"
+            muted: "#565d68"
+            inverse: "#ffffff"
+            border: "#b9b4aa"
+            rule: "#d5d0c7"
+            brand-primary: "#005fcc"
+            brand-secondary: "#7b4ab3"
+            brand-accent: "#a34400"
+            on-primary: "#ffffff"
+            focus: "#9b3cff"
+            success: "#08755f"
+            warning: "#8a5200"
+            danger: "#a61e47"
+            info: "#0057b8"
+            link: "#0057b8"
+            series-1: "#005fcc"
+            series-2: "#a34400"
+            series-3: "#00876c"
+            series-4: "#7b4ab3"
+            series-5: "#b02755"
+            series-6: "#5f6b00"
+            series-7: "#6f4b32"
+            series-8: "#3f6c88"
+            grid: "#d5d0c7"
+            axis: "#565d68"
+            annotation: "#67172f"
+    dark:
+        colors:
+            canvas: "#11151b"
+            surface: "#1b222c"
+            elevated: "#252e3a"
+            ink: "#f5f7fa"
+            muted: "#b8c0cc"
+            inverse: "#11151b"
+            border: "#526071"
+            rule: "#384454"
+            brand-primary: "#78b7ff"
+            brand-secondary: "#c5a1ff"
+            brand-accent: "#ffad70"
+            on-primary: "#10243e"
+            focus: "#d09cff"
+            success: "#5fd6b6"
+            warning: "#ffc66d"
+            danger: "#ff8fae"
+            info: "#8fc4ff"
+            link: "#8fc4ff"
+            series-1: "#78b7ff"
+            series-2: "#ffad70"
+            series-3: "#5fd6b6"
+            series-4: "#c5a1ff"
+            series-5: "#ff8fae"
+            series-6: "#c8d76a"
+            series-7: "#d49a73"
+            series-8: "#83bedc"
+            grid: "#384454"
+            axis: "#b8c0cc"
+            annotation: "#ffb5c8"
+typography:
+    display: '"Source Serif 4", Georgia, serif'
+    body: '"IBM Plex Sans", Arial, sans-serif'
+    mono: '"IBM Plex Mono", "Courier New", monospace'
+    math: '"STIX Two Math", "Cambria Math", serif'
+    weights: {regular: 400, medium: 500, bold: 700}
+spacing:
+    scale: {1: 0.5rem, 2: 1rem, 3: 1.5rem, 4: 2rem, 6: 3rem, 8: 4rem}
+radii: {sm: 0.25rem, md: 0.5rem, lg: 1rem, pill: 999px}
+focus: {width: 3px, offset: 2px}
+motion:
+    durations: {fast: 120ms, base: 180ms, slow: 320ms}
+    easing: {standard: "cubic-bezier(0.2, 0, 0, 1)", emphasized: "cubic-bezier(0.2, 0.8, 0.2, 1)"}
+    reducedMotion: 0ms
