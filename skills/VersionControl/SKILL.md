@@ -1,7 +1,7 @@
 ---
 name: VersionControl
 version: 0.3.0
-description: "Git best practices: conventional commits, staging, push policy, pre-commit gates, repo governance, plus Jujutsu (jj) colocated repos (commit and push discipline, push-batched signing, secret gates relocated to pre-push). USE WHEN committing, pushing, creating PRs, branch protection, rulesets, CODEOWNERS, pre-commit hooks, blocking known-dangerous strings, or working in a jj / jujutsu / colocated repo."
+description: "Git best practices: conventional commits, staging, push policy, pre-commit checks, repo governance, plus Jujutsu (jj) colocated repos (commit and push discipline, push-batched signing, secret scans relocated to pre-push). USE WHEN committing, pushing, creating PRs, branch protection, rulesets, CODEOWNERS, pre-commit hooks, blocking known-dangerous strings, or working in a jj / jujutsu / colocated repo."
 ---
 
 # VersionControl
@@ -34,11 +34,11 @@ Keep the first line under 72 characters. Add a blank line and body for context w
 
 ## Jujutsu (jj) repositories
 
-When the repo is colocated with jj (`.jj/` at the root), there is no staging area and the commit and push workflow differs: the working copy is a commit, signing is batched at push, and git hooks (including the gates below) do not fire. See [Jujutsu.md](Jujutsu.md) for the jj commit and push discipline and how the secret gates relocate to pre-push.
+When the repo is colocated with jj (`.jj/` at the root), there is no staging area and the commit and push workflow differs: the working copy is a commit, signing is batched at push, and git hooks (including the checks below) do not fire. See [Jujutsu.md](Jujutsu.md) for the jj commit and push discipline and how the secret scans relocate to pre-push.
 
-## Pre-commit Gates
+## Pre-commit Checks
 
-Two stacked gates protect against leaking PII or secrets into git history. Both must pass before a commit lands.
+Two stacked checks protect against leaking PII or secrets into git history. Both must pass before a commit lands.
 
 **Layer 1 — gitleaks.** Categorical scanner for API tokens, private keys, connection strings. Fires via the repo's `.githooks/pre-commit` for user-typed commits. See [SecretScan](../SecretScan/SKILL.md) for `.gitleaks.toml` and baseline workflow.
 
@@ -55,7 +55,7 @@ Two stacked gates protect against leaking PII or secrets into git history. Both 
 
 When in doubt, add to safety-net. gitleaks rules evolve upstream; safety-net patterns are yours to control.
 
-### When a gate blocks
+### When a check blocks
 
 1. Read the block reason (match count, config path)
 2. Inspect the staged diff to find the offending lines
@@ -76,7 +76,7 @@ Single validation path: `make validate` → `.githooks/pre-commit`; CI runs the 
 
 ## Session checkpointing (Entire)
 
-Repos with Entire enabled install git hooks via `core.hooksPath` that inject a session trailer on commit and ship session logs on push. They run alongside the secret gates on normal `git commit` / `git push`, so keep the gitleaks `pre-commit` hook in the same hooks directory Entire points at, or it stops firing. Capture itself runs off Claude Code hooks, not git, so it is VCS-agnostic. Under jj the git hooks do not fire; see [Jujutsu.md](Jujutsu.md).
+Repos with Entire enabled install git hooks via `core.hooksPath` that inject a session trailer on commit and ship session logs on push. They run alongside the secret scans on normal `git commit` / `git push`, so keep the gitleaks `pre-commit` hook in the same hooks directory Entire points at, or it stops firing. Capture itself runs off Claude Code hooks, not git, so it is VCS-agnostic. Under jj the git hooks do not fire; see [Jujutsu.md](Jujutsu.md).
 
 ## Push Policy
 
