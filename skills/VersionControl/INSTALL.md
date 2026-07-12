@@ -2,7 +2,7 @@
 
 > Create the safety-net config file so the hook can block AI-initiated commits containing PII, deprecated identifiers, or other user-defined patterns.
 
-I want you to set up the safety-net pre-commit gate for me. Execute all the steps below autonomously.
+I want you to set up the safety-net pre-commit hook for me. Execute all the steps below autonomously.
 
 ## OBJECTIVE
 
@@ -47,6 +47,6 @@ Populate with your patterns. This file lives in the private dotfiles repo and de
 
 The safety-net hook is auto-discovered when forge-core is installed as a Claude Code plugin. No manual hook wiring needed.
 
-gitleaks (Layer 1 of the pre-commit gates) is a shared module prerequisite documented in the [module INSTALL.md](../../INSTALL.md).
+gitleaks (Layer 1 of the pre-commit checks) is a shared module prerequisite documented in the [module INSTALL.md](../../INSTALL.md).
 
 EXECUTE NOW: Complete the above TODO list to achieve: a staged commit containing a safety-net pattern triggers a block.

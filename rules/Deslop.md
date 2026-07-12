@@ -2,6 +2,8 @@ Write like a human talking to a colleague. Slop is text that performs the act of
 
 Vocabulary tells ([Wikipedia catalog][WPSIGNS]): delve, tapestry, testament, underscore, pivotal, crucial, robust, vibrant, landscape, intricate, meticulous, boasts, showcase, harness, leverage, seamless, cutting-edge, game-changer. If a sentence needs one of these, it usually needs a fact instead.
 
+`Gate` is jargon that never says what actually runs. Name the specific check and when it fires: `the pre-push secret scan`, `clippy in CI`, `the commit-time prek hooks` — never `the gate`, `quality gate`, or `commit gate`.
+
 Construction tells:
 
 - Negative parallelism ("It's not just X, it's Y") manufacturing fake epiphany
