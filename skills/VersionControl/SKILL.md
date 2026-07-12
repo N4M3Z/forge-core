@@ -23,7 +23,7 @@ Use conventional commit prefixes. Message should explain **why**, not what.
 
 Keep the first line under 72 characters. Add a blank line and body for context when the change is non-obvious.
 
-**Never** add `Co-Authored-By` trailers unless the user explicitly asks.
+AI agents set the commit author to their own identity with model id (`Claude Fable 5 (claude-fable-5)`); additional contributors on the same commit get `Co-Authored-By` trailers in the same format, solo commits none. See [GitConventions](../../rules/GitConventions.md).
 
 ## Staging
 
