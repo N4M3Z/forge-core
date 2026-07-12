@@ -42,14 +42,16 @@ A `✗` means at least one deployed file's digest doesn't match its sidecar — 
 
 ## Compare two trees
 
-`forge drift` compares any two directories containing markdown content: modules, build output, or deployed targets.
+`forge drift` compares a module against an upstream reference, or verifies a module's assembled build against where it was deployed.
 
 ```sh
-forge drift --upstream ~/upstream-module                 # source (defaults to .) vs upstream
-forge drift --source build/claude --upstream ~/.claude   # assembled vs deployed
+forge drift --source . --upstream ~/upstream-module   # this module vs an upstream module tree
+forge drift --target ~                                 # build/<provider> vs ~/.<provider>, scoped to this module
 ```
 
-Do not compare source against deployed content directly. Assembly transforms (frontmatter stripping, heading removal) always show as drift; compare `build/<provider>` against the target instead.
+`--upstream` compares two module trees by name. `--target <BASE>` mirrors `forge install --target <BASE>`: it diffs each `build/<provider>` against `<BASE>/<provider-target>`, scoped to this module's files via the deployed `.manifest` and provenance attribution, so other modules sharing the deployment are never reported. The two modes are mutually exclusive.
+
+Do not compare source against deployed content directly: assembly transforms (frontmatter stripping, heading removal) always show as drift. Use `--target` to verify the build, or `--upstream` for a like-for-like module comparison.
 
 ## Trace an adoption chain
 
