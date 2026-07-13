@@ -8,6 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Added
 
+- `skills/BuildRule/` — authoring, placement, and validation conventions for behavioral rules (one file one behavior, PascalCase naming, owning-module routing, qualifier directories, token-cost discipline), completing the Build* family
 - `skills/GuardRails/DestructiveCommandGuard.md` companion (dcg block anatomy and workarounds), `skills/IncrementalEdits/` (revise files as reviewable hunks), `skills/SessionSearch/LocalCheckpoints.md`; updates to SettingsMaintenance, SystemCheck, Wtf, ProvenanceAudit, and the ProvenanceAuditor agent
 - `skills/InitProject/` — `project` / `atlas` shell functions that scaffold a workshop project spine (git + jj colocate + entire + forge hooks, private/public/assets flow, `.tlp` manifest, vault-mounted `.claude/`) with on-demand satellites (vault folder-note, `~/Data` domain-path mirror granted to agent sessions, private remote). Config in `~/.config/forge/project.yaml` with `FORGE_*` per-shell overrides; `project init` renders `CLAUDE.md.tmpl` into each project's brief
 - `.githooks/` gains `commit-msg`, `prepare-commit-msg`, `post-commit`, `post-rewrite`, and the pre-entire `pre-push` variant, completing the commit-gate set that `make install` wires via `core.hooksPath`; `BACKLOG.md` tracks module-level follow-ups
