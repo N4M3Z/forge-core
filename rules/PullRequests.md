@@ -1,5 +1,7 @@
 PR titles and commit messages describe what changed, not why it was discovered. The change stands on its own.
 
+Every PR or issue reference in output the user reads — chat replies, reports, review handoffs, docs — carries its link: `[#67](https://github.com/owner/repo/pull/67)` or the bare URL, never a naked `#67`. The bare number is fine only where the platform auto-links it (PR bodies, commit messages, GitHub comments).
+
 ### Body Structure
 
 PR bodies explain the *why* before the *what* in as few sentences as possible. One-sentence sections beat padded sections. Code snippets, bulleted "Summary" lists, and prose that paraphrases the diff are forbidden. The diff already shows the code.
