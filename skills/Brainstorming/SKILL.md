@@ -15,7 +15,7 @@ No implementation until design is approved — not code, not scaffolding, not "j
 3. **Propose 2-3 approaches** — with trade-offs and a recommendation
 4. **Present the design** — scale detail to complexity (a few sentences for simple, sections for complex)
 5. **Get approval** — the user must approve before any implementation begins
-6. **Hand off** — invoke DesignSpec for formal spec, or WritePlan for direct planning
+6. **Hand off** — invoke DesignSpec for formal spec, or Plan for direct planning
 
 Every project goes through this process. "Simple" projects are where unexamined assumptions cause the most wasted work. The design can be short, but it must exist and be approved.
 

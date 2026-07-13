@@ -1,12 +1,6 @@
----
-name: WritePlan
-version: 0.1.0
-description: "Create a detailed implementation plan with bite-sized tasks. USE WHEN spec approved, plan implementation, create plan, write implementation plan."
----
+# Task-list plans
 
-# WritePlan
-
-Transform an approved spec or requirements into a step-by-step implementation plan. Every task is concrete, every command is real, every file path exists or is specified.
+The task-list planning mode of [Plan](SKILL.md). Transform an approved spec or requirements into a step-by-step implementation plan. Every task is concrete, every command is real, every file path exists or is specified.
 
 The spec was already approved during Brainstorming or DesignSpec. The plan is a mechanical decomposition — it doesn't need a second approval gate. The gate is the execution handoff.
 
