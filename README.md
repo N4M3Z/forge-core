@@ -55,7 +55,6 @@ Skills teach AI coding tools new capabilities. Invoke them with `/SkillName` in 
 | [**BuildPlugin**](skills/BuildPlugin/SKILL.md)                   | Create, validate, and publish Claude Code plugins               |
 | [**ArchitectureDecision**](skills/ArchitectureDecision/SKILL.md) | Find, create, validate, and capture ADRs with schema validation |
 | [**VersionControl**](skills/VersionControl/SKILL.md)             | Git conventions, repo governance, CODEOWNERS, worktrees         |
-| [**BashConventions**](skills/BashConventions/SKILL.md)           | Bash pitfalls — BSD vs GNU, `set -euo pipefail` traps, subprocess env |
 | [**MarkdownConventions**](skills/MarkdownConventions/SKILL.md)   | Markdown authoring and linting conventions                      |
 | [**MarkdownSchema**](skills/MarkdownSchema/SKILL.md)             | Create, derive, and validate .mdschema files                    |
 | [**PublishArtifact**](skills/PublishArtifact/SKILL.md)            | Ship artifacts (rules, skills, agents) into downstream repos    |
@@ -67,7 +66,7 @@ Skills teach AI coding tools new capabilities. Invoke them with `/SkillName` in 
 | [**HtmlPlayground**](skills/HtmlPlayground/SKILL.md)             | Generate single-file HTML demos comparing techniques            |
 | [**Brainstorming**](skills/Brainstorming/SKILL.md)               | Collaborative ideation before implementation                    |
 | [**DesignSpec**](skills/DesignSpec/SKILL.md)                      | Formal design spec from brainstorming output                    |
-| [**WritePlan**](skills/WritePlan/SKILL.md)                        | Bite-sized implementation plans with plan mode                  |
+| [**Plan**](skills/Plan/SKILL.md)                                  | Task-list plans and reviewable commentable HTML plan artifacts  |
 | [**ExecutePlan**](skills/ExecutePlan/SKILL.md)                    | Inline sequential plan execution                                |
 | [**VerifyCompletion**](skills/VerifyCompletion/SKILL.md)          | Evidence-based verification gate                                |
 
@@ -98,7 +97,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the development workflow, skill autho
 
 ## References
 
-Workflow skills (Brainstorming, DesignSpec, WritePlan, ExecutePlan, VerifyCompletion) and behavioral patterns (rationalization resistance, pressure testing, Red Flags tables) adapted from [superpowers][SUPERPOWERS] by Jesse Vincent.
+Workflow skills (Brainstorming, DesignSpec, Plan, ExecutePlan, VerifyCompletion) and behavioral patterns (rationalization resistance, pressure testing, Red Flags tables) adapted from [superpowers][SUPERPOWERS] by Jesse Vincent.
 
 ## License
 
