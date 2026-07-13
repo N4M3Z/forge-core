@@ -1,21 +1,18 @@
 PR titles and commit messages describe what changed, not why it was discovered. The change stands on its own.
 
-Every PR or issue reference in output the user reads — chat replies, reports, review handoffs, docs — carries its link: `[#67](https://github.com/owner/repo/pull/67)` or the bare URL, never a naked `#67`. The bare number is fine only where the platform auto-links it (PR bodies, commit messages, GitHub comments).
+Every PR or issue reference in output the user reads — chat replies, reports, review handoffs, docs — carries its full bare URL (`https://github.com/owner/repo/pull/67`), never a naked `#67` and never markdown-wrapped `[#67](url)`: terminal views render only bare URLs as clickable. The bare number alone is fine only where the platform auto-links it (PR bodies, commit messages, GitHub comments).
 
 ### Body Structure
 
-PR bodies explain the *why* before the *what* in as few sentences as possible. One-sentence sections beat padded sections. Code snippets, bulleted "Summary" lists, and prose that paraphrases the diff are forbidden. The diff already shows the code.
+The first line is a one-sentence summary in prose, no heading. Then exactly three sections:
 
-Sections, in order, omitting any that add nothing:
+1. **## Plan** — the design rationale in brief prose: why this shape and not the alternative. Never paraphrase the diff.
+2. **## Changes** — file-first bullets: bold artifact name plus backticked path, colon, then what it changes. Dense and specific, one bullet per artifact or concern.
+3. **## Testing** — markdown task list: `- [x]` completed, `- [ ]` pending. Cite the commands run.
 
-1. **## Problem** — what does not work, from the user's or operator's perspective. Include the failing invocation, error message, or surprising output. For features, name the missing capability.
-2. **## Fix** (or **## Approach** for features) — what changes, in prose. Do not duplicate the diff.
-3. **## Out of scope** — what is deliberately *not* changed. Omit when obvious.
-4. **## Test plan** — markdown task list: `- [x]` completed, `- [ ]` pending. Cite the commands run.
+Link the closing issue with `Closes #NN` right after the summary line.
 
-Link the closing issue with `Closes #NN` at the top of the body.
-
-For pure chores (version bumps, lockfile updates) Problem + Test plan suffice.
+The canonical machine-checkable form is `pull-request.mdschema`, shipped with the PullRequest skill; validate the drafted body with `mdschema check` before creating the PR.
 
 ### Platform Tooling
 
