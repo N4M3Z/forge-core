@@ -1,0 +1,32 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: skills/ForgeSkill/scripts/run_eval.py
+          digest:
+              sha256: 43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://forge-cli/adopt/v1
+            externalParameters:
+                upstream_url: https://github.com/anthropics/skills/blob/b9e19e6f44773509fbdd7001d77ff41a49a486c1/skills/skill-creator/scripts/run_eval.py
+            resolvedDependencies:
+                - name: upstream
+                  uri: https://github.com/anthropics/skills/blob/b9e19e6f44773509fbdd7001d77ff41a49a486c1/skills/skill-creator/scripts/run_eval.py
+                  digest:
+                      sha256: 43e3b8f80dbf69c343967ba77e268fae991d9fa3ed68b32a0ff02532cd48657f
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
+                  digest:
+                      sha256: 722d5e82ebc093749d170b4b5c650ca523e21a52a6079bfabd912613379c1c02
+                - name: RefinePrompt
+                  uri: forge-core/skills/RefinePrompt/SKILL.md
+                  digest:
+                      sha256: d04d2610148eb9ec2589cd521f1214b6a11d033600335c0295f2fc7a472ca87c
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.2
+            metadata:
+                startedOn: 2026-07-08T01:26:42Z
