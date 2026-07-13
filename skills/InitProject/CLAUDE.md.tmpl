@@ -1,0 +1,26 @@
+# {{title}}
+
+> Brief: TODO
+
+## This folder
+
+Workshop project spine — git, jj (colocated), and entire anchor here; agent sessions resume off this path. Never delete or hand-move it: that orphans the VCS history and resumable sessions. Retire it with `project archive` (moves to `{{archive}}`).
+
+- `private/` — unpublished inputs and work in progress (TLP AMBER)
+- `public/` — deliverables (GREEN) · `assets/` — publishable media (GREEN)
+- `docs/todos/` — dated backlog · `.tlp` — maps TLP levels to globs
+- Hooks live in `.githooks` (`core.hooksPath`); jj bypasses git hooks, so push via the `jj-push` wrapper, not bare `jj git push`
+
+## Where things live
+
+| Root | Role |
+|------|------|
+| `{{workshop}}` | The workshop. Every project at `<workshop>/<owner>/<slug>` (owner: `{{owner}}`). Churn happens here; path is status — archive by move. |
+| `{{mount}}` | The knowledge vault (Obsidian), the outgoing knowledge layer. Projects get a folder-note satellite under `{{vault}}`; sessions mount it read-only. Never nest a working folder inside it. |
+| `{{developer}}` | Consumed clones: source repos and toolchains (forge-*, third-party). Working copies of published code — not a workshop, don't scaffold projects here. |
+| `{{documents}}` | Finished deliverables graduate here. |
+| `{{data}}` | Data working layer, mirroring the vault domain-path one-for-one. Per-project dirs are created and granted to agent sessions by `project data`. |
+
+Keep the spine lean by promoting keepers out: knowledge → the vault, deliverables → Documents, working data → Data.
+
+Paths above are this machine's rendering. Source of truth: `~/.config/forge/project.yaml`, overridable per-shell with `FORGE_*` env vars (`FORGE_WORKSHOP`, `FORGE_OWNER`, `FORGE_VAULT`, `FORGE_WORK`, `FORGE_DATA`, `FORGE_MOUNT`, `FORGE_DEVELOPER`, `FORGE_DOCUMENTS`, `FORGE_ARCHIVE`, `FORGE_GITHOOKS`, `FORGE_DOMAIN`).

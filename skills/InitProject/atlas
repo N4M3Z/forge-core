@@ -1,0 +1,17 @@
+# atlas — vault-flavored project shorthand: workshop + folder-note + data mirror.
+# Autoloaded via `autoload -Uz`; ships with forge-core/skills/InitProject.
+#
+#   atlas <slug> [Domain]   project create <slug> --note [Domain] --data
+#
+# Domain defaults to `defaults.domain`; the data dir mirrors the note's
+# domain-path per DataWorkingLayer.
+
+emulate -L zsh
+
+[[ -n $1 ]] || { print -u2 "usage: atlas <slug> [Domain]"; return 1 }
+local slug=$1 domain=$2
+local -a args
+args=(create "$slug" --note)
+[[ -n $domain ]] && args+=("$domain")
+args+=(--data)
+project "${(@)args}"
