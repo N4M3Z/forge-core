@@ -1,0 +1,32 @@
+provenance:
+    _type: https://in-toto.io/Statement/v1
+    subject:
+        - name: skills/ForgeSkill/scripts/quick_validate.py
+          digest:
+              sha256: ac0f7db8fcf99755c12d05975cd0f33ac599a77094b828e0ff29d6b413ca5bd0
+    predicateType: https://slsa.dev/provenance/v1
+    predicate:
+        buildDefinition:
+            buildType: https://forge-cli/adopt/v1
+            externalParameters:
+                upstream_url: https://github.com/anthropics/skills/blob/b9e19e6f44773509fbdd7001d77ff41a49a486c1/skills/skill-creator/scripts/quick_validate.py
+            resolvedDependencies:
+                - name: upstream
+                  uri: https://github.com/anthropics/skills/blob/b9e19e6f44773509fbdd7001d77ff41a49a486c1/skills/skill-creator/scripts/quick_validate.py
+                  digest:
+                      sha256: 67cf5703402013936c8fb75ad6a1afecd8841d45cc5e606b634eb05825fde365
+                - name: AdoptArtifact
+                  uri: forge-core/skills/AdoptArtifact/SKILL.md
+                  digest:
+                      sha256: 722d5e82ebc093749d170b4b5c650ca523e21a52a6079bfabd912613379c1c02
+                - name: RefinePrompt
+                  uri: forge-core/skills/RefinePrompt/SKILL.md
+                  digest:
+                      sha256: d04d2610148eb9ec2589cd521f1214b6a11d033600335c0295f2fc7a472ca87c
+        runDetails:
+            builder:
+                id: forge-cli
+                version:
+                    forge: 0.3.2
+            metadata:
+                startedOn: 2026-07-08T01:26:42Z
