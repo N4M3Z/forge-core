@@ -1,0 +1,1 @@
+Use `mktemp` (or `mktemp -d`) for transient, rebuildable scratch: downloads, archive extraction, build artifacts, intermediate files. Only rebuildable files belong in scratch; anything that must persist goes in the repo or its real target.

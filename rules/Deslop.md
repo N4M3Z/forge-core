@@ -17,4 +17,6 @@ Construction tells:
 
 Human test: read it aloud. If you would not say it to a colleague, rewrite it. If deleting the sentence loses nothing, delete it.
 
+Deslop at write time, not on request. The first draft of any PR title and body, commit message, ADR, issue, or doc must already pass this checklist; never emit slop and wait to be told to deslop. ADR Consequences are the usual offender: write them as plain, honest tradeoffs, not a `[+]/[-]` pros-heavy sales list, and cut salesmanship ("reuses the tested path", "falls out of", "byte-for-byte no-op") for the plain effect.
+
 [WPSIGNS]: https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
