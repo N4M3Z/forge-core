@@ -34,6 +34,8 @@ AI agents set the commit author to their own identity with model id (`Claude Fab
 
 ## Jujutsu (jj) repositories
 
+jj is the default working VCS where the repo is colocated. The routing principle: agents work in jj changes (auto-snapshotted, describable, abandonable, op-log-recoverable); a git commit is the human-boundary artifact, materialized when work crosses to people (push, PR, review). A commit is not a useful working artifact for an agent, so reserve an explicit `git commit` for landing a large, coherent chunk of work, and let jj carry the routine working-copy churn otherwise. The same routing governs parallelism: jj workspaces for agents in jj repos, git worktrees only in git-only repos.
+
 When the repo is colocated with jj (`.jj/` at the root), there is no staging area and the commit and push workflow differs: the working copy is a commit, signing is batched at push, and git hooks (including the checks below) do not fire. See [Jujutsu.md](Jujutsu.md) for the jj commit and push discipline and how the secret scans relocate to pre-push.
 
 ## Pre-commit Checks
@@ -106,6 +108,20 @@ Respect commit chronology when grouping. Squashing by theme fails when commits a
 
 Before any destructive rewrite, create a backup branch (`git branch backup-pre-<op>`). Costs nothing, preserves the old tip for recovery, and lets you diff the rewritten history against the original to confirm content parity before force-pushing.
 
+## Restructuring directories
+
+Converting a tracked directory to a submodule, extracting a subtree into its own repo, or otherwise removing and re-cloning a directory destroys its GITIGNORED files. Tracked content is restorable from a commit, a `git bundle`, or a re-clone; `.env`, secrets, `.venv`, and local config live in no commit, no bundle, and no stash, so the `rm -rf` the surgery requires erases them permanently. A `git bundle --all` recovery point does NOT cover them — only a filesystem snapshot does.
+
+Back up the directory before touching the tree (`cp -a <dir> <scratch>`), restore the gitignored files into the new submodule or repo afterward, and confirm the critical secrets (`.env`, tokens) survived before calling the restructure done. The deny rules that stop the AI from reading `.env` also stop it from verifying the restore, so the human confirms.
+
+A jj-colocated repo cannot create the conversion: jj ignores submodules, so snapshotting a dir-turned-submodule records file deletions, not a gitlink. Commit the `git submodule add` through git, then `jj git import` — jj holds the imported gitlinks cleanly even though it cannot author them.
+
+The conversion is invisible in the filesystem: a submodule mount is byte-identical to the directory it replaced (same files, same paths), and nested mounts still appear at every location. Confirm it landed with `git submodule status` and `file <dir>/.git` (a submodule's `.git` is a file, not a directory), never by eyeballing the tree — the payoff is one source repo behind identical-looking mounts, not a visibly different layout. State this up front, or the operator who sees an unchanged tree concludes it failed.
+
+Draw the mount-vs-source line explicitly, or the operator reads the in-tree dirs as stale copies to delete. The in-tree dirs are the live submodule working copies; the source repos are the remote (or the local bares standing in for it), which sit OUTSIDE the super-repo. Deleting an in-tree mount only forces a `git submodule update` to restore it — the dirs staying put is correct, not leftover cleanup.
+
+Point the submodules at the real remote (GitHub/GitLab) as part of the conversion, not after. Local bares standing in for that remote are scaffolding: use RELATIVE URLs (`../<bares>/<name>.git`), never absolute filesystem paths, which pin the super-repo to one machine and path so it clones nowhere else. A super-repo whose submodules resolve only to local absolute-path bares carries no component history of its own and is not standalone-cloneable, which reads to the operator as "where is the canonical repo?". Once the components are pushed to the host and `.gitmodules` re-pointed there, the local bares are disposable.
+
 ## Pull Requests
 
 - Title under 70 characters — details go in the body
@@ -162,7 +178,7 @@ GPG with the YubiKey OpenPGP slot and `pinentry-mac` is the preferred path on ma
 
 ## Parallel Work
 
-For parallel feature work in a single clone, use git worktrees instead of stashing or switching.
+In git-only repos, use git worktrees for parallel feature work instead of stashing or switching. In jj-colocated repos, git worktrees do not apply; use jj workspaces (the companion's carve-out has the details).
 
 @GitWorktrees.md
 

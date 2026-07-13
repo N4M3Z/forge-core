@@ -6,7 +6,7 @@ description: "Write a formal design spec from brainstorming output or requiremen
 
 # DesignSpec
 
-Produce a formal design specification from approved brainstorming output or direct requirements. The spec is the contract between design and implementation — WritePlan and DeveloperSprint consume it.
+Produce a formal design specification from approved brainstorming output or direct requirements. The spec is the contract between design and implementation — Plan and DeveloperSprint consume it.
 
 1. **Gather input** — read the approved design (from Brainstorming output or user description)
 2. **Write the spec** — structured markdown covering all sections below
@@ -53,7 +53,7 @@ Before presenting the spec, verify:
 - Every section must be concrete — no placeholders, TBD, or TODO
 - Spec must be saved as a file, not just presented in conversation
 - User must approve the spec before implementation begins
-- Hand off to WritePlan or DeveloperSprint after approval
+- Hand off to Plan or DeveloperSprint after approval
 
 ## Sources
 
