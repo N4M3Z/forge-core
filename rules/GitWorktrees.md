@@ -1,6 +1,6 @@
 Parallel-work isolation routes by the repo's VCS. Agents work in jj changes wherever jj is available; git commits and branches are the human-boundary artifact (push, PR, review).
 
-In a jj-colocated repo (`.jj/` at root): never use git worktrees or `isolation: "worktree"` agent spawns. `git worktree add` mutates refs behind jj's back, and jj's auto-snapshot does not cover trees it doesn't own. Use one `jj workspace add ../repo-<name>` per parallel agent (shared store and op-log, isolated working copy); clean up with `jj workspace forget`. Mechanics in the JujutsuToolkit skill; commit and push discipline in VersionControl/Jujutsu.md.
+In a jj-colocated repo (`.jj/` at root): never use git worktrees or `isolation: "worktree"` agent spawns. `git worktree add` mutates refs behind jj's back, and jj's auto-snapshot does not cover trees it doesn't own. Use one `jj workspace add .workspaces/<name>` per parallel agent (shared store and op-log, isolated working copy); clean up with `jj workspace forget`. Workspaces live in `.workspaces/<name>` inside the repo, ignored by `.gitignore` (add the entry before creating the first workspace); sibling directories (`../repo-<name>`) pollute the parent directory and break IDE workspace paths. Mechanics in the JujutsuToolkit skill; commit and push discipline in VersionControl/Jujutsu.md.
 
 In a git-only repo, use git worktrees for parallel feature work instead of stashing or switching branches:
 
